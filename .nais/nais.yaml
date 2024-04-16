@@ -1,0 +1,87 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: "dp-dagpenger"
+  namespace: "teamdagpenger"
+  labels:
+    "team": "teamdagpenger"
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "512m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+spec:
+  image: {{image}}
+  port: 3000
+  liveness:
+    path: "{{basePath}}/api/isalive"
+    initialDelay: 3
+  readiness:
+    path: "{{basePath}}/api/isready"
+    initialDelay: 3
+  replicas:
+    min: 2
+    max: 4
+  prometheus:
+    enabled: true
+    path: "{{basePath}}/api/internal/metrics"
+  resources:
+    limits:
+      memory: 1280Mi
+    requests:
+      cpu: 50m
+      memory: 768Mi
+  env:
+    - name: SELF_URL
+      value: {{ingress}}
+    - name: DEKORATOR_URL
+      value: {{dekorator.url}}
+    - name: DEKORATOR_ENV
+      value: {{dekorator.env}}
+    - name: ARBEIDSSOEKERREGISTERET_URL
+      value: {{arbeidssoekerregisteretUrl}}
+    - name: KONTOREGISTER_URL
+      value: {{kontoregisterUrl}}
+    - name: AMPLITUDE_API_KEY
+      value: {{amplitude.apiKey}}
+    - name: VITE_SAF_SELVBETJENING_INGRESS
+      value: {{saf.url}}
+    - name: SAF_SELVBETJENING_CLUSTER
+      value: {{saf.cluster}}
+    - name: SAF_SELVBETJENING_SCOPE
+      value: {{saf.scope}}
+    - name: NEXT_PUBLIC_SOKNADSDIALOG
+      value: {{soknadsdialog.ingress}}
+  ingresses:
+    - {{ingress}}
+  accessPolicy:
+    outbound:
+      external:
+        - host: {{saf.ingress}}
+        - host: rt6o382n.apicdn.sanity.io
+        - host: www.nav.no
+        - host: dekoratoren.dev.nav.no
+        - host: unleash.nais.io
+        - host: amplitude.nav.no
+      rules:
+        - application: dp-innsyn
+        - application: safselvbetjening
+          namespace: teamdokumenthandtering
+          cluster: {{saf.cluster}}
+        - application: paw-arbeidssoekerregisteret-api-oppslag
+          namespace: paw
+        - application: sokos-kontoregister-person
+          namespace: okonomi
+        - application: nav-dekoratoren
+          namespace: personbruker
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+      autoLogin: true
+      autoLoginIgnorePaths:
+        - "{{basePath}}/api/*"
+        - "{{basePath}}/api/*/*"
+        - "{{basePath}}/api/*/*/*"
+        - "{{basePath}}/_next/static/*/*"
+  tokenx:
+    enabled: true

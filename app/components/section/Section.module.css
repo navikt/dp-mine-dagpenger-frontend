@@ -1,0 +1,41 @@
+.section {
+  padding: var(--a-spacing-8) var(--a-spacing-4);
+  width: 100%;
+}
+
+.smallSpacing.smallSpacing {
+  padding: var(--a-spacing-4);
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  max-width: var(--app-max-width);
+}
+
+.highlighted {
+  background-color: var(--a-gray-50);
+}
+
+@media screen and (min-width: 700px) {
+  .section {
+    margin: 0 auto;
+    padding: var(--a-spacing-10) var(--a-spacing-4) var(--a-spacing-8);
+    max-width: 100vw;
+  }
+
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 66.66% width */
+  .defaultWidth {
+    grid-column-start: span 2;
+  }
+
+  /* 100% width */
+  .fullWidth {
+    grid-column-start: span 3;
+  }
+}

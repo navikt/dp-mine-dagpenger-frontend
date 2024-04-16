@@ -5,6 +5,12 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import indexStyle from "~/index.css?url";
 import { hentDekoratorHtml } from "./dekorator/dekorator.server";
+import { createClient } from "@sanity/client";
+import { sanityConfig } from "./sanity/sanity.config";
+import { ISanity } from "./sanity/sanity.types";
+import { allTextsQuery } from "./sanity/sanity.query";
+
+export const sanityClient = createClient(sanityConfig);
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: indexStyle },
@@ -13,9 +19,18 @@ export const links: LinksFunction = () => [
 
 export async function loader() {
   const fragments = await hentDekoratorHtml();
+  const sanityTexts = await sanityClient.fetch<ISanity>(allTextsQuery, {
+    baseLang: "nb",
+    lang: "nb",
+  });
 
   return json({
     fragments,
+    sanityTexts,
+    env: {
+      BASE_PATH: process.env.BASE_PATH,
+      USE_MSW: process.env.USE_MSW,
+    },
   });
 }
 

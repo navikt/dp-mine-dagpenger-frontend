@@ -6,6 +6,8 @@ declare global {
 
 interface IEnv {
   BASE_PATH: string;
+  DP_INNSYN_URL: string;
+  USE_MSW: string;
 }
 
 export function getEnv(value: keyof IEnv) {
