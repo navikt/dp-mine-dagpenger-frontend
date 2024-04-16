@@ -1,0 +1,79 @@
+:root {
+  --app-max-width: 768px;
+  --app-padding: var(--a-spacing-4);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.mine-dagpenger-container {
+  max-width: var(--app-max-width);
+  padding: var(--app-padding);
+  margin: var(--a-spacing-4) auto var(--a-spacing-18);
+}
+
+.debug-container {
+  max-width: var(--app-max-width);
+  padding: var(--app-padding);
+  margin: 0 auto var(--a-spacing-8);
+}
+
+.mine-dagpenger-header {
+  margin-top: var(--a-spacing-4);
+  border-bottom: 5px solid var(--a-green-400);
+}
+
+.mine-dagpenger-header-innhold {
+  max-width: var(--app-max-width);
+  padding: var(--app-padding);
+  margin: 0 auto;
+}
+
+.mine-dagpenger-header-innhold p {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .mine-dagpenger-container {
+    margin: var(--a-spacing-8) auto var(--a-spacing-18);
+  }
+}
+
+/* Voice-over focus */
+.vo-fokus {
+  outline: none;
+}
+
+.my-12 {
+  margin: var(--a-spacing-12) 0;
+}
+
+.my-11 {
+  margin: var(--a-spacing-11) 0;
+}
+
+.my-10 {
+  margin: var(--a-spacing-10) 0;
+}
+
+.my-6 {
+  margin: var(--a-spacing-6) 0;
+}
+
+.my-4 {
+  margin: var(--a-spacing-4) 0;
+}
+
+.my-3 {
+  margin: var(--a-spacing-3) 0;
+}
+
+.my-2 {
+  margin: var(--a-spacing-2) 0;
+}
+
+.tekst-subtil {
+  color: var(--a-text-subtle);
+}
