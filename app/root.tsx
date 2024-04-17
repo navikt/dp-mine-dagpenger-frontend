@@ -1,14 +1,13 @@
 import parse from "html-react-parser";
 import { LinksFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
-
 import navStyles from "@navikt/ds-css/dist/index.css?url";
-import indexStyle from "~/index.css?url";
 import { hentDekoratorHtml } from "./dekorator/dekorator.server";
 import { createClient } from "@sanity/client";
 import { sanityConfig } from "./sanity/sanity.config";
 import { ISanity } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
+import indexStyle from "./index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
