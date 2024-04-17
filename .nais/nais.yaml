@@ -1,11 +1,13 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
+  name: dp-mine-dagpenger-frontend
+  namespace: teamdagpenger
   labels:
-    team: "teamdagpenger"
-    app: "dp-mine-dagpenger-frontend"
+    team: teamdagpenger
+    app: dp-mine-dagpenger-frontend
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "512m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "64M"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 spec:
   image: { { image } }
@@ -50,12 +52,9 @@ spec:
     enabled: true
     sidecar:
       enabled: true
-      level: Level4
+      level: { { idporten.level } }
       autoLogin: true
       autoLoginIgnorePaths:
-        - "{{basePath}}/api/*"
-        - "{{basePath}}/api/*/*"
-        - "{{basePath}}/api/*/*/*"
-        - "{{basePath}}/_next/static/*/*"
+        - {{base_path}}/api/internal/info
   tokenx:
     enabled: true
