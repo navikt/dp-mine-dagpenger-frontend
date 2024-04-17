@@ -42,7 +42,6 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: {{ saf.ingress }}
         - host: rt6o382n.apicdn.sanity.io
         - host: www.nav.no
         - host: dekoratoren.dev.nav.no
