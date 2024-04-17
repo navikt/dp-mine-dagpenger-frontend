@@ -3,8 +3,8 @@ name: Build and deploy
 on: [push]
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
-  LATEST_IMAGE: ghcr.io/${{ github.repository }}:latest
+  APPNAME: meldekort-frontend
+  ENVIRONMENT: ${{ github.event.inputs.environment }}
 
 jobs:
   install:
@@ -60,19 +60,15 @@ jobs:
 
       - uses: docker/build-push-action@v5
         with:
-          context: .
-          push: true
-          pull: true
-          tags: ${{ env.IMAGE }},${{ env.LATEST_IMAGE }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          team: meldekort
+          push_image: true # optional, default true
+          dockerfile: Dockerfile # optional, default Dockerfile
+          docker_context: . # optional, default .
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
-      - name: Cache static files
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./build
-          key: ${{ github.sha }}
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
 
   deploy-dev:
     needs: [build]

@@ -5,14 +5,3 @@ dekorator:
   env: dev
 loginservice:
   url: https://loginservice.dev.nav.no/login
-arbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no
-kontoregisterUrl: http://sokos-kontoregister-person.okonomi/api/borger/v1
-amplitude:
-  apiKey: 9845ded64c69cd068651cd0d968e0796
-saf:
-  cluster: dev-fss
-  ingress: safselvbetjening-q1.dev-fss-pub.nais.io
-  url: https://safselvbetjening-q1.dev-fss-pub.nais.io
-  scope: safselvbetjening-q1
-soknadsdialog:
-  ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
