@@ -1,19 +1,19 @@
-import parse from "html-react-parser";
+import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { LinksFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import { hentDekoratorHtml } from "./dekorator/dekorator.server";
 import { createClient } from "@sanity/client";
+import parse from "html-react-parser";
+import { getDekoratorHTML } from "./dekorator/dekorator.server";
+import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { ISanity } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
-import indexStyle from "./index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: indexStyle },
   { rel: "stylesheet", href: navStyles },
+  { rel: "stylesheet", href: indexStyle },
   {
     rel: "icon",
     type: "image/png",
@@ -29,19 +29,22 @@ export const links: LinksFunction = () => [
   {
     rel: "icon",
     type: "image/x-icon",
-    href: "/favicon.ico`,",
+    href: "/favicon.ico",
   },
 ];
 
 export async function loader() {
-  const fragments = await hentDekoratorHtml();
+  const dekoratorHTML = await getDekoratorHTML();
+
+  if (!dekoratorHTML) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
+
   const sanityTexts = await sanityClient.fetch<ISanity>(allTextsQuery, {
     baseLang: "nb",
     lang: "nb",
   });
 
   return json({
-    fragments,
+    dekoratorHTML,
     sanityTexts,
     env: {
       BASE_PATH: process.env.BASE_PATH,
@@ -51,24 +54,24 @@ export async function loader() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { fragments } = useLoaderData<typeof loader>();
+  const { dekoratorHTML } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(fragments.DECORATOR_STYLES, { trim: true })}
+        {parse(dekoratorHTML?.DECORATOR_STYLES)}
         <Meta />
         <Links />
       </head>
       <body>
-        {parse(fragments.DECORATOR_HEADER, { trim: true })}
+        {parse(dekoratorHTML?.DECORATOR_HEADER)}
         {children}
         <ScrollRestoration />
-        {parse(fragments.DECORATOR_FOOTER, { trim: true })}
+        {parse(dekoratorHTML?.DECORATOR_FOOTER)}
         <Scripts />
-        {parse(fragments.DECORATOR_SCRIPTS, { trim: true })}
+        {parse(dekoratorHTML?.DECORATOR_SCRIPTS)}
       </body>
     </html>
   );
