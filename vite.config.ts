@@ -6,6 +6,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 installGlobals();
 
 export default defineConfig({
-  base: "/dagpenger/mine-dagpenger",
-  plugins: [remix({ basename: "/dagpenger/mine-dagpenger" }), tsconfigPaths()],
+  base: "/dagpenger/mine-dagpenger-frontend",
+  plugins: [remix({ basename: "/dagpenger/mine-dagpenger-frontend" }), tsconfigPaths()],
 });
