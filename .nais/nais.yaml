@@ -10,20 +10,20 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "64M"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 spec:
-  image: { { image } }
+  image: {{ image }}
   port: 3000
   liveness:
-    path: "{{basePath}}/api/isalive"
+    path: "{{ basePath }}/api/isalive"
     initialDelay: 3
   readiness:
-    path: "{{basePath}}/api/isready"
+    path: "{{ basePath }}/api/isready"
     initialDelay: 3
   replicas:
     min: 2
     max: 4
   prometheus:
     enabled: true
-    path: "{{basePath}}/api/internal/metrics"
+    path: "{{ basePath }}/api/internal/metrics"
   resources:
     limits:
       memory: 1280Mi
@@ -32,17 +32,17 @@ spec:
       memory: 768Mi
   env:
     - name: SELF_URL
-      value: { { ingress } }
+      value: {{ ingress }}
     - name: DEKORATOR_URL
-      value: { { dekorator.url } }
+      value: {{ dekorator.url }}
     - name: DEKORATOR_ENV
-      value: { { dekorator.env } }
+      value: {{ dekorator.env }}
   ingresses:
-    - { { ingress } }
+    - {{ ingress }}
   accessPolicy:
     outbound:
       external:
-        - host: { { saf.ingress } }
+        - host: {{ saf.ingress }}
         - host: rt6o382n.apicdn.sanity.io
         - host: www.nav.no
         - host: dekoratoren.dev.nav.no
@@ -52,9 +52,9 @@ spec:
     enabled: true
     sidecar:
       enabled: true
-      level: { { idporten.level } }
+      level: {{ idporten.level }}
       autoLogin: true
       autoLoginIgnorePaths:
-        - {{base_path}}/api/internal/info
+        - "{{ base_path }}/api/internal/info"
   tokenx:
     enabled: true
