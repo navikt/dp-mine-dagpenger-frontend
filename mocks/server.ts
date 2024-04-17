@@ -7,7 +7,7 @@ export const server = setupServer(...handlers);
 export const setup = () => setupServer(...handlers) as SetupServerApi;
 
 export const start = (server: SetupServerApi) => {
-  server.listen({ onUnhandledRequest: "bypass" });
+  server.listen({ onUnhandledRequest: "error" });
 
   process.once("SIGINT", () => server.close());
   process.once("SIGTERM", () => server.close());
