@@ -13,17 +13,17 @@ spec:
   image: {{ image }}
   port: 3000
   liveness:
-    path: "{{ basePath }}/api/isalive"
+    path: /internal/isAlive
     initialDelay: 3
   readiness:
-    path: "{{ basePath }}/api/isready"
+    path: /internal/isAlive
     initialDelay: 3
   replicas:
     min: 2
     max: 4
   prometheus:
     enabled: true
-    path: "{{ basePath }}/api/internal/metrics"
+    path: /internal/metrics
   resources:
     limits:
       memory: 1280Mi
@@ -46,7 +46,6 @@ spec:
         - host: www.nav.no
         - host: dekoratoren.dev.nav.no
       rules:
-        - application: dp-innsyn
   idporten:
     enabled: true
     sidecar:
