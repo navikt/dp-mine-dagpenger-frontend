@@ -8,6 +8,8 @@ import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
+import { Fragment, Suspense } from "react";
+import { Skeleton } from "@navikt/ds-react";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -61,17 +63,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(decoratorFragments?.DECORATOR_STYLES)}
+        <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_STYLES)}</Suspense>
         <Meta />
         <Links />
       </head>
       <body>
-        {parse(decoratorFragments?.DECORATOR_HEADER)}
+        <Suspense fallback={<Skeleton variant="text" width="100%" height={300} />}>
+          {parse(decoratorFragments?.DECORATOR_HEADER)}
+        </Suspense>
         {children}
         <ScrollRestoration />
-        {parse(decoratorFragments?.DECORATOR_FOOTER)}
+        <Suspense fallback={<Skeleton variant="text" width="100%" height={300} />}>
+          {parse(decoratorFragments?.DECORATOR_FOOTER)}
+        </Suspense>
         <Scripts />
-        {parse(decoratorFragments?.DECORATOR_SCRIPTS)}
+        <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_SCRIPTS)}</Suspense>
       </body>
     </html>
   );
