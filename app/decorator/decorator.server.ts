@@ -4,7 +4,7 @@ import {
   type DecoratorFetchProps,
 } from "@navikt/nav-dekoratoren-moduler/ssr";
 
-export async function getDekoratorHTML(): Promise<DecoratorElements> {
+export async function getDecoratorHTML(): Promise<DecoratorElements> {
   const env = "dev";
 
   const config: DecoratorFetchProps = {

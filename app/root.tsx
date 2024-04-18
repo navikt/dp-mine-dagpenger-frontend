@@ -3,11 +3,11 @@ import { LinksFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
-import { getDekoratorHTML } from "./dekorator/dekorator.server";
+import { getDecoratorHTML } from "./decorator/decorator.server";
 import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
-import { ISanity } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
+import { ISanity } from "./sanity/sanity.types";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -34,9 +34,9 @@ export const links: LinksFunction = () => [
 ];
 
 export async function loader() {
-  const dekoratorHTML = await getDekoratorHTML();
+  const decoratorFragments = await getDecoratorHTML();
 
-  if (!dekoratorHTML) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
+  if (!decoratorFragments) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
 
   const sanityTexts = await sanityClient.fetch<ISanity>(allTextsQuery, {
     baseLang: "nb",
@@ -44,7 +44,7 @@ export async function loader() {
   });
 
   return json({
-    dekoratorHTML,
+    decoratorFragments,
     sanityTexts,
     env: {
       BASE_PATH: process.env.BASE_PATH,
@@ -54,24 +54,24 @@ export async function loader() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { dekoratorHTML } = useLoaderData<typeof loader>();
+  const { decoratorFragments } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(dekoratorHTML?.DECORATOR_STYLES)}
+        {parse(decoratorFragments?.DECORATOR_STYLES)}
         <Meta />
         <Links />
       </head>
       <body>
-        {parse(dekoratorHTML?.DECORATOR_HEADER)}
+        {parse(decoratorFragments?.DECORATOR_HEADER)}
         {children}
         <ScrollRestoration />
-        {parse(dekoratorHTML?.DECORATOR_FOOTER)}
+        {parse(decoratorFragments?.DECORATOR_FOOTER)}
         <Scripts />
-        {parse(dekoratorHTML?.DECORATOR_SCRIPTS)}
+        {parse(decoratorFragments?.DECORATOR_SCRIPTS)}
       </body>
     </html>
   );

@@ -1,6 +1,4 @@
-import { HttpResponse } from "msw";
-
-export const paabegynteSoknader = [
+export const paabegynteSoknaderResponse = [
   {
     tittel: "En tittel oversatt fra kodeverk",
     søknadId: "1234TEST",
@@ -17,7 +15,3 @@ export const paabegynteSoknader = [
       "https://arbeid.dev.nav.no/dagpenger/dialog/soknad/dacf8b30-c7a6-4ebd-ba7f-2f3021dd418d",
   },
 ];
-
-export const paabegynteSoknaderResolver = () => {
-  return HttpResponse.json(paabegynteSoknader);
-};

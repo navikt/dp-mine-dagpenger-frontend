@@ -1,21 +1,22 @@
 import { HttpResponse, bypass, http } from "msw";
-import { soknaderResolver } from "./api-routes/soknaderResponse";
 import { getEnv } from "~/utils/env.utils";
-import { paabegynteSoknaderResolver } from "./api-routes/paabegyntSoknaderResponse";
+import { paabegynteSoknaderResponse } from "./responses/paabegyntSoknaderResponse";
+import { soknadResponse } from "./responses/soknaderResponse";
 
 export const handlers = [
   http.get(`${getEnv("DP_INNSYN_URL")}/soknad`, () => {
-    return HttpResponse.json(soknaderResolver);
+    return HttpResponse.json(soknadResponse);
   }),
 
   http.get(`${getEnv("DP_INNSYN_URL")}/paabegynte`, () => {
-    return HttpResponse.json(paabegynteSoknaderResolver);
+    return HttpResponse.json(paabegynteSoknaderResponse);
   }),
 
+  // Bypassing mocks, use actual data instead
   http.get("https://rt6o382n.apicdn.sanity.io/*", async ({ request }) => {
-    // Bypassing mocks, use actual data instead
-    const response = await fetch(bypass(request));
-    const sanityTexts = await response.json();
-    return HttpResponse.json(sanityTexts);
+    const bypassResponse = await fetch(bypass(request));
+    const response = await bypassResponse.json();
+
+    return HttpResponse.json(response);
   }),
 ];

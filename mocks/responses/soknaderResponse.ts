@@ -1,6 +1,4 @@
-import { HttpResponse } from "msw";
-
-const soknad = [
+export const soknadResponse = [
   {
     søknadId: "e3656e83-f7ce-4c24-801a-aeb8d369b1a6",
     erNySøknadsdialog: true,
@@ -68,7 +66,3 @@ const soknad = [
     vedlegg: [],
   },
 ];
-
-export const soknaderResolver = () => {
-  return HttpResponse.json(soknad);
-};
