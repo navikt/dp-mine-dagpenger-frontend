@@ -1,4 +1,4 @@
-export type INetworkResponse<T = void> = INetworkResponseSuccess<T> | INetworkResponseError;
+export type INetworkResponse<T> = INetworkResponseSuccess<T> | INetworkResponseError;
 
 interface INetworkResponseSuccess<T> {
   status: "success";
@@ -13,14 +13,4 @@ interface INetworkResponseError {
     statusText: string;
   };
   id?: string;
-}
-
-export function getHeaders(onBehalfOfToken: string) {
-  const headers = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${onBehalfOfToken}`,
-  };
-
-  return headers;
 }

@@ -1,23 +1,55 @@
+import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse, getHeaders } from "~/utils/fetch.utils";
+import { v4 as uuid } from "uuid";
 
-export async function getSoknader(onBehalfOfToken: string): Promise<INetworkResponse> {
-  const url = `${getEnv("DP_INNSYN_URL")}/soknad`;
+export interface ISoknad {
+  søknadId: string;
+  erNySøknadsdialog: boolean;
+  endreLenke: string;
+  skjemaKode: string;
+  tittel: string;
+  journalpostId: string;
+  søknadsType: string;
+  kanal: string;
+  datoInnsendt: string;
+  vedlegg?: IVedlegg[];
+}
+
+export interface IPaabegynteSoknad {
+  tittel: string;
+  sistEndret: string;
+  søknadId: string;
+  endreLenke: string;
+  erNySøknadsdialog: boolean;
+}
+
+interface IVedlegg {
+  skjemaNummer: string;
+  navn: string;
+  status: string;
+}
+
+export type DPInnsynEndpoint = "soknad" | "paabegynte";
+
+export async function getSoknader(
+  request: Request,
+  endpoint: DPInnsynEndpoint
+): Promise<ISoknad[] | IPaabegynteSoknad[]> {
+  const url = `${getEnv("DP_INNSYN_URL")}/${endpoint}`;
+  const callId = uuid();
+
+  const onBehalfOfToken = await getDPInnsynOboToken(request);
 
   const response = await fetch(url, {
-    method: "POST",
-    headers: getHeaders(onBehalfOfToken),
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+      "Nav-Consumer-Id": "dp-dagpenger",
+      "Nav-Call-Id": callId,
+    },
   });
 
-  if (!response.ok) {
-    return {
-      status: "error",
-      error: {
-        statusCode: response.status,
-        statusText: "Det har skjedd en feil ved lagring av aktivitet, prøv igjen.",
-      },
-    };
-  }
-
-  return { status: "success" };
+  return response.json();
 }

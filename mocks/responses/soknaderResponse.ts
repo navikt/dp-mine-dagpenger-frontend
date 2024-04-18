@@ -1,4 +1,6 @@
-export const soknadResponse = [
+import { ISoknad } from "~/models/getSoknader.models";
+
+export const soknadResponse: ISoknad[] = [
   {
     søknadId: "e3656e83-f7ce-4c24-801a-aeb8d369b1a6",
     erNySøknadsdialog: true,
@@ -55,14 +57,5 @@ export const soknadResponse = [
         status: "LastetOpp",
       },
     ],
-  },
-  {
-    skjemaKode: "NAV 04-01.03",
-    tittel: "Søknad om dagpenger (ikke permittert)",
-    journalpostId: "1",
-    søknadsType: "NySøknad",
-    kanal: "Papir",
-    datoInnsendt: "2023-02-01T15:00:07.871661",
-    vedlegg: [],
   },
 ];

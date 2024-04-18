@@ -1,40 +1,24 @@
-import { type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { ArbeidssokerStatus } from "~/components/arbeidssoker-status/ArbeidssokerStatus";
 import { PageHero } from "~/components/page-hero/PageHero";
-import { Section } from "~/components/section/Section";
-import { SectionContent } from "~/components/section/SectionContent";
+import { Soknader } from "~/components/soknader/Soknader";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder";
+import { getSoknader } from "~/models/getSoknader.models";
 
-export const meta: MetaFunction = () => {
-  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
-};
+export async function loader({ request }: LoaderFunctionArgs) {
+  const fullforteSoknader = await getSoknader(request, "soknad");
+  const paabegynteSoknader = await getSoknader(request, "paabegynte");
+  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
+
+  return json({ fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder });
+}
 
 export default function Index() {
   return (
     <div className="mine-dagpenger">
-      <PageHero hasFullforteSoknader={true} />
-      <Section>
-        <SectionContent>
-          <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <h1>Welcome to Remix!</h1>
-            <ul>
-              <li>
-                <a target="_blank" href="https://remix.run/tutorials/blog" rel="noreferrer">
-                  15m Quickstart Blog Tutorial
-                </a>
-              </li>
-              <li>
-                <a target="_blank" href="https://remix.run/tutorials/jokes" rel="noreferrer">
-                  Deep Dive Jokes App Tutorial
-                </a>
-              </li>
-              <li>
-                <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-                  Remix Docs
-                </a>
-              </li>
-            </ul>
-          </div>
-        </SectionContent>
-      </Section>
+      <PageHero />
+      <Soknader />
     </div>
   );
 }

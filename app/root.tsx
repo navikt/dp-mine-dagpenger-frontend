@@ -1,15 +1,16 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
-import { LinksFunction, json } from "@remix-run/node";
+import { Skeleton } from "@navikt/ds-react";
+import { LinksFunction, MetaFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
+import { Fragment, Suspense } from "react";
 import { getDecoratorHTML } from "./decorator/decorator.server";
 import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
-import { Fragment, Suspense } from "react";
-import { Skeleton } from "@navikt/ds-react";
+import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -35,6 +36,20 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Mine dagpenger" },
+    {
+      property: "og:title",
+      content: "Very cool app",
+    },
+    {
+      name: "description",
+      content: "This app is the best",
+    },
+  ];
+};
+
 export async function loader() {
   const decoratorFragments = await getDecoratorHTML();
 
@@ -56,7 +71,7 @@ export async function loader() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { decoratorFragments } = useLoaderData<typeof loader>();
+  const { decoratorFragments } = useTypedRouteLoaderData("root");
 
   return (
     <html lang="en">

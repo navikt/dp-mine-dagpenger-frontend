@@ -6,8 +6,11 @@ declare global {
 
 interface IEnv {
   BASE_PATH: string;
-  DP_INNSYN_URL: string;
   USE_MSW: string;
+  IS_LOCALHOST: string;
+  PAW_ARBEIDSSOEKERREGISTERET_URL: string;
+  DP_SOKNADSDIALOG_URL: string;
+  DP_INNSYN_URL: string;
 }
 
 export function getEnv(value: keyof IEnv) {

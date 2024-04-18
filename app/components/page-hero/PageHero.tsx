@@ -3,15 +3,13 @@ import { PortableText } from "@portabletext/react";
 import { useSanity } from "~/hooks/useSanity";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
+import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-interface IProps {
-  hasFullforteSoknader: boolean;
-}
-
-export function PageHero({ hasFullforteSoknader }: IProps) {
+export function PageHero() {
   const { getRichText, getAppText } = useSanity();
-
-  const seksjonSoknadText = getRichText("soknader");
+  const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
+  const seksjonSoknadText = getRichText("fullforteSoknader");
 
   return (
     <Section>
@@ -19,7 +17,8 @@ export function PageHero({ hasFullforteSoknader }: IProps) {
         <Heading className="page-header" size="xlarge">
           {getAppText("sidetittel")}
         </Heading>
-        {hasFullforteSoknader && <PortableText value={seksjonSoknadText} />}
+        {fullforteSoknader?.length > 0 && <PortableText value={seksjonSoknadText} />}
+        <ArbeidssokerStatus />
       </SectionContent>
     </Section>
   );
