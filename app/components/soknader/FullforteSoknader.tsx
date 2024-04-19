@@ -1,6 +1,6 @@
 import { BodyShort, Button, Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { ISoknad } from "~/models/getSoknader.models";
+import { ISoknad } from "~/models/getSoknader.server";
 import { getEnv } from "~/utils/env.utils";
 import { FormattedDate } from "../FormattedDate";
 import { RemixLink } from "../RemixLink";

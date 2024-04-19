@@ -1,0 +1,20 @@
+.container {
+  padding: var(--a-spacing-4);
+  border-radius: var(--a-border-radius-large);
+  background-color: var(--a-gray-50);
+  font-weight: var(--a-font-weight-bold);
+}
+
+.accountNumber {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--a-font-weight-regular);
+  grid-template-columns: 1fr 1fr;
+  margin-top: var(--a-spacing-2);
+}
+
+@media screen and (min-width: 700px) {
+  .textContainer {
+    margin-bottom: var(--a-spacing-4);
+  }
+}

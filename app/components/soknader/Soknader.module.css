@@ -31,6 +31,10 @@
   border-top: 1px solid var(--a-border-subtle);
 }
 
+.soknadLinksContainer a {
+  text-decoration: none;
+}
+
 .errorContainer {
   margin: 1rem 0;
 }

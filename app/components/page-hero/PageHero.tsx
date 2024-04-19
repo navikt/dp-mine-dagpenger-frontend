@@ -9,7 +9,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 export function PageHero() {
   const { getRichText, getAppText } = useSanity();
   const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
-  const seksjonSoknadText = getRichText("fullforteSoknader");
+  const sectionText = getRichText("soknader");
 
   return (
     <Section>
@@ -17,7 +17,7 @@ export function PageHero() {
         <Heading className="page-header" size="xlarge">
           {getAppText("sidetittel")}
         </Heading>
-        {fullforteSoknader?.length > 0 && <PortableText value={seksjonSoknadText} />}
+        {fullforteSoknader?.length > 0 && <PortableText value={sectionText} />}
         <ArbeidssokerStatus />
       </SectionContent>
     </Section>

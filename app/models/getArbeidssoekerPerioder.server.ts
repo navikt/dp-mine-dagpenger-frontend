@@ -1,7 +1,4 @@
-import {
-  getPAWArbeidssokerregistreringOboToken,
-  getDPInnsynOboToken,
-} from "~/utils/auth.utils.server";
+import { getPAWArbeidssokerregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
 export type IArbeidssokerStatus = "UNREGISTERED" | "REGISTERED" | "ERROR";

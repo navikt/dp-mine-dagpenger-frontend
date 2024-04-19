@@ -1,17 +1,18 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { ArbeidssokerStatus } from "~/components/arbeidssoker-status/ArbeidssokerStatus";
+import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
 import { PageHero } from "~/components/page-hero/PageHero";
 import { Soknader } from "~/components/soknader/Soknader";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder";
-import { getSoknader } from "~/models/getSoknader.models";
+import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.server";
+import { getBankAccount } from "~/models/getBankAccountNumber.server";
+import { getSoknader } from "~/models/getSoknader.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const fullforteSoknader = await getSoknader(request, "soknad");
   const paabegynteSoknader = await getSoknader(request, "paabegynte");
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
+  const bankAccount = await getBankAccount(request);
 
-  return json({ fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder });
+  return json({ fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder, bankAccount });
 }
 
 export default function Index() {
@@ -19,6 +20,7 @@ export default function Index() {
     <div className="mine-dagpenger">
       <PageHero />
       <Soknader />
+      <BankAccountNumber />
     </div>
   );
 }

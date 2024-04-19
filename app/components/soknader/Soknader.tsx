@@ -7,7 +7,7 @@ import { FullforteSoknader } from "./FullforteSoknader";
 import { PaabegynteSoknader } from "./PaabegynteSoknader";
 import styles from "./Soknader.module.css";
 import { within12Weeks } from "~/utils/soknad.utils";
-import { IPaabegynteSoknad, ISoknad } from "~/models/getSoknader.models";
+import { IPaabegynteSoknad, ISoknad } from "~/models/getSoknader.server";
 
 export function Soknader() {
   const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");

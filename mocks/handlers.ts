@@ -13,6 +13,12 @@ export const handlers = [
     return HttpResponse.json(paabegynteSoknaderResponse);
   }),
 
+  http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}`, () => {
+    return HttpResponse.json({
+      kontonummer: "12345678901",
+    });
+  }),
+
   http.get(`${getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL")}/api/v1/arbeidssoekerperioder`, () => {
     return HttpResponse.json(arbeidssoekerPerioderResponse);
   }),

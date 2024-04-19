@@ -1,6 +1,5 @@
 import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { v4 as uuid } from "uuid";
 
 export interface ISoknad {
   søknadId: string;
@@ -36,18 +35,12 @@ export async function getSoknader(
   endpoint: DPInnsynEndpoint
 ): Promise<ISoknad[] | IPaabegynteSoknad[]> {
   const url = `${getEnv("DP_INNSYN_URL")}/${endpoint}`;
-  const callId = uuid();
-
   const onBehalfOfToken = await getDPInnsynOboToken(request);
 
   const response = await fetch(url, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
       Authorization: `Bearer ${onBehalfOfToken}`,
-      "Nav-Consumer-Id": "dp-dagpenger",
-      "Nav-Call-Id": callId,
     },
   });
 

@@ -23,7 +23,7 @@ export function ArbeidssokerStatus() {
   //   );
   // }
 
-  if (true) {
+  if (!registered) {
     return (
       <Alert variant="warning" className={styles.arbeidssokerStatusNotRegisteredAlertBox}>
         <PortableText value={getRichText("arbeidssokers-status.er-ikke-registrert")} />

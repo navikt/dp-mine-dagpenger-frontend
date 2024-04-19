@@ -1,4 +1,4 @@
-import { ISoknad } from "~/models/getSoknader.models";
+import { ISoknad } from "~/models/getSoknader.server";
 
 export const soknadResponse: ISoknad[] = [
   {

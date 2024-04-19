@@ -11,6 +11,11 @@ export async function getPAWArbeidssokerregistreringOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getOKONOMIKontoregisterToken(request: Request) {
+  const audience = `${process.env.NAIS_CLUSTER_NAME}:okonomi:sokos-kontoregister-person`;
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getOnBehalfOfToken(request: Request, audience: string) {
   if (getEnv("IS_LOCALHOST") === "true") {
     return "";

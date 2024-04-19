@@ -11,6 +11,7 @@ interface IEnv {
   PAW_ARBEIDSSOEKERREGISTERET_URL: string;
   DP_SOKNADSDIALOG_URL: string;
   DP_INNSYN_URL: string;
+  OKONOMI_KONTOREGISTER_URL: string;
 }
 
 export function getEnv(value: keyof IEnv) {

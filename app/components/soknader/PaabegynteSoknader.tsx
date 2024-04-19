@@ -1,6 +1,6 @@
-import { BodyShort, Button, Heading, Tag } from "@navikt/ds-react";
+import { BodyShort, Button, Heading, Link, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { IPaabegynteSoknad } from "~/models/getSoknader.models";
+import { IPaabegynteSoknad } from "~/models/getSoknader.server";
 import { FormattedDate } from "../FormattedDate";
 import { RemixLink } from "../RemixLink";
 import styles from "./Soknader.module.css";
@@ -28,11 +28,11 @@ export function PaabegynteSoknader({ soknad }: IProps) {
         </Tag>
       </article>
       <nav className={styles.soknadLinksContainer}>
-        <RemixLink to={endreLenke}>
+        <Link href={endreLenke}>
           <Button as="a" variant="secondary" size="small">
             {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
           </Button>
-        </RemixLink>
+        </Link>
       </nav>
     </li>
   );
