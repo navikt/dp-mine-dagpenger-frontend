@@ -1,7 +1,7 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { Skeleton } from "@navikt/ds-react";
 import { LinksFunction, MetaFunction, json } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
 import { Fragment, Suspense } from "react";

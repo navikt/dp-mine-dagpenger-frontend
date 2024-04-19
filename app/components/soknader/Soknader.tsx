@@ -14,7 +14,7 @@ export function Soknader() {
   const { getAppText } = useSanity();
 
   const fullforteSoknaderWithin12Weeks = fullforteSoknader?.filter((soknad) =>
-    //@ts-ignore
+    //@ts-expect-error : ignore types
     within12Weeks(soknad?.datoInnsendt)
   );
 

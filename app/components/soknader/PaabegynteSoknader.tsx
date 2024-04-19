@@ -2,7 +2,6 @@ import { BodyShort, Button, Heading, Link, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { IPaabegynteSoknad } from "~/models/getSoknader.server";
 import { FormattedDate } from "../FormattedDate";
-import { RemixLink } from "../RemixLink";
 import styles from "./Soknader.module.css";
 
 interface IProps {
