@@ -1,6 +1,8 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
+import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndring";
 import { PageHero } from "~/components/page-hero/PageHero";
+import { Shortcuts } from "~/components/shortcuts/Shortcuts";
 import { Soknader } from "~/components/soknader/Soknader";
 import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.server";
 import { getBankAccount } from "~/models/getBankAccountNumber.server";
@@ -21,6 +23,8 @@ export default function Index() {
       <PageHero />
       <Soknader />
       <BankAccountNumber />
+      <MeldFraOmEndring />
+      <Shortcuts />
     </div>
   );
 }

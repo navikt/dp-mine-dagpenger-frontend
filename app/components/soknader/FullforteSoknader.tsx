@@ -35,12 +35,12 @@ export function FullforteSoknader({ soknad }: IProps) {
         {erNySøknadsdialog && (
           <>
             <RemixLink to={ettersendingUrl}>
-              <Button as="a" variant="primary" size="small">
+              <Button variant="primary" size="small">
                 {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
               </Button>
             </RemixLink>
             <RemixLink to={endreLenke}>
-              <Button as="a" variant="secondary" size="small">
+              <Button variant="secondary" size="small">
                 {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
               </Button>
             </RemixLink>
@@ -48,14 +48,14 @@ export function FullforteSoknader({ soknad }: IProps) {
         )}
         {!erNySøknadsdialog && !fallbackGenerellInnsending && (
           <RemixLink to={endreLenke}>
-            <Button as="a" variant="primary" size="small">
+            <Button variant="primary" size="small">
               {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
             </Button>
           </RemixLink>
         )}
         {fallbackGenerellInnsending && (
           <RemixLink to={generellInnsendingUrl}>
-            <Button as="a" variant="primary" size="small">
+            <Button variant="primary" size="small">
               {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
             </Button>
           </RemixLink>

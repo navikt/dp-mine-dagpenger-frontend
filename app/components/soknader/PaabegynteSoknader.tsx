@@ -29,7 +29,7 @@ export function PaabegynteSoknader({ soknad }: IProps) {
       </article>
       <nav className={styles.soknadLinksContainer}>
         <Link href={endreLenke}>
-          <Button as="a" variant="secondary" size="small">
+          <Button variant="secondary" size="small">
             {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
           </Button>
         </Link>
