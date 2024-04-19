@@ -15,7 +15,7 @@ export const RemixLink = forwardRef(RemixLinkComponent);
 
 function RemixLinkComponent(
   props: PropsWithChildren<IProps>,
-  ref: Ref<HTMLAnchorElement> | undefined,
+  ref: Ref<HTMLAnchorElement> | undefined
 ) {
   const {
     onClick,
@@ -48,10 +48,10 @@ function RemixLinkComponent(
           (Anchor i stedet for Button), og siden vi alltid sender med 
           as="a" overstyrer vi dette til å være en anchor-tag. Typene 
           bakover i designsystemet gjenspeiler ikke dette. */
-          // @ts-ignore
+          //@ts-expect-error: unknow types
           onClick?.(event);
           if (!event.defaultPrevented) {
-            // @ts-ignore
+            //@ts-expect-error: unknow types
             handleClick(event);
           }
         }}

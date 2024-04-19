@@ -14,7 +14,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccount = await getBankAccount(request);
 
-  return json({ fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder, bankAccount });
+  return json({
+    fullforteSoknader,
+    paabegynteSoknader,
+    arbeidsseokerPerioder,
+    bankAccount,
+  });
 }
 
 export default function Index() {
