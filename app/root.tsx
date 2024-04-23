@@ -21,17 +21,20 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: navStyles },
   { rel: "stylesheet", href: indexStyle },
   {
-    rel: "shortcut icon",
+    rel: "icon",
+    type: "image/png",
     sizes: "32x32",
     href: favicon32,
   },
   {
-    rel: "shortcut icon",
+    rel: "icon",
+    type: "image/png",
     sizes: "16x16",
     href: favicon16,
   },
   {
-    rel: "shortcut icon",
+    rel: "icon",
+    type: "image/x-icon",
     href: favicon,
   },
 ];
