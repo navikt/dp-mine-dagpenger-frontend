@@ -5,3 +5,5 @@ dekorator:
   env: dev
 loginservice:
   url: https://loginservice.dev.nav.no/login
+soknadsdialog:
+  ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
