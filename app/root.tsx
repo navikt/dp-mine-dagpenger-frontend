@@ -93,7 +93,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </Suspense>
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
+            __html: `window.ENV = ${JSON.stringify(env)}`,
           }}
         />
         <Scripts />
