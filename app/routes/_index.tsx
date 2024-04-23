@@ -14,9 +14,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   // const bankAccount = await getBankAccount(request);
 
-  console.log(`🔥 fullforteSoknader :`, fullforteSoknader);
-  console.log(`🔥 paabegynteSoknader :`, paabegynteSoknader);
-
   return json({
     fullforteSoknader,
     paabegynteSoknader,

@@ -37,7 +37,6 @@ export async function getSoknader(
   const url = `${getEnv("DP_INNSYN_URL")}/${endpoint}`;
   const onBehalfOfToken = await getDPInnsynOboToken(request);
 
-  console.log(`🔥 ${endpoint} url :`, url);
   const response = await fetch(url, {
     method: "GET",
     headers: {
