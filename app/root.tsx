@@ -11,6 +11,7 @@ import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
+
 import favicon16 from "/favicon-16x16.png";
 import favicon32 from "/favicon-32x32.png";
 import favicon from "/favicon.ico";
@@ -67,8 +68,7 @@ export async function loader() {
     decoratorFragments,
     sanityTexts,
     env: {
-      BASE_PATH: process.env.BASE_PATH,
-      USE_MSW: process.env.USE_MSW,
+      DP_SOKNADSDIALOG_URL: process.env.DP_SOKNADSDIALOG_URL,
     },
   });
 }
@@ -94,13 +94,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Suspense fallback={<Skeleton variant="text" width="100%" height={300} />}>
           {parse(decoratorFragments?.DECORATOR_FOOTER)}
         </Suspense>
+        <Scripts />
+        <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_SCRIPTS)}</Suspense>
         <script
           dangerouslySetInnerHTML={{
             __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
-        <Scripts />
-        <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_SCRIPTS)}</Suspense>
       </body>
     </html>
   );

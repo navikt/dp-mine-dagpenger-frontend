@@ -1,7 +1,8 @@
-import { BodyShort, Button, Heading, Link, Tag } from "@navikt/ds-react";
+import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { IPaabegynteSoknad } from "~/models/getSoknader.server";
 import { FormattedDate } from "../FormattedDate";
+import { ExternalLink } from "../ExternalLink";
 import styles from "./Soknader.module.css";
 
 interface IProps {
@@ -27,11 +28,9 @@ export function PaabegynteSoknader({ soknad }: IProps) {
         </Tag>
       </article>
       <nav className={styles.soknadLinksContainer}>
-        <Link href={endreLenke}>
-          <Button variant="secondary" size="small">
-            {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
-          </Button>
-        </Link>
+        <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
+          {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
+        </ExternalLink>
       </nav>
     </li>
   );

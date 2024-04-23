@@ -1,9 +1,9 @@
-import { BodyShort, Button, Heading } from "@navikt/ds-react";
+import { BodyShort, Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { ISoknad } from "~/models/getSoknader.server";
 import { getEnv } from "~/utils/env.utils";
+import { ExternalLink } from "../ExternalLink";
 import { FormattedDate } from "../FormattedDate";
-import { RemixLink } from "../RemixLink";
 import styles from "./Soknader.module.css";
 
 interface IProps {
@@ -16,11 +16,6 @@ export function FullforteSoknader({ soknad }: IProps) {
 
   const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
   const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
-
-  console.log(`🔥 ettersendingUrl :`, ettersendingUrl);
-  console.log(`🔥 generellInnsendingUrl :`, generellInnsendingUrl);
-
-  // Sannsynligvis skjer dette kun på papirsøknader
   const fallbackGenerellInnsending = !søknadId && !endreLenke;
 
   return (
@@ -37,31 +32,23 @@ export function FullforteSoknader({ soknad }: IProps) {
       <nav className={styles.soknadLinksContainer}>
         {erNySøknadsdialog && (
           <>
-            <RemixLink to={ettersendingUrl}>
-              <Button variant="primary" size="small">
-                {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-              </Button>
-            </RemixLink>
-            <RemixLink to={endreLenke}>
-              <Button variant="secondary" size="small">
-                {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
-              </Button>
-            </RemixLink>
+            <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
+              {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
+            </ExternalLink>
+            <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
+              {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
+            </ExternalLink>
           </>
         )}
         {!erNySøknadsdialog && !fallbackGenerellInnsending && (
-          <RemixLink to={endreLenke}>
-            <Button variant="primary" size="small">
-              {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-            </Button>
-          </RemixLink>
+          <ExternalLink to={endreLenke} asButtonVariant="primary" size="small">
+            {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
+          </ExternalLink>
         )}
         {fallbackGenerellInnsending && (
-          <RemixLink to={generellInnsendingUrl}>
-            <Button variant="primary" size="small">
-              {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-            </Button>
-          </RemixLink>
+          <ExternalLink to={generellInnsendingUrl} asButtonVariant="primary" size="small">
+            {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
+          </ExternalLink>
         )}
       </nav>
     </li>

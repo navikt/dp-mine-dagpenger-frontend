@@ -1,9 +1,10 @@
-import { Button, Heading, Link } from "@navikt/ds-react";
+import { Heading } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
+import { useSanity } from "~/hooks/useSanity";
+import { ExternalLink } from "../ExternalLink";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./MeldFraOmEndring.module.css";
-import { useSanity } from "~/hooks/useSanity";
 
 export const MeldFraOmEndring = () => {
   const { getAppText, getRichText, getLink } = useSanity();
@@ -23,12 +24,12 @@ export const MeldFraOmEndring = () => {
           </Heading>
           <PortableText value={getRichText("meld-fra-om-endring.informasjon")} />
           <nav className={styles.navigationContainer}>
-            <Link href={meldFraOmEndringerLink.linkUrl}>
-              <Button variant="secondary">{meldFraOmEndringerLink.linkText}</Button>
-            </Link>
-            <Link href={sendInnDokumentLink.linkUrl}>
-              <Button variant="secondary">{sendInnDokumentLink.linkText}</Button>
-            </Link>
+            <ExternalLink to={meldFraOmEndringerLink.linkUrl} asButtonVariant="secondary">
+              {meldFraOmEndringerLink.linkText}
+            </ExternalLink>
+            <ExternalLink to={meldFraOmEndringerLink.linkUrl} asButtonVariant="secondary">
+              {sendInnDokumentLink.linkText}
+            </ExternalLink>
           </nav>
         </div>
       </SectionContent>
