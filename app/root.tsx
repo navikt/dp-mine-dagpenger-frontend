@@ -6,11 +6,14 @@ import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
 import { Fragment, Suspense } from "react";
 import { getDecoratorHTML } from "./decorator/decorator.server";
+import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
 import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
-import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
+import favicon16 from "/favicon-16x16.png";
+import favicon32 from "/favicon-32x32.png";
+import favicon from "/favicon.ico";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -18,21 +21,18 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: navStyles },
   { rel: "stylesheet", href: indexStyle },
   {
-    rel: "icon",
-    type: "image/png",
+    rel: "shortcut icon",
     sizes: "32x32",
-    href: "/favicon-32x32.png",
+    href: favicon,
   },
   {
-    rel: "icon",
-    type: "image/png",
+    rel: "shortcut icon",
     sizes: "16x16",
-    href: "/favicon-16x16.png",
+    href: favicon16,
   },
   {
-    rel: "icon",
-    type: "image/x-icon",
-    href: "/favicon.ico",
+    rel: "shortcut icon",
+    href: favicon32,
   },
 ];
 

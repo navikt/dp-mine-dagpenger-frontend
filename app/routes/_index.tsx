@@ -24,12 +24,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Index() {
   return (
-    <div className="mine-dagpenger">
-      <PageHero />
-      <Soknader />
-      {/* <BankAccountNumber /> */}
-      <MeldFraOmEndring />
-      <Shortcuts />
-    </div>
+    <main>
+      <div className="mine-dagpenger">
+        <PageHero />
+        <Soknader />
+        {/* <BankAccountNumber /> */}
+        <MeldFraOmEndring />
+        <Shortcuts />
+      </div>
+    </main>
   );
 }
