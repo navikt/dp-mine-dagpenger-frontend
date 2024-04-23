@@ -14,8 +14,12 @@ export function FullforteSoknader({ soknad }: IProps) {
   const { søknadId, tittel, datoInnsendt, endreLenke, erNySøknadsdialog } = soknad;
   const { getAppText } = useSanity();
 
-  const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
-  const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
+  console.log(`🔥  soknadsdialog url:`, getEnv("DP_SOKNADSDIALOG_URL"));
+
+  // const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
+  // const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
+  const ettersendingUrl = `/soknad/${søknadId}/ettersending`;
+  const generellInnsendingUrl = `/generell-innsending`;
 
   // Sannsynligvis skjer dette kun på papirsøknader
   const fallbackGenerellInnsending = !søknadId && !endreLenke;

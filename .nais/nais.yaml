@@ -32,7 +32,7 @@ spec:
     - name: DP_INNSYN_URL
       value: http://dp-innsyn
     - name: DP_SOKNADSDIALOG_URL
-      value: {{soknadsdialog.ingress}}
+      value: {{ soknadsdialog.ingress }}
   ingresses:
     - {{ ingress }}
   accessPolicy:
