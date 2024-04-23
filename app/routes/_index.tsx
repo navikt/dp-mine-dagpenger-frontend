@@ -11,14 +11,14 @@ import { getSoknader } from "~/models/getSoknader.server";
 export async function loader({ request }: LoaderFunctionArgs) {
   const fullforteSoknader = await getSoknader(request, "soknad");
   const paabegynteSoknader = await getSoknader(request, "paabegynte");
-  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
-  const bankAccount = await getBankAccount(request);
+  // const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
+  // const bankAccount = await getBankAccount(request);
 
   return json({
     fullforteSoknader,
     paabegynteSoknader,
-    arbeidsseokerPerioder,
-    bankAccount,
+    // arbeidsseokerPerioder,
+    // bankAccount,
   });
 }
 
@@ -27,7 +27,7 @@ export default function Index() {
     <div className="mine-dagpenger">
       <PageHero />
       <Soknader />
-      <BankAccountNumber />
+      {/* <BankAccountNumber /> */}
       <MeldFraOmEndring />
       <Shortcuts />
     </div>
