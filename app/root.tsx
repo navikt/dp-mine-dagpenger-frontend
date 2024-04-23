@@ -23,7 +23,7 @@ export const links: LinksFunction = () => [
   {
     rel: "shortcut icon",
     sizes: "32x32",
-    href: favicon,
+    href: favicon32,
   },
   {
     rel: "shortcut icon",
@@ -32,7 +32,7 @@ export const links: LinksFunction = () => [
   },
   {
     rel: "shortcut icon",
-    href: favicon32,
+    href: favicon,
   },
 ];
 
