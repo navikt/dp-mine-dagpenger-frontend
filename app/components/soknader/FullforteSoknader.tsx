@@ -17,6 +17,9 @@ export function FullforteSoknader({ soknad }: IProps) {
   const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
   const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
 
+  console.log(`🔥 ettersendingUrl :`, ettersendingUrl);
+  console.log(`🔥 generellInnsendingUrl :`, generellInnsendingUrl);
+
   // Sannsynligvis skjer dette kun på papirsøknader
   const fallbackGenerellInnsending = !søknadId && !endreLenke;
 

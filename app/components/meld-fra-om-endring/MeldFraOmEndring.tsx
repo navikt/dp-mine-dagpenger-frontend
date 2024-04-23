@@ -9,11 +9,10 @@ export const MeldFraOmEndring = () => {
   const { getAppText, getRichText, getLink } = useSanity();
 
   const meldFraOmEndringerLink = getLink("meld-fra-om-endring.melding-om-endring");
-
   const sendInnDokumentLink = getLink("meld-fra-om-endring.send-inn-dokument");
 
   return (
-    <Section smallSpacing>
+    <Section>
       <SectionContent>
         <Heading level="2" size="large" spacing>
           {getAppText("meld-fra-om-endring.seksjonstittel")}
