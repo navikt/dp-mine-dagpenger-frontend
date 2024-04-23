@@ -38,6 +38,7 @@ spec:
         - host: www.nav.no
         - host: dekoratoren.dev.nav.no
       rules:
+        - application: dp-innsyn
   idporten:
     enabled: true
     sidecar:
