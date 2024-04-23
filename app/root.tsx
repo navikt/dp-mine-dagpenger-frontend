@@ -71,7 +71,7 @@ export async function loader() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { decoratorFragments } = useTypedRouteLoaderData("root");
+  const { decoratorFragments, env } = useTypedRouteLoaderData("root");
 
   return (
     <html lang="en">
@@ -91,6 +91,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Suspense fallback={<Skeleton variant="text" width="100%" height={300} />}>
           {parse(decoratorFragments?.DECORATOR_FOOTER)}
         </Suspense>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.env = ${JSON.stringify(env)}`,
+          }}
+        />
         <Scripts />
         <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_SCRIPTS)}</Suspense>
       </body>
