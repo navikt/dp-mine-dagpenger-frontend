@@ -49,7 +49,7 @@ spec:
         - application: dp-innsyn
         - application: paw-arbeidssoekerregisteret-api-oppslag
           namespace: paw
-        - name: sokos-kontoregister-person
+        - application: sokos-kontoregister-person
           namespace: okonomi
   idporten:
     enabled: true
