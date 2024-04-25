@@ -35,6 +35,8 @@ spec:
       value: {{ soknadsdialog.ingress }}
     - name: PAW_ARBEIDSSOEKERREGISTERET_URL
       value: {{ pawArbeidssoekerregisteretUrl }}
+    - name: OKONOMI_KONTOREGISTER_URL
+      value: {{ okonomiKontoregisterUrl }}
   ingresses:
     - {{ ingress }}
   accessPolicy:
@@ -47,6 +49,8 @@ spec:
         - application: dp-innsyn
         - application: paw-arbeidssoekerregisteret-api-oppslag
           namespace: paw
+        - name: sokos-kontoregister-person
+          namespace: okonomi
   idporten:
     enabled: true
     sidecar:

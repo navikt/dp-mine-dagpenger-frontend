@@ -8,3 +8,4 @@ loginservice:
 soknadsdialog:
   ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
 pawArbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no
+okonomiKontoregisterUrl: https://sokos-kontoregister-person.intern.dev.nav.no

@@ -18,7 +18,7 @@ type UtenlandskKonto = {
 };
 
 export async function getBankAccount(request: Request): Promise<IKonto> {
-  const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}`;
+  const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1`;
 
   const onBehalfOfToken = await getOKONOMIKontoregisterToken(request);
 
