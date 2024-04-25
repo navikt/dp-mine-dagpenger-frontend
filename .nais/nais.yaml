@@ -45,6 +45,8 @@ spec:
         - host: dekoratoren.dev.nav.no
       rules:
         - application: dp-innsyn
+        - application: paw-arbeidssoekerregisteret-api-oppslag
+          namespace: paw
   idporten:
     enabled: true
     sidecar:
