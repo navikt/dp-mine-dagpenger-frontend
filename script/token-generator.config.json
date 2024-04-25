@@ -1,0 +1,14 @@
+{
+  "cookieName": "sso-dev.nav.no",
+  "baseUrl": "https://tokenx-token-generator.intern.dev.nav.no/",
+  "environments": [
+    {
+      "env": "DP_INNSYN_TOKEN",
+      "url": "https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamdagpenger:dp-innsyn"
+    },
+    {
+      "env": "PAW_ARBEIDSSOEKERREGISTERET_TOKEN",
+      "url": "https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag"
+    }
+  ]
+}

@@ -3,11 +3,11 @@ import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { FullforteSoknader } from "./FullforteSoknader";
-import { PaabegynteSoknader } from "./PaabegynteSoknader";
+// import { FullforteSoknader } from "./FullforteSoknader";
+// import { PaabegynteSoknader } from "./PaabegynteSoknader";
 import styles from "./Soknader.module.css";
 import { within12Weeks } from "~/utils/soknad.utils";
-import { IPaabegynteSoknad, ISoknad } from "~/models/getSoknader.server";
+// import { IPaabegynteSoknad, ISoknad } from "~/models/getSoknader.server";
 
 export function Soknader() {
   const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
@@ -38,7 +38,7 @@ export function Soknader() {
             {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
           </Alert>
         )}
-        {!!paabegynteSoknader?.length && (
+        {/* {!!paabegynteSoknader?.length && (
           <ul className={styles.soknader}>
             {paabegynteSoknader.map((soknad) => (
               <PaabegynteSoknader soknad={soknad as IPaabegynteSoknad} key={soknad.søknadId} />
@@ -51,7 +51,7 @@ export function Soknader() {
               <FullforteSoknader soknad={soknad as ISoknad} key={soknad.søknadId} />
             ))}
           </ul>
-        )}
+        )} */}
       </SectionContent>
     </Section>
   );

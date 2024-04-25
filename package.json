@@ -11,7 +11,9 @@
     "typecheck": "tsc",
     "test": "vitest",
     "precommit-test": "vitest --run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "setup-env": "cp .env.example .env",
+    "generate-token": "chmod +x ./script/token-generator.sh && ./script/token-generator.sh"
   },
   "dependencies": {
     "@navikt/aksel-icons": "^6.5.0",

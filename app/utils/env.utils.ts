@@ -5,7 +5,6 @@ declare global {
 }
 
 interface IEnv {
-  BASE_PATH: string;
   USE_MSW: string;
   IS_LOCALHOST: string;
   PAW_ARBEIDSSOEKERREGISTERET_URL: string;
