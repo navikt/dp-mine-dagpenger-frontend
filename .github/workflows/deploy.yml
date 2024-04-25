@@ -70,6 +70,7 @@ jobs:
   deploy-dev:
     needs: [build]
     runs-on: ubuntu-latest
+    environment: dev-gcp
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
