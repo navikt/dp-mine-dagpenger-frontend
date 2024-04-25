@@ -12,9 +12,11 @@ import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
 
+/* eslint-disable */
 import favicon16 from "/favicon-16x16.png";
 import favicon32 from "/favicon-32x32.png";
 import favicon from "/favicon.ico";
+/* eslint-enable */
 
 export const sanityClient = createClient(sanityConfig);
 

@@ -7,3 +7,4 @@ loginservice:
   url: https://loginservice.dev.nav.no/login
 soknadsdialog:
   ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
+pawArbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no

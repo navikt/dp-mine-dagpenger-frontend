@@ -61,7 +61,9 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --list-different",
-      "eslint --max-warnings 0"
+      "eslint --max-warnings 0",
+      "bash -c tsc",
+      "bash -c 'npm run lint'"
     ]
   }
 }

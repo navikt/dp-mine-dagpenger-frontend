@@ -33,6 +33,8 @@ spec:
       value: http://dp-innsyn
     - name: DP_SOKNADSDIALOG_URL
       value: {{ soknadsdialog.ingress }}
+    - name: PAW_ARBEIDSSOEKERREGISTERET_URL
+      value: {{pawArbeidssoekerregisteretUrl}}
   ingresses:
     - {{ ingress }}
   accessPolicy:

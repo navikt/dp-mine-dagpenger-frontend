@@ -8,22 +8,19 @@ export function ArbeidssokerStatus() {
   const { getRichText } = useSanity();
   const { arbeidsseokerPerioder } = useTypedRouteLoaderData("routes/_index");
 
+  if (arbeidsseokerPerioder.status === "error") {
+    return (
+      <Alert variant="warning" className={styles.arbeidssokerStatusNotRegisteredAlertBox}>
+        <PortableText value={getRichText("arbeidssokers-status.teknisk-feil")} />
+      </Alert>
+    );
+  }
+
   const registered =
-    arbeidsseokerPerioder?.findIndex((periode) => periode.avsluttet === null) !== -1;
+    arbeidsseokerPerioder.status === "success" &&
+    arbeidsseokerPerioder.data?.perioder?.findIndex((periode) => periode.avsluttet === null) !== -1;
 
-  // if (error) {
-  //   return (
-  //     <Section>
-  //       <SectionContent>
-  //         <Alert variant="warning" className={styles.arbeidssokerStatusNotRegisteredAlertBox}>
-  //           <PortableText value={getRichText("arbeidssokers-status.teknisk-feil")} />
-  //         </Alert>
-  //       </SectionContent>
-  //     </Section>
-  //   );
-  // }
-
-  if (!registered) {
+  if (arbeidsseokerPerioder.status === "success" && !registered) {
     return (
       <Alert variant="warning" className={styles.arbeidssokerStatusNotRegisteredAlertBox}>
         <PortableText value={getRichText("arbeidssokers-status.er-ikke-registrert")} />

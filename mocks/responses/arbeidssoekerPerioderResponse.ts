@@ -12,5 +12,13 @@ export const arbeidssoekerPerioderResponse: IArbeidssokerperioder[] = [
       aarsak: "string",
     },
     avsluttet: null,
+    // avsluttet: {
+    //   tidspunkt: "'2021-09-29T11:22:33.444Z'",
+    //   utfoertAv: {
+    //     type: "UKJENT_VERDI",
+    //   },
+    //   kilde: "string",
+    //   aarsak: "string",
+    // },
   },
 ];

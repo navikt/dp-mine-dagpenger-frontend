@@ -1,7 +1,7 @@
 import { getPAWArbeidssokerregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import { INetworkResponse } from "~/utils/fetch.utils";
 
-export type IArbeidssokerStatus = "UNREGISTERED" | "REGISTERED" | "ERROR";
 type brukerTypeResponse = "UKJENT_VERDI" | "UDEFINERT" | "VEILEDER" | "SYSTEM" | "SLUTTBRUKER";
 
 export interface IArbeidssokerperioder {
@@ -17,7 +17,9 @@ interface IArbeidssoekkerMetaResponse {
   aarsak: string;
 }
 
-export async function getArbeidssoekerPerioder(request: Request): Promise<IArbeidssokerperioder[]> {
+export async function getArbeidssoekerPerioder(
+  request: Request
+): Promise<INetworkResponse<{ perioder: IArbeidssokerperioder[] }>> {
   const url = `${getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL")}/api/v1/arbeidssoekerperioder`;
 
   const onBehalfOfToken = await getPAWArbeidssokerregistreringOboToken(request);
@@ -29,5 +31,17 @@ export async function getArbeidssoekerPerioder(request: Request): Promise<IArbei
     },
   });
 
-  return response.json();
+  if (!response.ok) {
+    return {
+      status: "error",
+      error: {
+        statusCode: response.status,
+        statusText: "Feil ved uthenting av arbeidssøkerstatus",
+      },
+    };
+  }
+
+  const perioder: IArbeidssokerperioder[] = await response.json();
+
+  return { status: "success", data: { perioder } };
 }
