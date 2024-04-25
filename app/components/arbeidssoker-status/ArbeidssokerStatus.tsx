@@ -10,7 +10,7 @@ export function ArbeidssokerStatus() {
 
   if (arbeidsseokerPerioder.status === "error") {
     return (
-      <Alert variant="warning" className={styles.arbeidssokerStatusNotRegisteredAlertBox}>
+      <Alert variant="warning" className="no-padding-portabletext">
         <PortableText value={getRichText("arbeidssokers-status.teknisk-feil")} />
       </Alert>
     );

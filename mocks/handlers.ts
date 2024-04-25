@@ -13,7 +13,7 @@ export const handlers = [
     return HttpResponse.json(paabegynteSoknaderResponse);
   }),
 
-  http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}`, () => {
+  http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1`, () => {
     return HttpResponse.json({
       kontonummer: "12345678901",
     });

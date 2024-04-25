@@ -6,7 +6,7 @@ import { SectionContent } from "../section/SectionContent";
 import { FullforteSoknader } from "./FullforteSoknader";
 import { PaabegynteSoknader } from "./PaabegynteSoknader";
 import styles from "./Soknader.module.css";
-import { within12Weeks } from "~/utils/soknad.utils";
+import { withinLast12Weeks } from "~/utils/soknad.utils";
 import { IPaabegynteSoknad, ISoknad } from "~/models/getSoknader.server";
 
 export function Soknader() {
@@ -15,7 +15,7 @@ export function Soknader() {
 
   const fullforteSoknaderWithin12Weeks = fullforteSoknader?.filter((soknad) =>
     //@ts-expect-error : ignore types
-    within12Weeks(soknad?.datoInnsendt)
+    withinLast12Weeks(soknad?.datoInnsendt)
   );
 
   if (!paabegynteSoknader?.length && !fullforteSoknaderWithin12Weeks?.length) {

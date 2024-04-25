@@ -1,5 +1,6 @@
 import { getOKONOMIKontoregisterToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import { INetworkResponse } from "~/utils/fetch.utils";
 
 export type IKonto = {
   kontonummer: string;
@@ -17,7 +18,9 @@ type UtenlandskKonto = {
   bankadresse3?: string;
 };
 
-export async function getBankAccount(request: Request): Promise<IKonto> {
+export async function getBankAccountNumber(
+  request: Request
+): Promise<INetworkResponse<{ accountNumber: string }>> {
   const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1`;
 
   const onBehalfOfToken = await getOKONOMIKontoregisterToken(request);
@@ -31,5 +34,17 @@ export async function getBankAccount(request: Request): Promise<IKonto> {
     },
   });
 
-  return response.json();
+  if (!response.ok) {
+    return {
+      status: "error",
+      error: {
+        statusCode: response.status,
+        statusText: "Feil ved uthenting av kontonummer",
+      },
+    };
+  }
+
+  const bankAccountResponse: IKonto = await response.json();
+
+  return { status: "success", data: { accountNumber: bankAccountResponse.kontonummer } };
 }

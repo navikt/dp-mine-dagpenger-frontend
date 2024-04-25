@@ -39,7 +39,6 @@ export async function getOnBehalfOfToken(request: Request, audience: string): Pr
   }
 
   const onBehalfOfToken = await requestOboToken(token, audience);
-
   if (!onBehalfOfToken.ok) {
     throw Error("onBehalfOfToken not found");
   }

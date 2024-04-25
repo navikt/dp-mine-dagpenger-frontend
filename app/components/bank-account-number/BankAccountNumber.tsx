@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Link } from "@navikt/ds-react";
+import { Alert, BodyLong, Heading, Link } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -9,9 +9,23 @@ import styles from "./BankAccountNumber.module.css";
 
 export function BankAccountNumber() {
   const { getAppText, getRichText, getLink } = useSanity();
-  const { bankAccount } = useTypedRouteLoaderData("routes/_index");
+  const { bankAccountNumber } = useTypedRouteLoaderData("routes/_index");
 
-  const hasAccountNumber = bankAccount && bankAccount.kontonummer;
+  if (bankAccountNumber.status === "error") {
+    return (
+      <Section>
+        <SectionContent>
+          <Alert variant="warning" className="no-padding-portabletext">
+            <PortableText value={getRichText("kontonummer.teknisk-feil")} />
+          </Alert>
+        </SectionContent>
+      </Section>
+    );
+  }
+
+  const accountNumber =
+    bankAccountNumber.status === "success" && bankAccountNumber.data?.accountNumber;
+
   const updateAccountNumberLink = getLink("kontonummer.endre-kontonummeret");
 
   return (
@@ -21,20 +35,18 @@ export function BankAccountNumber() {
           {getAppText("seksjon.utbetaling.seksjonstittel")}
         </Heading>
         <BodyLong spacing>{getAppText("seksjon.utbetaling.seksjonsbeskrivelse")}</BodyLong>
-        {hasAccountNumber && (
+        {accountNumber && (
           <div className={styles.container}>
             <Heading level="3" size="xsmall">
               {getAppText("kontonummer.registrert-kontonummeret")}
             </Heading>
             <div className={styles.accountNumber}>
-              {formatAccountNumber(bankAccount)}
+              {formatAccountNumber(accountNumber)}
               <Link href={updateAccountNumberLink.linkUrl}>{updateAccountNumberLink.linkText}</Link>
             </div>
           </div>
         )}
-        {!hasAccountNumber && (
-          <PortableText value={getRichText("kontonummer.mangler-kontonummer")} />
-        )}
+        {!accountNumber && <PortableText value={getRichText("kontonummer.mangler-kontonummer")} />}
       </SectionContent>
     </Section>
   );

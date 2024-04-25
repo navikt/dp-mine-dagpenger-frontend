@@ -31,3 +31,11 @@
   margin-top: 20px;
   gap: 10px;
 }
+
+.no-padding-portabletext :first-child {
+  margin-top: 0;
+}
+
+.no-padding-portabletext :last-child {
+  margin-bottom: 0;
+}
