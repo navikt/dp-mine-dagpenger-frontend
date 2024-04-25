@@ -1,6 +1,6 @@
 import { getOKONOMIKontoregisterToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/utils/fetch.utils";
+import { INetworkResponse } from "~/utils/networkResponse";
 
 export type IKonto = {
   kontonummer: string;

@@ -1,6 +1,6 @@
 import { getPAWArbeidssokerregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/utils/fetch.utils";
+import { INetworkResponse } from "~/utils/networkResponse";
 
 type brukerTypeResponse = "UKJENT_VERDI" | "UDEFINERT" | "VEILEDER" | "SYSTEM" | "SLUTTBRUKER";
 
