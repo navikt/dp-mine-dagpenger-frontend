@@ -1,29 +1,30 @@
 import { getToken, requestOboToken, validateToken } from "@navikt/oasis";
+import { getEnv } from "./env.utils";
 
 export async function getDPInnsynOboToken(request: Request) {
-  if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_INNSYN_TOKEN || "";
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("DP_INNSYN_TOKEN") || "";
   }
 
-  const audience = `${process.env.NAIS_CLUSTER_NAME}:teamdagpenger:dp-innsyn`;
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:teamdagpenger:dp-innsyn`;
   return await getOnBehalfOfToken(request, audience);
 }
 
 export async function getPAWArbeidssokerregistreringOboToken(request: Request) {
-  if (process.env.IS_LOCALHOST === "true") {
-    return process.env.PAW_ARBEIDSSOEKERREGISTERET_TOKEN || "";
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("PAW_ARBEIDSSOEKERREGISTERET_TOKEN") || "";
   }
 
-  const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag`;
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:paw:paw-arbeidssoekerregisteret-api-oppslag`;
   return await getOnBehalfOfToken(request, audience);
 }
 
 export async function getOKONOMIKontoregisterToken(request: Request) {
-  if (process.env.IS_LOCALHOST === "true") {
-    return process.env.OKONOMI_KONTOREGISTER_TOKEN || "";
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("OKONOMI_KONTOREGISTER_TOKEN") || "";
   }
 
-  const audience = `${process.env.NAIS_CLUSTER_NAME}:okonomi:sokos-kontoregister-person`;
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:okonomi:sokos-kontoregister-person`;
   return await getOnBehalfOfToken(request, audience);
 }
 

@@ -31,7 +31,7 @@ export async function getBankAccountNumber(
     },
   });
 
-  // Response ok but user not found in Kontoregister
+  // user not found in Kontoregister
   if (!response.ok && response.status === 404) {
     return { status: "success", data: { accountNumber: undefined } };
   }

@@ -6,7 +6,7 @@ import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./MeldFraOmEndring.module.css";
 
-export const MeldFraOmEndring = () => {
+export function MeldFraOmEndring() {
   const { getAppText, getRichText, getLink } = useSanity();
 
   const meldFraOmEndringerLink = getLink("meld-fra-om-endring.melding-om-endring");
@@ -35,4 +35,4 @@ export const MeldFraOmEndring = () => {
       </SectionContent>
     </Section>
   );
-};
+}

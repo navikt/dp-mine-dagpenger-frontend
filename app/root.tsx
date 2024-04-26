@@ -1,4 +1,3 @@
-import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { Skeleton } from "@navikt/ds-react";
 import { LinksFunction, MetaFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
@@ -7,10 +6,14 @@ import parse from "html-react-parser";
 import { Fragment, Suspense } from "react";
 import { getDecoratorHTML } from "./decorator/decorator.server";
 import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
-import indexStyle from "./index.css?url";
+import { getSession } from "./models/getSession.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
+import { getEnv } from "./utils/env.utils";
+
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+import indexStyle from "./index.css?url";
 
 /* eslint-disable */
 import favicon16 from "/favicon-16x16.png";
@@ -56,7 +59,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
+export async function loader(req: Request) {
+  const session = await getSession(req);
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
@@ -69,8 +73,9 @@ export async function loader() {
   return json({
     decoratorFragments,
     sanityTexts,
+    session,
     env: {
-      DP_SOKNADSDIALOG_URL: process.env.DP_SOKNADSDIALOG_URL,
+      DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
     },
   });
 }
