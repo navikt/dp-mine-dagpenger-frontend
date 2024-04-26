@@ -9,15 +9,20 @@ export async function getDecoratorHTML(): Promise<DecoratorElements> {
 
   const config: DecoratorFetchProps = {
     env: env ?? "prod",
-    serviceDiscovery: false, //process.env.IS_LOCALHOST !== "true", //virker som at den defaulter til true og slår på service discovery?
     params: {
       language: "nb",
       context: "privatperson",
       chatbot: false,
-      simple: true,
       enforceLogin: false,
       redirectToApp: true,
       level: "Level4",
+      breadcrumbs: [
+        { title: "Min side", url: "https://www.nav.no/minside" },
+        {
+          title: "Mine dagpenger",
+          url: "https://www.nav.no/arbeid/dagpenger/mine-dagpenger",
+        },
+      ],
     },
   };
 
