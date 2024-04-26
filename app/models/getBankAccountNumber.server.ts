@@ -20,19 +20,21 @@ type UtenlandskKonto = {
 
 export async function getBankAccountNumber(
   request: Request
-): Promise<INetworkResponse<{ accountNumber: string }>> {
-  const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1`;
-
+): Promise<INetworkResponse<{ accountNumber: string | undefined }>> {
+  const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`;
   const onBehalfOfToken = await getOKONOMIKontoregisterToken(request);
 
   const response = await fetch(url, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
+
+  // Response ok but user not found in Kontoregister
+  if (!response.ok && response.status === 404) {
+    return { status: "success", data: { accountNumber: undefined } };
+  }
 
   if (!response.ok) {
     return {

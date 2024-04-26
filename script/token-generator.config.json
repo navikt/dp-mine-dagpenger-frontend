@@ -9,6 +9,10 @@
     {
       "env": "PAW_ARBEIDSSOEKERREGISTERET_TOKEN",
       "url": "https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag"
+    },
+    {
+      "env": "OKONOMI_KONTOREGISTER_TOKEN",
+      "url": "https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:okonomi:sokos-kontoregister-person"
     }
   ]
 }
