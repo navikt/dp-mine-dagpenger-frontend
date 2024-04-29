@@ -3,7 +3,7 @@ import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { withinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
-import styles from "./Soknader.module.css";
+import styles from "./SoknadList.module.css";
 
 export function FullforteSoknader() {
   const { getAppText } = useSanity();
@@ -23,7 +23,7 @@ export function FullforteSoknader() {
     );
 
     return (
-      <ul className={styles.soknader}>
+      <ul className={styles.soknadList}>
         {fullforteSoknaderWithin12Weeks.map((soknad) => (
           <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}

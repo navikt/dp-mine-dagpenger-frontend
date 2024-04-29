@@ -6,7 +6,7 @@ import { SectionContent } from "../section/SectionContent";
 import { FullforteSoknader } from "./FullforteSoknader";
 import { PaabegynteSoknader } from "./PaabegynteSoknader";
 
-export function Soknader() {
+export function SoknadList() {
   const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
   const { getAppText } = useSanity();
 

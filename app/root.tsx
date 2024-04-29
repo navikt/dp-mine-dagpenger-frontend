@@ -1,24 +1,25 @@
-import { Skeleton } from "@navikt/ds-react";
-import { LinksFunction, MetaFunction, json } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
-import { createClient } from "@sanity/client";
-import parse from "html-react-parser";
-import { Fragment, Suspense } from "react";
-import { getDecoratorHTML } from "./decorator/decorator.server";
-import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
-import { sanityConfig } from "./sanity/sanity.config";
-import { allTextsQuery } from "./sanity/sanity.query";
-import { ISanity } from "./sanity/sanity.types";
-import { getEnv } from "./utils/env.utils";
-
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import indexStyle from "./index.css?url";
-
 /* eslint-disable */
 import favicon16 from "/favicon-16x16.png";
 import favicon32 from "/favicon-32x32.png";
 import favicon from "/favicon.ico";
 /* eslint-enable */
+
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+import { BodyShort, Skeleton } from "@navikt/ds-react";
+import { LinksFunction, MetaFunction, json } from "@remix-run/node";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
+import { createClient } from "@sanity/client";
+import parse from "html-react-parser";
+import { Fragment, Suspense } from "react";
+import { Section } from "./components/section/Section";
+import { SectionContent } from "./components/section/SectionContent";
+import { getDecoratorHTML } from "./decorator/decorator.server";
+import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
+import indexStyle from "./index.css?url";
+import { sanityConfig } from "./sanity/sanity.config";
+import { allTextsQuery } from "./sanity/sanity.query";
+import { ISanity } from "./sanity/sanity.types";
+import { getEnv } from "./utils/env.utils";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -81,7 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useTypedRouteLoaderData("root");
 
   return (
-    <html lang="en">
+    <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -112,4 +113,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  console.log("Application error: dp-mine-dagpenger-frontend ");
+  console.log(error);
+
+  return (
+    <html lang="nb">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <main>
+          <Section>
+            <SectionContent>
+              <BodyShort>Vi har tekniske problemer akkurat nå. Prøve igjen om litt.</BodyShort>
+            </SectionContent>
+          </Section>
+          <Scripts />
+        </main>
+      </body>
+    </html>
+  );
 }
