@@ -1,3 +1,10 @@
+/* eslint-disable */
+import favicon16 from "/favicon-16x16.png";
+import favicon32 from "/favicon-32x32.png";
+import favicon from "/favicon.ico";
+/* eslint-enable */
+
+import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort, Skeleton } from "@navikt/ds-react";
 import { LinksFunction, MetaFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
@@ -8,19 +15,11 @@ import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { getDecoratorHTML } from "./decorator/decorator.server";
 import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
+import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
 import { getEnv } from "./utils/env.utils";
-
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import indexStyle from "./index.css?url";
-
-/* eslint-disable */
-import favicon16 from "/favicon-16x16.png";
-import favicon32 from "/favicon-32x32.png";
-import favicon from "/favicon.ico";
-/* eslint-enable */
 
 export const sanityClient = createClient(sanityConfig);
 

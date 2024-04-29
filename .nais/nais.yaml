@@ -23,7 +23,7 @@ spec:
     initialDelay: 3
     timeout: 1
   prometheus:
-    path: "{{ basePath }}api/internal/isready"
+    path: "{{ base_path }}/api/internal/isready"
     enabled: true
   replicas:
     min: 1
