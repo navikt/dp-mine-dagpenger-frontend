@@ -12,6 +12,19 @@ metadata:
 spec:
   image: {{ image }}
   port: 3000
+  liveness:
+    path: "{{ base_path }}/api/internal/isalive"
+    initialDelay: 3
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
+  readiness:
+    path: "{{ base_path }}/api/internal/isready"
+    initialDelay: 3
+    timeout: 1
+  prometheus:
+    path: "{{ basePath }}api/internal/isready"
+    enabled: true
   replicas:
     min: 1
     max: 2

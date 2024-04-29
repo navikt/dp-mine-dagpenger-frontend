@@ -1,9 +1,11 @@
-import { Skeleton } from "@navikt/ds-react";
+import { BodyShort, Skeleton } from "@navikt/ds-react";
 import { LinksFunction, MetaFunction, json } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
 import { Fragment, Suspense } from "react";
+import { Section } from "./components/section/Section";
+import { SectionContent } from "./components/section/SectionContent";
 import { getDecoratorHTML } from "./decorator/decorator.server";
 import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
 import { sanityConfig } from "./sanity/sanity.config";
@@ -81,7 +83,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useTypedRouteLoaderData("root");
 
   return (
-    <html lang="en">
+    <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -112,4 +114,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  console.log("Application error: dp-mine-dagpenger-frontend ");
+  console.log(error);
+
+  return (
+    <html lang="nb">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <main>
+          <Section>
+            <SectionContent>
+              <BodyShort>Vi har tekniske problemer akkurat nå. Prøve igjen om litt.</BodyShort>
+            </SectionContent>
+          </Section>
+          <Scripts />
+        </main>
+      </body>
+    </html>
+  );
 }
