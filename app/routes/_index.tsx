@@ -4,7 +4,7 @@ import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndr
 import { PageHero } from "~/components/page-hero/PageHero";
 import { SessionModal } from "~/components/session-modal/SessionModal";
 import { Shortcuts } from "~/components/shortcuts/Shortcuts";
-import { Soknader } from "~/components/soknader/Soknader";
+import { SoknadList } from "~/components/soknad-list/SoknadList";
 import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "~/models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
@@ -34,7 +34,7 @@ export default function Index() {
     <main>
       <div className="mine-dagpenger">
         <PageHero />
-        <Soknader />
+        <SoknadList />
         <BankAccountNumber />
         <MeldFraOmEndring />
         <Shortcuts />

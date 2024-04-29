@@ -2,7 +2,7 @@ import { Alert } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
-import styles from "./Soknader.module.css";
+import styles from "./SoknadList.module.css";
 
 export function PaabegynteSoknader() {
   const { getAppText } = useSanity();
@@ -18,7 +18,7 @@ export function PaabegynteSoknader() {
 
   if (paabegynteSoknader.status === "success" && paabegynteSoknader.data.length > 0) {
     return (
-      <ul className={styles.soknader}>
+      <ul className={styles.soknadList}>
         {paabegynteSoknader.data.map((soknad) => (
           <PaabegynteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}
