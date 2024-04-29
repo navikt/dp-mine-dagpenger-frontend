@@ -1,6 +1,6 @@
 import { getOKONOMIKontoregisterToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/utils/networkResponse";
+import { INetworkResponse } from "./networkResponse";
 
 export type IKonto = {
   kontonummer: string;
@@ -18,9 +18,7 @@ type UtenlandskKonto = {
   bankadresse3?: string;
 };
 
-export async function getBankAccountNumber(
-  request: Request
-): Promise<INetworkResponse<{ accountNumber: string | undefined }>> {
+export async function getBankAccountNumber(request: Request): Promise<INetworkResponse<IKonto>> {
   const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`;
   const onBehalfOfToken = await getOKONOMIKontoregisterToken(request);
 
@@ -31,9 +29,9 @@ export async function getBankAccountNumber(
     },
   });
 
-  // user not found in Kontoregister
+  // Account holder not found
   if (!response.ok && response.status === 404) {
-    return { status: "success", data: { accountNumber: undefined } };
+    return { status: "success", data: { kontonummer: "" } };
   }
 
   if (!response.ok) {
@@ -46,7 +44,7 @@ export async function getBankAccountNumber(
     };
   }
 
-  const bankAccountResponse: IKonto = await response.json();
+  const data: IKonto = await response.json();
 
-  return { status: "success", data: { accountNumber: bankAccountResponse.kontonummer } };
+  return { status: "success", data };
 }

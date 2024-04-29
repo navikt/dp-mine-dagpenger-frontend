@@ -1,8 +1,8 @@
 import { HttpResponse, bypass, http } from "msw";
 import { getEnv } from "~/utils/env.utils";
+import { arbeidssoekerPerioderResponse } from "./responses/arbeidssoekerPerioderResponse";
 import { paabegynteSoknaderResponse } from "./responses/paabegyntSoknaderResponse";
 import { soknadResponse } from "./responses/soknaderResponse";
-import { arbeidssoekerPerioderResponse } from "./responses/arbeidssoekerPerioderResponse";
 
 export const handlers = [
   http.get(`${getEnv("DP_INNSYN_URL")}/soknad`, () => {

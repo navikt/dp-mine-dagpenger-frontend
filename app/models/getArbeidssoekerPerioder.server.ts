@@ -1,6 +1,6 @@
 import { getPAWArbeidssokerregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/utils/networkResponse";
+import { INetworkResponse } from "./networkResponse";
 
 type brukerTypeResponse = "UKJENT_VERDI" | "UDEFINERT" | "VEILEDER" | "SYSTEM" | "SLUTTBRUKER";
 
@@ -19,7 +19,7 @@ interface IArbeidssoekkerMetaResponse {
 
 export async function getArbeidssoekerPerioder(
   request: Request
-): Promise<INetworkResponse<{ perioder: IArbeidssokerperioder[] }>> {
+): Promise<INetworkResponse<IArbeidssokerperioder[]>> {
   const url = `${getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL")}/api/v1/arbeidssoekerperioder`;
 
   const onBehalfOfToken = await getPAWArbeidssokerregistreringOboToken(request);
@@ -41,7 +41,7 @@ export async function getArbeidssoekerPerioder(
     };
   }
 
-  const perioder: IArbeidssokerperioder[] = await response.json();
+  const data: IArbeidssokerperioder[] = await response.json();
 
-  return { status: "success", data: { perioder } };
+  return { status: "success", data };
 }

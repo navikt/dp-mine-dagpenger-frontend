@@ -19,7 +19,7 @@ export function ArbeidssokerStatus() {
 
   const registered =
     arbeidsseokerPerioder.status === "success" &&
-    arbeidsseokerPerioder.data?.perioder?.findIndex((periode) => periode.avsluttet === null) !== -1;
+    arbeidsseokerPerioder.data?.findIndex((periode) => periode.avsluttet === null) !== -1;
 
   if (arbeidsseokerPerioder.status === "success" && !registered) {
     return (

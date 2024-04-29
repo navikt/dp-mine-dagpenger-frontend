@@ -1,37 +1,30 @@
-import { BodyShort, Heading, Tag } from "@navikt/ds-react";
+import { Alert } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { IPaabegynteSoknad } from "~/models/getSoknader.server";
-import { FormattedDate } from "../FormattedDate";
-import { ExternalLink } from "../ExternalLink";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { PaabegynteSoknad } from "./PaabegynteSoknad";
 import styles from "./Soknader.module.css";
 
-interface IProps {
-  soknad: IPaabegynteSoknad;
-}
-
-export function PaabegynteSoknader({ soknad }: IProps) {
-  const { tittel, sistEndret: dato, endreLenke, søknadId } = soknad;
+export function PaabegynteSoknader() {
   const { getAppText } = useSanity();
+  const { paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
 
-  return (
-    <li className={styles.soknadContainer}>
-      <article className={styles.soknadContent} aria-labelledby={`tittel-${søknadId}`}>
-        <Heading level="3" size="small" id={`tittel-${søknadId}`}>
-          {tittel} {getAppText("paabegynt-soknad.paabegynt-status")}
-        </Heading>
-        <BodyShort className={styles.soknadDate} size="small">
-          {getAppText("paabegynt-soknad.sist-endret.label-tekst")}
-          <FormattedDate date={dato} />
-        </BodyShort>
-        <Tag variant="neutral" size="small" className={styles.soknadTag}>
-          {getAppText("paabegynt-soknad.soknad-er-ikke-sendt-inn")}
-        </Tag>
-      </article>
-      <nav className={styles.soknadLinksContainer}>
-        <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
-          {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
-        </ExternalLink>
-      </nav>
-    </li>
-  );
+  if (paabegynteSoknader.status === "error") {
+    return (
+      <Alert variant="error" className={styles.errorContainer}>
+        {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
+      </Alert>
+    );
+  }
+
+  if (paabegynteSoknader.status === "success" && paabegynteSoknader.data.length > 0) {
+    return (
+      <ul className={styles.soknader}>
+        {paabegynteSoknader.data.map((soknad) => (
+          <PaabegynteSoknad soknad={soknad} key={soknad.søknadId} />
+        ))}
+      </ul>
+    );
+  }
+
+  return <></>;
 }

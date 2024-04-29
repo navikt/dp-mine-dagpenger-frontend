@@ -1,4 +1,6 @@
-export const paabegynteSoknaderResponse = [
+import { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+
+export const paabegynteSoknaderResponse: IPaabegynteSoknad[] = [
   {
     søknadId: "11e408e7-2e8a-4e63-afe7-8a4e4b06afbf",
     tittel: "Søknad om dagpenger",

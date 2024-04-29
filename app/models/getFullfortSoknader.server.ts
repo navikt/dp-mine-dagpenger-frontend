@@ -1,5 +1,6 @@
 import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import { INetworkResponse } from "~/models/networkResponse";
 
 export interface ISoknad {
   søknadId: string;
@@ -14,27 +15,14 @@ export interface ISoknad {
   vedlegg?: IVedlegg[];
 }
 
-export interface IPaabegynteSoknad {
-  tittel: string;
-  sistEndret: string;
-  søknadId: string;
-  endreLenke: string;
-  erNySøknadsdialog: boolean;
-}
-
 interface IVedlegg {
   skjemaNummer: string;
   navn: string;
   status: string;
 }
 
-export type DPInnsynEndpoint = "soknad" | "paabegynte";
-
-export async function getSoknader(
-  request: Request,
-  endpoint: DPInnsynEndpoint
-): Promise<ISoknad[] | IPaabegynteSoknad[]> {
-  const url = `${getEnv("DP_INNSYN_URL")}/${endpoint}`;
+export async function getFullforteSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
+  const url = `${getEnv("DP_INNSYN_URL")}/soknad`;
   const onBehalfOfToken = await getDPInnsynOboToken(request);
 
   const response = await fetch(url, {
@@ -44,5 +32,20 @@ export async function getSoknader(
     },
   });
 
-  return response.json();
+  if (!response.ok) {
+    return {
+      status: "error",
+      error: {
+        statusCode: response.status,
+        statusText: `Feil ved uthenting av fullførte søknader`,
+      },
+    };
+  }
+
+  const data: ISoknad[] = await response.json();
+
+  return {
+    status: "success",
+    data,
+  };
 }

@@ -1,56 +1,35 @@
-import { BodyShort, Heading } from "@navikt/ds-react";
+import { Alert } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { ISoknad } from "~/models/getSoknader.server";
-import { getEnv } from "~/utils/env.utils";
-import { ExternalLink } from "../ExternalLink";
-import { FormattedDate } from "../FormattedDate";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { withinLast12Weeks } from "~/utils/soknad.utils";
+import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./Soknader.module.css";
 
-interface IProps {
-  soknad: ISoknad;
-}
-
-export function FullforteSoknader({ soknad }: IProps) {
-  const { søknadId, tittel, datoInnsendt, endreLenke, erNySøknadsdialog } = soknad;
+export function FullforteSoknader() {
   const { getAppText } = useSanity();
+  const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
 
-  const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
-  const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
-  const fallbackGenerellInnsending = !søknadId && !endreLenke;
+  if (fullforteSoknader.status === "error") {
+    return (
+      <Alert variant="error" className={styles.errorContainer}>
+        {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
+      </Alert>
+    );
+  }
 
-  return (
-    <li className={styles.soknadContainer}>
-      <article className={styles.soknadContent} aria-labelledby={`tittel-${søknadId}`}>
-        <Heading level="3" size="small" id={`tittel-${søknadId}`}>
-          {tittel}
-        </Heading>
-        <BodyShort className={styles.soknadDate} size="small">
-          {getAppText("fullfort-soknad.sendt-dato.label-tekst")}{" "}
-          <FormattedDate date={datoInnsendt} />
-        </BodyShort>
-      </article>
-      <nav className={styles.soknadLinksContainer}>
-        {erNySøknadsdialog && (
-          <>
-            <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
-              {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-            </ExternalLink>
-            <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
-              {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
-            </ExternalLink>
-          </>
-        )}
-        {!erNySøknadsdialog && !fallbackGenerellInnsending && (
-          <ExternalLink to={endreLenke} asButtonVariant="primary" size="small">
-            {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-          </ExternalLink>
-        )}
-        {fallbackGenerellInnsending && (
-          <ExternalLink to={generellInnsendingUrl} asButtonVariant="primary" size="small">
-            {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-          </ExternalLink>
-        )}
-      </nav>
-    </li>
-  );
+  if (fullforteSoknader.status === "success" && fullforteSoknader.data.length > 0) {
+    const fullforteSoknaderWithin12Weeks = fullforteSoknader.data?.filter((soknad) =>
+      withinLast12Weeks(soknad?.datoInnsendt)
+    );
+
+    return (
+      <ul className={styles.soknader}>
+        {fullforteSoknaderWithin12Weeks.map((soknad) => (
+          <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
+        ))}
+      </ul>
+    );
+  }
+
+  return <></>;
 }

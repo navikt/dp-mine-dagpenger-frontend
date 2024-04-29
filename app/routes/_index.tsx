@@ -7,11 +7,12 @@ import { Shortcuts } from "~/components/shortcuts/Shortcuts";
 import { Soknader } from "~/components/soknader/Soknader";
 import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "~/models/getBankAccountNumber.server";
-import { getSoknader } from "~/models/getSoknader.server";
+import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
+import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const fullforteSoknader = await getSoknader(request, "soknad");
-  const paabegynteSoknader = await getSoknader(request, "paabegynte");
+  const fullforteSoknader = await getFullforteSoknader(request);
+  const paabegynteSoknader = await getPaabegynteSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
 

@@ -1,6 +1,6 @@
 import { expiresIn, getToken, validateToken } from "@navikt/oasis";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/utils/networkResponse";
+import { INetworkResponse } from "~/models/networkResponse";
 
 export interface ISessionData {
   expiresIn: number;

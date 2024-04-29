@@ -25,12 +25,14 @@ export function SessionModal() {
   useEffect(() => {
     if (!timeLeft) return;
 
-    if (timeLeft === 1) {
+    if (timeLeft <= 1) {
       setOpen(true);
     }
 
     const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
+      if (timeLeft >= 1) {
+        setTimeLeft(timeLeft - 1);
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);

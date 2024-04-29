@@ -24,8 +24,7 @@ export function BankAccountNumber() {
   }
 
   const accountNumber =
-    bankAccountNumber.status === "success" && bankAccountNumber.data?.accountNumber;
-
+    bankAccountNumber.status === "success" && bankAccountNumber.data.kontonummer;
   const updateAccountNumberLink = getLink("kontonummer.endre-kontonummeret");
 
   return (

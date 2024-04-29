@@ -11,13 +11,15 @@ export function PageHero() {
   const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
   const sectionText = getRichText("soknader");
 
+  const soknader = fullforteSoknader.status === "success" && fullforteSoknader.data?.length > 0;
+
   return (
     <Section>
       <SectionContent>
         <Heading className="page-header" size="xlarge">
           {getAppText("sidetittel")}
         </Heading>
-        {fullforteSoknader?.length > 0 && <PortableText value={sectionText} />}
+        {soknader && <PortableText value={sectionText} />}
         <ArbeidssokerStatus />
       </SectionContent>
     </Section>
