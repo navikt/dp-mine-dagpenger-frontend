@@ -7,7 +7,7 @@ import styles from "./Soknader.module.css";
 
 export function FullforteSoknader() {
   const { getAppText } = useSanity();
-  const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
+  const { fullforteSoknader } = useTypedRouteLoaderData("root");
 
   if (fullforteSoknader.status === "error") {
     return (

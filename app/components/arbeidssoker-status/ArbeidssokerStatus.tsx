@@ -7,7 +7,7 @@ import styles from "./ArbeidssokerStatus.module.css";
 
 export function ArbeidssokerStatus() {
   const { getRichText } = useSanity();
-  const { arbeidsseokerPerioder } = useTypedRouteLoaderData("routes/_index");
+  const { arbeidsseokerPerioder } = useTypedRouteLoaderData("root");
 
   if (arbeidsseokerPerioder.status === "error") {
     return (

@@ -7,7 +7,7 @@ import { FullforteSoknader } from "./FullforteSoknader";
 import { PaabegynteSoknader } from "./PaabegynteSoknader";
 
 export function Soknader() {
-  const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
+  const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("root");
   const { getAppText } = useSanity();
 
   const hasFullfortSoknad = fullforteSoknader.status === "success" && fullforteSoknader.data.length;
