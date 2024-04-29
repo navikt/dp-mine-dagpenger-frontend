@@ -8,7 +8,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function PageHero() {
   const { getRichText, getAppText } = useSanity();
-  const { fullforteSoknader } = useTypedRouteLoaderData("root");
+  const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
   const sectionText = getRichText("soknader");
 
   const soknader = fullforteSoknader.status === "success" && fullforteSoknader.data?.length > 0;

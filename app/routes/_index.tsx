@@ -9,18 +9,21 @@ import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.serv
 import { getBankAccountNumber } from "~/models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
 import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
+import { getSession } from "~/models/getSession.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const fullforteSoknader = await getFullforteSoknader(request);
   const paabegynteSoknader = await getPaabegynteSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
+  const session = await getSession(request);
 
   return json({
     fullforteSoknader,
     paabegynteSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
+    session,
   });
 }
 

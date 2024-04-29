@@ -9,7 +9,7 @@ import styles from "./BankAccountNumber.module.css";
 
 export function BankAccountNumber() {
   const { getAppText, getRichText, getLink } = useSanity();
-  const { bankAccountNumber } = useTypedRouteLoaderData("root");
+  const { bankAccountNumber } = useTypedRouteLoaderData("routes/_index");
 
   if (bankAccountNumber.status === "error") {
     return (

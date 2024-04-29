@@ -7,7 +7,7 @@ import styles from "./SessionModal.module.css";
 export function SessionModal() {
   const { getAppText } = useSanity();
   const [open, setOpen] = useState(false);
-  const { session } = useTypedRouteLoaderData("root");
+  const { session } = useTypedRouteLoaderData("routes/_index");
   const [timeLeft, setTimeLeft] = useState<number | undefined>();
   const [isNagivating, setNavigating] = useState(false);
 

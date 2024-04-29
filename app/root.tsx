@@ -6,15 +6,10 @@ import parse from "html-react-parser";
 import { Fragment, Suspense } from "react";
 import { getDecoratorHTML } from "./decorator/decorator.server";
 import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
-import { getSession } from "./models/getSession.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
 import { getEnv } from "./utils/env.utils";
-import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
-import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
-import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
-import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
 
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import indexStyle from "./index.css?url";
@@ -63,13 +58,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader(request: Request) {
-  const session = await getSession(request);
+export async function loader() {
   const decoratorFragments = await getDecoratorHTML();
-  const fullforteSoknader = await getFullforteSoknader(request);
-  const paabegynteSoknader = await getPaabegynteSoknader(request);
-  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
-  const bankAccountNumber = await getBankAccountNumber(request);
 
   if (!decoratorFragments) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
 
@@ -81,11 +71,6 @@ export async function loader(request: Request) {
   return json({
     decoratorFragments,
     sanityTexts,
-    session,
-    fullforteSoknader,
-    paabegynteSoknader,
-    arbeidsseokerPerioder,
-    bankAccountNumber,
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
     },
