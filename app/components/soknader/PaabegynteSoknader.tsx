@@ -6,7 +6,7 @@ import styles from "./Soknader.module.css";
 
 export function PaabegynteSoknader() {
   const { getAppText } = useSanity();
-  const { paabegynteSoknader } = useTypedRouteLoaderData("root");
+  const { paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
 
   if (paabegynteSoknader.status === "error") {
     return (
