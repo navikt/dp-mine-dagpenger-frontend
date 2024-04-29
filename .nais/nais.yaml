@@ -37,7 +37,7 @@ spec:
       memory: 512Mi
   env:
     - name: BASE_PATH
-      value: {{base_path}}
+      value: {{ base_path }}
     - name: SELF_URL
       value: {{ ingress }}
     - name: DEKORATOR_URL

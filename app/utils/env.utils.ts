@@ -5,7 +5,6 @@ declare global {
 }
 
 interface IEnv {
-  BASE_PATH: string;
   USE_MSW: string;
   NAIS_CLUSTER_NAME: string;
   IS_LOCALHOST: string;
