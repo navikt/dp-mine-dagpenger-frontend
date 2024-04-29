@@ -18,8 +18,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const bankAccountNumber = await getBankAccountNumber(request);
   const session = await getSession(request);
 
-  throw new Error("Oh no! Something went wrong!");
-
   return json({
     fullforteSoknader,
     paabegynteSoknader,
