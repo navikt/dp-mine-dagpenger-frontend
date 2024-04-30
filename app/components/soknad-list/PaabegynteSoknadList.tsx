@@ -4,7 +4,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
 import styles from "./SoknadList.module.css";
 
-export function PaabegynteSoknader() {
+export function PaabegynteSoknadList() {
   const { getAppText } = useSanity();
   const { paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
 

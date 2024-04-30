@@ -3,8 +3,8 @@ import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { FullforteSoknader } from "./FullforteSoknader";
-import { PaabegynteSoknader } from "./PaabegynteSoknader";
+import { FullforteSoknadList } from "./FullforteSoknadList";
+import { PaabegynteSoknadList } from "./PaabegynteSoknadList";
 
 export function SoknadList() {
   const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
@@ -24,8 +24,8 @@ export function SoknadList() {
         <Heading level="2" size="large" spacing>
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
         </Heading>
-        <PaabegynteSoknader />
-        <FullforteSoknader />
+        <PaabegynteSoknadList />
+        <FullforteSoknadList />
       </SectionContent>
     </Section>
   );

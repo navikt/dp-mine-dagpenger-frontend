@@ -5,7 +5,7 @@ import { withinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./SoknadList.module.css";
 
-export function FullforteSoknader() {
+export function FullforteSoknadList() {
   const { getAppText } = useSanity();
   const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
 
