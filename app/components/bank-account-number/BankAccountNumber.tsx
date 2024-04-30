@@ -15,7 +15,7 @@ export function BankAccountNumber() {
     return (
       <Section>
         <SectionContent>
-          <Alert variant="warning" className="no-padding-portabletext">
+          <Alert variant="error" className="no-padding-portabletext">
             <PortableText value={getRichText("kontonummer.teknisk-feil")} />
           </Alert>
         </SectionContent>
