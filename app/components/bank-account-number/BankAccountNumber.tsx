@@ -6,26 +6,28 @@ import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { formatAccountNumber } from "~/utils/accountNumber.utils";
 import styles from "./BankAccountNumber.module.css";
+import { Suspense } from "react";
+import { Await } from "@remix-run/react";
 
 export function BankAccountNumber() {
   const { getAppText, getRichText, getLink } = useSanity();
   const { bankAccountNumber } = useTypedRouteLoaderData("routes/_index");
 
-  if (bankAccountNumber.status === "error") {
-    return (
-      <Section>
-        <SectionContent>
-          <Alert variant="error" className="no-padding-portabletext">
-            <PortableText value={getRichText("kontonummer.teknisk-feil")} />
-          </Alert>
-        </SectionContent>
-      </Section>
-    );
-  }
+  // if (bankAccountNumber.status === "error") {
+  //   return (
+  //     <Section>
+  //       <SectionContent>
+  //         <Alert variant="error" className="no-padding-portabletext">
+  //           <PortableText value={getRichText("kontonummer.teknisk-feil")} />
+  //         </Alert>
+  //       </SectionContent>
+  //     </Section>
+  //   );
+  // }
 
-  const accountNumber =
-    bankAccountNumber.status === "success" && bankAccountNumber.data.kontonummer;
-  const updateAccountNumberLink = getLink("kontonummer.endre-kontonummeret");
+  // const accountNumber =
+  //   bankAccountNumber.status === "success" && bankAccountNumber.data.kontonummer;
+  // const updateAccountNumberLink = getLink("kontonummer.endre-kontonummeret");
 
   return (
     <Section>
@@ -34,7 +36,7 @@ export function BankAccountNumber() {
           {getAppText("seksjon.utbetaling.seksjonstittel")}
         </Heading>
         <BodyLong spacing>{getAppText("seksjon.utbetaling.seksjonsbeskrivelse")}</BodyLong>
-        {accountNumber && (
+        {/* {accountNumber && (
           <div className={styles.container}>
             <Heading level="3" size="xsmall">
               {getAppText("kontonummer.registrert-kontonummeret")}
@@ -45,7 +47,23 @@ export function BankAccountNumber() {
             </div>
           </div>
         )}
-        {!accountNumber && <PortableText value={getRichText("kontonummer.mangler-kontonummer")} />}
+        {!accountNumber && <PortableText value={getRichText("kontonummer.mangler-kontonummer")} />} */}
+
+        <Suspense fallback={<>Loading</>}>
+          <Await resolve={bankAccountNumber}>
+            <div className={styles.container}>
+              <Heading level="3" size="xsmall">
+                {getAppText("kontonummer.registrert-kontonummeret")}
+              </Heading>
+              {/* <div className={styles.accountNumber}>
+                {formatAccountNumber(bankAccountNumber.)}
+                <Link href={updateAccountNumberLink.linkUrl}>
+                  {updateAccountNumberLink.linkText}
+                </Link>
+              </div> */}
+            </div>
+          </Await>
+        </Suspense>
       </SectionContent>
     </Section>
   );

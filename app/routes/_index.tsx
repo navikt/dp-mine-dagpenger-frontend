@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, defer, json } from "@remix-run/node";
 import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
 import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndring";
 import { PageHero } from "~/components/page-hero/PageHero";
@@ -12,21 +12,24 @@ import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
 import { getSession } from "~/models/getSession.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const [fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder, bankAccountNumber, session] =
-    await Promise.all([
-      getFullforteSoknader(request),
-      getPaabegynteSoknader(request),
-      getArbeidssoekerPerioder(request),
-      getBankAccountNumber(request),
-      getSession(request),
-    ]);
+  //  const [
+  //    fullforteSoknader,
+  //    paabegynteSoknader,
+  //    arbeidsseokerPerioder,
+  //    bankAccountNumber,
+  //    session,
+  //  ] = await Promise.all([
+  //    getFullforteSoknader(request),
+  //    getPaabegynteSoknader(request),
+  //    getArbeidssoekerPerioder(request),
+  //    getBankAccountNumber(request),
+  //    getSession(request),
+  //  ]);
 
-  return json({
-    fullforteSoknader,
-    paabegynteSoknader,
-    arbeidsseokerPerioder,
+  const bankAccountNumber = getBankAccountNumber(request);
+
+  return defer({
     bankAccountNumber,
-    session,
   });
 }
 
@@ -34,12 +37,12 @@ export default function Index() {
   return (
     <main>
       <div className="mine-dagpenger">
-        <PageHero />
-        <SoknadList />
+        {/* <PageHero /> */}
+        {/* <SoknadList /> */}
         <BankAccountNumber />
         <MeldFraOmEndring />
         <Shortcuts />
-        <SessionModal />
+        {/* <SessionModal /> */}
       </div>
     </main>
   );

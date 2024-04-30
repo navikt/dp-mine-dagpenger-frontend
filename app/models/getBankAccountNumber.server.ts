@@ -18,33 +18,40 @@ type UtenlandskKonto = {
   bankadresse3?: string;
 };
 
-export async function getBankAccountNumber(request: Request): Promise<INetworkResponse<IKonto>> {
+export async function getBankAccountNumber(request: Request): Promise<IKonto> {
   const url = `${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`;
   const onBehalfOfToken = await getOKONOMIKontoregisterToken(request);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
-  });
-
-  // Account holder not found
-  if (!response.ok && response.status === 404) {
-    return { status: "success", data: { kontonummer: "" } };
-  }
-
-  if (!response.ok) {
-    return {
-      status: "error",
-      error: {
-        statusCode: response.status,
-        statusText: "Feil ved uthenting av kontonummer",
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${onBehalfOfToken}`,
       },
-    };
+    });
+
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(new Error("fail"));
   }
 
-  const data: IKonto = await response.json();
+  // // Account holder not found
+  // if (!response.ok && response.status === 404) {
+  //   return { status: "success", data: { kontonummer: "" } };
+  // }
 
-  return { status: "success", data };
+  // if (!response.ok) {
+  //   return {
+  //     status: "error",
+  //     error: {
+  //       statusCode: response.status,
+  //       statusText: "Feil ved uthenting av kontonummer",
+  //     },
+  //   };
+  // }
+
+  // const data: IKonto = await response.json();
+
+  // return { status: "success", data };
 }
