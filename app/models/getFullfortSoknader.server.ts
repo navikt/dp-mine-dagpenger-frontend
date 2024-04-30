@@ -37,7 +37,7 @@ export async function getFullforteSoknader(request: Request): Promise<INetworkRe
       status: "error",
       error: {
         statusCode: response.status,
-        statusText: `Feil ved uthenting av fullførte søknader`,
+        statusText: "Feil ved uthenting av fullførte søknader",
       },
     };
   }

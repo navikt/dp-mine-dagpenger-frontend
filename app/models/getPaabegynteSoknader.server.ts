@@ -28,7 +28,7 @@ export async function getPaabegynteSoknader(
       status: "error",
       error: {
         statusCode: response.status,
-        statusText: `Feil ved uthenting av fullførte søknader`,
+        statusText: "Feil ved uthenting av fullførte søknader",
       },
     };
   }
