@@ -12,11 +12,20 @@ import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
 import { getSession } from "~/models/getSession.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const fullforteSoknader = await getFullforteSoknader(request);
-  const paabegynteSoknader = await getPaabegynteSoknader(request);
-  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
-  const bankAccountNumber = await getBankAccountNumber(request);
-  const session = await getSession(request);
+  const fullforteSoknaderPromise = getFullforteSoknader(request);
+  const paabegynteSoknaderPromise = getPaabegynteSoknader(request);
+  const arbeidsseokerPerioderPromise = getArbeidssoekerPerioder(request);
+  const bankAccountNumberPromise = getBankAccountNumber(request);
+  const sessionPromise = getSession(request);
+
+  const [fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder, bankAccountNumber, session] =
+    await Promise.all([
+      fullforteSoknaderPromise,
+      paabegynteSoknaderPromise,
+      arbeidsseokerPerioderPromise,
+      bankAccountNumberPromise,
+      sessionPromise,
+    ]);
 
   return json({
     fullforteSoknader,
