@@ -5,6 +5,7 @@ import { SectionContent } from "../section/SectionContent";
 import styles from "./Shortcuts.module.css";
 import { useSanity } from "~/hooks/useSanity";
 import { ISanityLink } from "~/sanity/sanity.types";
+import { trackClickedShortcut } from "~/amplitude.tracking";
 
 export function Shortcuts() {
   const { getAppText, getLink } = useSanity();
@@ -29,7 +30,7 @@ export function Shortcuts() {
                 <Link
                   className={styles.shortcutLink}
                   href={linkUrl}
-                  // onClick={() => logg.klikketSnarvei({ snarvei: linkText })}
+                  onClick={() => trackClickedShortcut(linkText)}
                 >
                   {linkText}
                 </Link>
