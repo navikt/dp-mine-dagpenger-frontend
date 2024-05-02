@@ -18,9 +18,7 @@ export function FullforteSoknadList() {
   }
 
   if (fullforteSoknader.status === "success" && fullforteSoknader.data.length > 0) {
-    const fullforteSoknaderWithin12Weeks = fullforteSoknader.data?.filter((soknad) =>
-      withinLast12Weeks(soknad?.datoInnsendt)
-    );
+    const fullforteSoknaderWithin12Weeks = withinLast12Weeks(fullforteSoknader.data);
 
     return (
       <ul className={styles.soknadList}>
