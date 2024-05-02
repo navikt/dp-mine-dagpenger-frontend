@@ -13,6 +13,7 @@
     "playwright": "npx playwright test",
     "playwright-ui": "npx playwright test --ui",
     "playwright-debug": "npx playwright test --debug",
+    "playwright:verbose": "DEBUG=pw:api npx playwright test",
     "precommit-test": "vitest --run",
     "prepare": "husky",
     "setup-env": "cp .env.example .env",

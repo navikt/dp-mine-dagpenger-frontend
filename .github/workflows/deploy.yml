@@ -30,7 +30,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-  test:
+  run:
      needs: [ install ]
      runs-on: ubuntu-latest
      steps:
@@ -90,7 +90,7 @@ jobs:
          run: npx playwright install chromium --with-deps
   
        - name: Run Playwright Tests
-         run: npm run playwright
+         run: npm run playwright:verbose
   
        - name: Store Artifacts from Failed Tests
          if: failure()
