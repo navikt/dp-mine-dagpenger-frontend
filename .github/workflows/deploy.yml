@@ -30,7 +30,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-  run:
+  vitest:
      needs: [ install ]
      runs-on: ubuntu-latest
      steps:
