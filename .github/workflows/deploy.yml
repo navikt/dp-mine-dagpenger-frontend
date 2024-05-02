@@ -90,6 +90,8 @@ jobs:
          run: npx playwright install chromium --with-deps
   
        - name: Run Playwright Tests
+         env: 
+          USE_MSW: "true"
          run: npm run playwright:verbose
   
        - name: Store Artifacts from Failed Tests

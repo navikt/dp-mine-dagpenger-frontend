@@ -9,7 +9,6 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env.playwright" });
 
-const envConfig = { ...process.env } as { [key: string]: string };
 const port = process.env.PORT ? parseInt(process.env.PORT) : 5173;
 
 const baseURL = `http://localhost:${port}/arbeid/dagpenger/mine-dagpenger-frontend`;
@@ -50,7 +49,6 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: "npm run dev",
-    env: envConfig,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 60000,
