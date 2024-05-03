@@ -30,7 +30,7 @@
     "@remix-run/node": "^2.9.1",
     "@remix-run/react": "^2.9.1",
     "@remix-run/serve": "^2.9.1",
-    "@sanity/client": "^6.15.20",
+    "@sanity/client": "^6.17.0",
     "date-fns": "^3.6.0",
     "groq": "^3.40.0",
     "html-react-parser": "^5.1.10",
