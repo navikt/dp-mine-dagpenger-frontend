@@ -7,6 +7,15 @@ export interface ISessionData {
 }
 
 export async function getSession(req: Request): Promise<INetworkResponse<ISessionData>> {
+  if (getEnv("USE_MSW")) {
+    return {
+      status: "success",
+      data: {
+        expiresIn: 18000,
+      },
+    };
+  }
+
   if (getEnv("IS_LOCALHOST") === "true" && getEnv("DP_INNSYN_TOKEN")) {
     return {
       status: "success",

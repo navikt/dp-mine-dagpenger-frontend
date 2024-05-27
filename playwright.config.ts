@@ -11,7 +11,7 @@ dotenv.config({ path: "./.env.playwright" });
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 5173;
 
-const baseURL = `http://localhost:${port}/arbeid/dagpenger/mine-dagpenger-frontend`;
+const baseURL = `http://localhost:${port}/arbeid/dagpenger/mine-dagpenger-frontend/`;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
