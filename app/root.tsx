@@ -1,9 +1,3 @@
-/* eslint-disable */
-import favicon16 from "/favicon-16x16.png";
-import favicon32 from "/favicon-32x32.png";
-import favicon from "/favicon.ico";
-/* eslint-enable */
-
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort, Skeleton } from "@navikt/ds-react";
 import { LinksFunction, MetaFunction, json } from "@remix-run/node";
@@ -30,18 +24,18 @@ export const links: LinksFunction = () => [
     rel: "icon",
     type: "image/png",
     sizes: "32x32",
-    href: favicon32,
+    href: "favicon-32x32.png",
   },
   {
     rel: "icon",
     type: "image/png",
     sizes: "16x16",
-    href: favicon16,
+    href: "favicon-16x16.png",
   },
   {
     rel: "icon",
     type: "image/x-icon",
-    href: favicon,
+    href: "favicon.ico",
   },
 ];
 
