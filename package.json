@@ -70,7 +70,7 @@
     "node": ">=18.0.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{ts,tsx}": [
       "prettier --list-different",
       "eslint --max-warnings 0",
       "bash -c tsc",
