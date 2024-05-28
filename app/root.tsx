@@ -1,10 +1,9 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
-import { BodyShort, Skeleton } from "@navikt/ds-react";
+import { BodyShort } from "@navikt/ds-react";
 import { LinksFunction, MetaFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
-import { Fragment, Suspense } from "react";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { getDecoratorHTML } from "./decorator/decorator.server";
@@ -13,6 +12,7 @@ import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
+import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getEnv } from "./utils/env.utils";
 
 export const sanityClient = createClient(sanityConfig);
@@ -75,26 +75,23 @@ export async function loader() {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useTypedRouteLoaderData("root");
 
+  useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
+
   return (
     <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_STYLES)}</Suspense>
+        {parse(decoratorFragments.DECORATOR_STYLES, { trim: true })}
         <Meta />
         <Links />
       </head>
       <body>
-        <Suspense fallback={<Skeleton variant="text" width="100%" height={300} />}>
-          {parse(decoratorFragments?.DECORATOR_HEADER)}
-        </Suspense>
+        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
         {children}
         <ScrollRestoration />
-        <Suspense fallback={<Skeleton variant="text" width="100%" height={300} />}>
-          {parse(decoratorFragments?.DECORATOR_FOOTER)}
-        </Suspense>
+        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
         <Scripts />
-        <Suspense fallback={<Fragment />}>{parse(decoratorFragments?.DECORATOR_SCRIPTS)}</Suspense>
         <script
           dangerouslySetInnerHTML={{
             __html: `window.env = ${JSON.stringify(env)}`,
