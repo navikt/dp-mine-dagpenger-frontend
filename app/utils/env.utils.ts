@@ -8,6 +8,7 @@ interface IEnv {
   USE_MSW: string;
   NAIS_CLUSTER_NAME: string;
   IS_LOCALHOST: string;
+  DEKORATOR_ENV: string;
   DP_SOKNADSDIALOG_URL: string;
   DP_INNSYN_URL: string;
   DP_INNSYN_TOKEN: string;
