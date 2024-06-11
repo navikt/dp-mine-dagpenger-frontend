@@ -87,16 +87,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
-        {children}
-        <ScrollRestoration />
-        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
-        <Scripts />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
+        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
+        {children}
+        <ScrollRestoration />
+        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
+        <Scripts />
       </body>
     </html>
   );
