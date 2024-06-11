@@ -65,6 +65,8 @@ spec:
           namespace: paw
         - application: sokos-kontoregister-person
           namespace: okonomi
+        - application: nav-dekoratoren
+         namespace: personbruker
   idporten:
     enabled: true
     sidecar:
