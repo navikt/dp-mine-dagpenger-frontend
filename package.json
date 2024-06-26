@@ -43,7 +43,7 @@
   "devDependencies": {
     "@playwright/test": "^1.45.0",
     "@portabletext/types": "^2.0.13",
-    "@remix-run/dev": "^2.9.2",
+    "@remix-run/dev": "^2.10.0",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
