@@ -29,7 +29,7 @@
     "@portabletext/react": "^3.1.0",
     "@remix-run/node": "^2.10.1",
     "@remix-run/react": "^2.10.0",
-    "@remix-run/serve": "^2.9.1",
+    "@remix-run/serve": "^2.10.2",
     "@sanity/client": "^6.20.1",
     "date-fns": "^3.6.0",
     "groq": "^3.49.0",
