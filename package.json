@@ -60,7 +60,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "husky": "^9.1.1",
     "lint-staged": "^15.2.7",
-    "msw": "^2.3.2",
+    "msw": "^2.3.4",
     "typescript": "^5.5.4",
     "vite": "^5.3.4",
     "vite-tsconfig-paths": "^4.2.1",
