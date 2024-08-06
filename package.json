@@ -27,7 +27,7 @@
     "@navikt/nav-dekoratoren-moduler": "^2.1.6",
     "@navikt/oasis": "^3.2.4",
     "@portabletext/react": "^3.1.0",
-    "@remix-run/node": "^2.10.1",
+    "@remix-run/node": "^2.11.1",
     "@remix-run/react": "^2.11.0",
     "@remix-run/serve": "^2.10.3",
     "@sanity/client": "^6.21.1",
