@@ -33,7 +33,7 @@ export async function getSAFToken(request: Request) {
     return getEnv("SAF_TOKEN") || "";
   }
 
-  const audience = `${getEnv("SAF_AUDIENCE")}`;
+  const audience = `${getEnv("SAF_AUDIENCE")}:teamdokumenthandtering:safselvbetjening`;
   return await getOnBehalfOfToken(request, audience);
 }
 
