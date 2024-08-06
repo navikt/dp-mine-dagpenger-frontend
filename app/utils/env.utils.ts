@@ -16,6 +16,9 @@ interface IEnv {
   OKONOMI_KONTOREGISTER_TOKEN: string;
   PAW_ARBEIDSSOEKERREGISTERET_URL: string;
   PAW_ARBEIDSSOEKERREGISTERET_TOKEN: string;
+  SAF_URL: string;
+  SAF_TOKEN: string;
+  SAF_AUDIENCE: string;
 }
 
 export function getEnv(value: keyof IEnv) {

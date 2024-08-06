@@ -51,7 +51,9 @@ spec:
     - name: OKONOMI_KONTOREGISTER_URL
       value: {{ okonomiKontoregisterUrl }}
   ingresses:
-    - {{ ingress }}
+    {{#each ingresses as |url|}}
+    - {{url}}
+    {{/each}}
   accessPolicy:
     outbound:
       external:
@@ -59,6 +61,8 @@ spec:
         - host: www.nav.no
         - host: dekoratoren.dev.nav.no
         - host: amplitude.nav.no
+        - host: saf.dev-fss-pub.nais.io
+        - host: saf.prod-fss-pub.nais.io
       rules:
         - application: dp-innsyn
         - application: paw-arbeidssoekerregisteret-api-oppslag
@@ -67,6 +71,8 @@ spec:
           namespace: okonomi
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: safselvbetjening
+          namespace: teamdokumenthandtering
   idporten:
     enabled: true
     sidecar:

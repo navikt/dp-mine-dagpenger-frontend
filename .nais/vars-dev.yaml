@@ -1,4 +1,6 @@
-ingress: https://arbeid.intern.dev.nav.no/arbeid/dagpenger/mine-dagpenger-frontend
+ingresses: 
+  - https://arbeid.intern.dev.nav.no/arbeid/dagpenger/mine-dagpenger-frontend
+  - https://arbeid.ansatt.dev.nav.no/arbeid/dagpenger/mine-dagpenger-frontend
 base_path: /arbeid/dagpenger/mine-dagpenger-frontend
 dekorator:
   env: dev
@@ -8,3 +10,5 @@ soknadsdialog:
   ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
 pawArbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no
 okonomiKontoregisterUrl: https://sokos-kontoregister-person.intern.dev.nav.no
+saf_url: "https://saf.dev-fss-pub.nais.io"
+saf_audience: "api://dev-fss.teamdokumenthandtering.saf-q1/.default"

@@ -28,6 +28,15 @@ export async function getOKONOMIKontoregisterToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getSAFToken(request: Request) {
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("SAF_TOKEN") || "";
+  }
+
+  const audience = `${getEnv("SAF_AUDIENCE")}`;
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getOnBehalfOfToken(request: Request, audience: string): Promise<string> {
   const token = getToken(request);
   if (!token) {

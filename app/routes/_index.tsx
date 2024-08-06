@@ -8,10 +8,15 @@ import { SoknadList } from "~/components/soknad-list/SoknadList";
 import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "~/models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
+import { getJournalposter } from "~/models/getJournalposter.server";
 import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
 import { getSession } from "~/models/getSession.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  const journalposter = await getJournalposter(request);
+
+  console.log(`🔥 journalposter :`, journalposter);
+
   const [fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder, bankAccountNumber, session] =
     await Promise.all([
       getFullforteSoknader(request),
