@@ -41,7 +41,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.3",
+    "@playwright/test": "^1.46.0",
     "@portabletext/types": "^2.0.13",
     "@remix-run/dev": "^2.11.0",
     "@types/node": "^20.14.12",
