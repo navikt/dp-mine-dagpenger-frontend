@@ -47,7 +47,7 @@
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/client-preset": "^4.2.5",
     "@graphql-codegen/typescript": "4.0.6",
-    "@playwright/test": "^1.44.1",
+    "@playwright/test": "^1.46.0",
     "@portabletext/types": "^2.0.13",
     "@remix-run/dev": "^2.11.0",
     "@types/node": "^20.14.12",
