@@ -11,5 +11,5 @@ soknadsdialog:
 pawArbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no
 okonomiKontoregisterUrl: https://sokos-kontoregister-person.intern.dev.nav.no
 saf:
-  url: "https://saf.dev-fss-pub.nais.io",
+  url: "https://saf.dev-fss-pub.nais.io"
   audience: "dev-fss:teamdokumenthandtering:safselvbetjening"
