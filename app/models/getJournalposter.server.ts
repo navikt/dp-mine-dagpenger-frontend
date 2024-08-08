@@ -31,10 +31,14 @@ export async function getJournalposter(
 
   try {
     console.log(`Henter dokumenter med call-id: ${callId}`);
-    const response = await client.request(journalpostQuery, { fnr });
+
+    const {
+      //@ts-ignore
+      dokumentoversiktSelvbetjening: { journalposter },
+    } = await client.request(query, { fnr });
 
     //@ts-ignore
-    console.log(`🚀 response`, response.dokumentoversiktSelvbetjening.tema);
+    console.log(`🚀 journalposter`, journalposter);
 
     return {
       status: "success",
@@ -54,12 +58,35 @@ export async function getJournalposter(
   }
 }
 
-const journalpostQuery = gql`
+const query = gql`
   query dokumentoversiktSelvbetjening($fnr: String!) {
-    dokumentoversiktSelvbetjening(ident: $fnr, tema: []) {
-      tema {
-        kode
-        navn
+    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {
+      journalposter {
+        journalpostId
+        tema
+        tittel
+        relevanteDatoer {
+          dato
+          datotype
+        }
+        avsender {
+          id
+          type
+        }
+        mottaker {
+          id
+          type
+        }
+        journalposttype
+        journalstatus
+        dokumenter {
+          dokumentInfoId
+          tittel
+          dokumentvarianter {
+            variantformat
+            brukerHarTilgang
+          }
+        }
       }
     }
   }
