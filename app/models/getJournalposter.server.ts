@@ -10,8 +10,7 @@ export async function getJournalposter(
 ): Promise<INetworkResponse<any["journalpost"]>> {
   const onBehalfOfToken = await getSAFToken(request);
 
-  console.log("📌 SAF oboToken");
-  console.log(onBehalfOfToken);
+  console.log("📌 SAF oboToken:", onBehalfOfToken);
 
   const parsedToken = parseIdportenToken(onBehalfOfToken);
 
