@@ -10,8 +10,6 @@ export async function getJournalposter(
 ): Promise<INetworkResponse<any["journalpost"]>> {
   const onBehalfOfToken = await getSAFToken(request);
 
-  console.log("📌 SAF oboToken:", onBehalfOfToken);
-
   const parsedToken = parseIdportenToken(onBehalfOfToken);
 
   if (!parsedToken.ok) {
@@ -35,7 +33,7 @@ export async function getJournalposter(
     console.log(`Henter dokumenter med call-id: ${callId}`);
     const response = await client.request(journalpostQuery, { fnr });
 
-    console.log(`🚀 response`, response);
+    console.log(`🚀 response`, await client.request(journalpostQuery, { fnr }));
 
     return {
       status: "success",
@@ -57,33 +55,10 @@ export async function getJournalposter(
 
 const journalpostQuery = gql`
   query dokumentoversiktSelvbetjening($fnr: String!) {
-    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {
-      journalposter {
-        journalpostId
-        tema
-        tittel
-        relevanteDatoer {
-          dato
-          datotype
-        }
-        avsender {
-          id
-          type
-        }
-        mottaker {
-          id
-          type
-        }
-        journalposttype
-        journalstatus
-        dokumenter {
-          dokumentInfoId
-          tittel
-          dokumentvarianter {
-            variantformat
-            brukerHarTilgang
-          }
-        }
+    dokumentoversiktSelvbetjening(ident: $fnr, tema: []) {
+      tema {
+        kode
+        navn
       }
     }
   }

@@ -54,7 +54,7 @@ spec:
       value: {{ saf.url }}
     - name: SAF_CLUSTER
       value: {{saf.cluster}}
-    - name: SAF_SELVBETJENING_SCOPE
+    - name: SAF_SCOPE
       value: {{ saf.scope }}
   ingresses:
     {{#each ingresses as |url|}}
