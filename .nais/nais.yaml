@@ -54,6 +54,8 @@ spec:
       value: {{ saf.url }}
     - name: SAF_CLUSTER
       value: {{saf.cluster}}
+    - name: SAF_SELVBETJENING_SCOPE
+      value: {{ saf.scope }}
   ingresses:
     {{#each ingresses as |url|}}
     - {{url}}
@@ -76,6 +78,7 @@ spec:
           namespace: personbruker
         - application: safselvbetjening
           namespace: teamdokumenthandtering
+          cluster: {{ saf.cluster }}
   idporten:
     enabled: true
     sidecar:
