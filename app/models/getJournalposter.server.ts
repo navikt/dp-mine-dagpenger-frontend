@@ -33,7 +33,8 @@ export async function getJournalposter(
     console.log(`Henter dokumenter med call-id: ${callId}`);
     const response = await client.request(journalpostQuery, { fnr });
 
-    console.log(`🚀 response`, await client.request(journalpostQuery, { fnr }));
+    //@ts-ignore
+    console.log(`🚀 response`, response.dokumentoversiktSelvbetjening.tema);
 
     return {
       status: "success",
