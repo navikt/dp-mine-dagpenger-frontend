@@ -18,8 +18,7 @@ interface IEnv {
   PAW_ARBEIDSSOEKERREGISTERET_TOKEN: string;
   SAF_URL: string;
   SAF_TOKEN: string;
-  SAF_SCOPE: string;
-  SAF_CLUSTER: string;
+  SAF_AUDIENCE: string;
 }
 
 export function getEnv(value: keyof IEnv) {
