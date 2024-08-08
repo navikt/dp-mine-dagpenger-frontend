@@ -12,6 +12,6 @@ pawArbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.de
 okonomiKontoregisterUrl: https://sokos-kontoregister-person.intern.dev.nav.no
 saf:
   ingress: safselvbetjening-q1.dev-fss-pub.nais.io
-  url: "https://saf.dev-fss-pub.nais.io"
+  url: https://saf.dev-fss-pub.nais.io
   cluster: dev-fss
   scope: safselvbetjening-q1
