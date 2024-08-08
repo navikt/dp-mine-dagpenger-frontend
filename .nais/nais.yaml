@@ -50,6 +50,10 @@ spec:
       value: {{ pawArbeidssoekerregisteretUrl }}
     - name: OKONOMI_KONTOREGISTER_URL
       value: {{ okonomiKontoregisterUrl }}
+    - name: SEF_URL
+      value: {{ saf.url }}
+    - name: SEF_AUDIENCE
+      value: {{ saf.audience }}
   ingresses:
     {{#each ingresses as |url|}}
     - {{url}}

@@ -10,5 +10,6 @@ soknadsdialog:
   ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
 pawArbeidssoekerregisteretUrl: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no
 okonomiKontoregisterUrl: https://sokos-kontoregister-person.intern.dev.nav.no
-saf_url: "https://saf.dev-fss-pub.nais.io"
-saf_audience: "dev-fss:teamdokumenthandtering:safselvbetjening"
+saf:
+  url: "https://saf.dev-fss-pub.nais.io",
+  audience: "dev-fss:teamdokumenthandtering:safselvbetjening"
