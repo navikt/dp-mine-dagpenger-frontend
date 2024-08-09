@@ -1,3 +1,4 @@
 # ignore deploy files
 **/.github
 **/.nais
+**/graphql

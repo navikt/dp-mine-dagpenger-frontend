@@ -1,16 +1,14 @@
-import { GraphQLClient, gql } from "graphql-request";
+import { parseIdportenToken } from "@navikt/oasis";
+import { GraphQLClient } from "graphql-request";
+import { graphql } from "graphql/generated/saf";
+import { Journalpost } from "graphql/generated/saf/graphql";
 import { v4 as uuidv4 } from "uuid";
 import { getSAFToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { parseIdportenToken } from "@navikt/oasis";
 import { INetworkResponse } from "./networkResponse";
 
-export async function getJournalposter(
-  request: Request
-): Promise<INetworkResponse<any["journalpost"]>> {
+export async function getJournalposter(request: Request): Promise<INetworkResponse<Journalpost[]>> {
   const onBehalfOfToken = await getSAFToken(request);
-
-  console.log(`🔥 onBehalfOfToken :`, onBehalfOfToken);
 
   const parsedToken = parseIdportenToken(onBehalfOfToken);
 
@@ -33,22 +31,16 @@ export async function getJournalposter(
 
   try {
     console.log(`Henter dokumenter med call-id: ${callId}`);
+    const { dokumentoversiktSelvbetjening } = await client.request(query, { fnr });
 
-    const {
-      //@ts-ignore
-      dokumentoversiktSelvbetjening: { journalposter },
-    } = await client.request(query, { fnr });
-
-    //@ts-ignore
-    console.log(`🚀 journalposter`, journalposter);
+    const journalposter = dokumentoversiktSelvbetjening.journalposter as Journalpost[];
 
     return {
       status: "success",
-      data: {},
+      data: journalposter,
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    console.log(errorMessage);
 
     return {
       status: "error",
@@ -60,7 +52,7 @@ export async function getJournalposter(
   }
 }
 
-const query = gql`
+const query = graphql(`
   query dokumentoversiktSelvbetjening($fnr: String!) {
     dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {
       journalposter {
@@ -92,4 +84,4 @@ const query = gql`
       }
     }
   }
-`;
+`);
