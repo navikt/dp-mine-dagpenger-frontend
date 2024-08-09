@@ -16,7 +16,7 @@
     },
     {
       "env": "SAF_TOKEN",
-      "url": "https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-fss:teamdokumenthandtering:safselvbetjening"
+      "url": "https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-fss:teamdokumenthandtering:safselvbetjening-q1"
     }
   ]
 }
