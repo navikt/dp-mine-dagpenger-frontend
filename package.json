@@ -34,7 +34,7 @@
     "@sanity/client": "^6.21.1",
     "date-fns": "^3.6.0",
     "graphql-request": "^7.1.0",
-    "groq": "^3.45.0",
+    "groq": "^3.54.0",
     "html-react-parser": "^5.1.10",
     "isbot": "^5.1.9",
     "prom-client": "^15.1.2",
