@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import * as types from "./graphql";
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          type\n        }\n        mottaker {\n          id\n          type\n        }\n        journalposttype\n        journalstatus\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n": types.DokumentoversiktSelvbetjeningDocument,
+  "\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          type\n        }\n        mottaker {\n          id\n          type\n        }\n        journalposttype\n        journalstatus\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n":
+    types.DokumentoversiktSelvbetjeningDocument,
 };
 
 /**
@@ -33,10 +34,13 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          type\n        }\n        mottaker {\n          id\n          type\n        }\n        journalposttype\n        journalstatus\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          type\n        }\n        mottaker {\n          id\n          type\n        }\n        journalposttype\n        journalstatus\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n"];
+export function graphql(
+  source: "\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          type\n        }\n        mottaker {\n          id\n          type\n        }\n        journalposttype\n        journalstatus\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n"
+): (typeof documents)["\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          type\n        }\n        mottaker {\n          id\n          type\n        }\n        journalposttype\n        journalstatus\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;

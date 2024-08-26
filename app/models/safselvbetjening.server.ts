@@ -1,13 +1,21 @@
 import { parseIdportenToken } from "@navikt/oasis";
 import { GraphQLClient } from "graphql-request";
 import { graphql } from "graphql/generated/saf";
-import { Journalpost } from "graphql/generated/saf/graphql";
+import { DokumentoversiktSelvbetjeningQuery } from "graphql/generated/saf/graphql";
 import { v4 as uuidv4 } from "uuid";
 import { getSAFToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { INetworkResponse } from "./networkResponse";
 
-export async function getJournalposter(request: Request): Promise<INetworkResponse<Journalpost[]>> {
+export type DokumentoversiktSelvbetjening =
+  DokumentoversiktSelvbetjeningQuery["dokumentoversiktSelvbetjening"];
+export type Journalposter = DokumentoversiktSelvbetjening["journalposter"];
+
+export interface JournalposterOpprettetDato extends Journalposter {
+  datoOpprettet?: string | null;
+}
+
+export async function getJournalposter(request: Request): Promise<INetworkResponse<Journalposter>> {
   const onBehalfOfToken = await getSAFToken(request);
 
   const parsedToken = parseIdportenToken(onBehalfOfToken);
@@ -31,16 +39,17 @@ export async function getJournalposter(request: Request): Promise<INetworkRespon
 
   try {
     console.log(`Henter dokumenter med call-id: ${callId}`);
-    const { dokumentoversiktSelvbetjening } = await client.request(query, { fnr });
-
-    const journalposter = dokumentoversiktSelvbetjening.journalposter as Journalpost[];
+    const response = await client.request(query, { fnr });
 
     return {
       status: "success",
-      data: journalposter,
+      data: response.dokumentoversiktSelvbetjening.journalposter,
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+    // const errorCode = error instanceof Error ? error. : 500;
+
+    console.log(`🔥 error :`, error);
 
     return {
       status: "error",
