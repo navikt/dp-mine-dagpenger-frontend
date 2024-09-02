@@ -1,9 +1,12 @@
 import { graphql } from "graphql/generated/saf";
 import {
+  AvsenderMottaker,
   Datotype,
-  DokumentoversiktSelvbetjeningQuery,
-  Journalpost,
-  Variantformat,
+  Dokumentvariant,
+  Journalposttype,
+  Journalstatus,
+  Kanal,
+  RelevantDato,
 } from "graphql/generated/saf/graphql";
 
 export const graphqlQuery = graphql(`
@@ -28,7 +31,6 @@ export const graphqlQuery = graphql(`
           type
         }
         journalposttype
-        journalstatus
         dokumenter {
           dokumentInfoId
           tittel
@@ -42,42 +44,34 @@ export const graphqlQuery = graphql(`
   }
 `);
 
-export type GeneratedDokumentoversiktSelvbetjening =
-  DokumentoversiktSelvbetjeningQuery["dokumentoversiktSelvbetjening"];
-export type GeneratedJournalposter = GeneratedDokumentoversiktSelvbetjening["journalposter"];
-
-export type IDokument = {
-  __typename?: "DokumentInfo";
-  dokumentInfoId?: string;
-  tittel?: string | null;
-  dokumentvarianter?: ({
-    __typename?: "Dokumentvariant";
-    variantformat: Variantformat;
-    brukerHarTilgang: boolean;
-  } | null)[];
-};
-
-export interface IUtvidedDokument extends IDokument {
-  type: "Hoved" | "Vedlegg";
-  brukerHarTilgang?: boolean;
-}
-
-export interface IUtvidedJournalpost
-  extends Omit<GeneratedJournalposter[number], "relevanteDatoer"> {
+// Lager egne intefaces isteden for å bruke generert types fra graphql-codegen direkte.
+// Dette er på grunn av genererte types inneholder Maybe som er vanskelig å jobbe med.
+export interface IJournalpost {
+  avsender?: AvsenderMottaker;
+  dokumenter?: IEgenDefinertDokument[];
+  eksternReferanseId?: string;
+  journalpostId: string;
+  journalposttype: Journalposttype;
+  journalstatus?: Journalstatus;
+  kanal?: Kanal;
+  mottaker?: AvsenderMottaker;
+  relevanteDatoer?: RelevantDato[];
+  tema?: string;
+  tittel?: string;
   datoOpprettet?: string | null;
   brukerErAvsenderEllerMottaker?: boolean;
 }
 
-export interface IJournalpost extends Omit<IUtvidedJournalpost, "dokumenter"> {
-  datoOpprettet?: string | null;
-  dokumenter?: IUtvidedDokument[];
+export interface IEgenDefinertDokument {
+  dokumentInfoId?: string;
+  tittel?: string | null;
+  dokumentvarianter?: Dokumentvariant[];
+  type?: "Hoved" | "Vedlegg";
+  brukerHarTilgang?: boolean;
 }
 
-export function finnOgSettOpprettetDato({
-  relevanteDatoer,
-  ...rest
-}: Journalpost): IUtvidedJournalpost {
-  const datoOpprettet = relevanteDatoer.find((dato) => dato?.datotype === Datotype.DatoOpprettet);
+export function finnOgSettOpprettetDato({ relevanteDatoer, ...rest }: IJournalpost): IJournalpost {
+  const datoOpprettet = relevanteDatoer?.find((dato) => dato?.datotype === Datotype.DatoOpprettet);
 
   return {
     datoOpprettet: datoOpprettet?.dato,
@@ -86,9 +80,9 @@ export function finnOgSettOpprettetDato({
 }
 
 export function berikAvsenderEllerMottaker(
-  { avsender, mottaker, ...rest }: IUtvidedJournalpost,
+  { avsender, mottaker, ...rest }: IJournalpost,
   fnr: string
-): IUtvidedJournalpost {
+): IJournalpost {
   const brukerErAvsender = avsender?.id === fnr && avsender.type === "FNR";
   const brukerErMottaker = mottaker?.id === fnr && mottaker.type === "FNR";
 
@@ -98,7 +92,10 @@ export function berikAvsenderEllerMottaker(
   };
 }
 
-export function berikDokumentMedType(dokument: IDokument | null, index: number): IUtvidedDokument {
+export function berikDokumentMedType(
+  dokument: IEgenDefinertDokument,
+  index: number
+): IEgenDefinertDokument {
   return {
     type: index === 0 ? "Hoved" : "Vedlegg",
     ...dokument,
@@ -108,7 +105,7 @@ export function berikDokumentMedType(dokument: IDokument | null, index: number):
 export function berikBrukerDokumentTilgang({
   dokumentvarianter,
   ...rest
-}: IUtvidedDokument): IUtvidedDokument {
+}: IEgenDefinertDokument): IEgenDefinertDokument {
   const arkivDokument = dokumentvarianter?.find((dokumentvariant) => {
     return dokumentvariant?.variantformat === "ARKIV";
   });
