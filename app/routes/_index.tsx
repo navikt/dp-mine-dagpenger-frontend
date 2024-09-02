@@ -13,9 +13,9 @@ import { getSession } from "~/models/getSession.server";
 import { getJournalposter } from "~/models/safselvbetjening.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const journalposter = await getJournalposter(request);
+  const journalpostResponse = await getJournalposter(request);
 
-  console.log(`🔥 journalposter :`, journalposter);
+  console.log(`🔥 journalpostResponse:`, journalpostResponse);
 
   const [fullforteSoknader, paabegynteSoknader, arbeidsseokerPerioder, bankAccountNumber, session] =
     await Promise.all([

@@ -267,11 +267,13 @@ export type DokumentoversiktSelvbetjeningQuery = {
       avsender?: {
         __typename?: "AvsenderMottaker";
         id: string;
+        navn: string;
         type: AvsenderMottakerIdType;
       } | null;
       mottaker?: {
         __typename?: "AvsenderMottaker";
         id: string;
+        navn: string;
         type: AvsenderMottakerIdType;
       } | null;
       dokumenter?: Array<{
@@ -359,6 +361,7 @@ export const DokumentoversiktSelvbetjeningDocument = {
                           kind: "SelectionSet",
                           selections: [
                             { kind: "Field", name: { kind: "Name", value: "id" } },
+                            { kind: "Field", name: { kind: "Name", value: "navn" } },
                             { kind: "Field", name: { kind: "Name", value: "type" } },
                           ],
                         },
@@ -370,6 +373,7 @@ export const DokumentoversiktSelvbetjeningDocument = {
                           kind: "SelectionSet",
                           selections: [
                             { kind: "Field", name: { kind: "Name", value: "id" } },
+                            { kind: "Field", name: { kind: "Name", value: "navn" } },
                             { kind: "Field", name: { kind: "Name", value: "type" } },
                           ],
                         },

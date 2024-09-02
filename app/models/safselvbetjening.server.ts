@@ -1,21 +1,23 @@
 import { parseIdportenToken } from "@navikt/oasis";
 import { GraphQLClient } from "graphql-request";
-import { graphql } from "graphql/generated/saf";
-import { DokumentoversiktSelvbetjeningQuery } from "graphql/generated/saf/graphql";
+import { Journalpost } from "graphql/generated/saf/graphql";
 import { v4 as uuidv4 } from "uuid";
 import { getSAFToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import {
+  berikAvsenderEllerMottaker,
+  berikBrukerDokumentTilgang,
+  berikDokumentMedType,
+  finnOgSettOpprettetDato,
+  graphqlQuery,
+  IJournalpost,
+  IUtvidedJournalpost,
+} from "~/utils/safselvbetjening.utils";
 import { INetworkResponse } from "./networkResponse";
 
-export type DokumentoversiktSelvbetjening =
-  DokumentoversiktSelvbetjeningQuery["dokumentoversiktSelvbetjening"];
-export type Journalposter = DokumentoversiktSelvbetjening["journalposter"];
-
-export interface JournalposterOpprettetDato extends Journalposter {
-  datoOpprettet?: string | null;
-}
-
-export async function getJournalposter(request: Request): Promise<INetworkResponse<Journalposter>> {
+export async function getJournalposter(
+  request: Request
+): Promise<INetworkResponse<IJournalpost[]>> {
   const onBehalfOfToken = await getSAFToken(request);
 
   const parsedToken = parseIdportenToken(onBehalfOfToken);
@@ -39,17 +41,28 @@ export async function getJournalposter(request: Request): Promise<INetworkRespon
 
   try {
     console.log(`Henter dokumenter med call-id: ${callId}`);
-    const response = await client.request(query, { fnr });
+    const response = await client.request(graphqlQuery, { fnr });
+
+    const journalposterResponse: Journalpost[] =
+      response.dokumentoversiktSelvbetjening.journalposter;
+
+    const journalposter = journalposterResponse
+      .map(finnOgSettOpprettetDato)
+      .map((journalpost: IUtvidedJournalpost) => berikAvsenderEllerMottaker(journalpost, fnr))
+      .map(({ journalpostId, dokumenter, ...rest }): IJournalpost => {
+        return {
+          journalpostId,
+          dokumenter: dokumenter?.map(berikDokumentMedType).map(berikBrukerDokumentTilgang),
+          ...rest,
+        };
+      });
 
     return {
       status: "success",
-      data: response.dokumentoversiktSelvbetjening.journalposter,
+      data: journalposter,
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    // const errorCode = error instanceof Error ? error. : 500;
-
-    console.log(`🔥 error :`, error);
 
     return {
       status: "error",
@@ -60,37 +73,3 @@ export async function getJournalposter(request: Request): Promise<INetworkRespon
     };
   }
 }
-
-const query = graphql(`
-  query dokumentoversiktSelvbetjening($fnr: String!) {
-    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {
-      journalposter {
-        journalpostId
-        tema
-        tittel
-        relevanteDatoer {
-          dato
-          datotype
-        }
-        avsender {
-          id
-          type
-        }
-        mottaker {
-          id
-          type
-        }
-        journalposttype
-        journalstatus
-        dokumenter {
-          dokumentInfoId
-          tittel
-          dokumentvarianter {
-            variantformat
-            brukerHarTilgang
-          }
-        }
-      }
-    }
-  }
-`);
