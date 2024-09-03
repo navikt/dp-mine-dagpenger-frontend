@@ -81,8 +81,8 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId }: IProps)
           {/* åpne pdf */}
           {getAppText("dokumenter.forhaandvisning")}
         </Button>
-        <Modal ref={ref} header={{ heading: "" }}>
-          <Modal.Body className={styles.dokumentPreview}>
+        <Modal ref={ref} header={{ heading: "" }} className={styles.dokumentPreview}>
+          <Modal.Body>
             <BodyLong>
               {dokumentUrl && (
                 <iframe src={dokumentUrl} title="PDF" width="100%" height="800px" frameBorder="0" />

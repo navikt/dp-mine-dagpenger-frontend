@@ -14,13 +14,11 @@
 }
 
 .dokumentPreview {
-  height: 100vh;
   width: 100vh;
 }
 
 @media screen and (min-width: 1024px) {
   .dokumentPreview {
-    height: 80vh;
-    width: 70vw;
+    max-width: inherit;
   }
 }
