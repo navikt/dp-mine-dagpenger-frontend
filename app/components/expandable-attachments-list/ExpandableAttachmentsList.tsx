@@ -2,7 +2,7 @@ import { ChevronDownIcon } from "@navikt/aksel-icons";
 import classNames from "classnames";
 import { useState } from "react";
 import styles from "./ExpandableAttchmentsList.module.css";
-import { IDokument } from "~/utils/safselvbetjening.utils";
+import { IDokument } from "~/utils/safJournalposter.utils";
 import { useSanity } from "~/hooks/useSanity";
 import { Attachment } from "../attachment/Attachment";
 

@@ -1,6 +1,6 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort } from "@navikt/ds-react";
-import { LinksFunction, MetaFunction, json } from "@remix-run/node";
+import { LinksFunction, LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
@@ -14,6 +14,7 @@ import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
 import { getEnv } from "./utils/env.utils";
+import { getSession } from "./models/getSession.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -53,7 +54,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
@@ -63,9 +64,12 @@ export async function loader() {
     lang: "nb",
   });
 
+  const session = await getSession(request);
+
   return json({
     decoratorFragments,
     sanityTexts,
+    session,
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
       BASE_PATH: getEnv("BASE_PATH"),

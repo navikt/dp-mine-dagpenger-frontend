@@ -1,19 +1,18 @@
 import { parseIdportenToken } from "@navikt/oasis";
 import { GraphQLClient } from "graphql-request";
-import { v4 as uuidv4 } from "uuid";
 import { getSAFToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import {
   berikAvsenderEllerMottaker,
   berikBrukerDokumentTilgang,
   berikDokumentMedType,
-  settDatoOpprettet,
   graphqlQuery,
   IJournalpost,
-} from "~/utils/safselvbetjening.utils";
+  settDatoOpprettet,
+} from "~/utils/safJournalposter.utils";
 import { INetworkResponse } from "./networkResponse";
 
-export async function getJournalposter(
+export async function getSAFJournalposter(
   request: Request
 ): Promise<INetworkResponse<IJournalpost[]>> {
   const onBehalfOfToken = await getSAFToken(request);
@@ -25,7 +24,6 @@ export async function getJournalposter(
   }
 
   const fnr = parsedToken.pid;
-  const callId = uuidv4();
 
   const url = `${getEnv("SAF_URL")}/graphql`;
 
@@ -38,7 +36,6 @@ export async function getJournalposter(
   });
 
   try {
-    console.log(`Henter dokumenter med call-id: ${callId}`);
     const response = await client.request(graphqlQuery, { fnr });
 
     const journalposterResponse = response.dokumentoversiktSelvbetjening

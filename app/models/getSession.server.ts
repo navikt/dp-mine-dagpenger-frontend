@@ -7,20 +7,25 @@ export interface ISessionData {
 }
 
 export async function getSession(req: Request): Promise<INetworkResponse<ISessionData>> {
-  if (getEnv("USE_MSW")) {
-    return {
-      status: "success",
-      data: {
-        expiresIn: 18000,
-      },
-    };
-  }
+  const devToken = getEnv("DP_INNSYN_TOKEN");
 
-  if (getEnv("IS_LOCALHOST") === "true" && getEnv("DP_INNSYN_TOKEN")) {
+  if (getEnv("IS_LOCALHOST") === "true" && getEnv("USE_MSW") === "false" && devToken) {
+    if (expiresIn(devToken) <= 0) {
+      console.log("\n ⛔️ Lokalt sessjon utløpt! Kjør: npm run generate-token på nytt.");
+
+      return {
+        status: "error",
+        error: {
+          statusCode: 401,
+          statusText: "Expired token",
+        },
+      };
+    }
+
     return {
       status: "success",
       data: {
-        expiresIn: expiresIn(getEnv("DP_INNSYN_TOKEN")),
+        expiresIn: expiresIn(devToken),
       },
     };
   }

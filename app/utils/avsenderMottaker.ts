@@ -1,5 +1,5 @@
 import { Journalposttype } from "graphql/generated/saf/graphql";
-import { IJournalpost } from "./safselvbetjening.utils";
+import { IJournalpost } from "./safJournalposter.utils";
 
 type JP = Pick<IJournalpost, "journalposttype" | "brukerErAvsenderEllerMottaker">;
 type Predikat = (j: JP) => boolean | undefined;
