@@ -8,15 +8,22 @@ import { getEnv } from "~/utils/env.utils";
 interface IProps {
   journalpostId: string;
   dokumentInfoId: string;
+  title: string;
+  datoOpprettet: string;
 }
 
-export function DocumentActionButtons({ journalpostId, dokumentInfoId }: IProps) {
+export function DocumentActionButtons({
+  journalpostId,
+  dokumentInfoId,
+  title,
+  datoOpprettet,
+}: IProps) {
   const { getAppText } = useSanity();
   const ref = useRef<HTMLDialogElement>(null);
   const [dokumentUrl, setDokumentUrl] = useState<string | null>(null);
 
   async function aapneDokument() {
-    const basePath = getEnv("BASE_PATH").replace(/\/$/, ""); // Fjern ekstra slash på slutten av BASE_PATH
+    const basePath = getEnv("BASE_PATH").replace(/\/$/, "");
 
     const url = `${basePath}/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
@@ -31,12 +38,16 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId }: IProps)
     const blob = await response.blob();
     const blobUrl = window.URL.createObjectURL(blob);
 
-    setDokumentUrl(blobUrl);
+    if (blobUrl) {
+      setDokumentUrl(blobUrl);
+    }
+
     ref.current?.showModal();
   }
 
   async function lastnedDokument() {
-    const basePath = getEnv("BASE_PATH").replace(/\/$/, ""); // Fjern ekstra slash på slutten av BASE_PATH
+    const basePath = getEnv("BASE_PATH").replace(/\/$/, "");
+
     const url = `${basePath}/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
 
@@ -52,11 +63,16 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId }: IProps)
 
     const a = document.createElement("a");
     a.href = blobUrl;
-    a.download = `${dokumentInfoId}.pdf`;
+    a.download = `${title} - ${datoOpprettet}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(blobUrl); // Cleanup the Blob URL
+  }
+
+  function onClose() {
+    setDokumentUrl(null);
+    ref.current?.close();
   }
 
   return (
@@ -67,7 +83,6 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId }: IProps)
         icon={<DownloadIcon fontSize="1.5rem" aria-hidden />}
         onClick={lastnedDokument}
       >
-        {/* lastned */}
         {getAppText("dokumenter.last-ned-pdf")}
       </Button>
       <>
@@ -75,13 +90,16 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId }: IProps)
           variant="tertiary"
           size="small"
           icon={<FileSearchIcon fontSize="1.5rem" aria-hidden />}
-          // onClick={() => ref.current?.showModal()}
           onClick={aapneDokument}
         >
-          {/* åpne pdf */}
           {getAppText("dokumenter.forhaandvisning")}
         </Button>
-        <Modal ref={ref} header={{ heading: "" }} className={styles.dokumentPreview}>
+        <Modal
+          ref={ref}
+          className={styles.dokumentPreview}
+          onClose={onClose}
+          header={{ heading: `${title} - ${datoOpprettet}.pdf` }}
+        >
           <Modal.Body>
             <BodyLong>
               {dokumentUrl && (

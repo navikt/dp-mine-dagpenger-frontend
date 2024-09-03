@@ -34,7 +34,6 @@ export function JournalpostCard({
   const attachments = getAttechments(dokumenter);
 
   const sender = hentAvsender({ journalposttype, brukerErAvsenderEllerMottaker });
-
   return (
     <article className={styles.journalpostCard} aria-labelledby={`tittel-${journalpostId}`}>
       {datoOpprettet && (
@@ -54,6 +53,8 @@ export function JournalpostCard({
           <DocumentActionButtons
             journalpostId={journalpostId}
             dokumentInfoId={mainDocument.dokumentInfoId}
+            title={mainDocument?.tittel || getAppText("journalpost.dokument-uten-tittel")}
+            datoOpprettet={dato || ""}
           />
         )}
         {attachments.length > 0 && (
