@@ -1,0 +1,23 @@
+.attachment {
+  display: flex;
+  gap: 2rem;
+  padding-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10px;
+  border-top: 1px solid #c9c9c9;
+}
+
+.attachmentTitle {
+  display: flex;
+  flex-grow: 4;
+  font-weight: var(--a-font-weight-bold);
+  text-align: left;
+}
+
+@media screen and (max-width: 700px) {
+  .attachment {
+    display: block;
+  }
+}

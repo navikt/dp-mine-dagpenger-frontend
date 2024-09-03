@@ -1,6 +1,6 @@
 import { TypedObject } from "@portabletext/types";
+import { useTypedRouteLoaderData } from "remix-typedjson";
 import { ISanityAppText, ISanityLink, ISanityRichText } from "~/sanity/sanity.types";
-import { useTypedRouteLoaderData } from "./useTypedRouteLoaderData";
 
 export function useSanity() {
   const { sanityTexts } = useTypedRouteLoaderData("root");
@@ -21,7 +21,7 @@ export function useSanity() {
   }
 
   function getLink(linkId: string): ISanityLink {
-    const link = sanityTexts?.links?.find((link) => link.linkId === linkId) || {
+    const link = sanityTexts?.links?.find((link: ISanityLink) => link.linkId === linkId) || {
       linkId: linkId,
       linkText: linkId,
       linkUrl: "",

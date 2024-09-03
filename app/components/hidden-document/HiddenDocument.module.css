@@ -1,0 +1,29 @@
+.hiddenDocumentContainer {
+  min-width: 250px;
+  margin: 1rem 0 1rem 0;
+}
+
+.hiddenDocumentLabel {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.hiddenDocumentIcon {
+  margin-right: 0.5rem;
+}
+
+.explanationPopover {
+  max-width: 700px;
+  padding: 20px;
+}
+
+.explanationPopover p {
+  margin: 0;
+}
+
+@media screen and (min-width: 700px) {
+  .hiddenDocumentContainer {
+    margin: 0;
+  }
+}

@@ -1,0 +1,31 @@
+.journalpostCard {
+  padding: var(--a-spacing-5);
+  margin-bottom: var(--a-spacing-4);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: var(--a-surface-subtle);
+  border-radius: var(--a-border-radius-xlarge);
+}
+
+.journalpostCardContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.journalpostCardContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 4;
+}
+
+.showAllDocumentButtonContainer {
+  padding: 2rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .journalpostCardContainer {
+    display: block;
+  }
+}

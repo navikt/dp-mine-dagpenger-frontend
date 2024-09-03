@@ -5,7 +5,6 @@ import {
   Dokumentvariant,
   Journalposttype,
   Journalstatus,
-  Kanal,
   RelevantDato,
 } from "graphql/generated/saf/graphql";
 
@@ -48,29 +47,28 @@ export const graphqlQuery = graphql(`
 // Dette er på grunn av genererte types inneholder Maybe som er vanskelig å jobbe med.
 export interface IJournalpost {
   avsender?: AvsenderMottaker;
-  dokumenter?: IEgenDefinertDokument[];
+  dokumenter: IDokument[];
   eksternReferanseId?: string;
   journalpostId: string;
   journalposttype: Journalposttype;
   journalstatus?: Journalstatus;
-  kanal?: Kanal;
   mottaker?: AvsenderMottaker;
   relevanteDatoer?: RelevantDato[];
-  tema?: string;
-  tittel?: string;
+  tema: string;
+  tittel: string;
   datoOpprettet?: string | null;
   brukerErAvsenderEllerMottaker?: boolean;
 }
 
-export interface IEgenDefinertDokument {
-  dokumentInfoId?: string;
-  tittel?: string | null;
+export interface IDokument {
+  dokumentInfoId: string;
+  tittel: string | null;
   dokumentvarianter?: Dokumentvariant[];
   type?: "Hoved" | "Vedlegg";
   brukerHarTilgang?: boolean;
 }
 
-export function finnOgSettOpprettetDato({ relevanteDatoer, ...rest }: IJournalpost): IJournalpost {
+export function settDatoOpprettet({ relevanteDatoer, ...rest }: IJournalpost): IJournalpost {
   const datoOpprettet = relevanteDatoer?.find((dato) => dato?.datotype === Datotype.DatoOpprettet);
 
   return {
@@ -92,25 +90,17 @@ export function berikAvsenderEllerMottaker(
   };
 }
 
-export function berikDokumentMedType(
-  dokument: IEgenDefinertDokument,
-  index: number
-): IEgenDefinertDokument {
+export function berikDokumentMedType(dokument: IDokument, index: number): IDokument {
   return {
     type: index === 0 ? "Hoved" : "Vedlegg",
     ...dokument,
   };
 }
 
-export function berikBrukerDokumentTilgang({
-  dokumentvarianter,
-  ...rest
-}: IEgenDefinertDokument): IEgenDefinertDokument {
+export function berikBrukerDokumentTilgang({ dokumentvarianter, ...rest }: IDokument): IDokument {
   const arkivDokument = dokumentvarianter?.find((dokumentvariant) => {
     return dokumentvariant?.variantformat === "ARKIV";
   });
 
-  const brukerHarTilgang = arkivDokument?.brukerHarTilgang || false;
-
-  return { brukerHarTilgang: brukerHarTilgang, dokumentvarianter, ...rest };
+  return { brukerHarTilgang: arkivDokument?.brukerHarTilgang || false, dokumentvarianter, ...rest };
 }

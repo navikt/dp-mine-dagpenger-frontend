@@ -1,9 +1,10 @@
 import { Alert } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import classNames from "classnames";
+import { useTypedRouteLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "./ArbeidssokerStatus.module.css";
+import { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
 
 export function ArbeidssokerStatus() {
   const { getRichText } = useSanity();
@@ -19,7 +20,9 @@ export function ArbeidssokerStatus() {
 
   const registered =
     arbeidsseokerPerioder.status === "success" &&
-    arbeidsseokerPerioder.data?.findIndex((periode) => periode.avsluttet === null) !== -1;
+    arbeidsseokerPerioder.data?.findIndex(
+      (periode: IArbeidssokerperioder) => periode.avsluttet === null
+    ) !== -1;
 
   if (arbeidsseokerPerioder.status === "success" && !registered) {
     return (

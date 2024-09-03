@@ -4,15 +4,15 @@ import { LinksFunction, MetaFunction, json } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
+import { useTypedRouteLoaderData } from "remix-typedjson";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { getDecoratorHTML } from "./decorator/decorator.server";
-import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
+import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanity } from "./sanity/sanity.types";
-import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getEnv } from "./utils/env.utils";
 
 export const sanityClient = createClient(sanityConfig);
@@ -68,6 +68,7 @@ export async function loader() {
     sanityTexts,
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
+      BASE_PATH: getEnv("BASE_PATH"),
     },
   });
 }

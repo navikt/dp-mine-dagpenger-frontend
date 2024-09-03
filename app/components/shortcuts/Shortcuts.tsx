@@ -1,5 +1,4 @@
 import { BodyShort, Heading, Link } from "@navikt/ds-react";
-// import { logg } from "../../lib/amplitude";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./Shortcuts.module.css";

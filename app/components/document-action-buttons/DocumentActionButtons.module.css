@@ -1,0 +1,26 @@
+.documentActionButtons {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  margin: 15px 0;
+  width: 170px;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 700px) {
+  .documentActionButtons {
+    margin: 0;
+  }
+}
+
+.dokumentPreview {
+  height: 100vh;
+  width: 100vh;
+}
+
+@media screen and (min-width: 1024px) {
+  .dokumentPreview {
+    height: 80vh;
+    width: 70vw;
+  }
+}

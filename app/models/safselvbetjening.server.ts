@@ -7,7 +7,7 @@ import {
   berikAvsenderEllerMottaker,
   berikBrukerDokumentTilgang,
   berikDokumentMedType,
-  finnOgSettOpprettetDato,
+  settDatoOpprettet,
   graphqlQuery,
   IJournalpost,
 } from "~/utils/safselvbetjening.utils";
@@ -45,7 +45,7 @@ export async function getJournalposter(
       .journalposter as IJournalpost[];
 
     const journalposter = journalposterResponse
-      .map(finnOgSettOpprettetDato)
+      .map(settDatoOpprettet)
       .map((journalpost: IJournalpost) => berikAvsenderEllerMottaker(journalpost, fnr))
       .map(({ journalpostId, dokumenter, ...rest }): IJournalpost => {
         return {
@@ -54,8 +54,6 @@ export async function getJournalposter(
           ...rest,
         };
       });
-
-    console.log(`🔥 journalposter :`, journalposter);
 
     return {
       status: "success",
