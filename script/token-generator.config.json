@@ -1,5 +1,6 @@
 {
   "cookieName": "sso-dev.nav.no",
+  "appName": "dp-mine-dagpenger-frontend",
   "baseUrl": "https://tokenx-token-generator.intern.dev.nav.no/",
   "environments": [
     {

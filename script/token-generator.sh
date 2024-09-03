@@ -14,10 +14,14 @@ envFile=".env"
 # json config 
 jsonConfig="./script/token-generator.config.json"
 
+# Application name
+appName=$(jq "." $jsonConfig | jq ".appName"  | tr -d '"')
+
+
 # Main script
 init() {
   # Welcome text
-  echo -e "${Cyan}::: ${BPurple}dp-mine-dagpenger-frontend token generator ${Cyan}::: \n"
+  echo -e "${Cyan}::: ${BPurple}${appName} token generator ${Cyan}::: \n"
 
   # Check if jq package is installed 
   verifyJQ
@@ -60,6 +64,7 @@ startTokenGenerator() {
   # First tokenx-token-generator url from json config
   url=$(jq "." $jsonConfig | jq ".environments[0].url" | tr -d '"')
   cookieName=$(jq "." $jsonConfig | jq ".cookieName"  | tr -d '"')
+  appName=$(jq "." $jsonConfig | jq ".appName"  | tr -d '"')
   configArray=$(jq -r ".environments[] | @base64" $jsonConfig)
 
   # Show link to tokenx-token-generator to user
