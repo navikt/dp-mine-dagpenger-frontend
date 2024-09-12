@@ -15,3 +15,4 @@ saf:
   url: https://safselvbetjening-q1.dev-fss-pub.nais.io
   cluster: dev-fss
   scope: safselvbetjening-q1
+sanityDatasett: kopi-av-prod
