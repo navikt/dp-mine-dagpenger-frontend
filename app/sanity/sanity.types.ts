@@ -11,7 +11,7 @@ export interface ISanityAppText {
 }
 
 export interface ISanityRichText {
-  slug: string;
+  textId: string;
   body: TypedObject | TypedObject[];
 }
 
