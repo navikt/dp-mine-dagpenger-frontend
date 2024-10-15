@@ -57,10 +57,10 @@ export function JournalpostCard({
             datoOpprettet={dato || ""}
           />
         )}
-        {attachments.length > 0 && (
-          <ExpandableAttachmentsList attachments={attachments} title={mainDocument?.tittel} />
-        )}
       </div>
+      {attachments.length > 0 && (
+        <ExpandableAttachmentsList attachments={attachments} title={mainDocument?.tittel} />
+      )}
     </article>
   );
 }
