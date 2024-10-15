@@ -9,15 +9,9 @@ interface IProps {
   journalpostId: string;
   dokumentInfoId: string;
   title: string;
-  datoOpprettet: string;
 }
 
-export function DocumentActionButtons({
-  journalpostId,
-  dokumentInfoId,
-  title,
-  datoOpprettet,
-}: IProps) {
+export function DocumentActionButtons({ journalpostId, dokumentInfoId, title }: IProps) {
   const { getAppText } = useSanity();
   const ref = useRef<HTMLDialogElement>(null);
   const [dokumentUrl, setDokumentUrl] = useState<string | null>(null);
@@ -63,7 +57,7 @@ export function DocumentActionButtons({
 
     const a = document.createElement("a");
     a.href = blobUrl;
-    a.download = `${title} - ${datoOpprettet}.pdf`;
+    a.download = `${title}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -98,12 +92,18 @@ export function DocumentActionButtons({
           ref={ref}
           className={styles.dokumentPreview}
           onClose={onClose}
-          header={{ heading: `${title} - ${datoOpprettet}.pdf` }}
+          header={{ heading: title }}
         >
           <Modal.Body>
             <BodyLong>
               {dokumentUrl && (
-                <iframe src={dokumentUrl} title="PDF" width="100%" height="800px" frameBorder="0" />
+                <iframe
+                  src={dokumentUrl}
+                  title={title}
+                  width="100%"
+                  height="800px"
+                  frameBorder="0"
+                />
               )}
             </BodyLong>
           </Modal.Body>

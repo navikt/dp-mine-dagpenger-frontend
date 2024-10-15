@@ -34,6 +34,8 @@ export function JournalpostCard({
   const attachments = getAttechments(dokumenter);
 
   const sender = hentAvsender({ journalposttype, brukerErAvsenderEllerMottaker });
+  const mainDocumentTitle = mainDocument?.tittel || getAppText("journalpost.dokument-uten-tittel");
+
   return (
     <article className={styles.journalpostCard} aria-labelledby={`tittel-${journalpostId}`}>
       {datoOpprettet && (
@@ -45,7 +47,7 @@ export function JournalpostCard({
       <div className={styles.journalpostCardContainer}>
         <div className={styles.journalpostCardContent}>
           <Heading level="3" size="small" id={`tittel-${journalpostId}`}>
-            {mainDocument?.tittel || getAppText("journalpost.dokument-uten-tittel")}
+            {mainDocumentTitle}
           </Heading>
         </div>
         {!mainDocument.brukerHarTilgang && <HiddenDocument />}
@@ -53,13 +55,16 @@ export function JournalpostCard({
           <DocumentActionButtons
             journalpostId={journalpostId}
             dokumentInfoId={mainDocument.dokumentInfoId}
-            title={mainDocument?.tittel || getAppText("journalpost.dokument-uten-tittel")}
-            datoOpprettet={dato || ""}
+            title={mainDocumentTitle}
           />
         )}
       </div>
       {attachments.length > 0 && (
-        <ExpandableAttachmentsList attachments={attachments} title={mainDocument?.tittel} />
+        <ExpandableAttachmentsList
+          attachments={attachments}
+          title={mainDocumentTitle}
+          journalpostId={journalpostId}
+        />
       )}
     </article>
   );

@@ -8,10 +8,11 @@ import { Attachment } from "../attachment/Attachment";
 
 interface IProps {
   attachments: IDokument[];
-  title: string | null;
+  title: string;
+  journalpostId: string;
 }
 
-export function ExpandableAttachmentsList({ attachments }: IProps) {
+export function ExpandableAttachmentsList({ attachments, journalpostId }: IProps) {
   const { getAppText } = useSanity();
   const [expanded, setExpanded] = useState(false);
 
@@ -44,8 +45,10 @@ export function ExpandableAttachmentsList({ attachments }: IProps) {
           attachments.map((dokument) => (
             <Attachment
               key={dokument.dokumentInfoId}
-              title={dokument.tittel}
+              title={dokument.tittel || getAppText("journalpost.dokument-uten-tittel")}
               userHaveAccess={dokument.brukerHarTilgang}
+              journalpostId={journalpostId}
+              dokumentInfoId={dokument.dokumentInfoId}
             />
           ))}
       </div>
