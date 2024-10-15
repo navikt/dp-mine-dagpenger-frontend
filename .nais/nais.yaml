@@ -56,8 +56,6 @@ spec:
       value: {{saf.cluster}}
     - name: SAF_SCOPE
       value: {{ saf.scope }}
-    - name: SANITY_DATASETT
-      value: {{ sanityDatasett }}
   ingresses:
     {{#each ingresses as |url|}}
     - {{url}}

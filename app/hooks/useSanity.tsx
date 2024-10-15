@@ -12,9 +12,9 @@ export function useSanity() {
     );
   }
 
-  function getRichText(id: string): TypedObject | TypedObject[] {
+  function getRichText(slug: string): TypedObject | TypedObject[] {
     const richText = sanityTexts?.richTexts?.find((richText: ISanityRichText) => {
-      return richText.textId === id;
+      return richText.slug === slug;
     });
 
     return richText?.body as TypedObject | TypedObject[];

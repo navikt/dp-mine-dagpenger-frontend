@@ -1,5 +1,5 @@
 export const sanityConfig = {
-  dataset: process.env.SANITY_DATASETT || "production",
+  dataset: "production",
   projectId: "rt6o382n",
   useCdn: true,
   token: "",
