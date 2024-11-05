@@ -32,7 +32,7 @@
     "@remix-run/react": "^2.11.0",
     "@remix-run/serve": "^2.10.3",
     "@sanity/client": "^6.21.1",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "graphql-request": "^7.1.0",
     "groq": "^3.54.0",
     "html-react-parser": "^5.1.10",
@@ -71,8 +71,8 @@
     "remix-typedjson": "^0.4.1",
     "typescript": "^5.5.4",
     "vite": "^5.4.9",
-    "vite-tsconfig-paths": "^4.2.1",
-    "vitest": "^1.6.0"
+    "vite-tsconfig-paths": "^5.1.0",
+    "vitest": "^2.1.4"
   },
   "engines": {
     "node": ">=18.0.0"
