@@ -67,12 +67,14 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "husky": "^9.1.4",
     "lint-staged": "^15.2.7",
-    "msw": "^2.3.5",
     "remix-typedjson": "^0.4.1",
     "typescript": "^5.5.4",
     "vite": "^5.4.9",
     "vite-tsconfig-paths": "^5.1.0",
     "vitest": "^2.1.4"
+  },
+  "peerDependencies": {
+    "msw": "^2.3.5"
   },
   "engines": {
     "node": ">=18.0.0"
