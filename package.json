@@ -21,7 +21,7 @@
     "graphql-codegen": "graphql-codegen --config graphql-codegen.ts"
   },
   "dependencies": {
-    "@amplitude/analytics-browser": "^2.9.3",
+    "@amplitude/analytics-browser": "^2.11.9",
     "@navikt/aksel-icons": "^7.4.3",
     "@navikt/ds-css": "^7.4.3",
     "@navikt/ds-react": "^7.4.3",
