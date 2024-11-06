@@ -119,7 +119,10 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
 
-      # - run: npm run build
+      # Build application    
+      - run: npm run build
+
+      # Prune del dependencies from production build   
       # - name: prune dev dependencies
       #   run: npm prune --production
 
