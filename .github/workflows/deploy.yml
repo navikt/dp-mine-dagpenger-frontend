@@ -123,8 +123,8 @@ jobs:
       - run: npm run build
 
       # Prune del dependencies from production build   
-      # - name: prune dev dependencies
-      #   run: npm prune --production
+      - name: prune dev dependencies
+        run: npm prune --production
 
       # Bygg docker image
       - name: docker-build-push
