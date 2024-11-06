@@ -119,9 +119,9 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
 
-      - run: npm run build
-      - name: prune dev dependencies
-        run: npm prune --production
+      # - run: npm run build
+      # - name: prune dev dependencies
+      #   run: npm prune --production
 
       # Bygg docker image
       - name: docker-build-push
