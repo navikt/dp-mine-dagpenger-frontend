@@ -8,6 +8,7 @@ import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndr
 import { PageHero } from "~/components/page-hero/PageHero";
 import { Shortcuts } from "~/components/shortcuts/Shortcuts";
 import { SoknadList } from "~/components/soknad-list/SoknadList";
+import { UXSignalsWidget } from "~/components/UXSignalsWidget";
 import { getArbeidssoekerPerioder } from "~/models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "~/models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
@@ -60,6 +61,7 @@ export default function Index() {
     <main>
       <div className="mine-dagpenger">
         <PageHero />
+        <UXSignalsWidget />
         <SoknadList />
         <BankAccountNumber />
         <MeldFraOmEndring />
