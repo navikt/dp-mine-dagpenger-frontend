@@ -22,6 +22,8 @@ interface IEnv {
   SAF_TOKEN: string;
   SAF_SCOPE: string;
   SAF_CLUSTER: string;
+  UXSIGNALS_ENABLED: string;
+  UXSIGNALS_MODE: string;
 }
 
 export function getEnv(value: keyof IEnv) {

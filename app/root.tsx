@@ -12,7 +12,7 @@ import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import indexStyle from "./index.css?url";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
-import { ISanity } from "./sanity/sanity.types";
+import { ISanityData } from "./sanity/sanity.types";
 import { getEnv } from "./utils/env.utils";
 import { getSession } from "./models/getSession.server";
 
@@ -59,7 +59,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (!decoratorFragments) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
 
-  const sanityTexts = await sanityClient.fetch<ISanity>(allTextsQuery, {
+  const sanityData = await sanityClient.fetch<ISanityData>(allTextsQuery, {
     baseLang: "nb",
     lang: "nb",
   });
@@ -68,12 +68,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     decoratorFragments,
-    sanityTexts,
+    sanityData,
     session,
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
       BASE_PATH: getEnv("BASE_PATH"),
       APP_ENV: getEnv("APP_ENV"),
+      UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
+      UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
     },
   });
 }

@@ -22,8 +22,14 @@ export interface ISanityLink {
   linkDescription: string;
 }
 
-export interface ISanity {
+export interface ISanitySetting {
+  settingId: string;
+  settingValue: string;
+}
+
+export interface ISanityData {
   appTexts: ISanityAppText[];
   richTexts: ISanityRichText[];
   links: ISanityLink[];
+  settings: ISanitySetting[];
 }

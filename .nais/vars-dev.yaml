@@ -16,3 +16,6 @@ saf:
   cluster: dev-fss
   scope: safselvbetjening-q1
 appEnv: dev
+uxSignals:
+  enabled: true
+  mode: demo

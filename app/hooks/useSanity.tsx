@@ -1,19 +1,24 @@
 import { TypedObject } from "@portabletext/types";
 import { useTypedRouteLoaderData } from "remix-typedjson";
-import { ISanityAppText, ISanityLink, ISanityRichText } from "~/sanity/sanity.types";
+import {
+  ISanityAppText,
+  ISanityLink,
+  ISanityRichText,
+  ISanitySetting,
+} from "~/sanity/sanity.types";
 
 export function useSanity() {
-  const { sanityTexts } = useTypedRouteLoaderData("root");
+  const { sanityData } = useTypedRouteLoaderData("root");
 
   function getAppText(textId: string): string {
     return (
-      sanityTexts?.appTexts.find((appTexts: ISanityAppText) => appTexts.textId === textId)
+      sanityData?.appTexts.find((appTexts: ISanityAppText) => appTexts.textId === textId)
         ?.valueText || textId
     );
   }
 
   function getRichText(textId: string): TypedObject | TypedObject[] {
-    const richText = sanityTexts?.richTexts?.find((richText: ISanityRichText) => {
+    const richText = sanityData?.richTexts?.find((richText: ISanityRichText) => {
       return richText.textId === textId;
     });
 
@@ -21,7 +26,7 @@ export function useSanity() {
   }
 
   function getLink(linkId: string): ISanityLink {
-    const link = sanityTexts?.links?.find((link: ISanityLink) => link.linkId === linkId) || {
+    const link = sanityData?.links?.find((link: ISanityLink) => link.linkId === linkId) || {
       linkId: linkId,
       linkText: linkId,
       linkUrl: "",
@@ -31,9 +36,15 @@ export function useSanity() {
     return link as ISanityLink;
   }
 
+  function getSetting(settingId: string): string | undefined {
+    return sanityData?.settings?.find((setting: ISanitySetting) => setting.settingId === settingId)
+      ?.settingValue;
+  }
+
   return {
     getAppText,
     getRichText,
     getLink,
+    getSetting,
   };
 }

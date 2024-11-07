@@ -2,7 +2,7 @@ import { init, track } from "@amplitude/analytics-browser";
 import { getEnv } from "./utils/env.utils";
 
 export const initAmplitude = () => {
-  if (getEnv("IS_LOCALHOST") === "true") return;
+  if (getEnv("IS_LOCALHOST")) return;
 
   init("default", undefined, {
     useBatch: true,

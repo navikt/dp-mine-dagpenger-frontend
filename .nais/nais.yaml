@@ -58,6 +58,10 @@ spec:
       value: {{ saf.scope }}
     - name: APP_ENV
       value: {{ appEnv }}
+    - name: UX_SIGNALS_ENABLED
+      value: {{ uxSignals.enabled }}
+    - name: UXSIGNALS_MODE
+      value: {{ uxSignals.mode }}
   ingresses:
     {{#each ingresses as |url|}}
     - {{url}}
