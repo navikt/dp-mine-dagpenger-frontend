@@ -56,6 +56,8 @@ spec:
       value: {{saf.cluster}}
     - name: SAF_SCOPE
       value: {{ saf.scope }}
+    - name: APP_ENV
+      value: {{ appEnv }}
   ingresses:
     {{#each ingresses as |url|}}
     - {{url}}

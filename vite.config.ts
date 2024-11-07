@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 installGlobals();
 
-const basePath = "/arbeid/dagpenger/mine-dagpenger-frontend/";
+const basePath = "/arbeid/dagpenger/mine-dagpenger-frontend";
 
 export default defineConfig({
   base: basePath,

@@ -73,6 +73,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
       BASE_PATH: getEnv("BASE_PATH"),
+      APP_ENV: getEnv("APP_ENV"),
     },
   });
 }
