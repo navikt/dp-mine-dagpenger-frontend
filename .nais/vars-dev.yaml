@@ -22,3 +22,4 @@ uxsignals:
 sanity_dataset: development
 unleash:
   server_api_url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
+  environment: development
