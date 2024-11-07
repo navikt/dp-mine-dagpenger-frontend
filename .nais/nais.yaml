@@ -57,11 +57,16 @@ spec:
     - name: SAF_SCOPE
       value: {{ saf.scope }}
     - name: APP_ENV
-      value: {{ appEnv }}
+      value: {{ app_env }}
     - name: UX_SIGNALS_ENABLED
       value: {{ uxSignals.enabled }}
     - name: UXSIGNALS_MODE
       value: {{ uxSignals.mode }}
+    - name: SANITY_DATASET
+      value: {{ sanity_dataset }}
+    - name: UNLEASH_URL
+      value: {{ unleash.url }}
+
   ingresses:
     {{#each ingresses as |url|}}
     - {{url}}
@@ -73,6 +78,7 @@ spec:
         - host: www.nav.no
         - host: dekoratoren.dev.nav.no
         - host: amplitude.nav.no
+        - host: dagpenger-unleash-api.nav.cloud.nais.io
         - host: {{ saf.ingress }}
       rules:
         - application: dp-innsyn

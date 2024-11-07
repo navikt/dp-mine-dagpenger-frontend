@@ -10,9 +10,10 @@ import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
-import { getEnv } from "./utils/env.utils";
 import { setup, start } from "mocks/server";
+import { renderToPipeableStream } from "react-dom/server";
+import { unleash } from "./unleash";
+import { getEnv } from "./utils/env.utils";
 
 const ABORT_DELAY = 5_000;
 
@@ -20,6 +21,10 @@ if (getEnv("USE_MSW") === "true") {
   const server = setup();
   start(server);
 }
+
+unleash.on("synchronized", () => {
+  console.log("🟢 Unleash is ready");
+});
 
 export default function handleRequest(
   request: Request,

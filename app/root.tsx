@@ -10,11 +10,12 @@ import { SectionContent } from "./components/section/SectionContent";
 import { getDecoratorHTML } from "./decorator/decorator.server";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import indexStyle from "./index.css?url";
+import { getSession } from "./models/getSession.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanityData } from "./sanity/sanity.types";
+import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
-import { getSession } from "./models/getSession.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -65,11 +66,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   const session = await getSession(request);
+  const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
 
   return json({
     decoratorFragments,
     sanityData,
     session,
+    featureFlags: {
+      abTesting,
+    },
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
       BASE_PATH: getEnv("BASE_PATH"),

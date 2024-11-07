@@ -1,0 +1,18 @@
+apiVersion: unleash.nais.io/v1
+kind: ApiToken
+metadata:
+  name: dp-mine-dagpenger-frontend
+  namespace: teamdagpenger
+  labels:
+    team: teamdagpenger
+    app: dp-mine-dagpenger-frontend
+spec:
+  unleashInstance:
+    apiVersion: unleash.nais.io/v1
+    kind: RemoteUnleash
+    name: dagpenger # unleash team, not nais team
+  secretName: dp-mine-dagpenger-frontend-unleash-api-token
+
+  # Specify which environment the API token should be created for.
+  # Can be one of: development, or production.
+  environment: {{ unleash.environment }}
