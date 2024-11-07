@@ -47,9 +47,9 @@ spec:
     - name: DP_SOKNADSDIALOG_URL
       value: {{ soknadsdialog.ingress }}
     - name: PAW_ARBEIDSSOEKERREGISTERET_URL
-      value: {{ pawArbeidssoekerregisteretUrl }}
+      value: {{ paw_arbeidssoekerregisteret_url }}
     - name: OKONOMI_KONTOREGISTER_URL
-      value: {{ okonomiKontoregisterUrl }}
+      value: {{ okonomi_kontoregister_url }}
     - name: SAF_URL
       value: {{ saf.url }}
     - name: SAF_CLUSTER
@@ -58,14 +58,14 @@ spec:
       value: {{ saf.scope }}
     - name: APP_ENV
       value: {{ app_env }}
-    - name: UX_SIGNALS_ENABLED
-      value: {{ uxSignals.enabled }}
+    - name: UXSIGNALS_ENABLED
+      value: {{ uxsignals.enabled }}
     - name: UXSIGNALS_MODE
-      value: {{ uxSignals.mode }}
+      value: {{ uxsignals.mode }}
     - name: SANITY_DATASET
       value: {{ sanity_dataset }}
-    - name: UNLEASH_URL
-      value: {{ unleash.url }}
+    - name: UNLEASH_SERVER_API_URL
+      value: {{ unleash.server_api_url }}
 
   ingresses:
     {{#each ingresses as |url|}}

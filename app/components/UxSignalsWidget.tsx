@@ -4,9 +4,9 @@ import { SectionContent } from "./section/SectionContent";
 import { useEffect } from "react";
 import { getEnv } from "~/utils/env.utils";
 
-export function UxSignalsWidget() {
+export function UXSignalsWidget() {
   const { getSetting } = useSanity();
-  const uxSignalId = getSetting("uxSignals");
+  const uxsignalId = getSetting("uxsignals");
   const enabled = getEnv("UXSIGNALS_ENABLED") === "true";
   const mode = getEnv("UXSIGNALS_MODE") || "demo";
 
@@ -21,19 +21,19 @@ export function UxSignalsWidget() {
         try {
           document.body.removeChild(script);
         } catch {
-          console.log("Kunne vise UxSignals widget!");
+          console.log("Kunne vise uxsignals widget!");
         }
       };
     }
   }, [enabled]);
 
-  if (!enabled || !uxSignalId) return null;
+  if (!enabled || !uxsignalId) return null;
 
   return (
     <Section>
       <SectionContent>
         <div
-          data-uxsignals-embed={uxSignalId}
+          data-uxsignals-embed={uxsignalId}
           data-uxsignals-mode={mode}
           style={{ maxWidth: 630 }}
         />
