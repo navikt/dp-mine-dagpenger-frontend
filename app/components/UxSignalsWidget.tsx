@@ -4,7 +4,7 @@ import { SectionContent } from "./section/SectionContent";
 import { useEffect } from "react";
 import { getEnv } from "~/utils/env.utils";
 
-export function UXSignalsWidget() {
+export function UxsignalsWidget() {
   const { getSetting } = useSanity();
   const uxsignalId = getSetting("uxsignals");
   const enabled = getEnv("UXSIGNALS_ENABLED") === "true";
