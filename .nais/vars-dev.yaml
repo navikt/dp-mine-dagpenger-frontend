@@ -17,7 +17,7 @@ saf:
   scope: safselvbetjening-q1
 app_env: dev
 uxsignals:
-  enabled: "true"
+  enabled: true
   mode: demo
 sanity_dataset: development
 unleash:
