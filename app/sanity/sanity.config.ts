@@ -1,5 +1,7 @@
+import { getEnv } from "~/utils/env.utils";
+
 export const sanityConfig = {
-  dataset: process.env.SANITY_DATASET,
+  dataset: getEnv("SANITY_DATASET"),
   projectId: "rt6o382n",
   useCdn: true,
   token: "",

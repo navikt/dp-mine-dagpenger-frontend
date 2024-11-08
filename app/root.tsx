@@ -81,6 +81,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       APP_ENV: getEnv("APP_ENV"),
       UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
+      SANITY_DATASET: getEnv("SANITY_DATASET"),
     },
   });
 }
