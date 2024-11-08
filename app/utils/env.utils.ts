@@ -24,8 +24,8 @@ interface IEnv {
   SAF_CLUSTER: string;
   UXSIGNALS_ENABLED: string;
   UXSIGNALS_MODE: string;
-  UNLEASH_URL: string;
-  UNLEASH_TOKEN: string;
+  UNLEASH_SERVER_API_URL: string;
+  UNLEASH_SERVER_API_TOKEN: string;
 }
 
 export function getEnv(value: keyof IEnv) {
