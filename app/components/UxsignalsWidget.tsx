@@ -7,8 +7,8 @@ import { getEnv } from "~/utils/env.utils";
 export function UxsignalsWidget() {
   const { getSetting } = useSanity();
   const uxsignalId = getSetting("uxsignals");
-  const enabled = getEnv("UXSIGNALS_ENABLED") === "true";
-  const mode = getEnv("UXSIGNALS_MODE") || "demo";
+  const enabled = getEnv("UXSIGNALS_ENABLED") === "enabled";
+  const mode = getEnv("UXSIGNALS_MODE").length ? getEnv("UXSIGNALS_MODE") : "demo";
 
   useEffect(() => {
     if (enabled) {
