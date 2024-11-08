@@ -58,14 +58,14 @@ spec:
       value: {{ saf.scope }}
     - name: APP_ENV
       value: {{ app_env }}
-    - name: UXSIGNALS_ENABLED
-      value: {{ uxsignals.enabled }}
-    - name: UXSIGNALS_MODE
-      value: {{ uxsignals.mode }}
-    - name: SANITY_DATASET
-      value: {{ sanity_dataset }}
-    - name: UNLEASH_SERVER_API_URL
-      value: {{ unleash.server_api_url }}
+    # - name: UXSIGNALS_ENABLED
+    #   value: {{ uxsignals.enabled }}
+    # - name: UXSIGNALS_MODE
+    #   value: {{ uxsignals.mode }}
+    # - name: SANITY_DATASET
+    #   value: {{ sanity_dataset }}
+    # - name: UNLEASH_SERVER_API_URL
+    #   value: {{ unleash.server_api_url }}
 
   ingresses:
     {{#each ingresses as |url|}}
