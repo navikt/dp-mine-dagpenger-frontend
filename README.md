@@ -1,36 +1,65 @@
-# Welcome to Remix + Vite!
+# dp-mine-dagpenger-frontend: Mine dagpenger søknader
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
+Frontend-klient for dagpenger søknader
 
-## Development
+## Komme i gang
 
-Run the Vite dev server:
+Appen er basert på [Remix.run](https://remix.run/)
 
-```shellscript
+**For Mac OSX**
+
+```shell
+npm install
+npm run setup-env
+npm run generate-token
 npm run dev
 ```
 
-## Deployment
+**For Windows**
 
-First, build your app for production:
-
-```sh
-npm run build
+```shell
+npm install
+npm run setup-env
+npm run generate-token-win
+npm run dev
 ```
 
-Then run the app in production mode:
+`npm run setup-env` lager en `.env` som er nødvendig for kunne kjøre opp applikasjonen lokalt.
 
-```sh
-npm start
+`npm run generate-token` genererer lokal token til `.env` fil og bruker det til å hente data fra dev-miljøet. Toknene er gyldig mellom 30 minutter til en time, kjør kommandoen på nytt dersom tokene er utløpt.
+
+## Kjøre localhost med mock data
+
+For å kjøre localhost med mock data kan du enkelt sette `USE_MOCKS="true"` i `.env` filen og restart localhost på nytt.
+
+## Henvendelser
+
+Spørsmål knyttet til koden eller prosjektet kan rettes mot:
+
+- Nattaphong Klinjan, nattaphong.klinjan@nav.no
+
+## For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.
+
+## Testing
+
+```shell
+npm run test
 ```
 
-Now you'll need to pick a host to deploy it to.
+## Kode-konvensjoner
 
-### DIY
+- Bruk engelsk for alt unntatt domenespesifikke termer (eks: faktum, seksjon).
+- Filnavn:
+  - Bruk PascalCase for React-komponenter.
+  - Bruk kebab-case for rene ts-filer
+- Named exports --> Alle eksporter skal være navngitt (unngå default)
+- CSS:
+  - Bruk css-modules - Unngå inline style.
+  - Følg navnekonvensjon for tilhørende komponent.
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+## Git-konvensjoner
 
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
+- Multi-line commits --> Første linje beskriver hva som er gjort (kort). Forklar hvorfor endringen er gjort på etterføllgende linjer
+- Referer til Github-issue (navikt/dagpenger#[issue-nummer])
