@@ -1,5 +1,4 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { useSearchParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { typedjson } from "remix-typedjson";
 import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
@@ -33,26 +32,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Index() {
-  const [searchParams] = useSearchParams();
-  const brevQuery = searchParams.get("brev");
-
   useEffect(() => {
-    // Task analytic Spørreundersøkelse for gammel og ny vedtaksbrev
-    const nyBrev = getEnv("APP_ENV") === "production" ? "03409" : "03400";
-    const gammelBrev = getEnv("APP_ENV") === "production" ? "03408" : "03400";
+    const key = getEnv("APP_ENV") === "production" ? "03409" : "03400";
 
     setTimeout(() => {
       //@ts-expect-error: Ukjent TA type
-      if (brevQuery && typeof window.TA === "function") {
-        if (brevQuery === "ny") {
-          //@ts-expect-error: Ukjent TA type
-          window.TA("start", nyBrev);
-        }
-
-        if (brevQuery === "gammel") {
-          //@ts-expect-error: Ukjent TA type
-          window.TA("start", gammelBrev);
-        }
+      if (typeof window.TA === "function") {
+        //@ts-expect-error: Ukjent TA type
+        window.TA("start", key);
       }
     }, 1500);
   });
