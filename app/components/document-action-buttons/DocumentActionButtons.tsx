@@ -64,7 +64,7 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title }: 
     document.body.removeChild(a);
     window.URL.revokeObjectURL(blobUrl); // Cleanup the Blob URL
 
-    loggLastned("journalpostId");
+    loggLastned(journalpostId);
   }
 
   function onClose() {
