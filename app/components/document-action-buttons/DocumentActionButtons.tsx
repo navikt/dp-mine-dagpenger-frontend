@@ -2,8 +2,9 @@ import { DownloadIcon, FileSearchIcon } from "@navikt/aksel-icons";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useRef, useState } from "react";
 import { useSanity } from "~/hooks/useSanity";
-import styles from "./DocumentActionButtons.module.css";
+import { loggLastned } from "~/utils/amplitude";
 import { getEnv } from "~/utils/env.utils";
+import styles from "./DocumentActionButtons.module.css";
 
 interface IProps {
   journalpostId: string;
@@ -62,6 +63,8 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title }: 
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(blobUrl); // Cleanup the Blob URL
+
+    loggLastned("journalpostId");
   }
 
   function onClose() {
