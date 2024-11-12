@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "./ExpandableAttchmentsList.module.css";
 import { IDokument } from "~/utils/safJournalposter.utils";
 import { useSanity } from "~/hooks/useSanity";
-import { Vedlegg } from "../vedlegg/Vedlegg";
+import { Attachment } from "../attachment/Attachment";
 
 interface IProps {
   attachments: IDokument[];
@@ -43,10 +43,10 @@ export function ExpandableAttachmentsList({ attachments, journalpostId }: IProps
       <div className={expanded ? styles.showAttachments : styles.hideAttachments}>
         {expanded &&
           attachments.map((dokument) => (
-            <Vedlegg
+            <Attachment
               key={dokument.dokumentInfoId}
-              tittel={dokument.tittel || getAppText("journalpost.dokument-uten-tittel")}
-              brukerHarTilgang={dokument.brukerHarTilgang}
+              title={dokument.tittel || getAppText("journalpost.dokument-uten-tittel")}
+              userHaveAccess={dokument.brukerHarTilgang}
               journalpostId={journalpostId}
               dokumentInfoId={dokument.dokumentInfoId}
             />

@@ -1,26 +1,21 @@
 import { BodyShort } from "@navikt/ds-react";
 import { DocumentActionButtons } from "../document-action-buttons/DocumentActionButtons";
-import { SkjultDokument } from "../skjult-dokument/SkjultDokument";
-import styles from "./Vedlegg.module.css";
+import { HiddenDocument } from "../hidden-document/HiddenDocument";
+import styles from "./Attachment.module.css";
 
 interface IProps {
-  tittel: string;
-  brukerHarTilgang?: boolean;
+  title: string;
+  userHaveAccess?: boolean;
   journalpostId: string;
   dokumentInfoId: string;
   datoOpprettet?: string;
 }
 
-export function Vedlegg({
-  tittel: title,
-  brukerHarTilgang: userHaveAccess,
-  journalpostId,
-  dokumentInfoId,
-}: IProps) {
+export function Attachment({ title, userHaveAccess, journalpostId, dokumentInfoId }: IProps) {
   return (
-    <div className={styles.vedlegg}>
-      <BodyShort className={styles.vedleggTittel}>{title}</BodyShort>
-      {!userHaveAccess && <SkjultDokument />}
+    <div className={styles.attachment}>
+      <BodyShort className={styles.attachmentTitle}>{title}</BodyShort>
+      {!userHaveAccess && <HiddenDocument />}
       {userHaveAccess && (
         <DocumentActionButtons
           journalpostId={journalpostId}
