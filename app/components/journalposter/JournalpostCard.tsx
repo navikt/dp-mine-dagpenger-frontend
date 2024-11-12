@@ -4,7 +4,7 @@ import { hentAvsender } from "~/utils/avsenderMottaker";
 import { IDokument, IJournalpost } from "~/utils/safJournalposter.utils";
 import { DocumentActionButtons } from "../document-action-buttons/DocumentActionButtons";
 import { ExpandableAttachmentsList } from "../expandable-attachments-list/ExpandableAttachmentsList";
-import { HiddenDocument } from "../hidden-document/HiddenDocument";
+import { SkjultDokument } from "../skjult-dokument/SkjultDokument";
 import styles from "./Jounalposter.module.css";
 
 export function JournalpostCard({
@@ -50,7 +50,7 @@ export function JournalpostCard({
             {mainDocumentTitle}
           </Heading>
         </div>
-        {!mainDocument.brukerHarTilgang && <HiddenDocument />}
+        {!mainDocument.brukerHarTilgang && <SkjultDokument />}
         {mainDocument.brukerHarTilgang && (
           <DocumentActionButtons
             journalpostId={journalpostId}

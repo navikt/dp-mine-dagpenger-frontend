@@ -1,15 +1,15 @@
-.hiddenDocumentContainer {
+.skjultDokumentContainer {
   min-width: 250px;
   margin: 1rem 0 1rem 0;
 }
 
-.hiddenDocumentLabel {
+.skjultDokumentLabel {
   display: flex;
   align-items: center;
   margin: 0;
 }
 
-.hiddenDocumentIcon {
+.skjultDokumentIcon {
   margin-right: 0.5rem;
 }
 
@@ -23,7 +23,7 @@
 }
 
 @media screen and (min-width: 700px) {
-  .hiddenDocumentContainer {
+  .skjultDokumentContainer {
     margin: 0;
   }
 }

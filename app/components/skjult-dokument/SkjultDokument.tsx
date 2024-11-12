@@ -2,26 +2,22 @@ import { EyeSlashIcon } from "@navikt/aksel-icons";
 import { Button, Popover } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { useRef, useState } from "react";
-import styles from "./HiddenDocument.module.css";
+import styles from "./SkjultDokument.module.css";
 import { useSanity } from "~/hooks/useSanity";
 
-export function HiddenDocument() {
+export function SkjultDokument() {
   const [isOpen, setIsOpen] = useState(false);
   const { getAppText, getRichText } = useSanity();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  function handleOpenPopover() {
-    setIsOpen(true);
-  }
-
   return (
-    <div className={styles.hiddenDocumentContainer}>
-      <p className={styles.hiddenDocumentLabel}>
-        <EyeSlashIcon fontSize="1.5rem" aria-hidden className={styles.hiddenDocumentIcon} />
+    <div className={styles.skjultDokumentContainer}>
+      <p className={styles.skjultDokumentLabel}>
+        <EyeSlashIcon fontSize="1.5rem" aria-hidden className={styles.skjultDokumentIcon} />
         {getAppText("skjult-dokument.kan-ikke-vises")}
       </p>
 
-      <Button ref={buttonRef} variant="tertiary" size="small" onClick={handleOpenPopover}>
+      <Button ref={buttonRef} variant="tertiary" size="small" onClick={() => setIsOpen(true)}>
         {getAppText("skjult-dokument.hvorfor-vises-ikke-dokumentet")}
       </Button>
       <Popover
