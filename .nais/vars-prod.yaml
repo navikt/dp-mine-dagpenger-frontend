@@ -1,0 +1,24 @@
+ingresses: 
+  - https://www.nav.no/arbeid/dagpenger/mine-dagpenger-frontend
+base_path: /arbeid/dagpenger/mine-dagpenger-frontend
+dekorator:
+  env: prod
+loginservice:
+  url: https://loginservice.nav.no/login
+soknadsdialog:
+  ingress: https://www.nav.no/dagpenger/dialog
+paw_arbeidssoekerregisteret_url: https://oppslag-arbeidssoekerregisteret.intern.nav.no
+okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.nav.no
+saf:
+  ingress: safselvbetjening.prod-fss-pub.nais.io
+  url: https://safselvbetjening.prod-fss-pub.nais.io
+  cluster: prod-fss
+  scope: safselvbetjening
+app_env: production
+uxsignals:
+  enabled: enabled
+  mode: production
+sanity_dataset: production
+unleash:
+  server_api_url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
+  environment: production
