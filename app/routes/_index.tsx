@@ -45,7 +45,7 @@ export default function Index() {
   });
 
   return (
-    <main>
+    <main id="maincontent" tabIndex={-1}>
       <div className="mine-dagpenger">
         <PageHero />
         <UxsignalsWidget />

@@ -29,7 +29,7 @@ export function ExpandableAttachmentsList({ attachments, journalpostId }: IProps
   }
 
   return (
-    <div className={styles.expandable} aria-expanded={expanded} role="button">
+    <div className={styles.expandable}>
       <button className={styles.expandableTittel} onClick={() => handleExpand()}>
         <ChevronDownIcon
           className={classNames({
@@ -40,7 +40,10 @@ export function ExpandableAttachmentsList({ attachments, journalpostId }: IProps
         />
         {getAttechmentsButtonText()}
       </button>
-      <div className={expanded ? styles.showAttachments : styles.hideAttachments}>
+      <div
+        className={expanded ? styles.showAttachments : styles.hideAttachments}
+        aria-hidden={!expanded}
+      >
         {expanded &&
           attachments.map((dokument) => (
             <Attachment

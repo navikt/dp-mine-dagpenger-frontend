@@ -1,11 +1,11 @@
 import { subWeeks } from "date-fns";
 import { describe, expect, test } from "vitest";
 import { ISoknad } from "~/models/getFullfortSoknader.server";
-import { withinLast12Weeks } from "./soknad.utils";
+import { getSoknadWithinLast12Weeks } from "./soknad.utils";
 
 describe("Filter soknad within last 12 weeks", () => {
   test("Expect filtered søknader to 3 soknader", () => {
-    const filteredSokander = withinLast12Weeks(soknaderList);
+    const filteredSokander = getSoknadWithinLast12Weeks(soknaderList);
     expect(filteredSokander).toHaveLength(3);
   });
 });

@@ -1,4 +1,4 @@
-import { HttpResponse, bypass, http } from "msw";
+import { HttpResponse, bypass, http, passthrough } from "msw";
 import { getEnv } from "~/utils/env.utils";
 import { arbeidssoekerPerioderResponse } from "./responses/arbeidssoekerPerioderResponse";
 import { paabegynteSoknaderResponse } from "./responses/paabegyntSoknaderResponse";
@@ -29,5 +29,13 @@ export const handlers = [
     const response = await bypassResponse.json();
 
     return HttpResponse.json(response);
+  }),
+
+  http.get("https://dagpenger-unleash-api.nav.cloud.nais.io/*", ({ request }) => {
+    if (request.headers.has("x-my-header")) {
+      return passthrough();
+    }
+
+    return HttpResponse.text("Mocked response");
   }),
 ];

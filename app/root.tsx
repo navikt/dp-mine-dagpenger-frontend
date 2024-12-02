@@ -135,7 +135,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <main>
+        <main id="maincontent" tabIndex={-1}>
           <Section>
             <SectionContent>
               <BodyShort>Vi har tekniske problemer akkurat nå. Prøve igjen om litt.</BodyShort>

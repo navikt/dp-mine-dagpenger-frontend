@@ -1,7 +1,7 @@
 import { Alert } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
-import { withinLast12Weeks } from "~/utils/soknad.utils";
+import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./SoknadList.module.css";
 
@@ -16,10 +16,9 @@ export function FullforteSoknadList() {
       </Alert>
     );
   }
+  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(fullforteSoknader.data);
 
-  if (fullforteSoknader.status === "success" && fullforteSoknader.data.length > 0) {
-    const fullforteSoknaderWithin12Weeks = withinLast12Weeks(fullforteSoknader.data);
-
+  if (fullforteSoknader.status === "success" && fullforteSoknaderWithin12Weeks.length > 0) {
     return (
       <ul className={styles.soknadList}>
         {fullforteSoknaderWithin12Weeks.map((soknad) => (
