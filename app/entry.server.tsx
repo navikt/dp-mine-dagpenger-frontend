@@ -50,6 +50,7 @@ function handleBotRequest(
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
+      // @ts-expect-error - Unknow remixContext type
       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onAllReady() {
@@ -96,6 +97,7 @@ function handleBrowserRequest(
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
+      // @ts-expect-error - Unknow remixContext type
       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onShellReady() {

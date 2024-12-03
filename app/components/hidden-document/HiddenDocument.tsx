@@ -4,6 +4,7 @@ import { PortableText } from "@portabletext/react";
 import { useRef, useState } from "react";
 import styles from "./HiddenDocument.module.css";
 import { useSanity } from "~/hooks/useSanity";
+import { loggAapneForklaringAvSkjultDokument } from "~/amplitude/amplitude";
 
 export function HiddenDocument() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +12,8 @@ export function HiddenDocument() {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   function handleOpenPopover() {
-    setIsOpen(true);
+    setIsOpen(isOpen);
+    loggAapneForklaringAvSkjultDokument();
   }
 
   return (

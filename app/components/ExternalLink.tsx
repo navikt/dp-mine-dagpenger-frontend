@@ -8,6 +8,7 @@ interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];
   size?: ButtonProps["size"];
   loading?: boolean;
+  onClick?: () => void;
 }
 
 export const ExternalLink = forwardRef(ExternalLinkComponent);

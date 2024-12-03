@@ -5,13 +5,20 @@ import styles from "./Attachment.module.css";
 
 interface IProps {
   title: string;
+  sender: string;
   userHaveAccess?: boolean;
   journalpostId: string;
   dokumentInfoId: string;
   datoOpprettet?: string;
 }
 
-export function Attachment({ title, userHaveAccess, journalpostId, dokumentInfoId }: IProps) {
+export function Attachment({
+  title,
+  userHaveAccess,
+  journalpostId,
+  dokumentInfoId,
+  sender,
+}: IProps) {
   return (
     <div className={styles.attachment}>
       <BodyShort className={styles.attachmentTitle}>{title}</BodyShort>
@@ -21,6 +28,7 @@ export function Attachment({ title, userHaveAccess, journalpostId, dokumentInfoI
           journalpostId={journalpostId}
           dokumentInfoId={dokumentInfoId}
           title={title}
+          sender={sender}
         />
       )}
     </div>

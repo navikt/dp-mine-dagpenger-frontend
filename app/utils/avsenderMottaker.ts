@@ -30,5 +30,5 @@ const predikater: PredikatTekstPar[] = [
 ];
 
 export const hentAvsender = (j: JP) => {
-  return predikater.find((par) => par.predikat(j))?.tekst;
+  return predikater.find((par) => par.predikat(j))?.tekst || "Avsender ukjent";
 };
