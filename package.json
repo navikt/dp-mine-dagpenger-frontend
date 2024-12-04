@@ -30,7 +30,7 @@
     "@remix-run/node": "^2.14.0",
     "@remix-run/react": "^2.14.0",
     "@remix-run/serve": "^2.14.0",
-    "@sanity/client": "^6.23.0",
+    "@sanity/client": "^6.24.1",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "graphql-request": "^7.1.0",
