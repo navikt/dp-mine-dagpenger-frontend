@@ -10,10 +10,9 @@ interface IProps {
   attachments: IDokument[];
   title: string;
   journalpostId: string;
-  sender: string;
 }
 
-export function ExpandableAttachmentsList({ attachments, journalpostId, sender }: IProps) {
+export function ExpandableAttachmentsList({ attachments, journalpostId }: IProps) {
   const { getAppText } = useSanity();
   const [expanded, setExpanded] = useState(false);
 
@@ -53,7 +52,6 @@ export function ExpandableAttachmentsList({ attachments, journalpostId, sender }
               userHaveAccess={dokument.brukerHarTilgang}
               journalpostId={journalpostId}
               dokumentInfoId={dokument.dokumentInfoId}
-              sender={sender}
             />
           ))}
       </div>

@@ -2,7 +2,6 @@ import { DownloadIcon, FileSearchIcon } from "@navikt/aksel-icons";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useRef, useState } from "react";
 import { useSanity } from "~/hooks/useSanity";
-import { loggDokumenterPreviewTid, loggLastnedDokument } from "~/amplitude/amplitude";
 import { getEnv } from "~/utils/env.utils";
 import styles from "./DocumentActionButtons.module.css";
 
@@ -10,17 +9,14 @@ interface IProps {
   journalpostId: string;
   dokumentInfoId: string;
   title: string;
-  sender: string;
 }
 
-export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, sender }: IProps) {
+export function DocumentActionButtons({ journalpostId, dokumentInfoId, title }: IProps) {
   const { getAppText } = useSanity();
   const ref = useRef<HTMLDialogElement>(null);
   const [dokumentUrl, setDokumentUrl] = useState<string | null>(null);
-  const [starPreviewTimeStamp, setStartPreviewTimeStamp] = useState<Date | null>(null);
 
   async function aapneDokument() {
-    setStartPreviewTimeStamp(new Date());
     const basePath = getEnv("BASE_PATH").replace(/\/$/, "");
 
     const url = `${basePath}/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
@@ -66,22 +62,11 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(blobUrl); // Cleanup the Blob URL
-
-    loggLastnedDokument(title, sender);
   }
 
   function onClose() {
     setDokumentUrl(null);
     ref.current?.close();
-
-    if (starPreviewTimeStamp) {
-      const endPreviewTimeStamp = new Date().getTime();
-
-      const totalPreviewTimeInSeconds =
-        (endPreviewTimeStamp - starPreviewTimeStamp.getTime()) / 1000;
-
-      loggDokumenterPreviewTid(totalPreviewTimeInSeconds);
-    }
   }
 
   return (

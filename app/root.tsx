@@ -1,10 +1,10 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort } from "@navikt/ds-react";
-import { LinksFunction, LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
+import { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
-import { useTypedRouteLoaderData } from "remix-typedjson";
+import { typedjson, useTypedRouteLoaderData } from "remix-typedjson";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { getDecoratorHTML } from "./decorator/decorator.server";
@@ -58,7 +58,10 @@ export const meta: MetaFunction = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
-  if (!decoratorFragments) throw json({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
+  if (!decoratorFragments)
+    throw typedjson({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
+
+  console.log();
 
   const sanityData = await sanityClient.fetch<ISanityData>(allTextsQuery, {
     baseLang: "nb",
@@ -68,7 +71,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
 
-  return json({
+  return typedjson({
     decoratorFragments,
     sanityData,
     session,

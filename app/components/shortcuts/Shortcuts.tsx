@@ -4,7 +4,6 @@ import { SectionContent } from "../section/SectionContent";
 import styles from "./Shortcuts.module.css";
 import { useSanity } from "~/hooks/useSanity";
 import { ISanityLink } from "~/sanity/sanity.types";
-import { loggKlikkSnarvei } from "~/amplitude/amplitude";
 
 export function Shortcuts() {
   const { getAppText, getLink } = useSanity();
@@ -26,11 +25,7 @@ export function Shortcuts() {
           {shortcuts.map(({ linkId, linkText, linkUrl, linkDescription }) => {
             return (
               <li key={linkId} className={styles.shortcut}>
-                <Link
-                  className={styles.shortcutLink}
-                  href={linkUrl}
-                  onClick={() => loggKlikkSnarvei(linkText)}
-                >
+                <Link className={styles.shortcutLink} href={linkUrl}>
                   {linkText}
                 </Link>
                 {linkDescription && (

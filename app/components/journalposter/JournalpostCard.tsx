@@ -56,7 +56,6 @@ export function JournalpostCard({
             journalpostId={journalpostId}
             dokumentInfoId={mainDocument.dokumentInfoId}
             title={mainDocumentTitle}
-            sender={sender}
           />
         )}
       </div>
@@ -65,7 +64,6 @@ export function JournalpostCard({
           attachments={attachments}
           title={mainDocumentTitle}
           journalpostId={journalpostId}
-          sender={sender}
         />
       )}
     </article>

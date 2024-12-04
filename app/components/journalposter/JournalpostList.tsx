@@ -7,7 +7,6 @@ import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { JournalpostCard } from "./JournalpostCard";
 import styles from "./Jounalposter.module.css";
-import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
 
 const NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT = 10;
 
@@ -36,14 +35,6 @@ export function JournalpostList() {
     showAll ? journalposter.data.length : NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT
   );
 
-  function onClick() {
-    setShowAll(!showAll);
-
-    if (journalposter.status === "success" && journalposter.data.length) {
-      loggKlikkVisAlleDokumenter(journalposter.data.length);
-    }
-  }
-
   return (
     <Section id="dokumentliste">
       <SectionContent>
@@ -58,7 +49,7 @@ export function JournalpostList() {
         ))}
         {!showAll && journalposter.data.length > NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT && (
           <div className={styles.showAllDocumentButtonContainer}>
-            <Button variant="secondary" onClick={onClick}>
+            <Button variant="secondary" onClick={() => setShowAll(!showAll)}>
               {getAppText("journalpost.vis-alle-dokumenter")} ({journalposter.data.length})
             </Button>
           </div>

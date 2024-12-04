@@ -1,4 +1,4 @@
-import { HttpResponse, bypass, http, passthrough } from "msw";
+import { HttpResponse, http, passthrough } from "msw";
 import { getEnv } from "~/utils/env.utils";
 import { arbeidssoekerPerioderResponse } from "./responses/arbeidssoekerPerioderResponse";
 import { paabegynteSoknaderResponse } from "./responses/paabegyntSoknaderResponse";
@@ -23,19 +23,23 @@ export const handlers = [
     return HttpResponse.json(arbeidssoekerPerioderResponse);
   }),
 
-  // Bypassing mocks, use actual data instead
-  http.get("https://rt6o382n.apicdn.sanity.io/*", async ({ request }) => {
-    const bypassResponse = await fetch(bypass(request));
-    const response = await bypassResponse.json();
-
-    return HttpResponse.json(response);
+  http.get("https://rt6o382n.apicdn.sanity.io/*", () => {
+    return passthrough();
   }),
 
-  http.get("https://dagpenger-unleash-api.nav.cloud.nais.io/*", ({ request }) => {
-    if (request.headers.has("x-my-header")) {
-      return passthrough();
-    }
+  http.get("https://dagpenger-unleash-api.nav.cloud.nais.io/*", () => {
+    return passthrough();
+  }),
 
-    return HttpResponse.text("Mocked response");
+  http.post("https://dagpenger-unleash-api.nav.cloud.nais.io/*", () => {
+    return passthrough();
+  }),
+
+  http.get("https://dekoratoren.ekstern.dev.nav.no/*", () => {
+    return passthrough();
+  }),
+
+  http.post("https://safselvbetjening-q1.dev-fss-pub.nais.io/graphql", () => {
+    return passthrough();
   }),
 ];
