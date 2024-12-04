@@ -58,10 +58,9 @@ export const meta: MetaFunction = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
-  if (!decoratorFragments)
+  if (!decoratorFragments) {
     throw typedjson({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
-
-  console.log();
+  }
 
   const sanityData = await sanityClient.fetch<ISanityData>(allTextsQuery, {
     baseLang: "nb",
