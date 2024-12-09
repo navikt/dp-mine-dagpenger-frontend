@@ -7,7 +7,7 @@ import parse from "html-react-parser";
 import { typedjson, useTypedRouteLoaderData } from "remix-typedjson";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
-import { getDecoratorHTML } from "./decorator/decorator.server";
+import { getDecoratorHTML } from "./models/decorator.server";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import indexStyle from "./index.css?url";
 import { getSession } from "./models/getSession.server";
