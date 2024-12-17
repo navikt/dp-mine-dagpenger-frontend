@@ -47,11 +47,11 @@ export const meta: MetaFunction = () => {
     { title: "Mine dagpenger" },
     {
       property: "og:title",
-      content: "Very cool app",
+      content: "Mine dagpenger",
     },
     {
       name: "description",
-      content: "This app is the best",
+      content: "Mine dagpenger",
     },
   ];
 };
@@ -60,6 +60,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) {
+    logger.error("Kunne ikke hente dekoratør");
     throw typedjson({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
   }
 
@@ -67,6 +68,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
     baseLang: "nb",
     lang: "nb",
   });
+
+  if (!sanityData) {
+    logger.error("Kunne ikke hente sanity data");
+    throw typedjson({ error: "Kunne ikke hente sanity data" }, { status: 500 });
+  }
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
