@@ -34,7 +34,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Index() {
   useEffect(() => {
     // Task analytic Spørreundersøkelse for gammel og ny vedtaksbrev
-    if (getEnv("APP_ENV") === "production" || getEnv("APP_ENV") === "development") {
+    if (getEnv("IS_LOCALHOST") !== "true") {
       setTimeout(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
