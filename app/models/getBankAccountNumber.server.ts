@@ -32,7 +32,7 @@ export async function getBankAccountNumber(request: Request): Promise<INetworkRe
 
   // Account holder not found
   if (!response.ok && response.status === 404) {
-    logger.error("Kontoinnehaver ikke funnet");
+    logger.warn("Finner ikke kontonummer tilhører til bruker");
 
     return { status: "success", data: { kontonummer: "" } };
   }
