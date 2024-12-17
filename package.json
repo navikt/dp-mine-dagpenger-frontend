@@ -20,6 +20,9 @@
     "graphql-codegen": "graphql-codegen --config graphql-codegen.ts"
   },
   "dependencies": {
+    "@elastic/ecs-pino-format": "^1.5.0",
+    "@grafana/faro-web-sdk": "^1.12.2",
+    "@grafana/faro-web-tracing": "^1.12.2",
     "@navikt/aksel-icons": "^7.8.0",
     "@navikt/ds-css": "^7.8.0",
     "@navikt/ds-react": "^7.8.0",
@@ -37,6 +40,7 @@
     "html-react-parser": "^5.2.1",
     "isbot": "^5.1.18",
     "msw": "^2.7.0",
+    "pino": "^9.5.0",
     "prom-client": "^15.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

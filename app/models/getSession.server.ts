@@ -1,6 +1,7 @@
 import { expiresIn, getToken, validateToken } from "@navikt/oasis";
 import { getEnv } from "~/utils/env.utils";
 import { INetworkResponse } from "~/models/networkResponse";
+import { logger } from "~/utils/logger.utils";
 
 export interface ISessionData {
   expiresIn: number;
@@ -11,7 +12,7 @@ export async function getSession(req: Request): Promise<INetworkResponse<ISessio
 
   if (getEnv("IS_LOCALHOST") === "true" && getEnv("USE_MSW") === "false" && devToken) {
     if (expiresIn(devToken) <= 0) {
-      console.log("\n ⛔️ Lokalt sessjon utløpt! Kjør: npm run generate-token på nytt.");
+      logger.error("\n ⛔️ Lokalt sessjon utløpt! Kjør: npm run generate-token på nytt.");
 
       return {
         status: "error",

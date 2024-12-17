@@ -14,6 +14,7 @@ import { setup, start } from "mocks/server";
 import { renderToPipeableStream } from "react-dom/server";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
+import { logger } from "./utils/logger.utils";
 
 const ABORT_DELAY = 5_000;
 
@@ -23,8 +24,32 @@ if (getEnv("USE_MSW") === "true") {
 }
 
 unleash.on("synchronized", () => {
-  console.log("🟢 Unleash is ready");
+  logger.info("🟢 Unleash is ready");
 });
+
+const csp = {
+  "script-src": ["blob:"],
+  "img-src": [
+    "'self'",
+    "data:",
+    "blob:",
+    "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/",
+  ],
+  "connect-src": [
+    "'self'",
+    "*.nav.no",
+    "rt6o382n.api.sanity.io",
+    "rt6o382n.apicdn.sanity.io",
+    "https://telemetry.ekstern.dev.nav.no/collect",
+    "https://telemetry.nav.no/collect",
+  ],
+};
+let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
+
+if (getEnv("IS_LOCALHOST") === "true") {
+  cspString =
+    "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * blob: 'unsafe-inline' 'unsafe-eval'; connect-src * blob: 'unsafe-inline'; img-src * 'self' blob: data:; frame-src * data: blob:; style-src * 'unsafe-inline';";
+}
 
 export default function handleRequest(
   request: Request,
@@ -50,7 +75,6 @@ function handleBotRequest(
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
-      // @ts-expect-error - Unknow remixContext type
       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onAllReady() {
@@ -97,7 +121,6 @@ function handleBrowserRequest(
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
-      // @ts-expect-error - Unknow remixContext type
       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onShellReady() {
@@ -106,6 +129,7 @@ function handleBrowserRequest(
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
+          responseHeaders.set("Content-Security-Policy", cspString);
 
           resolve(
             new Response(stream, {

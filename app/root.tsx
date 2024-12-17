@@ -16,6 +16,7 @@ import { allTextsQuery } from "./sanity/sanity.query";
 import { ISanityData } from "./sanity/sanity.types";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
+import { logger } from "./utils/logger.utils";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -84,6 +85,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
       UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
       SANITY_DATASET: getEnv("SANITY_DATASET"),
+      FARO_URL: getEnv("FARO_URL"),
+      DP_INNSYN_URL: getEnv("DP_INNSYN_URL"),
+      OKONOMI_KONTOREGISTER_URL: getEnv("OKONOMI_KONTOREGISTER_URL"),
+      PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
+      SAF_URL: getEnv("SAF_URL"),
     },
   });
 }
@@ -125,8 +131,8 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
 
-  console.log("Application error: dp-mine-dagpenger-frontend ");
-  console.log(error);
+  logger.error("Application error: dp-mine-dagpenger-frontend :");
+  logger.error(error);
 
   return (
     <html lang="nb">

@@ -3,6 +3,7 @@ import { Section } from "./section/Section";
 import { SectionContent } from "./section/SectionContent";
 import { useEffect } from "react";
 import { getEnv } from "~/utils/env.utils";
+import { logger } from "~/utils/logger.utils";
 
 export function UxsignalsWidget() {
   const { getSetting } = useSanity();
@@ -21,7 +22,7 @@ export function UxsignalsWidget() {
         try {
           document.body.removeChild(script);
         } catch {
-          console.log("Kunne vise uxsignals widget!");
+          logger.error("Kunne vise uxsignals widget!");
         }
       };
     }

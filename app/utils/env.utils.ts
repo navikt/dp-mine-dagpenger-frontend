@@ -27,6 +27,7 @@ interface IEnv {
   UNLEASH_SERVER_API_URL: string;
   UNLEASH_SERVER_API_TOKEN: string;
   SANITY_DATASET: string;
+  FARO_URL: string;
 }
 
 export function getEnv(value: keyof IEnv) {
