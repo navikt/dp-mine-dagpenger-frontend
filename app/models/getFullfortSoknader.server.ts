@@ -1,6 +1,7 @@
+import { INetworkResponse } from "~/models/networkResponse";
 import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/models/networkResponse";
+import { logger } from "~/utils/logger.utils";
 
 export interface ISoknad {
   søknadId: string;
@@ -33,6 +34,8 @@ export async function getFullforteSoknader(request: Request): Promise<INetworkRe
   });
 
   if (!response.ok) {
+    logger.error("Feil ved uthenting av fullførte søknader");
+
     return {
       status: "error",
       error: {

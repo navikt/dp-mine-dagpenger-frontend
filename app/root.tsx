@@ -60,8 +60,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) {
-    logger.error("Kunne ikke hente dekoratør");
-    throw typedjson({ error: "Kunne ikke hente dekoratør" }, { status: 500 });
+    logger.error("Klarte ikke hente dekoratør");
+    throw typedjson({ error: "Klarte ikke hente dekoratør" }, { status: 500 });
   }
 
   const sanityData = await sanityClient.fetch<ISanityData>(allTextsQuery, {
@@ -70,8 +70,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   if (!sanityData) {
-    logger.error("Kunne ikke hente sanity data");
-    throw typedjson({ error: "Kunne ikke hente sanity data" }, { status: 500 });
+    logger.error("Klarte ikke hente sanity data");
+    throw typedjson({ error: "Klarte ikke hente sanity data" }, { status: 500 });
   }
 
   const session = await getSession(request);

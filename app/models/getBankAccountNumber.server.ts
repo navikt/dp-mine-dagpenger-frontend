@@ -1,6 +1,7 @@
 import { getOKONOMIKontoregisterToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { INetworkResponse } from "./networkResponse";
+import { logger } from "~/utils/logger.utils";
 
 export type IKonto = {
   kontonummer: string;
@@ -31,10 +32,14 @@ export async function getBankAccountNumber(request: Request): Promise<INetworkRe
 
   // Account holder not found
   if (!response.ok && response.status === 404) {
+    logger.error("Kontoinnehaver ikke funnet");
+
     return { status: "success", data: { kontonummer: "" } };
   }
 
   if (!response.ok) {
+    logger.error("Feil ved uthenting av kontonummer");
+
     return {
       status: "error",
       error: {

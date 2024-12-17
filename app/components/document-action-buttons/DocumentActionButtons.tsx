@@ -5,6 +5,7 @@ import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
 import styles from "./DocumentActionButtons.module.css";
 import { loggDokumenterPreviewTid, loggLastnedDokument } from "~/amplitude/amplitude";
+import { logger } from "~/utils/logger.utils";
 
 interface IProps {
   journalpostId: string;
@@ -27,7 +28,9 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
+      logger.error(`Klarte ikke åpne PDF fra ${url}`);
+
+      throw new Response(`Klarte ikke åpne PDF fra ${url}`, {
         status: response.status,
         statusText: response.statusText,
       });
@@ -50,7 +53,9 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
+      logger.error(`Klarte ikke laste need PDF fra ${url}`);
+
+      throw new Response(`Klarte ikke laste need PDF fra ${url}`, {
         status: response.status,
         statusText: response.statusText,
       });

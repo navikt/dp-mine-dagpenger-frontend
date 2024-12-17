@@ -11,6 +11,7 @@ import {
   settDatoOpprettet,
 } from "~/utils/safJournalposter.utils";
 import { INetworkResponse } from "./networkResponse";
+import { logger } from "~/utils/logger.utils";
 
 export async function getSAFJournalposter(
   request: Request
@@ -20,6 +21,7 @@ export async function getSAFJournalposter(
   const parsedToken = parseIdportenToken(onBehalfOfToken);
 
   if (!parsedToken.ok) {
+    logger.error("Klarte ikke hente parseIdportenToken");
     throw Error("Klarte ikke hente parseIdportenToken");
   }
 
@@ -59,6 +61,7 @@ export async function getSAFJournalposter(
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
 
+    logger.error(errorMessage);
     return {
       status: "error",
       error: {
