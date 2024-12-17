@@ -32,17 +32,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Index() {
   useEffect(() => {
-    // Task analytic Spørreundersøkelse for gammel og ny vedtaksbrev
-    setTimeout(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      if (typeof window.TA === "function") {
+    if (typeof window !== "undefined") {
+      setTimeout(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        window.TA("start", "03411");
-      }
-    }, 1000);
-  });
+        if (typeof window.TA === "function") {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          window.TA("start", "03411");
+        }
+      }, 1000);
+    }
+  }, []);
 
   return (
     <main id="maincontent" tabIndex={-1}>
