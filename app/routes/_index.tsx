@@ -33,8 +33,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Index() {
   useEffect(() => {
-    setTimeout(() => {
-      if (getEnv("APP_ENV") === "production") {
+    // Task analytic Spørreundersøkelse for gammel og ny vedtaksbrev
+    if (getEnv("IS_LOCALHOST") !== "true") {
+      setTimeout(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (typeof window.TA === "function") {
@@ -42,9 +43,9 @@ export default function Index() {
           // @ts-ignore
           window.TA("start", "03411");
         }
-      }
-    }, 1000);
-  }, []);
+      }, 1000);
+    }
+  });
 
   return (
     <main id="maincontent" tabIndex={-1}>
