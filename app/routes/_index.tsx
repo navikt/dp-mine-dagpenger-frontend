@@ -34,8 +34,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Index() {
   useEffect(() => {
     setTimeout(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       if (getEnv("APP_ENV") === "production") {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
