@@ -13,7 +13,7 @@ import { getBankAccountNumber } from "~/models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
 import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
 import { getSAFJournalposter } from "~/models/getSAFJournalposter.server";
-import { getEnv } from "~/utils/env.utils";
+// import { getEnv } from "~/utils/env.utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const fullforteSoknader = await getFullforteSoknader(request);
@@ -34,15 +34,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Index() {
   useEffect(() => {
     setTimeout(() => {
-      if (getEnv("APP_ENV") === "production") {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (typeof window.TA === "function") {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          window.TA("start", "03411");
-        }
-      }
+      // if (getEnv("APP_ENV") === "production") {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // if (typeof window.TA === "function") {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.TA("start", "03411");
+      // }
+      // }
     }, 1000);
   }, []);
 
