@@ -15,7 +15,7 @@ export function UxsignalsWidget() {
     if (enabled) {
       const script = document.createElement("script");
       script.async = true;
-      script.src = "https://uxsignals-frontend.uxsignals.app.iterate.no/embed.js";
+      script.src = "https://widget.uxsignals.com/";
       document.body.appendChild(script);
 
       return () => {
