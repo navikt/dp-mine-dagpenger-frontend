@@ -29,12 +29,7 @@ unleash.on("synchronized", () => {
 
 const csp = {
   "script-src": ["blob:"],
-  "img-src": [
-    "'self'",
-    "data:",
-    "blob:",
-    "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/",
-  ],
+  "img-src": ["'self'", "data:", "blob:", "https://cdn.nav.no/*`"],
   "connect-src": [
     "'self'",
     "*.nav.no",
