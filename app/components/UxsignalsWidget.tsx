@@ -8,7 +8,7 @@ import { logger } from "~/utils/logger.utils";
 export function UxsignalsWidget() {
   const { getSetting } = useSanity();
   const uxsignalId = getSetting("uxsignals");
-  const enabled = getEnv("UXSIGNALS_ENABLED") === "true";
+  const enabled = getEnv("UXSIGNALS_ENABLED") === "enabled";
   const mode = getEnv("UXSIGNALS_MODE").length ? getEnv("UXSIGNALS_MODE") : "demo";
 
   useEffect(() => {
