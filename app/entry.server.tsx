@@ -43,6 +43,7 @@ const csp = {
     "https://telemetry.ekstern.dev.nav.no/collect",
     "https://telemetry.nav.no/collect",
     "https://in2.taskanalytics.com/",
+    "https://api.uxsignals.com",
   ],
 };
 let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
