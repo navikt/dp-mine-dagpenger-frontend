@@ -8,16 +8,15 @@ import { logger } from "~/utils/logger.utils";
 export function UxsignalsWidget() {
   const { getSetting } = useSanity();
   const uxsignalId = getSetting("uxsignals");
-  const enabled = getEnv("UXSIGNALS_ENABLED") === "enabled";
+  const enabled = getEnv("UXSIGNALS_ENABLED") === "true";
   const mode = getEnv("UXSIGNALS_MODE").length ? getEnv("UXSIGNALS_MODE") : "demo";
 
   useEffect(() => {
     if (enabled) {
       const script = document.createElement("script");
+      script.src = "https://widget.uxsignals.com/embed.js";
       script.async = true;
-      script.src = "https://widget.uxsignals.com/";
       document.body.appendChild(script);
-
       return () => {
         try {
           document.body.removeChild(script);
