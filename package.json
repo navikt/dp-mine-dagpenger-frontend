@@ -30,7 +30,7 @@
     "@navikt/oasis": "^3.6.0",
     "@portabletext/react": "^3.2.0",
     "@remix-run/node": "^2.15.3",
-    "@remix-run/react": "^2.15.2",
+    "@remix-run/react": "^2.15.3",
     "@remix-run/serve": "^2.15.3",
     "@sanity/client": "^6.27.2",
     "classnames": "^2.5.1",
