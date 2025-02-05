@@ -19,7 +19,7 @@ export function PageHero() {
   return (
     <Section>
       <SectionContent>
-        <Heading className="page-header" size="xlarge">
+        <Heading className="page-header" size="xlarge" data-testid={"page-heading"}>
           {getAppText("sidetittel")}
         </Heading>
         {soknader && <PortableText value={sectionText} />}

@@ -1,7 +1,6 @@
 import eslint from "@eslint/js";
 import prettier from "eslint-config-prettier";
 import jsxA11y from "eslint-plugin-jsx-a11y";
-import playwright from "eslint-plugin-playwright";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import typescriptEslint from "typescript-eslint";
@@ -9,7 +8,7 @@ import typescriptEslint from "typescript-eslint";
 export default [
   {
     name: "ignore",
-    ignores: ["graphql/", "build/", "playwright-report/"],
+    ignores: ["graphql/", "build/", ],
   },
   {
     name: "eslint/recommended:",
@@ -36,14 +35,6 @@ export default [
   {
     name: "jsx-a11y/recommended",
     ...jsxA11y.flatConfigs.recommended,
-  },
-  {
-    name: "playwright/recommended",
-    ...playwright.configs["flat/recommended"],
-    files: ["tests/playwright/**"],
-    rules: {
-      ...playwright.configs["flat/recommended"].rules,
-    },
   },
   {
     name: "prettier",
