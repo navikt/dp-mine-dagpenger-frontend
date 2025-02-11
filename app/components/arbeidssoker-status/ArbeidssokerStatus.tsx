@@ -1,16 +1,17 @@
 import { Alert } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import classNames from "classnames";
-import { useTypedRouteLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
 import styles from "./ArbeidssokerStatus.module.css";
 import { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
+import { useRouteLoaderData } from "react-router";
+import { loader } from "~/routes/index";
 
 export function ArbeidssokerStatus() {
   const { getRichText } = useSanity();
-  const { arbeidsseokerPerioder } = useTypedRouteLoaderData("routes/_index");
+  const data = useRouteLoaderData<typeof loader>("routes/index");
 
-  if (arbeidsseokerPerioder.status === "error") {
+  if (data?.arbeidsseokerPerioder.status === "error") {
     return (
       <Alert variant="warning" className="no-padding-portabletext">
         <PortableText value={getRichText("arbeidssokers-status.teknisk-feil")} />
@@ -19,12 +20,12 @@ export function ArbeidssokerStatus() {
   }
 
   const registered =
-    arbeidsseokerPerioder.status === "success" &&
-    arbeidsseokerPerioder.data?.findIndex(
+    data?.arbeidsseokerPerioder.status === "success" &&
+    data?.arbeidsseokerPerioder.data?.findIndex(
       (periode: IArbeidssokerperioder) => periode.avsluttet === null
     ) !== -1;
 
-  if (arbeidsseokerPerioder.status === "success" && !registered) {
+  if (data?.arbeidsseokerPerioder.status === "success" && !registered) {
     return (
       <Alert variant="warning" className="no-padding-portabletext">
         <PortableText value={getRichText("arbeidssokers-status.er-ikke-registrert")} />

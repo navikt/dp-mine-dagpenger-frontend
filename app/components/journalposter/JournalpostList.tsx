@@ -1,13 +1,13 @@
 import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
 import { useState } from "react";
-import { useTypedLoaderData } from "remix-typedjson";
+import { useRouteLoaderData } from "react-router";
+import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
+import { loader } from "~/routes/index";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { JournalpostCard } from "./JournalpostCard";
 import styles from "./Jounalposter.module.css";
-import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
+import { JournalpostCard } from "./JournalpostCard";
 
 const NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT = 10;
 
@@ -15,9 +15,9 @@ export function JournalpostList() {
   const [showAll, setShowAll] = useState(false);
   const { getAppText } = useSanity();
 
-  const { journalposter } = useTypedLoaderData<typeof loader>();
+  const routeData = useRouteLoaderData<typeof loader>("routes/index");
 
-  if (journalposter.status === "error") {
+  if (routeData?.journalposter.status === "error") {
     return (
       <Section>
         <SectionContent>
@@ -27,19 +27,23 @@ export function JournalpostList() {
     );
   }
 
-  if (journalposter.status === "success" && journalposter.data.length === 0) {
+  if (routeData?.journalposter.status === "success" && routeData?.journalposter.data.length === 0) {
     return <></>;
   }
 
-  const journalposterToShow = journalposter.data.slice(
-    0,
-    showAll ? journalposter.data.length : NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT
-  );
+  const journalposter = routeData?.journalposter;
+
+  const journalposterToShow =
+    journalposter &&
+    routeData?.journalposter.data.slice(
+      0,
+      showAll ? routeData?.journalposter.data.length : NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT
+    );
 
   function onClick() {
     setShowAll(!showAll);
-    if (journalposter.status === "success" && journalposter.data.length) {
-      loggKlikkVisAlleDokumenter(journalposter.data.length);
+    if (routeData?.journalposter.status === "success" && routeData?.journalposter.data.length) {
+      loggKlikkVisAlleDokumenter(routeData?.journalposter.data.length);
     }
   }
 
@@ -52,16 +56,19 @@ export function JournalpostList() {
         <BodyLong spacing>{getAppText("journalpost.seksjonssbeskrivelse")}</BodyLong>
       </SectionContent>
       <SectionContent fullWidth>
-        {journalposterToShow.map((journalpost) => (
-          <JournalpostCard key={journalpost.journalpostId} {...journalpost} />
-        ))}
-        {!showAll && journalposter.data.length > NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT && (
-          <div className={styles.showAllDocumentButtonContainer}>
-            <Button variant="secondary" onClick={onClick}>
-              {getAppText("journalpost.vis-alle-dokumenter")} ({journalposter.data.length})
-            </Button>
-          </div>
-        )}
+        {journalposterToShow &&
+          journalposterToShow.map((journalpost) => (
+            <JournalpostCard key={journalpost.journalpostId} {...journalpost} />
+          ))}
+        {!showAll &&
+          journalposter &&
+          journalposter.data.length > NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT && (
+            <div className={styles.showAllDocumentButtonContainer}>
+              <Button variant="secondary" onClick={onClick}>
+                {getAppText("journalpost.vis-alle-dokumenter")} ({journalposter.data.length})
+              </Button>
+            </div>
+          )}
       </SectionContent>
     </Section>
   );

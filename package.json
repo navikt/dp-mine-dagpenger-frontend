@@ -4,10 +4,11 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc",
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc",
+    "typegen": "react-router typegen",
     "test": "vitest",
     "precommit-test": "vitest --run",
     "prepare": "husky",
@@ -25,9 +26,8 @@
     "@navikt/nav-dekoratoren-moduler": "^3.2.1",
     "@navikt/oasis": "^3.6.0",
     "@portabletext/react": "^3.2.0",
-    "@remix-run/node": "^2.15.3",
-    "@remix-run/react": "^2.15.3",
-    "@remix-run/serve": "^2.15.3",
+    "@react-router/node": "^7.0.0",
+    "@react-router/serve": "^7.0.0",
     "@sanity/client": "^6.27.2",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
@@ -41,7 +41,7 @@
     "prom-client": "^15.1.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "remix-typedjson": "^0.4.1",
+    "react-router": "^7.0.0",
     "tiny-invariant": "^1.3.3",
     "unleash-client": "^6.4.4",
     "uuid": "^11.0.5"
@@ -52,7 +52,7 @@
     "@graphql-codegen/client-preset": "^4.6.1",
     "@graphql-codegen/typescript": "4.1.3",
     "@portabletext/types": "^2.0.13",
-    "@remix-run/dev": "^2.15.3",
+    "@react-router/dev": "^7.0.0",
     "@types/node": "^22.13.1",
     "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.0",
@@ -81,8 +81,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --list-different",
-      "eslint --no-warn-ignored --max-warnings 0",
-      "bash -c tsc"
+      "eslint --no-warn-ignored --max-warnings 0"
     ]
   },
   "optionalDependencies": {

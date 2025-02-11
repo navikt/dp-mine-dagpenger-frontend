@@ -1,5 +1,5 @@
 import { Alert } from "@navikt/ds-react";
-import { useTypedRouteLoaderData } from "remix-typedjson";
+import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
 import { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
@@ -7,7 +7,7 @@ import styles from "./SoknadList.module.css";
 
 export function PaabegynteSoknadList() {
   const { getAppText } = useSanity();
-  const { paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
+  const { paabegynteSoknader } = useRouteLoaderData("routes/index");
 
   if (paabegynteSoknader.status === "error") {
     return (

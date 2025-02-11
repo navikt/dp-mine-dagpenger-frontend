@@ -1,10 +1,10 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { v4 as uuidv4 } from "uuid";
 import { getSAFToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import { Route } from "./+types";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
   invariant(params.journalpostId, `params.journalpostId er påkrevd`);
   invariant(params.dokumentInfoId, `params.dokumentInfoId er påkrevd`);
 

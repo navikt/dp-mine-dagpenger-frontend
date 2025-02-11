@@ -1,6 +1,4 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
 import { useEffect } from "react";
-import { typedjson } from "remix-typedjson";
 import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
 import { JournalpostList } from "~/components/journalposter/JournalpostList";
 import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndring";
@@ -14,21 +12,22 @@ import { getFullforteSoknader } from "~/models/getFullfortSoknader.server";
 import { getPaabegynteSoknader } from "~/models/getPaabegynteSoknader.server";
 import { getSAFJournalposter } from "~/models/getSAFJournalposter.server";
 import { getEnv } from "~/utils/env.utils";
+import { Route } from "./+types";
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const fullforteSoknader = await getFullforteSoknader(request);
   const paabegynteSoknader = await getPaabegynteSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
 
-  return typedjson({
+  return {
     fullforteSoknader,
     paabegynteSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,
-  });
+  };
 }
 
 export default function Index() {

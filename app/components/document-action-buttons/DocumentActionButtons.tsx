@@ -24,6 +24,8 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
     setStartPreviewTimeStamp(new Date());
     const basePath = getEnv("BASE_PATH").replace(/\/$/, "");
 
+    console.log(`🔥 basePath :`, basePath);
+
     const url = `${basePath}/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
 

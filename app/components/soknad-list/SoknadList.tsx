@@ -1,19 +1,23 @@
 import { Heading } from "@navikt/ds-react";
-import { useTypedLoaderData } from "remix-typedjson";
+import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { FullforteSoknadList } from "./FullforteSoknadList";
 import { PaabegynteSoknadList } from "./PaabegynteSoknadList";
+import { loader } from "~/routes/index";
 
 export function SoknadList() {
-  const { fullforteSoknader, paabegynteSoknader } = useTypedLoaderData<typeof loader>();
+  const loaderData = useRouteLoaderData<typeof loader>("routes/index");
   const { getAppText } = useSanity();
 
-  const hasFullfortSoknad = fullforteSoknader.status === "success" && fullforteSoknader.data.length;
+  const fullforteSoknader = loaderData?.fullforteSoknader;
+  const paabegynteSoknader = loaderData?.paabegynteSoknader;
+
+  const hasFullfortSoknad =
+    fullforteSoknader && fullforteSoknader.status === "success" && fullforteSoknader.data.length;
   const hasPaabegyntSoknad =
-    paabegynteSoknader.status === "success" && paabegynteSoknader.data.length;
+    paabegynteSoknader && paabegynteSoknader.status === "success" && paabegynteSoknader.data.length;
 
   if (!hasFullfortSoknad && !hasPaabegyntSoknad) {
     return <></>;

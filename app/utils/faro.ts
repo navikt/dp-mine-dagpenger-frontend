@@ -5,11 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 let faro: Faro | null = null;
 
 export function initFaro() {
-  if (typeof document === "undefined" || faro !== null) {
-    return;
-  }
-
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (typeof document === "undefined" || faro !== null || getEnv("IS_LOCALHOST") === "true") {
     return;
   }
 

@@ -1,15 +1,24 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort } from "@navikt/ds-react";
-import { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
-import { typedjson, useTypedRouteLoaderData } from "remix-typedjson";
+import {
+  Links,
+  LinksFunction,
+  Meta,
+  MetaFunction,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useRouteError,
+  useRouteLoaderData,
+} from "react-router";
+import { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
-import { getDecoratorHTML } from "./models/decorator.server";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import indexStyle from "./index.css?url";
+import { getDecoratorHTML } from "./models/decorator.server";
 import { getSession } from "./models/getSession.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
@@ -56,12 +65,14 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) {
-    logger.error("Klarte ikke hente dekoratør");
-    throw typedjson({ error: "Klarte ikke hente dekoratør" }, { status: 500 });
+    const errorMessage = "Klarte ikke hente dekoratør";
+
+    logger.error(errorMessage);
+    throw new Response(errorMessage, { status: 500 });
   }
 
   const sanityData = await sanityClient.fetch<ISanityData>(allTextsQuery, {
@@ -70,14 +81,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   if (!sanityData) {
-    logger.error("Klarte ikke hente sanity data");
-    throw typedjson({ error: "Klarte ikke hente sanity data" }, { status: 500 });
+    const errorMessage = "Klarte ikke hente sanity data";
+
+    logger.error(errorMessage);
+    throw new Response(errorMessage, { status: 500 });
   }
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
 
-  return typedjson({
+  return {
     decoratorFragments,
     sanityData,
     session,
@@ -92,16 +105,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
       SANITY_DATASET: getEnv("SANITY_DATASET"),
       FARO_URL: getEnv("FARO_URL"),
+      IS_LOCALHOST: getEnv("IS_LOCALHOST"),
       DP_INNSYN_URL: getEnv("DP_INNSYN_URL"),
       OKONOMI_KONTOREGISTER_URL: getEnv("OKONOMI_KONTOREGISTER_URL"),
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
-  });
+  };
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { decoratorFragments, env } = useTypedRouteLoaderData("root");
+  const loaderData = useRouteLoaderData<typeof loader>("root");
+
+  if (!loaderData) {
+    logger.error("Klarte ikke hente loader data");
+    return null;
+  }
+
+  const { decoratorFragments, env } = loaderData;
 
   useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
 

@@ -1,13 +1,8 @@
-import { vitePlugin as remix } from "@remix-run/dev";
-import { installGlobals } from "@remix-run/node";
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-installGlobals();
-
-const basePath = "/arbeid/dagpenger/mine-dagpenger-frontend/";
-
 export default defineConfig({
-  base: basePath,
-  plugins: [remix({ basename: basePath }), tsconfigPaths()],
+  base: process.env.BASE_PATH || "/arbeid/dagpenger/mine-dagpenger-frontend/",
+  plugins: [reactRouter(), tsconfigPaths()],
 });

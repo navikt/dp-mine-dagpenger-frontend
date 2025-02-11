@@ -1,18 +1,19 @@
 import { Alert, BodyLong, Heading, Link } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
-import { useTypedLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
+import { loader } from "~/routes/index";
 import { formatAccountNumber } from "~/utils/accountNumber.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./BankAccountNumber.module.css";
+import { useRouteLoaderData } from "react-router";
 
 export function BankAccountNumber() {
   const { getAppText, getRichText, getLink } = useSanity();
-  const { bankAccountNumber } = useTypedLoaderData<typeof loader>();
+  const loaderData = useRouteLoaderData<typeof loader>("routes/index");
+  const bankAccountNumber = loaderData?.bankAccountNumber;
 
-  if (bankAccountNumber.status === "error") {
+  if (bankAccountNumber && bankAccountNumber.status === "error") {
     return (
       <Section>
         <SectionContent>
@@ -25,7 +26,9 @@ export function BankAccountNumber() {
   }
 
   const accountNumber =
-    bankAccountNumber.status === "success" && bankAccountNumber.data.kontonummer;
+    bankAccountNumber &&
+    bankAccountNumber.status === "success" &&
+    bankAccountNumber.data.kontonummer;
   const updateAccountNumberLink = getLink("kontonummer.endre-kontonummeret");
 
   return (
