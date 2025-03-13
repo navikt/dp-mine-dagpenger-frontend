@@ -26,7 +26,7 @@ spec:
     path: "{{ base_path }}/api/internal/isready"
     enabled: true
   replicas:
-    min: 1
+    min: 2
     max: 2
     cpuThresholdPercentage: 75
   resources:
