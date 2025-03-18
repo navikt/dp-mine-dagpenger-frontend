@@ -1,6 +1,6 @@
 ingresses: 
-  - https://www.nav.no/arbeid/dagpenger/mine-dagpenger-frontend
-base_path: /arbeid/dagpenger/mine-dagpenger-frontend
+  - https://www.nav.no/arbeid/dagpenger/mine-dagpenger
+base_path: /arbeid/dagpenger/mine-dagpenger
 dekorator:
   env: prod
 loginservice:
