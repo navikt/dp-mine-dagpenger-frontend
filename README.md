@@ -1,6 +1,6 @@
 # dp-mine-dagpenger-frontend: Mine dagpenger søknader
 
-Frontend-klient for dagpenger søknader
+Frontend-klient for mine dagpenger
 
 ## Komme i gang
 
@@ -20,7 +20,6 @@ npm run dev
 ```shell
 npm install
 npm run setup-env
-npm run generate-token-win
 npm run dev
 ```
 
