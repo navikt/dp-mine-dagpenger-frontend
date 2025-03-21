@@ -33,7 +33,7 @@ export function MeldFraOmEndring() {
               {meldFraOmEndringerLink.linkText}
             </ExternalLink>
             <ExternalLink
-              to={meldFraOmEndringerLink.linkUrl}
+              to={sendInnDokumentLink.linkUrl}
               asButtonVariant="secondary"
               onClick={() => loggMeldFraOmEndring("send-inn-dokument")}
             >
