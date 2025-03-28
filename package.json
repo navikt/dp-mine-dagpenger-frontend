@@ -28,7 +28,7 @@
     "@remix-run/node": "^2.16.2",
     "@remix-run/react": "^2.16.2",
     "@remix-run/serve": "^2.16.2",
-    "@sanity/client": "^6.28.3",
+    "@sanity/client": "^6.28.4",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "graphql-request": "^7.1.2",
