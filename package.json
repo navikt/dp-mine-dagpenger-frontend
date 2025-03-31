@@ -52,7 +52,7 @@
     "@graphql-codegen/client-preset": "^4.8.0",
     "@graphql-codegen/typescript": "4.1.6",
     "@portabletext/types": "^2.0.13",
-    "@remix-run/dev": "^2.16.2",
+    "@remix-run/dev": "^2.16.3",
     "@types/node": "^22.13.14",
     "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.0",
