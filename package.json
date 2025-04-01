@@ -27,7 +27,7 @@
     "@portabletext/react": "^3.2.1",
     "@remix-run/node": "^2.16.2",
     "@remix-run/react": "^2.16.2",
-    "@remix-run/serve": "^2.16.2",
+    "@remix-run/serve": "^2.16.4",
     "@sanity/client": "^6.28.4",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
