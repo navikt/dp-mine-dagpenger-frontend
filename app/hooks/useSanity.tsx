@@ -1,14 +1,14 @@
 import type { TypedObject } from "@portabletext/types";
+import { useRouteLoaderData } from "react-router";
 import type {
   ISanityAppText,
   ISanityLink,
   ISanityRichText,
   ISanitySetting,
 } from "~/sanity/sanity.types";
-import { useTypedRouteLoaderData } from "./useTypedRouteLoaderData";
 
 export function useSanity() {
-  const { sanityData } = useTypedRouteLoaderData("root");
+  const { sanityData } = useRouteLoaderData("root");
 
   function getAppText(textId: string): string {
     return (

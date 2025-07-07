@@ -86,7 +86,6 @@ export async function loader({ request }: Route.LoaderArgs) {
     },
     env: {
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
-      BASE_PATH: getEnv("BASE_PATH"),
       APP_ENV: getEnv("APP_ENV"),
       UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
