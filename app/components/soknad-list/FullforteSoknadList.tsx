@@ -1,6 +1,6 @@
 import { Alert } from "@navikt/ds-react";
-import { useTypedRouteLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./SoknadList.module.css";

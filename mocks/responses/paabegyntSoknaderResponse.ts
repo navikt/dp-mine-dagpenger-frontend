@@ -1,4 +1,4 @@
-import { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 
 export const paabegynteSoknaderResponse: IPaabegynteSoknad[] = [
   {

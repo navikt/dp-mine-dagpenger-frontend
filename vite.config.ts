@@ -1,13 +1,21 @@
-import { vitePlugin as remix } from "@remix-run/dev";
-import { installGlobals } from "@remix-run/node";
+import { reactRouter } from "@react-router/dev/vite";
+import path from "path";
 import { defineConfig } from "vite";
+import devtoolsJson from "vite-plugin-devtools-json";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-installGlobals();
-
-const basePath = "/arbeid/dagpenger/mine-dagpenger/";
+// const basePath = "/arbeid/dagpenger/mine-dagpenger/";
 
 export default defineConfig({
-  base: basePath,
-  plugins: [remix({ basename: basePath }), tsconfigPaths()],
+  // base: basePath,
+  plugins: [reactRouter(), tsconfigPaths(), devtoolsJson()],
+  build: {
+    manifest: true,
+    sourcemap: process.env.NODE_ENV !== "production",
+  },
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "./app"),
+    },
+  },
 });

@@ -1,6 +1,6 @@
 import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { FormattedDate } from "../FormattedDate";
 import { ExternalLink } from "../ExternalLink";
 import styles from "./SoknadList.module.css";

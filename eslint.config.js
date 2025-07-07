@@ -8,7 +8,7 @@ import typescriptEslint from "typescript-eslint";
 export default [
   {
     name: "ignore",
-    ignores: ["graphql/", "build/", ],
+    ignores: ["graphql/", "build/", ".react-router" ],
   },
   {
     name: "eslint/recommended:",

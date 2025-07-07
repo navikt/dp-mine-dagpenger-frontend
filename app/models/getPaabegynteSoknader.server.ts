@@ -1,6 +1,6 @@
 import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "~/models/networkResponse";
+import type { INetworkResponse } from "~/models/networkResponse";
 import { logger } from "~/utils/logger.utils";
 
 export interface IPaabegynteSoknad {

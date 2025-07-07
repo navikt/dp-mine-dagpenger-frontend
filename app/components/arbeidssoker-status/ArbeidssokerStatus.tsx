@@ -1,10 +1,10 @@
 import { Alert } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import classNames from "classnames";
-import { useTypedRouteLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
 import styles from "./ArbeidssokerStatus.module.css";
-import { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
 
 export function ArbeidssokerStatus() {
   const { getRichText } = useSanity();

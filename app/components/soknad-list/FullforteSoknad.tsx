@@ -1,10 +1,10 @@
 import { BodyShort, Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
+import type { ISoknad } from "~/models/getFullfortSoknader.server";
 import { getEnv } from "~/utils/env.utils";
 import { ExternalLink } from "../ExternalLink";
 import { FormattedDate } from "../FormattedDate";
 import styles from "./SoknadList.module.css";
-import { ISoknad } from "~/models/getFullfortSoknader.server";
 
 interface IProps {
   soknad: ISoknad;

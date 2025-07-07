@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import styles from "./Section.module.css";
 
 interface IProps {

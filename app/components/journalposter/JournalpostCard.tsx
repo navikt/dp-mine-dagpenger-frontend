@@ -1,7 +1,7 @@
 import { Detail, Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { hentAvsender } from "~/utils/avsenderMottaker";
-import { IDokument, IJournalpost } from "~/utils/safJournalposter.utils";
+import type { IDokument, IJournalpost } from "~/utils/safJournalposter.utils";
 import { DocumentActionButtons } from "../document-action-buttons/DocumentActionButtons";
 import { ExpandableAttachmentsList } from "../expandable-attachments-list/ExpandableAttachmentsList";
 import { HiddenDocument } from "../hidden-document/HiddenDocument";

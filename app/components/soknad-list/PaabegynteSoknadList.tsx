@@ -1,7 +1,7 @@
 import { Alert } from "@navikt/ds-react";
-import { useTypedRouteLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
-import { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
 import styles from "./SoknadList.module.css";
 

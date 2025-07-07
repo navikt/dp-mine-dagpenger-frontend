@@ -1,11 +1,11 @@
 import { graphql } from "graphql/generated/saf";
 import {
-  AvsenderMottaker,
+  type AvsenderMottaker,
   Datotype,
-  Dokumentvariant,
+  type Dokumentvariant,
   Journalposttype,
   Journalstatus,
-  RelevantDato,
+  type RelevantDato,
 } from "graphql/generated/saf/graphql";
 
 export const graphqlQuery = graphql(`

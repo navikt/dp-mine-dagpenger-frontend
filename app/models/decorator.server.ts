@@ -1,7 +1,7 @@
 import {
-  DecoratorElements,
-  DecoratorEnvProps,
   fetchDecoratorHtml,
+  type DecoratorElements,
+  type DecoratorEnvProps,
   type DecoratorFetchProps,
 } from "@navikt/nav-dekoratoren-moduler/ssr";
 import { getEnv } from "~/utils/env.utils";

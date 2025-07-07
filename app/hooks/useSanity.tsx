@@ -1,11 +1,11 @@
-import { TypedObject } from "@portabletext/types";
-import { useTypedRouteLoaderData } from "remix-typedjson";
-import {
+import type { TypedObject } from "@portabletext/types";
+import type {
   ISanityAppText,
   ISanityLink,
   ISanityRichText,
   ISanitySetting,
 } from "~/sanity/sanity.types";
+import { useTypedRouteLoaderData } from "./useTypedRouteLoaderData";
 
 export function useSanity() {
   const { sanityData } = useTypedRouteLoaderData("root");

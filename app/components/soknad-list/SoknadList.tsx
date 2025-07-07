@@ -1,14 +1,13 @@
 import { Heading } from "@navikt/ds-react";
-import { useTypedLoaderData } from "remix-typedjson";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { FullforteSoknadList } from "./FullforteSoknadList";
 import { PaabegynteSoknadList } from "./PaabegynteSoknadList";
 
 export function SoknadList() {
-  const { fullforteSoknader, paabegynteSoknader } = useTypedLoaderData<typeof loader>();
+  const { fullforteSoknader, paabegynteSoknader } = useTypedRouteLoaderData("routes/_index");
   const { getAppText } = useSanity();
 
   const hasFullfortSoknad = fullforteSoknader.status === "success" && fullforteSoknader.data.length;

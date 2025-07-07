@@ -1,6 +1,5 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { data, type LoaderFunctionArgs } from "react-router";
 import { useEffect } from "react";
-import { typedjson } from "remix-typedjson";
 import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
 import { JournalpostList } from "~/components/journalposter/JournalpostList";
 import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndring";
@@ -22,7 +21,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
 
-  return typedjson({
+  return data({
     fullforteSoknader,
     paabegynteSoknader,
     arbeidsseokerPerioder,

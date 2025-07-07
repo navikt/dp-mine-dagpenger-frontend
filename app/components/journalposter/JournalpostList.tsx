@@ -1,13 +1,12 @@
 import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
 import { useState } from "react";
-import { useTypedLoaderData } from "remix-typedjson";
+import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { JournalpostCard } from "./JournalpostCard";
 import styles from "./Jounalposter.module.css";
-import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
+import { JournalpostCard } from "./JournalpostCard";
 
 const NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT = 10;
 
@@ -15,7 +14,7 @@ export function JournalpostList() {
   const [showAll, setShowAll] = useState(false);
   const { getAppText } = useSanity();
 
-  const { journalposter } = useTypedLoaderData<typeof loader>();
+  const { journalposter } = useTypedRouteLoaderData("routes/_index");
 
   if (journalposter.status === "error") {
     return (

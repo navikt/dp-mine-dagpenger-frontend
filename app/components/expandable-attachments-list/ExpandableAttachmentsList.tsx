@@ -1,10 +1,10 @@
 import { ChevronDownIcon } from "@navikt/aksel-icons";
 import classNames from "classnames";
 import { useState } from "react";
-import styles from "./ExpandableAttchmentsList.module.css";
-import { IDokument } from "~/utils/safJournalposter.utils";
 import { useSanity } from "~/hooks/useSanity";
+import type { IDokument } from "~/utils/safJournalposter.utils";
 import { Attachment } from "../attachment/Attachment";
+import styles from "./ExpandableAttchmentsList.module.css";
 
 interface IProps {
   attachments: IDokument[];

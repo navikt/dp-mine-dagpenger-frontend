@@ -1,6 +1,6 @@
 import { subWeeks } from "date-fns";
 import { describe, expect, test } from "vitest";
-import { ISoknad } from "~/models/getFullfortSoknader.server";
+import type { ISoknad } from "~/models/getFullfortSoknader.server";
 import { getSoknadWithinLast12Weeks } from "./soknad.utils";
 
 describe("Filter soknad within last 12 weeks", () => {
