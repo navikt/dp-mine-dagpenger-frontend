@@ -5,7 +5,10 @@ import devtoolsJson from "vite-plugin-devtools-json";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  base: "/",
+  base:
+    process.env.NODE_ENV === "production"
+      ? "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client/"
+      : "/",
   plugins: [reactRouter(), tsconfigPaths(), devtoolsJson()],
   build: {
     manifest: true,

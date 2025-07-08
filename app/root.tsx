@@ -40,18 +40,30 @@ export const links = () => [
     rel: "icon",
     type: "image/png",
     sizes: "32x32",
-    href: "favicon-32x32.png",
+    href: `${
+      getEnv("IS_LOCALHOST")
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon-32x32.png`,
   },
   {
     rel: "icon",
     type: "image/png",
     sizes: "16x16",
-    href: "favicon-16x16.png",
+    href: `${
+      getEnv("IS_LOCALHOST")
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon-16x16.png`,
   },
   {
     rel: "icon",
     type: "image/x-icon",
-    href: "favicon.ico",
+    href: `${
+      getEnv("IS_LOCALHOST")
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon.ico`,
   },
 ];
 
