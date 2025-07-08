@@ -73,6 +73,16 @@ jobs:
       - name: prune dev dependencies
         run: npm prune --production
 
+      # Upload static files to CDN
+      - name: Upload static files
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: teamdagpenger
+          source: ./build/client
+          destination: "/dp-mine-dagpenger-frontend/"
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
       # Bygg docker image
       - name: docker-build-push
         uses: nais/docker-build-push@v0
