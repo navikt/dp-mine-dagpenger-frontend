@@ -13,14 +13,14 @@ type Pages = {
   "/": {
     params: {};
   };
-  "/api/hent-dokument/:journalpostId/:dokumentInfoId": {
+  "/arbeid/dagpenger/mine-dagpenger": {
+    params: {};
+  };
+  "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId": {
     params: {
       "journalpostId": string;
       "dokumentInfoId": string;
     };
-  };
-  "/arbeid/dagpenger/mine-dagpenger": {
-    params: {};
   };
   "/api/internal/isalive": {
     params: {};
@@ -33,15 +33,15 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/api/hent-dokument/:journalpostId/:dokumentInfoId" | "/arbeid/dagpenger/mine-dagpenger" | "/api/internal/isalive" | "/api/internal/isready";
-  };
-  "routes/api.hent-dokument.$journalpostId.$dokumentInfoId.tsx": {
-    id: "routes/api.hent-dokument.$journalpostId.$dokumentInfoId";
-    page: "/api/hent-dokument/:journalpostId/:dokumentInfoId";
+    page: "/" | "/arbeid/dagpenger/mine-dagpenger" | "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId" | "/api/internal/isalive" | "/api/internal/isready";
   };
   "routes/arbeid.dagpenger.mine-dagpenger.tsx": {
     id: "routes/arbeid.dagpenger.mine-dagpenger";
-    page: "/arbeid/dagpenger/mine-dagpenger";
+    page: "/arbeid/dagpenger/mine-dagpenger" | "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId";
+  };
+  "routes/arbeid.dagpenger.mine-dagpenger.api.hent-dokument.$journalpostId.$dokumentInfoId.ts": {
+    id: "routes/arbeid.dagpenger.mine-dagpenger.api.hent-dokument.$journalpostId.$dokumentInfoId";
+    page: "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId";
   };
   "routes/api.internal.isalive.ts": {
     id: "routes/api.internal.isalive";

@@ -1,7 +1,6 @@
 ingresses: 
   - https://arbeid.intern.dev.nav.no/arbeid/dagpenger/mine-dagpenger
   - https://arbeid.ansatt.dev.nav.no/arbeid/dagpenger/mine-dagpenger
-base_path: /arbeid/dagpenger/mine-dagpenger
 dekorator:
   env: dev
 loginservice:

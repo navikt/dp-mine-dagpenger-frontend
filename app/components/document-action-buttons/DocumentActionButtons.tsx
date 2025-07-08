@@ -3,7 +3,6 @@ import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useRef, useState } from "react";
 import { loggDokumenterPreviewTid, loggLastnedDokument } from "~/amplitude/amplitude";
 import { useSanity } from "~/hooks/useSanity";
-// import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 import styles from "./DocumentActionButtons.module.css";
 
@@ -19,14 +18,11 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
   const ref = useRef<HTMLDialogElement>(null);
   const [dokumentUrl, setDokumentUrl] = useState<string | null>(null);
   const [starPreviewTimeStamp, setStartPreviewTimeStamp] = useState<Date | null>(null);
-  // const basePath = getEnv("IS_LOCALHOST") === "true" ? "" : getEnv("BASE_PATH").replace(/\/$/, "");
 
   async function aapneDokument() {
     setStartPreviewTimeStamp(new Date());
-    const url = `/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
+    const url = `/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
-
-    console.log(`🔥 url :`, url);
 
     if (!response.ok) {
       logger.error(`Klarte ikke åpne PDF fra ${url}`);
@@ -48,7 +44,7 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
   }
 
   async function lastnedDokument() {
-    const url = `/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
+    const url = `/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
 
     if (!response.ok) {

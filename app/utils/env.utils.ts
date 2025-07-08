@@ -7,7 +7,6 @@ declare global {
 interface IEnv {
   APP_ENV: string;
   IS_LOCALHOST: string;
-  BASE_PATH: string;
   USE_MSW: string;
   DEKORATOR_ENV: string;
   DP_SOKNADSDIALOG_URL: string;
