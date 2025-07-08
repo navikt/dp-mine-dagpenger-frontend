@@ -28,8 +28,6 @@ COPY ./package.json ./
 COPY ./package-lock.json  ./
 
 RUN npm ci --ignore-scripts --omit dev
-RUN graphql-codegen
-
 
 # export build to filesystem (GitHub)
 FROM scratch AS build-export
