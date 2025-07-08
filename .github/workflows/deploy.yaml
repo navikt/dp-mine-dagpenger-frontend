@@ -78,7 +78,7 @@ jobs:
             push_image: true
             dockerfile: Dockerfile
             docker_context: .
-            
+
         - name: Build static files
           uses: docker/build-push-action@v6
           with:
@@ -91,7 +91,7 @@ jobs:
           with:
             team: teamdagpenger
             source: ./build/client
-            destination: "/dp-saksbehandling-frontend/"
+            destination: "/dp-mine-dagpenger-frontend/"
             identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
             project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
