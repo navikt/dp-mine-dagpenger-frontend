@@ -1,8 +1,8 @@
 import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
 import { useState } from "react";
+import { useRouteLoaderData } from "react-router";
 import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
 import { useSanity } from "~/hooks/useSanity";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./Jounalposter.module.css";
@@ -14,7 +14,7 @@ export function JournalpostList() {
   const [showAll, setShowAll] = useState(false);
   const { getAppText } = useSanity();
 
-  const { journalposter } = useTypedRouteLoaderData("routes/_index");
+  const { journalposter } = useRouteLoaderData("root");
 
   if (journalposter.status === "error") {
     return (

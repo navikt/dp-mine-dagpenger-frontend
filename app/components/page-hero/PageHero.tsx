@@ -1,7 +1,7 @@
 import { Heading } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
+import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
 import { Section } from "../section/Section";
@@ -9,7 +9,7 @@ import { SectionContent } from "../section/SectionContent";
 
 export function PageHero() {
   const { getRichText, getAppText } = useSanity();
-  const { fullforteSoknader } = useTypedRouteLoaderData("routes/_index");
+  const { fullforteSoknader } = useRouteLoaderData("root");
   const sectionText = getRichText("soknader");
   const soknader =
     fullforteSoknader.status === "success" &&

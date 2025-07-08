@@ -2,14 +2,27 @@ import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort } from "@navikt/ds-react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
-import { data, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router";
+import {
+  data,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 import type { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
-import { useTypedRouteLoaderData } from "./hooks/useTypedRouteLoaderData";
 import indexStyle from "./index.css?url";
 import { getDecoratorHTML } from "./models/decorator.server";
+import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
+import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
+import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
+import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
+import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
@@ -77,6 +90,12 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
 
+  const fullforteSoknader = await getFullforteSoknader(request);
+  const paabegynteSoknader = await getPaabegynteSoknader(request);
+  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
+  const bankAccountNumber = await getBankAccountNumber(request);
+  const journalposter = await getSAFJournalposter(request);
+
   return data({
     decoratorFragments,
     sanityData,
@@ -96,11 +115,16 @@ export async function loader({ request }: Route.LoaderArgs) {
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
+    fullforteSoknader,
+    paabegynteSoknader,
+    arbeidsseokerPerioder,
+    bankAccountNumber,
+    journalposter,
   });
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { decoratorFragments, env } = useTypedRouteLoaderData("root");
+  const { decoratorFragments, env } = useLoaderData();
 
   useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
 
