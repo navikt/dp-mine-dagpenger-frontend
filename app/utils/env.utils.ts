@@ -6,6 +6,7 @@ declare global {
 
 interface IEnv {
   APP_ENV: string;
+  BASE_PATH: string;
   IS_LOCALHOST: string;
   USE_MSW: string;
   DEKORATOR_ENV: string;

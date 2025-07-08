@@ -22,7 +22,7 @@ export default function MineDagpenger() {
         }
       }, 1000);
     }
-  });
+  }, []);
 
   return (
     <main id="maincontent" tabIndex={-1}>

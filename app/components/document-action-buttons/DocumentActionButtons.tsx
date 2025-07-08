@@ -5,6 +5,7 @@ import { loggDokumenterPreviewTid, loggLastnedDokument } from "~/amplitude/ampli
 import { useSanity } from "~/hooks/useSanity";
 import { logger } from "~/utils/logger.utils";
 import styles from "./DocumentActionButtons.module.css";
+import { getEnv } from "~/utils/env.utils";
 
 interface IProps {
   journalpostId: string;
@@ -18,10 +19,11 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
   const ref = useRef<HTMLDialogElement>(null);
   const [dokumentUrl, setDokumentUrl] = useState<string | null>(null);
   const [starPreviewTimeStamp, setStartPreviewTimeStamp] = useState<Date | null>(null);
+  const basePath = getEnv("BASE_PATH").replace(/\/$/, "");
 
   async function aapneDokument() {
     setStartPreviewTimeStamp(new Date());
-    const url = `/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
+    const url = `${basePath}/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -44,7 +46,7 @@ export function DocumentActionButtons({ journalpostId, dokumentInfoId, title, se
   }
 
   async function lastnedDokument() {
-    const url = `/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
+    const url = `${basePath}/api/hent-dokument/${journalpostId}/${dokumentInfoId}`;
     const response = await fetch(url);
 
     if (!response.ok) {

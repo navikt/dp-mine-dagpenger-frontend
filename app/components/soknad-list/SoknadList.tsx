@@ -20,7 +20,7 @@ export function SoknadList() {
     return <></>;
   }
 
-  if (!fullforteSoknaderWithin12Weeks.length || !paabegynteSoknader.data.length) {
+  if (!fullforteSoknaderWithin12Weeks.length && !paabegynteSoknader.data.length) {
     return <></>;
   }
 
