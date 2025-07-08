@@ -7,7 +7,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   base:
     process.env.NODE_ENV === "production"
-      ? "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client/"
+      ? "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client/"
       : "/",
   plugins: [reactRouter(), tsconfigPaths(), devtoolsJson()],
   build: {

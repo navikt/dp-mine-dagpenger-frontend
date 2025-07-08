@@ -35,14 +35,8 @@ import navStyles from "@navikt/ds-css/dist/index.css?url";
 export const sanityClient = createClient(sanityConfig);
 
 export const links = () => [
-  {
-    rel: "stylesheet",
-    href: getEnv("IS_LOCALHOST") === "true" ? navStyles : import.meta.env.BASE_URL + navStyles,
-  },
-  {
-    rel: "stylesheet",
-    href: getEnv("IS_LOCALHOST") === "true" ? indexStyle : import.meta.env.BASE_URL + indexStyle,
-  },
+  { rel: "stylesheet", href: navStyles },
+  { rel: "stylesheet", href: indexStyle },
   {
     rel: "icon",
     type: "image/png",
