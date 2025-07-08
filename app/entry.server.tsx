@@ -8,7 +8,6 @@ import { PassThrough } from "node:stream";
 
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
-import { setup, start } from "mocks/server";
 import { renderToPipeableStream, type RenderToPipeableStreamOptions } from "react-dom/server";
 import type { EntryContext } from "react-router";
 import { ServerRouter } from "react-router";
@@ -19,8 +18,9 @@ import { logger } from "./utils/logger.utils";
 export const streamTimeout = 5_000;
 
 if (getEnv("USE_MSW") === "true") {
-  const server = setup();
-  start(server);
+  import("../mocks/server").then(({ startMockServer }) => {
+    startMockServer();
+  });
 }
 
 unleash.on("synchronized", () => {
