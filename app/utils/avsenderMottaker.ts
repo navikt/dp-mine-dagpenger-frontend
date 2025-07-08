@@ -1,4 +1,4 @@
-import { Journalposttype } from "graphql/generated/saf/graphql";
+import { Journalposttype } from "~/graphql/generated/saf/graphql";
 import type { IJournalpost } from "./safJournalposter.utils";
 
 type JP = Pick<IJournalpost, "journalposttype" | "brukerErAvsenderEllerMottaker">;

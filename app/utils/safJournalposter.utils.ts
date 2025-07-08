@@ -1,4 +1,3 @@
-import { graphql } from "graphql/generated/saf";
 import {
   type AvsenderMottaker,
   Datotype,
@@ -6,7 +5,8 @@ import {
   Journalposttype,
   Journalstatus,
   type RelevantDato,
-} from "graphql/generated/saf/graphql";
+} from "~/graphql/generated/saf/graphql";
+import { graphql } from "~/graphql/generated/saf";
 
 export const graphqlQuery = graphql(`
   query dokumentoversiktSelvbetjening($fnr: String!) {
