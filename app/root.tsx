@@ -35,14 +35,20 @@ import navStyles from "@navikt/ds-css/dist/index.css?url";
 export const sanityClient = createClient(sanityConfig);
 
 export const links = () => [
-  { rel: "stylesheet", href: navStyles },
-  { rel: "stylesheet", href: indexStyle },
+  {
+    rel: "stylesheet",
+    href: getEnv("IS_LOCALHOST") === "true" ? navStyles : import.meta.env.BASE_URL + navStyles,
+  },
+  {
+    rel: "stylesheet",
+    href: getEnv("IS_LOCALHOST") === "true" ? indexStyle : import.meta.env.BASE_URL + indexStyle,
+  },
   {
     rel: "icon",
     type: "image/png",
     sizes: "32x32",
     href: `${
-      getEnv("IS_LOCALHOST")
+      getEnv("IS_LOCALHOST") === "true"
         ? ""
         : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
     }/favicon-32x32.png`,
@@ -52,7 +58,7 @@ export const links = () => [
     type: "image/png",
     sizes: "16x16",
     href: `${
-      getEnv("IS_LOCALHOST")
+      getEnv("IS_LOCALHOST") === "true"
         ? ""
         : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
     }/favicon-16x16.png`,
@@ -61,7 +67,7 @@ export const links = () => [
     rel: "icon",
     type: "image/x-icon",
     href: `${
-      getEnv("IS_LOCALHOST")
+      getEnv("IS_LOCALHOST") === "true"
         ? ""
         : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
     }/favicon.ico`,
