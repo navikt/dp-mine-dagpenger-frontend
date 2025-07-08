@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   generates: {
     "graphql/generated/saf/": {
       preset: "client",
-      schema: "graphql/safselvbetjening-schema.graphql",
+      schema: "schema.graphql",
       documents: ["app/utils/safJournalposter.utils.ts"],
       plugins: [],
     },
