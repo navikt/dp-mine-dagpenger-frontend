@@ -1,4 +1,3 @@
-import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort } from "@navikt/ds-react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
@@ -16,7 +15,6 @@ import type { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
-import indexStyle from "./index.css?url";
 import { getDecoratorHTML } from "./models/decorator.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
@@ -30,6 +28,9 @@ import type { ISanityData } from "./sanity/sanity.types";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
+
+import indexStyle from "./index.css?url";
+import navStyles from "@navikt/ds-css/dist/index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
