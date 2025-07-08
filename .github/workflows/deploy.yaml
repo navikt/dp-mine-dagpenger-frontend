@@ -48,6 +48,7 @@ jobs:
       - run: npm run test
 
   build:
+    needs: [ install ]
     name: Bygg
     runs-on: ubuntu-latest
     permissions:
