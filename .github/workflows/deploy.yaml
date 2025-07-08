@@ -47,53 +47,53 @@ jobs:
 
       - run: npm run test
 
-    build:
-      name: Bygg
-      runs-on: ubuntu-latest
-      permissions:
-        contents: "read"
-        id-token: "write"
-        packages: "write"
-      outputs:
-        image: ${{ steps.docker-build-push.outputs.image }}
+  build:
+    name: Bygg
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+      packages: "write"
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        - name: Setup node
-          uses: actions/setup-node@v4
-          with:
-            node-version: "22.x"
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
 
-        - name: Bygg og push Docker image
-          uses: nais/docker-build-push@v0
-          id: docker-build-push
-          with:
-            team: teamdagpenger
-            identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-            project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-            tag: ${{ env.VERSION_TAG }}
-            build_secrets: NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
-            push_image: true
-            dockerfile: Dockerfile
-            docker_context: .
+      - name: Bygg og push Docker image
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: teamdagpenger
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          tag: ${{ env.VERSION_TAG }}
+          build_secrets: NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
+          push_image: true
+          dockerfile: Dockerfile
+          docker_context: .
 
-        - name: Build static files
-          uses: docker/build-push-action@v6
-          with:
-            target: build-export
-            outputs: type=local,dest=build
-            secrets: NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
+      - name: Build static files
+        uses: docker/build-push-action@v6
+        with:
+          target: build-export
+          outputs: type=local,dest=build
+          secrets: NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
 
-        - name: Upload static files
-          uses: nais/deploy/actions/cdn-upload/v2@master
-          with:
-            team: teamdagpenger
-            source: ./build/client
-            destination: "/dp-mine-dagpenger-frontend/"
-            identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-            project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+      - name: Upload static files
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: teamdagpenger
+          source: ./build/client
+          destination: "/dp-mine-dagpenger-frontend/"
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
   deploy-dev:
     needs: [build, test]
