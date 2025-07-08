@@ -17,7 +17,6 @@ COPY ./package.json ./
 COPY ./package-lock.json  ./
 
 RUN npm install --ignore-scripts
-RUN npm run graphql-codegen
 RUN npm run build
 
 
