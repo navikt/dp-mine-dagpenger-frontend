@@ -1,48 +1,74 @@
-import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { BodyShort } from "@navikt/ds-react";
-import { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
-import { typedjson, useTypedRouteLoaderData } from "remix-typedjson";
+import {
+  data,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
+import type { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
-import { getDecoratorHTML } from "./models/decorator.server";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
-import indexStyle from "./index.css?url";
+import { getDecoratorHTML } from "./models/decorator.server";
+import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
+import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
+import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
+import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
+import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
-import { ISanityData } from "./sanity/sanity.types";
+import type { ISanityData } from "./sanity/sanity.types";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
+import indexStyle from "./index.css?url";
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+
 export const sanityClient = createClient(sanityConfig);
 
-export const links: LinksFunction = () => [
+export const links = () => [
   { rel: "stylesheet", href: navStyles },
   { rel: "stylesheet", href: indexStyle },
   {
     rel: "icon",
     type: "image/png",
     sizes: "32x32",
-    href: "favicon-32x32.png",
+    href: `${
+      getEnv("IS_LOCALHOST") === "true"
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon-32x32.png`,
   },
   {
     rel: "icon",
     type: "image/png",
     sizes: "16x16",
-    href: "favicon-16x16.png",
+    href: `${
+      getEnv("IS_LOCALHOST") === "true"
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon-16x16.png`,
   },
   {
     rel: "icon",
     type: "image/x-icon",
-    href: "favicon.ico",
+    href: `${
+      getEnv("IS_LOCALHOST") === "true"
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon.ico`,
   },
 ];
 
-export const meta: MetaFunction = () => {
+export const meta = () => {
   return [
     { title: "Mine dagpenger" },
     {
@@ -56,12 +82,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) {
     logger.error("Klarte ikke hente dekoratør");
-    throw typedjson({ error: "Klarte ikke hente dekoratør" }, { status: 500 });
+    throw new Error("Klarte ikke hente dekoratør");
   }
 
   const sanityData = await sanityClient.fetch<ISanityData>(allTextsQuery, {
@@ -71,13 +97,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (!sanityData) {
     logger.error("Klarte ikke hente sanity data");
-    throw typedjson({ error: "Klarte ikke hente sanity data" }, { status: 500 });
+    throw new Error("Klarte ikke hente sanity data");
   }
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
 
-  return typedjson({
+  const fullforteSoknader = await getFullforteSoknader(request);
+  const paabegynteSoknader = await getPaabegynteSoknader(request);
+  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
+  const bankAccountNumber = await getBankAccountNumber(request);
+  const journalposter = await getSAFJournalposter(request);
+
+  return data({
     decoratorFragments,
     sanityData,
     session,
@@ -85,8 +117,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       abTesting,
     },
     env: {
-      DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
+      IS_LOCALHOST: getEnv("IS_LOCALHOST"),
       BASE_PATH: getEnv("BASE_PATH"),
+      DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
       APP_ENV: getEnv("APP_ENV"),
       UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
@@ -97,11 +130,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
+    fullforteSoknader,
+    paabegynteSoknader,
+    arbeidsseokerPerioder,
+    bankAccountNumber,
+    journalposter,
   });
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { decoratorFragments, env } = useTypedRouteLoaderData("root");
+  const { decoratorFragments, env } = useLoaderData();
 
   useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
 

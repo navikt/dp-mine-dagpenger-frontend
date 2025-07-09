@@ -1,6 +1,6 @@
 import { getOKONOMIKontoregisterToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { INetworkResponse } from "./networkResponse";
+import type { INetworkResponse } from "./networkResponse";
 import { logger } from "~/utils/logger.utils";
 
 export type IKonto = {

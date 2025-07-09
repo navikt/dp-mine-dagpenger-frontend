@@ -5,11 +5,10 @@ declare global {
 }
 
 interface IEnv {
-  USE_MSW: string;
   APP_ENV: string;
   BASE_PATH: string;
-  NAIS_CLUSTER_NAME: string;
   IS_LOCALHOST: string;
+  USE_MSW: string;
   DEKORATOR_ENV: string;
   DP_SOKNADSDIALOG_URL: string;
   DP_INNSYN_URL: string;
@@ -18,6 +17,7 @@ interface IEnv {
   OKONOMI_KONTOREGISTER_TOKEN: string;
   PAW_ARBEIDSSOEKERREGISTERET_URL: string;
   PAW_ARBEIDSSOEKERREGISTERET_TOKEN: string;
+  NAIS_CLUSTER_NAME: string;
   SAF_URL: string;
   SAF_TOKEN: string;
   SAF_SCOPE: string;

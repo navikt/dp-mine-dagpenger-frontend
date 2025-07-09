@@ -1,6 +1,6 @@
-import { TypedObject } from "@portabletext/types";
-import { useTypedRouteLoaderData } from "remix-typedjson";
-import {
+import type { TypedObject } from "@portabletext/types";
+import { useRouteLoaderData } from "react-router";
+import type {
   ISanityAppText,
   ISanityLink,
   ISanityRichText,
@@ -8,7 +8,7 @@ import {
 } from "~/sanity/sanity.types";
 
 export function useSanity() {
-  const { sanityData } = useTypedRouteLoaderData("root");
+  const { sanityData } = useRouteLoaderData("root");
 
   function getAppText(textId: string): string {
     return (

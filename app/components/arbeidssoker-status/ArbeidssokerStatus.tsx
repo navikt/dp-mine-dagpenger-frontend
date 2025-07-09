@@ -1,14 +1,14 @@
 import { Alert } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import classNames from "classnames";
-import { useTypedRouteLoaderData } from "remix-typedjson";
+import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
+import type { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
 import styles from "./ArbeidssokerStatus.module.css";
-import { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
 
 export function ArbeidssokerStatus() {
   const { getRichText } = useSanity();
-  const { arbeidsseokerPerioder } = useTypedRouteLoaderData("routes/_index");
+  const { arbeidsseokerPerioder } = useRouteLoaderData("root");
 
   if (arbeidsseokerPerioder.status === "error") {
     return (

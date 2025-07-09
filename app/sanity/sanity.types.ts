@@ -1,4 +1,4 @@
-import { TypedObject } from "@portabletext/types";
+import type { TypedObject } from "@portabletext/types";
 
 export interface ISanityHelpText {
   title?: string;

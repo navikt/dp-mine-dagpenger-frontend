@@ -1,10 +1,10 @@
 import { BodyShort, Heading, Link } from "@navikt/ds-react";
+import { loggKlikkSnarvei } from "~/amplitude/amplitude";
+import { useSanity } from "~/hooks/useSanity";
+import type { ISanityLink } from "~/sanity/sanity.types";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./Shortcuts.module.css";
-import { useSanity } from "~/hooks/useSanity";
-import { ISanityLink } from "~/sanity/sanity.types";
-import { loggKlikkSnarvei } from "~/amplitude/amplitude";
 
 export function Shortcuts() {
   const { getAppText, getLink } = useSanity();

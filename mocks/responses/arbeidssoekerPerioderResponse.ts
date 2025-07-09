@@ -1,4 +1,4 @@
-import { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
+import type { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
 
 export const arbeidssoekerPerioderResponse: IArbeidssokerperioder[] = [
   {

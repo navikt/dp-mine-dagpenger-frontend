@@ -1,6 +1,6 @@
 import classnames from "classnames";
-import { ReactNode } from "react";
 import styles from "./Section.module.css";
+import type { ReactNode } from "react";
 
 interface IProps {
   id?: string;

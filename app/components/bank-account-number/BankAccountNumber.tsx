@@ -1,8 +1,7 @@
 import { Alert, BodyLong, Heading, Link } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
-import { useTypedLoaderData } from "remix-typedjson";
+import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
 import { formatAccountNumber } from "~/utils/accountNumber.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
@@ -10,7 +9,7 @@ import styles from "./BankAccountNumber.module.css";
 
 export function BankAccountNumber() {
   const { getAppText, getRichText, getLink } = useSanity();
-  const { bankAccountNumber } = useTypedLoaderData<typeof loader>();
+  const { bankAccountNumber } = useRouteLoaderData("root");
 
   if (bankAccountNumber.status === "error") {
     return (

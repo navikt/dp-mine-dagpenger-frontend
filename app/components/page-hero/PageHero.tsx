@@ -1,16 +1,15 @@
 import { Heading } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
-import { useTypedLoaderData } from "remix-typedjson";
+import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { loader } from "~/routes/_index";
+import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 
 export function PageHero() {
   const { getRichText, getAppText } = useSanity();
-  const { fullforteSoknader } = useTypedLoaderData<typeof loader>();
+  const { fullforteSoknader } = useRouteLoaderData("root");
   const sectionText = getRichText("soknader");
   const soknader =
     fullforteSoknader.status === "success" &&

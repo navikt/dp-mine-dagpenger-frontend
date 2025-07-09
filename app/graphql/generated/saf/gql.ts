@@ -11,8 +11,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
+type Documents = {
+    "\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          navn\n          type\n        }\n        mottaker {\n          id\n          navn\n          type\n        }\n        journalposttype\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n": typeof types.DokumentoversiktSelvbetjeningDocument,
+};
+const documents: Documents = {
     "\n  query dokumentoversiktSelvbetjening($fnr: String!) {\n    dokumentoversiktSelvbetjening(ident: $fnr, tema: [DAG, OPP]) {\n      journalposter {\n        journalpostId\n        tema\n        tittel\n        relevanteDatoer {\n          dato\n          datotype\n        }\n        avsender {\n          id\n          navn\n          type\n        }\n        mottaker {\n          id\n          navn\n          type\n        }\n        journalposttype\n        dokumenter {\n          dokumentInfoId\n          tittel\n          dokumentvarianter {\n            variantformat\n            brukerHarTilgang\n          }\n        }\n      }\n    }\n  }\n": types.DokumentoversiktSelvbetjeningDocument,
 };
 

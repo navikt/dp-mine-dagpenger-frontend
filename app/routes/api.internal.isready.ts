@@ -1,5 +1,6 @@
-import { json } from "@remix-run/node";
-
-export async function loader() {
-  return json({ status: 200, statusText: "Ready" });
+export function loader() {
+  return new Response("isReady", {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }

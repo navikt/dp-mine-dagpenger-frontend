@@ -7,10 +7,10 @@ import {
   berikBrukerDokumentTilgang,
   berikDokumentMedType,
   graphqlQuery,
-  IJournalpost,
+  type IJournalpost,
   settDatoOpprettet,
 } from "~/utils/safJournalposter.utils";
-import { INetworkResponse } from "./networkResponse";
+import { type INetworkResponse } from "./networkResponse";
 import { logger } from "~/utils/logger.utils";
 
 export async function getSAFJournalposter(
