@@ -117,6 +117,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: prod-gcp
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
