@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",
-    "@graphql-codegen/cli": "5.0.5",
+    "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/client-preset": "^4.8.0",
     "@graphql-codegen/typescript": "4.1.6",
     "@portabletext/types": "^2.0.13",
