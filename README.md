@@ -4,28 +4,18 @@ Frontend-klient for mine dagpenger
 
 ## Komme i gang
 
-Appen er basert på [Remix.run](https://remix.run/)
-
-**For Mac OSX**
+Appen er basert på [React router](https://reactrouter.com)
 
 ```shell
 npm install
 npm run setup-env
-npm run generate-token
-npm run dev
-```
-
-**For Windows**
-
-```shell
-npm install
-npm run setup-env
+npm run token-token
 npm run dev
 ```
 
 `npm run setup-env` lager en `.env` som er nødvendig for kunne kjøre opp applikasjonen lokalt.
 
-`npm run generate-token` genererer lokal token til `.env` fil og bruker det til å hente data fra dev-miljøet. Toknene er gyldig mellom 30 minutter til en time, kjør kommandoen på nytt dersom tokene er utløpt.
+`npm run token` genererer lokal token til `.env` fil og bruker det til å hente data fra dev-miljøet. Toknene er gyldig mellom 30 minutter til en time, kjør kommandoen på nytt dersom tokene er utløpt.
 
 ## Kjøre localhost med mock data
 

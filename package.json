@@ -13,12 +13,14 @@
     "prepare": "husky",
     "setup-env": "cp .env.example .env",
     "generate-token": "chmod +x ./script/token-generator.sh && ./script/token-generator.sh",
+    "token": "node ./token-generator.cjs",
     "graphql-codegen": "graphql-codegen --config graphql-codegen.ts"
   },
   "dependencies": {
     "@elastic/ecs-pino-format": "^1.5.0",
     "@grafana/faro-web-sdk": "^1.18.2",
     "@grafana/faro-web-tracing": "^1.14.1",
+    "@inquirer/prompts": "^7.8.6",
     "@navikt/aksel-icons": "^7.17.4",
     "@navikt/ds-css": "^7.17.4",
     "@navikt/ds-react": "^7.17.4",
