@@ -12,7 +12,6 @@
     "precommit-test": "vitest --run",
     "prepare": "husky",
     "setup-env": "cp .env.example .env",
-    "generate-token": "chmod +x ./script/token-generator.sh && ./script/token-generator.sh",
     "token": "node ./token-generator.cjs",
     "graphql-codegen": "graphql-codegen --config graphql-codegen.ts"
   },
