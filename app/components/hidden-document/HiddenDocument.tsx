@@ -4,17 +4,11 @@ import { PortableText } from "@portabletext/react";
 import { useRef, useState } from "react";
 import styles from "./HiddenDocument.module.css";
 import { useSanity } from "~/hooks/useSanity";
-import { loggAapneForklaringAvSkjultDokument } from "~/amplitude/amplitude";
 
 export function HiddenDocument() {
   const [isOpen, setIsOpen] = useState(false);
   const { getAppText, getRichText } = useSanity();
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  function handleOpenPopover() {
-    setIsOpen(isOpen);
-    loggAapneForklaringAvSkjultDokument();
-  }
 
   return (
     <div className={styles.hiddenDocumentContainer}>
@@ -23,7 +17,7 @@ export function HiddenDocument() {
         {getAppText("skjult-dokument.kan-ikke-vises")}
       </p>
 
-      <Button ref={buttonRef} variant="tertiary" size="small" onClick={handleOpenPopover}>
+      <Button ref={buttonRef} variant="tertiary" size="small" onClick={() => setIsOpen(!isOpen)}>
         {getAppText("skjult-dokument.hvorfor-vises-ikke-dokumentet")}
       </Button>
       <Popover

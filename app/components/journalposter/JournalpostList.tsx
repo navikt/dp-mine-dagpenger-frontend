@@ -1,12 +1,12 @@
 import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
 import { useState } from "react";
 import { useRouteLoaderData } from "react-router";
-import { loggKlikkVisAlleDokumenter } from "~/amplitude/amplitude";
 import { useSanity } from "~/hooks/useSanity";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./Jounalposter.module.css";
 import { JournalpostCard } from "./JournalpostCard";
+import { IJournalpost } from "~/utils/safJournalposter.utils";
 
 const NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT = 10;
 
@@ -30,17 +30,10 @@ export function JournalpostList() {
     return <></>;
   }
 
-  const journalposterToShow = journalposter.data.slice(
+  const journalposterToShow: IJournalpost[] = journalposter.data.slice(
     0,
     showAll ? journalposter.data.length : NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT
   );
-
-  function onClick() {
-    setShowAll(!showAll);
-    if (journalposter.status === "success" && journalposter.data.length) {
-      loggKlikkVisAlleDokumenter(journalposter.data.length);
-    }
-  }
 
   return (
     <Section id="dokumentliste">
@@ -56,7 +49,7 @@ export function JournalpostList() {
         ))}
         {!showAll && journalposter.data.length > NUMBER_OF_DOCUMENTS_TO_SHOW_BY_DEFAULT && (
           <div className={styles.showAllDocumentButtonContainer}>
-            <Button variant="secondary" onClick={onClick}>
+            <Button variant="secondary" onClick={() => setShowAll(!showAll)}>
               {getAppText("journalpost.vis-alle-dokumenter")} ({journalposter.data.length})
             </Button>
           </div>
