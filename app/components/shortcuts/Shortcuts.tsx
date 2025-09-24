@@ -1,5 +1,4 @@
 import { BodyShort, Heading, Link } from "@navikt/ds-react";
-import { loggKlikkSnarvei } from "~/amplitude/amplitude";
 import { useSanity } from "~/hooks/useSanity";
 import type { ISanityLink } from "~/sanity/sanity.types";
 import { Section } from "../section/Section";
@@ -26,11 +25,7 @@ export function Shortcuts() {
           {shortcuts.map(({ linkId, linkText, linkUrl, linkDescription }) => {
             return (
               <li key={linkId} className={styles.shortcut}>
-                <Link
-                  className={styles.shortcutLink}
-                  href={linkUrl}
-                  onClick={() => loggKlikkSnarvei(linkText)}
-                >
+                <Link className={styles.shortcutLink} href={linkUrl}>
                   {linkText}
                 </Link>
                 {linkDescription && (

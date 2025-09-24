@@ -5,7 +5,6 @@ import { ExternalLink } from "../ExternalLink";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import styles from "./MeldFraOmEndring.module.css";
-import { loggMeldFraOmEndring } from "~/amplitude/amplitude";
 
 export function MeldFraOmEndring() {
   const { getAppText, getRichText, getLink } = useSanity();
@@ -25,18 +24,10 @@ export function MeldFraOmEndring() {
           </Heading>
           <PortableText value={getRichText("meld-fra-om-endring.informasjon")} />
           <nav className={styles.navigationContainer}>
-            <ExternalLink
-              to={meldFraOmEndringerLink.linkUrl}
-              asButtonVariant="secondary"
-              onClick={() => loggMeldFraOmEndring("send-melding-om-endring")}
-            >
+            <ExternalLink to={meldFraOmEndringerLink.linkUrl} asButtonVariant="secondary">
               {meldFraOmEndringerLink.linkText}
             </ExternalLink>
-            <ExternalLink
-              to={sendInnDokumentLink.linkUrl}
-              asButtonVariant="secondary"
-              onClick={() => loggMeldFraOmEndring("send-inn-dokument")}
-            >
+            <ExternalLink to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary">
               {sendInnDokumentLink.linkText}
             </ExternalLink>
           </nav>
