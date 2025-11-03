@@ -7,7 +7,7 @@ loginservice:
   url: https://loginservice.nav.no/login
 soknadsdialog:
   ingress: https://www.nav.no/dagpenger/dialog
-paw_arbeidssoekerregisteret_url: https://oppslag-arbeidssoekerregisteret.intern.nav.no
+paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.intern.nav.no
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.nav.no
 saf:
   ingress: safselvbetjening.prod-fss-pub.nais.io

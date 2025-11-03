@@ -8,7 +8,7 @@ loginservice:
   url: https://loginservice.dev.nav.no/login
 soknadsdialog:
   ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
-paw_arbeidssoekerregisteret_url: https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no
+paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.intern.dev.nav.no
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.dev.nav.no
 saf:
   ingress: safselvbetjening-q1.dev-fss-pub.nais.io
