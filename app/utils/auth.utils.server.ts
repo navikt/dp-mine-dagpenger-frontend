@@ -16,7 +16,7 @@ export async function getPAWArbeidssokerregistreringOboToken(request: Request) {
     return getEnv("PAW_ARBEIDSSOEKERREGISTERET_TOKEN") || "";
   }
 
-  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:paw:paw-arbeidssoekerregisteret-api-oppslag`;
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
   return await getOnBehalfOfToken(request, audience);
 }
 

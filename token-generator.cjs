@@ -14,7 +14,7 @@ const TOKEN_LIST = [
   },
   {
     env: "PAW_ARBEIDSSOEKERREGISTERET_TOKEN",
-    aud: "dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag",
+    aud: "dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag-v2",
   },
   {
     env: "OKONOMI_KONTOREGISTER_TOKEN",
