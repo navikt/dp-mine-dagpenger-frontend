@@ -102,9 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev-gcp
     permissions:
-      contents: read
       id-token: write
-      actions: read
     steps:
       - uses: actions/checkout@v6
       - uses: nais/deploy/actions/deploy@v2
@@ -123,7 +121,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-      actions: read
     steps:
       - uses: actions/checkout@v6
       - uses: nais/deploy/actions/deploy@v2
