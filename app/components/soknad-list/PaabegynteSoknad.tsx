@@ -10,13 +10,13 @@ interface IProps {
 }
 
 export function PaabegynteSoknad({ soknad }: IProps) {
-  const { tittel, sistEndret: dato, endreLenke, søknadId } = soknad;
+  const { tittel, sistEndret: dato, endreLenke } = soknad;
   const { getAppText } = useSanity();
 
   return (
     <li className={styles.soknadContainer}>
-      <article className={styles.soknadContent} aria-labelledby={`tittel-${søknadId}`}>
-        <Heading level="3" size="small" id={`tittel-${søknadId}`}>
+      <article className={styles.soknadContent}>
+        <Heading level="3" size="small">
           {tittel} {getAppText("paabegynt-soknad.paabegynt-status")}
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">

@@ -20,8 +20,8 @@ export function FullforteSoknad({ soknad }: IProps) {
 
   return (
     <li className={styles.soknadContainer}>
-      <article className={styles.soknadContent} aria-labelledby={`tittel-${søknadId}`}>
-        <Heading level="3" size="small" id={`tittel-${søknadId}`}>
+      <article className={styles.soknadContent}>
+        <Heading level="3" size="small">
           {tittel}
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">
