@@ -20,6 +20,6 @@ uxsignals:
   mode: production
 sanity_dataset: production
 unleash:
-  server_api_url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
+  server_api_url: https://teamdagpenger-unleash-api.nav.cloud.nais.io/api
   environment: production
 faro_url: https://telemetry.nav.no/collect
