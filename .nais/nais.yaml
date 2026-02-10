@@ -99,3 +99,11 @@ spec:
       autoLogin: true
   tokenx:
     enabled: true
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
