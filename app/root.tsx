@@ -12,6 +12,7 @@ import {
   useRouteError,
 } from "react-router";
 import type { Route } from "./+types/root";
+import { ClientScript } from "./components/ClientScript";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
@@ -29,8 +30,9 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
-import indexStyle from "./index.css?url";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
+import indexStyle from "./index.css?url";
+import { getOrkestratorSoknader } from "./models/getOrkestratorSoknader.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -105,6 +107,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const fullforteSoknader = await getFullforteSoknader(request);
   const paabegynteSoknader = await getPaabegynteSoknader(request);
+  const orkestratorSoknader = await getOrkestratorSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
@@ -132,6 +135,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     },
     fullforteSoknader,
     paabegynteSoknader,
+    orkestratorSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,
@@ -140,28 +144,26 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useLoaderData();
+  const { DECORATOR_HEAD_ASSETS, DECORATOR_SCRIPTS, DECORATOR_HEADER, DECORATOR_FOOTER } =
+    decoratorFragments;
 
-  useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
+  useInjectDecoratorScript(DECORATOR_SCRIPTS);
 
   return (
     <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(decoratorFragments.DECORATOR_HEAD_ASSETS, { trim: true })}
+        {parse(DECORATOR_HEAD_ASSETS, { trim: true })}
         <Meta />
         <Links />
       </head>
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
-          }}
-        />
-        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
+        <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
         {children}
         <ScrollRestoration />
-        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
+        <ClientScript env={env} />
+        <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
         <Scripts />
       </body>
     </html>

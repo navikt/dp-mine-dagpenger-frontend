@@ -17,10 +17,12 @@ export function PaabegynteSoknadList() {
     );
   }
 
-  if (paabegynteSoknader.status === "success" && paabegynteSoknader.data.length > 0) {
+  const soknader = paabegynteSoknader.data.filter((soknad: IPaabegynteSoknad) => soknad.søknadId);
+
+  if (paabegynteSoknader.status === "success" && soknader.length > 0) {
     return (
       <ul className={styles.soknadList}>
-        {paabegynteSoknader.data.map((soknad: IPaabegynteSoknad) => (
+        {soknader.map((soknad: IPaabegynteSoknad) => (
           <PaabegynteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}
       </ul>

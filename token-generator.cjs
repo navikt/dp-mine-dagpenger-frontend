@@ -1,6 +1,7 @@
 const { rawlist } = require("@inquirer/prompts");
 const fs = require("fs");
 const path = require("path");
+const { env } = require("process");
 
 let envPath = path.resolve(__dirname, ".env");
 let envText = fs.readFileSync(envPath, "utf-8");
@@ -23,6 +24,10 @@ const TOKEN_LIST = [
   {
     env: "SAF_TOKEN",
     aud: "dev-fss:teamdokumenthandtering:safselvbetjening-q1",
+  },
+  {
+    env: "DP_SOKNAD_ORKESTRATOR_TOKEN",
+    aud: "dev-gcp:teamdagpenger:dp-soknad-orkestrator",
   },
 ];
 

@@ -4,6 +4,7 @@ import { useSanity } from "~/hooks/useSanity";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./SoknadList.module.css";
+import { ISoknad } from "~/models/getFullfortSoknader.server";
 
 export function FullforteSoknadList() {
   const { getAppText } = useSanity();
@@ -16,7 +17,9 @@ export function FullforteSoknadList() {
       </Alert>
     );
   }
-  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(fullforteSoknader.data);
+
+  const soknader = fullforteSoknader.data.filter((soknad: ISoknad) => soknad.søknadId);
+  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(soknader);
 
   if (fullforteSoknader.status === "success" && fullforteSoknaderWithin12Weeks.length > 0) {
     return (

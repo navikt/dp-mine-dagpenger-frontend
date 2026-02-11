@@ -23,7 +23,7 @@ export function PaabegynteSoknad({ soknad }: IProps) {
           {getAppText("paabegynt-soknad.sist-endret.label-tekst")}
           <FormattedDate date={dato} />
         </BodyShort>
-        <Tag variant="neutral" size="small" className={styles.soknadTag}>
+        <Tag variant="neutral" size="small" className="mt-4">
           {getAppText("paabegynt-soknad.soknad-er-ikke-sendt-inn")}
         </Tag>
       </article>

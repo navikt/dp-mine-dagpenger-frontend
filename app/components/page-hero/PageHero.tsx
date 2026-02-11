@@ -9,11 +9,13 @@ import { SectionContent } from "../section/SectionContent";
 
 export function PageHero() {
   const { getRichText, getAppText } = useSanity();
-  const { fullforteSoknader } = useRouteLoaderData("root");
+  const { fullforteSoknader, orkestratorSoknader } = useRouteLoaderData("root");
   const sectionText = getRichText("soknader");
   const soknader =
     fullforteSoknader.status === "success" &&
     getSoknadWithinLast12Weeks(fullforteSoknader.data).length > 0;
+
+  console.log(`🚀 orkestratorSoknader:: `, orkestratorSoknader);
 
   return (
     <Section>
