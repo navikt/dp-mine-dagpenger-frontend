@@ -18,38 +18,38 @@ export function SoknadList() {
   const { getAppText } = useSanity();
 
   const hasFullfortSoknad = fullforteSoknader.status === "success" && fullforteSoknader.data.length;
-  const harFullfortSoknadFraOrkestrator =
-    orkestratorSoknader.status === "success" &&
-    orkestratorSoknader.data.some(
+  const fullfortSoknadFraOrkestrator =
+    orkestratorSoknader.data?.filter(
       (soknad: IOrkestratorSoknad) =>
         soknad.status === "INNSENDT" ||
         soknad.status === "JOURNALFØRT" ||
         soknad.status === "GODKJENT"
-    );
+    ) ?? [];
 
   const hasPaabegyntSoknad =
     paabegynteSoknader.status === "success" && paabegynteSoknader.data.length;
 
   const harPaabegyntSoknadFraOrkestrator =
-    orkestratorSoknader.status === "success" &&
-    orkestratorSoknader.data.some((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT");
+    orkestratorSoknader.data?.filter(
+      (soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT"
+    ) ?? [];
 
-  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(fullforteSoknader.data);
+  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(fullforteSoknader.data ?? []);
   const harFullfortSoknadFraOrkestratorWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(
-    orkestratorSoknader.data
+    fullfortSoknadFraOrkestrator
   );
 
   const harIngenSoknader =
     !hasFullfortSoknad &&
     !hasPaabegyntSoknad &&
-    !harFullfortSoknadFraOrkestrator &&
-    !harPaabegyntSoknadFraOrkestrator;
+    !fullfortSoknadFraOrkestrator.length &&
+    !harPaabegyntSoknadFraOrkestrator.length;
 
   const harIngenSoknaderWithin12Weeks =
     !fullforteSoknaderWithin12Weeks.length &&
-    !paabegynteSoknader.data.length &&
+    !(paabegynteSoknader.data?.length ?? 0) &&
     !harFullfortSoknadFraOrkestratorWithin12Weeks.length &&
-    !harPaabegyntSoknadFraOrkestrator;
+    !harPaabegyntSoknadFraOrkestrator.length;
 
   if (harIngenSoknader || harIngenSoknaderWithin12Weeks) {
     return <></>;
