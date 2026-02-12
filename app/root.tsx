@@ -12,7 +12,7 @@ import {
   useRouteError,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { ClientScript } from "./components/ClientScript";
+// import { ClientScript } from "./components/ClientScript";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
@@ -20,6 +20,7 @@ import { getDecoratorHTML } from "./models/decorator.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
+import { getOrkestratorSoknader } from "./models/getOrkestratorSoknader.server";
 import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
@@ -32,7 +33,6 @@ import { logger } from "./utils/logger.utils";
 
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import indexStyle from "./index.css?url";
-import { getOrkestratorSoknader } from "./models/getOrkestratorSoknader.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -162,7 +162,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
         {children}
         <ScrollRestoration />
-        <ClientScript env={env} />
+        {/* <ClientScript env={env} /> */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.env = ${JSON.stringify(env)}`,
+          }}
+        />
         <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
         <Scripts />
       </body>
