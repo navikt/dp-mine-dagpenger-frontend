@@ -1,7 +1,7 @@
 import { Alert } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
 import styles from "~/components/soknad-list/SoknadList.module.css";
-import { PaabegynteSoknadOrkestrator } from "~/components/soknad-list/orkestratorSoknad/PaabegynteSoknadOrkestrator";
+import { PaabegynteSoknadOrkestrator } from "~/components/soknad-list/PaabegynteSoknadOrkestrator";
 import { useSanity } from "~/hooks/useSanity";
 import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 

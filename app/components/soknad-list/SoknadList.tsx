@@ -1,7 +1,7 @@
 import { Heading } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
-import FullforteSoknadFraOrkestratorList from "~/components/soknad-list/orkestratorSoknad/FullforteSoknadFraOrkestratorList";
-import PaabegynteSoknadFraOrkestratorList from "~/components/soknad-list/orkestratorSoknad/PaabegynteSoknadFraOrkestratorList";
+import FullforteSoknadFraOrkestratorList from "~/components/soknad-list/FullforteSoknadFraOrkestratorList";
+import PaabegynteSoknadFraOrkestratorList from "~/components/soknad-list/PaabegynteSoknadFraOrkestratorList";
 import { useSanity } from "~/hooks/useSanity";
 import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 import {

@@ -4,7 +4,7 @@ import { Alert } from "@navikt/ds-react";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
 import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
-import FullforteSoknadFraOrkestrator from "~/components/soknad-list/orkestratorSoknad/FullforteSoknadFraOrkestrator";
+import FullforteSoknadFraOrkestrator from "~/components/soknad-list/FullforteSoknadFraOrkestrator";
 
 export default function FullforteSoknadFraOrkestratorList() {
   const { getAppText } = useSanity();
