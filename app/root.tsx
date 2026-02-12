@@ -12,7 +12,7 @@ import {
   useRouteError,
 } from "react-router";
 import type { Route } from "./+types/root";
-// import { ClientScript } from "./components/ClientScript";
+import { ClientScript } from "./components/ClientScript";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
@@ -144,27 +144,26 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useLoaderData();
-  useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
+  const { DECORATOR_HEAD_ASSETS, DECORATOR_SCRIPTS, DECORATOR_HEADER, DECORATOR_FOOTER } =
+    decoratorFragments;
+
+  useInjectDecoratorScript(DECORATOR_SCRIPTS);
 
   return (
     <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(decoratorFragments.DECORATOR_HEAD_ASSETS, { trim: true })}
+        {parse(DECORATOR_HEAD_ASSETS, { trim: true })}
         <Meta />
         <Links />
       </head>
       <body>
-        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
+        <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
         {children}
         <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
-          }}
-        />
-        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
+        <ClientScript env={env} />
+        <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
         <Scripts />
       </body>
     </html>
