@@ -144,31 +144,27 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useLoaderData();
-  const { DECORATOR_HEAD_ASSETS, DECORATOR_SCRIPTS, DECORATOR_HEADER, DECORATOR_FOOTER } =
-    decoratorFragments;
-
-  useInjectDecoratorScript(DECORATOR_SCRIPTS);
+  useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
 
   return (
     <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(DECORATOR_HEAD_ASSETS, { trim: true })}
+        {parse(decoratorFragments.DECORATOR_HEAD_ASSETS, { trim: true })}
         <Meta />
         <Links />
       </head>
       <body>
-        <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
+        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
         {children}
         <ScrollRestoration />
-        {/* <ClientScript env={env} /> */}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
-        <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
+        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
         <Scripts />
       </body>
     </html>
