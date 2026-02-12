@@ -19,6 +19,7 @@ import { getDecoratorHTML } from "./models/decorator.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
+import { getOrkestratorSoknader } from "./models/getOrkestratorSoknader.server";
 import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
@@ -29,8 +30,8 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
-import indexStyle from "./index.css?url";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
+import indexStyle from "./index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -105,6 +106,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const fullforteSoknader = await getFullforteSoknader(request);
   const paabegynteSoknader = await getPaabegynteSoknader(request);
+  const orkestratorSoknader = await getOrkestratorSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
@@ -120,6 +122,7 @@ export async function loader({ request }: Route.LoaderArgs) {
       IS_LOCALHOST: getEnv("IS_LOCALHOST"),
       BASE_PATH: getEnv("BASE_PATH"),
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
+      DP_BRUKERDIALOG_URL: getEnv("DP_BRUKERDIALOG_URL"),
       APP_ENV: getEnv("APP_ENV"),
       UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
@@ -132,6 +135,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     },
     fullforteSoknader,
     paabegynteSoknader,
+    orkestratorSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,
@@ -140,28 +144,30 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { decoratorFragments, env } = useLoaderData();
+  const { DECORATOR_HEAD_ASSETS, DECORATOR_SCRIPTS, DECORATOR_HEADER, DECORATOR_FOOTER } =
+    decoratorFragments;
 
-  useInjectDecoratorScript(decoratorFragments.DECORATOR_SCRIPTS);
+  useInjectDecoratorScript(DECORATOR_SCRIPTS);
 
   return (
     <html lang="nb">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {parse(decoratorFragments.DECORATOR_HEAD_ASSETS, { trim: true })}
+        {parse(DECORATOR_HEAD_ASSETS, { trim: true })}
         <Meta />
         <Links />
       </head>
       <body>
+        <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
+        {children}
+        <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
-        {parse(decoratorFragments.DECORATOR_HEADER, { trim: true })}
-        {children}
-        <ScrollRestoration />
-        {parse(decoratorFragments.DECORATOR_FOOTER, { trim: true })}
+        <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
         <Scripts />
       </body>
     </html>

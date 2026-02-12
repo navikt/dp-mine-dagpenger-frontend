@@ -43,9 +43,9 @@ spec:
     - name: DEKORATOR_ENV
       value: "{{ dekorator.env }}"
     - name: DP_INNSYN_URL
-      value: http://dp-innsyn
+      value: "{{ dp_innsyn_url }}"
     - name: DP_SOKNADSDIALOG_URL
-      value: "{{ soknadsdialog.ingress }}"
+      value: "{{ dp_soknadsdialog_url }}"
     - name: PAW_ARBEIDSSOEKERREGISTERET_URL
       value: "{{ paw_arbeidssoekerregisteret_url }}"
     - name: OKONOMI_KONTOREGISTER_URL
@@ -68,6 +68,10 @@ spec:
       value: "{{ unleash.server_api_url }}"
     - name: FARO_URL
       value: "{{ faro_url }}"
+    - name: DP_SOKNAD_ORKESTRATOR_URL
+      value: "{{ dp_soknad_orkestrator_url }}"
+    - name: DP_BRUKERDIALOG_URL
+      value: "{{ dp_brukerdialog_url }}"
 
   ingresses:
     {{#each ingresses as |url|}}

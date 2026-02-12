@@ -24,6 +24,10 @@ const TOKEN_LIST = [
     env: "SAF_TOKEN",
     aud: "dev-fss:teamdokumenthandtering:safselvbetjening-q1",
   },
+  {
+    env: "DP_SOKNAD_ORKESTRATOR_TOKEN",
+    aud: "dev-gcp:teamdagpenger:dp-soknad-orkestrator",
+  },
 ];
 
 const IDENT_LIST = [

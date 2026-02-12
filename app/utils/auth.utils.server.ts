@@ -29,6 +29,15 @@ export async function getOKONOMIKontoregisterToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getDPSoknadOrkestratorToken(request: Request) {
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("DP_SOKNAD_ORKESTRATOR_TOKEN") || "";
+  }
+
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:teamdagpenger:dp-soknad-orkestrator`;
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getSAFToken(request: Request) {
   if (getEnv("IS_LOCALHOST") === "true") {
     return getEnv("SAF_TOKEN") || "";
