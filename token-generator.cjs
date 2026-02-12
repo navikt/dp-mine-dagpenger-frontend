@@ -1,7 +1,6 @@
 const { rawlist } = require("@inquirer/prompts");
 const fs = require("fs");
 const path = require("path");
-const { env } = require("process");
 
 let envPath = path.resolve(__dirname, ".env");
 let envText = fs.readFileSync(envPath, "utf-8");
