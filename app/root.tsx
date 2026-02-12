@@ -12,7 +12,6 @@ import {
   useRouteError,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { ClientScript } from "./components/ClientScript";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
@@ -163,7 +162,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
         {children}
         <ScrollRestoration />
-        <ClientScript env={env} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.env = ${JSON.stringify(env)}`,
+          }}
+        />
         <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
         <Scripts />
       </body>
