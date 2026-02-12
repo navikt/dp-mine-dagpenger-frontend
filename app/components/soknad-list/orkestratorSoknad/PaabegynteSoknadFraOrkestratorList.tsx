@@ -1,9 +1,8 @@
-import { useSanity } from "~/hooks/useSanity";
-import { useRouteLoaderData } from "react-router";
 import { Alert } from "@navikt/ds-react";
+import { useRouteLoaderData } from "react-router";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { PaabegynteSoknadOrkestrator } from "~/components/soknad-list/orkestratorSoknad/PaabegynteSoknadOrkestrator";
-import { getEnv } from "~/utils/env.utils";
+import { useSanity } from "~/hooks/useSanity";
 import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 
 export default function PaabegynteSoknadFraOrkestratorList() {
@@ -20,11 +19,7 @@ export default function PaabegynteSoknadFraOrkestratorList() {
 
   const soknader: IOrkestratorSoknad[] = orkestratorSoknader.data
     .filter((soknad: IOrkestratorSoknad) => soknad.søknadId)
-    .filter((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT")
-    .map((soknad: IOrkestratorSoknad) => ({
-      ...soknad,
-      endreLenke: `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`,
-    }));
+    .filter((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT");
 
   if (orkestratorSoknader.status === "success" && soknader.length > 0) {
     return (

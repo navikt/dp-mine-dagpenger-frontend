@@ -12,7 +12,7 @@ interface IProps {
 
 export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
   const { tittel, oppdatertTidspunkt } = soknad;
-  const endreLenke = `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
+  const soknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
 
   const { getAppText } = useSanity();
 
@@ -31,7 +31,7 @@ export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
         </Tag>
       </article>
       <nav className={styles.soknadLinksContainer}>
-        <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
+        <ExternalLink to={soknadUrl} asButtonVariant="secondary" size="small">
           {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
         </ExternalLink>
       </nav>
