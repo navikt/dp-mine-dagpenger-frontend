@@ -4,7 +4,7 @@ import { useSanity } from "~/hooks/useSanity";
 import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
 import styles from "./SoknadList.module.css";
-import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 
 export function PaabegynteSoknadList() {
   const { getAppText } = useSanity();
@@ -18,11 +18,12 @@ export function PaabegynteSoknadList() {
     );
   }
 
+  // Filtrerer ut påbegynte søknader som også finnes i orkestrator-søknader for å unngå duplikate søknader i UI
   const soknader = paabegynteSoknader.data.filter(
     (soknad: IPaabegynteSoknad) =>
       soknad.søknadId &&
       !orkestratorSoknader.data.some(
-        (soknadOrkestrator: ISoknadResponse) => soknadOrkestrator.søknadId === soknad.søknadId
+        (soknadOrkestrator: IOrkestratorSoknad) => soknadOrkestrator.søknadId === soknad.søknadId
       )
   );
 

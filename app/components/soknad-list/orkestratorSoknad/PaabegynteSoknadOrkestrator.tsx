@@ -1,17 +1,17 @@
 import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { FormattedDate } from "../FormattedDate";
-import { ExternalLink } from "../ExternalLink";
+import { FormattedDate } from "../../FormattedDate";
+import { ExternalLink } from "../../ExternalLink";
 import styles from "./SoknadList.module.css";
-import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 import { getEnv } from "~/utils/env.utils";
 
 interface IProps {
-  soknad: ISoknadResponse;
+  soknad: IOrkestratorSoknad;
 }
 
 export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
-  const { tittel, oppdatertTidspunkt: dato } = soknad;
+  const { tittel, oppdatertTidspunkt } = soknad;
   const endreLenke = `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
 
   const { getAppText } = useSanity();
@@ -24,7 +24,7 @@ export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">
           {getAppText("paabegynt-soknad.sist-endret.label-tekst")}
-          <FormattedDate date={dato} />
+          <FormattedDate date={oppdatertTidspunkt} />
         </BodyShort>
         <Tag variant="neutral" size="small" className="mt-4">
           {getAppText("paabegynt-soknad.soknad-er-ikke-sendt-inn")}

@@ -1,4 +1,4 @@
-import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
 import styles from "~/components/soknad-list/SoknadList.module.css";
@@ -7,7 +7,7 @@ import { FormattedDate } from "~/components/FormattedDate";
 import { ExternalLink } from "~/components/ExternalLink";
 
 interface IProps {
-  soknad: ISoknadResponse;
+  soknad: IOrkestratorSoknad;
 }
 
 export default function FullforteSoknadFraOrkestrator({ soknad }: IProps) {

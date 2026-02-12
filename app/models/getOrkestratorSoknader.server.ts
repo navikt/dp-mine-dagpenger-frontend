@@ -3,7 +3,7 @@ import { getDPSoknadOrkestratorToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
-export interface ISoknadResponse {
+export interface IOrkestratorSoknad {
   søknadId: string;
   tittel: string;
   innsendtTimestamp: string;
@@ -12,8 +12,8 @@ export interface ISoknadResponse {
 }
 
 export async function getOrkestratorSoknader(
-  request: Request,
-): Promise<INetworkResponse<ISoknadResponse[]>> {
+  request: Request
+): Promise<INetworkResponse<IOrkestratorSoknad[]>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;
   const onBehalfOfToken = await getDPSoknadOrkestratorToken(request);
 
@@ -36,11 +36,13 @@ export async function getOrkestratorSoknader(
     };
   }
 
-  const data: ISoknadResponse[] = await response.json();
+  const data: IOrkestratorSoknad[] = await response.json();
 
-  const soknaderMedEndreLenke: ISoknadResponse[] = data
-    .sort((a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime())
-    .filter(søknad => søknad.status !== "SLETTET_AV_SYSTEMET");
+  const soknaderMedEndreLenke: IOrkestratorSoknad[] = data
+    .sort(
+      (a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime()
+    )
+    .filter((søknad) => søknad.status !== "SLETTET_AV_SYSTEMET");
 
   return {
     status: "success",

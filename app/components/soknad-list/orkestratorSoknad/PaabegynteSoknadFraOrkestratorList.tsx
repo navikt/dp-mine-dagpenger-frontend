@@ -2,9 +2,9 @@ import { useSanity } from "~/hooks/useSanity";
 import { useRouteLoaderData } from "react-router";
 import { Alert } from "@navikt/ds-react";
 import styles from "~/components/soknad-list/SoknadList.module.css";
-import { IOrkestratorSoknad, ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
-import { PaabegynteSoknadOrkestrator } from "~/components/soknad-list/PaabegynteSoknadOrkestrator";
+import { PaabegynteSoknadOrkestrator } from "~/components/soknad-list/orkestratorSoknad/PaabegynteSoknadOrkestrator";
 import { getEnv } from "~/utils/env.utils";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 
 export default function PaabegynteSoknadFraOrkestratorList() {
   const { getAppText } = useSanity();
@@ -19,9 +19,9 @@ export default function PaabegynteSoknadFraOrkestratorList() {
   }
 
   const soknader: IOrkestratorSoknad[] = orkestratorSoknader.data
-    .filter((søknad: ISoknadResponse) => søknad.status === "PÅBEGYNT")
-    .filter((soknad: ISoknadResponse) => soknad.søknadId)
-    .map((soknad: ISoknadResponse) => ({
+    .filter((soknad: IOrkestratorSoknad) => soknad.søknadId)
+    .filter((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT")
+    .map((soknad: IOrkestratorSoknad) => ({
       ...soknad,
       endreLenke: `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`,
     }));

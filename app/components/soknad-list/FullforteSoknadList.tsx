@@ -4,7 +4,7 @@ import { useSanity } from "~/hooks/useSanity";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./SoknadList.module.css";
-import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
 import { ISoknad } from "~/models/getFullfortSoknader.server";
 
 export function FullforteSoknadList() {
@@ -19,14 +19,15 @@ export function FullforteSoknadList() {
     );
   }
 
-
+  // Filtrerer ut fullførte søknader som også finnes i orkestrator-søknader for å unngå duplikate søknader i UI
   const soknader = fullforteSoknader.data.filter(
     (soknad: ISoknad) =>
       soknad.søknadId &&
       !orkestratorSoknader.data.some(
-        (soknadOrkestrator: ISoknadResponse) => soknadOrkestrator.søknadId === soknad.søknadId
+        (soknadOrkestrator: IOrkestratorSoknad) => soknadOrkestrator.søknadId === soknad.søknadId
       )
   );
+
   const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(soknader);
 
   if (fullforteSoknader.status === "success" && fullforteSoknaderWithin12Weeks.length > 0) {

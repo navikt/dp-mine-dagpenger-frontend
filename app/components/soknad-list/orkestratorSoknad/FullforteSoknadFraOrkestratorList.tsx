@@ -3,8 +3,8 @@ import { useRouteLoaderData } from "react-router";
 import { Alert } from "@navikt/ds-react";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
-import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
-import FullforteSoknadFraOrkestrator from "~/components/soknad-list/FullforteSoknadFraOrkestrator";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
+import FullforteSoknadFraOrkestrator from "~/components/soknad-list/orkestratorSoknad/FullforteSoknadFraOrkestrator";
 
 export default function FullforteSoknadFraOrkestratorList() {
   const { getAppText } = useSanity();
@@ -19,7 +19,11 @@ export default function FullforteSoknadFraOrkestratorList() {
   }
 
   const soknader = orkestratorSoknader.data
-    .filter((soknad: ISoknadResponse) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT");
+    .filter((soknad: IOrkestratorSoknad) => soknad.søknadId)
+    .filter(
+      (soknad: IOrkestratorSoknad) =>
+        soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
+    );
 
   const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(soknader);
 
