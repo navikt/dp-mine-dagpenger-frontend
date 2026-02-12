@@ -9,7 +9,7 @@ soknadsdialog:
   ingress: https://www.nav.no/dagpenger/dialog
 paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.intern.nav.no
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.nav.no
-dp_soknad_orkestrator_url: https://dp-soknad-orkestrator
+dp_soknad_orkestrator_url: http://dp-soknad-orkestrator
 dp_brukerdialog_url: https://brukerdialog-dagpenger
 saf:
   ingress: safselvbetjening.prod-fss-pub.nais.io
@@ -25,3 +25,4 @@ unleash:
   server_api_url: https://teamdagpenger-unleash-api.nav.cloud.nais.io/api
   environment: production
 faro_url: https://telemetry.nav.no/collect
+dp_innsyn_url: http://dp-innsyn

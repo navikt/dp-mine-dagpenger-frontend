@@ -26,5 +26,5 @@ unleash:
   server_api_url: https://teamdagpenger-unleash-api.nav.cloud.nais.io/api
   environment: development
 faro_url: https://telemetry.ekstern.dev.nav.no/collect
-
+dp_innsyn_url: http://dp-innsyn
   
