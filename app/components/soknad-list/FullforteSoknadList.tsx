@@ -4,11 +4,12 @@ import { useSanity } from "~/hooks/useSanity";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { FullforteSoknad } from "./FullforteSoknad";
 import styles from "./SoknadList.module.css";
+import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
 import { ISoknad } from "~/models/getFullfortSoknader.server";
 
 export function FullforteSoknadList() {
   const { getAppText } = useSanity();
-  const { fullforteSoknader } = useRouteLoaderData("root");
+  const { fullforteSoknader, orkestratorSoknader } = useRouteLoaderData("root");
 
   if (fullforteSoknader.status === "error") {
     return (
@@ -18,7 +19,14 @@ export function FullforteSoknadList() {
     );
   }
 
-  const soknader = fullforteSoknader.data.filter((soknad: ISoknad) => soknad.søknadId);
+
+  const soknader = fullforteSoknader.data.filter(
+    (soknad: ISoknad) =>
+      soknad.søknadId &&
+      !orkestratorSoknader.data.some(
+        (soknadOrkestrator: ISoknadResponse) => soknadOrkestrator.søknadId === soknad.søknadId
+      )
+  );
   const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(soknader);
 
   if (fullforteSoknader.status === "success" && fullforteSoknaderWithin12Weeks.length > 0) {

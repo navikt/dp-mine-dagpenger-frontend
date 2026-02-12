@@ -19,6 +19,7 @@ interface IEnv {
   PAW_ARBEIDSSOEKERREGISTERET_TOKEN: string;
   DP_SOKNAD_ORKESTRATOR_URL: string;
   DP_SOKNAD_ORKESTRATOR_TOKEN: string;
+  DP_BRUKERDIALOG_URL: string;
   NAIS_CLUSTER_NAME: string;
   SAF_URL: string;
   SAF_TOKEN: string;

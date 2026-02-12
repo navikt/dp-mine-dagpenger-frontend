@@ -11,6 +11,7 @@ soknadsdialog:
 paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.intern.dev.nav.no
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.dev.nav.no
 dp_soknad_orkestrator_url: https://dp-soknad-orkestrator.intern.dev.nav.no
+dp_brukerdialog_url: https://brukerdialog-dagpenger.ansatt.dev.nav.no
 saf:
   ingress: safselvbetjening-q1.dev-fss-pub.nais.io
   url: https://safselvbetjening-q1.dev-fss-pub.nais.io

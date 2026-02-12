@@ -4,20 +4,27 @@ import { useSanity } from "~/hooks/useSanity";
 import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
 import styles from "./SoknadList.module.css";
+import { ISoknadResponse } from "~/models/getOrkestratorSoknader.server";
 
 export function PaabegynteSoknadList() {
   const { getAppText } = useSanity();
-  const { paabegynteSoknader } = useRouteLoaderData("root");
+  const { paabegynteSoknader, orkestratorSoknader } = useRouteLoaderData("root");
 
   if (paabegynteSoknader.status === "error") {
     return (
       <Alert variant="error" className={styles.errorContainer}>
-        {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
+        {getAppText("feil-melding.klarte-ikke-hente-paabegynte-soknader")}
       </Alert>
     );
   }
 
-  const soknader = paabegynteSoknader.data.filter((soknad: IPaabegynteSoknad) => soknad.søknadId);
+  const soknader = paabegynteSoknader.data.filter(
+    (soknad: IPaabegynteSoknad) =>
+      soknad.søknadId &&
+      !orkestratorSoknader.data.some(
+        (soknadOrkestrator: ISoknadResponse) => soknadOrkestrator.søknadId === soknad.søknadId
+      )
+  );
 
   if (paabegynteSoknader.status === "success" && soknader.length > 0) {
     return (

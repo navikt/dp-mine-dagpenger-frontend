@@ -6,6 +6,8 @@ import { SectionContent } from "../section/SectionContent";
 import { FullforteSoknadList } from "./FullforteSoknadList";
 import { PaabegynteSoknadList } from "./PaabegynteSoknadList";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
+import PaabegynteSoknadFraOrkestratorList from "~/components/soknad-list/PaabegynteSoknadFraOrkestratorList";
+import FullforteSoknadFraOrkestratorList from "~/components/soknad-list/FullforteSoknadFraOrkestratorList";
 
 export function SoknadList() {
   const { fullforteSoknader, paabegynteSoknader } = useRouteLoaderData("root");
@@ -30,7 +32,10 @@ export function SoknadList() {
         <Heading level="2" size="large" spacing>
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
         </Heading>
+        <PaabegynteSoknadFraOrkestratorList />
         <PaabegynteSoknadList />
+
+        <FullforteSoknadFraOrkestratorList />
         <FullforteSoknadList />
       </SectionContent>
     </Section>

@@ -3,16 +3,17 @@ import { getDPSoknadOrkestratorToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
-export interface ISoknad {
+export interface ISoknadResponse {
   søknadId: string;
   tittel: string;
-  datoInnsendt: string;
+  innsendtTimestamp: string;
+  oppdatertTidspunkt: string;
   status: string;
 }
 
 export async function getOrkestratorSoknader(
-  request: Request
-): Promise<INetworkResponse<ISoknad[]>> {
+  request: Request,
+): Promise<INetworkResponse<ISoknadResponse[]>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;
   const onBehalfOfToken = await getDPSoknadOrkestratorToken(request);
 
@@ -35,10 +36,14 @@ export async function getOrkestratorSoknader(
     };
   }
 
-  const data: ISoknad[] = await response.json();
+  const data: ISoknadResponse[] = await response.json();
+
+  const soknaderMedEndreLenke: ISoknadResponse[] = data
+    .sort((a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime())
+    .filter(søknad => søknad.status !== "SLETTET_AV_SYSTEMET");
 
   return {
     status: "success",
-    data,
+    data: soknaderMedEndreLenke,
   };
 }

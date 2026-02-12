@@ -123,6 +123,7 @@ export async function loader({ request }: Route.LoaderArgs) {
       IS_LOCALHOST: getEnv("IS_LOCALHOST"),
       BASE_PATH: getEnv("BASE_PATH"),
       DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
+      DP_BRUKERDIALOG_URL: getEnv("DP_BRUKERDIALOG_URL"),
       APP_ENV: getEnv("APP_ENV"),
       UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),

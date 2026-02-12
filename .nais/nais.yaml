@@ -70,6 +70,8 @@ spec:
       value: "{{ faro_url }}"
     - name: DP_SOKNAD_ORKESTRATOR_URL
       value: "{{ dp_soknad_orkestrator_url }}"
+    - name: DP_BRUKERDIALOG_URL
+      value: "{{ dp_brukerdialog_url }}"
 
   ingresses:
     {{#each ingresses as |url|}}
