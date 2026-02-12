@@ -45,7 +45,7 @@ spec:
     - name: DP_INNSYN_URL
       value: "{{ dp_innsyn_url }}"
     - name: DP_SOKNADSDIALOG_URL
-      value: "{{ soknadsdialog.ingress }}"
+      value: "{{ dp_soknadsdialog_url }}"
     - name: PAW_ARBEIDSSOEKERREGISTERET_URL
       value: "{{ paw_arbeidssoekerregisteret_url }}"
     - name: OKONOMI_KONTOREGISTER_URL

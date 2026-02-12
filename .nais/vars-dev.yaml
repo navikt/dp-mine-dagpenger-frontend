@@ -6,11 +6,11 @@ dekorator:
   env: dev
 loginservice:
   url: https://loginservice.dev.nav.no/login
-soknadsdialog:
-  ingress: https://arbeid.intern.dev.nav.no/dagpenger/dialog
+dp_soknadsdialog_url: https://arbeid.intern.dev.nav.no/dagpenger/dialog
 paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.intern.dev.nav.no
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.dev.nav.no
-dp_soknad_orkestrator_url: https://dp-soknad-orkestrator.intern.dev.nav.no
+dp_soknad_orkestrator_url: http://dp-soknad-orkestrator
+dp_innsyn_url: http://dp-innsyn
 dp_brukerdialog_url: https://brukerdialog-dagpenger.ansatt.dev.nav.no
 saf:
   ingress: safselvbetjening-q1.dev-fss-pub.nais.io
@@ -26,5 +26,4 @@ unleash:
   server_api_url: https://teamdagpenger-unleash-api.nav.cloud.nais.io/api
   environment: development
 faro_url: https://telemetry.ekstern.dev.nav.no/collect
-dp_innsyn_url: http://dp-innsyn
   
