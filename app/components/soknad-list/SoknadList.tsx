@@ -21,9 +21,7 @@ export function SoknadList() {
   const fullfortSoknadFraOrkestrator =
     orkestratorSoknader.data?.filter(
       (soknad: IOrkestratorSoknad) =>
-        soknad.status === "INNSENDT" ||
-        soknad.status === "JOURNALFØRT" ||
-        soknad.status === "GODKJENT"
+        soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
     ) ?? [];
 
   const hasPaabegyntSoknad =
