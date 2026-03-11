@@ -39,7 +39,7 @@ export const handlers = [
     return passthrough();
   }),
 
-  http.post("https://safselvbetjening-q1.dev-fss-pub.nais.io/graphql", () => {
+  http.post("https://safselvbetjening-q2.dev-fss-pub.nais.io/graphql", () => {
     return passthrough();
   }),
 ];

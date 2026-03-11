@@ -13,10 +13,10 @@ dp_soknad_orkestrator_url: http://dp-soknad-orkestrator
 dp_innsyn_url: http://dp-innsyn
 dp_brukerdialog_url: https://brukerdialog-dagpenger.ansatt.dev.nav.no
 saf:
-  ingress: safselvbetjening-q1.dev-fss-pub.nais.io
-  url: https://safselvbetjening-q1.dev-fss-pub.nais.io
+  ingress: safselvbetjening-q2.dev-fss-pub.nais.io
+  url: https://safselvbetjening-q2.dev-fss-pub.nais.io
   cluster: dev-fss
-  scope: safselvbetjening-q1
+  scope: safselvbetjening-q2
 app_env: development
 uxsignals:
   enabled: enabled
