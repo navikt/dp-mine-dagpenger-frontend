@@ -22,7 +22,7 @@ const TOKEN_LIST = [
   },
   {
     env: "SAF_TOKEN",
-    aud: "dev-fss:teamdokumenthandtering:safselvbetjening-q2",
+    aud: "dev-fss:teamdokumenthandtering:safselvbetjening",
   },
   {
     env: "DP_SOKNAD_ORKESTRATOR_TOKEN",
