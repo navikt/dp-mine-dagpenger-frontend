@@ -17,7 +17,6 @@ saf:
   url: https://safselvbetjening.dev-fss-pub.nais.io
   cluster: dev-fss
   scope: safselvbetjening
-app_env: development
 uxsignals:
   enabled: enabled
   mode: demo

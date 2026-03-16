@@ -14,8 +14,8 @@ export default function FullforteSoknadFraOrkestrator({ soknad }: IProps) {
   const { søknadId, tittel, innsendtTimestamp } = soknad;
   const { getAppText } = useSanity();
 
-  const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
-  const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
+  const ettersendingUrl = `${getEnv("VITE_DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
+  const kvitteringUrl = `${getEnv("VITE_DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
 
   return (
     <li className={styles.soknadContainer}>

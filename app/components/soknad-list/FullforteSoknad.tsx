@@ -1,7 +1,7 @@
 import { BodyShort, Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import type { ISoknad } from "~/models/getFullfortSoknader.server";
-import { getEnv } from "~/utils/env.utils";
+import { getBrowserEnv } from "~/utils/env.utils";
 import { ExternalLink } from "../ExternalLink";
 import { FormattedDate } from "../FormattedDate";
 import styles from "./SoknadList.module.css";
@@ -14,8 +14,8 @@ export function FullforteSoknad({ soknad }: IProps) {
   const { søknadId, tittel, datoInnsendt, endreLenke, erNySøknadsdialog } = soknad;
   const { getAppText } = useSanity();
 
-  const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
-  const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
+  const ettersendingUrl = `${getBrowserEnv("VITE_DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
+  const generellInnsendingUrl = `${getBrowserEnv("VITE_DP_SOKNADSDIALOG_URL")}/generell-innsending`;
   const fallbackGenerellInnsending = !søknadId && !endreLenke;
 
   return (

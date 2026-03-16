@@ -44,8 +44,10 @@ spec:
       value: "{{ dekorator.env }}"
     - name: DP_INNSYN_URL
       value: "{{ dp_innsyn_url }}"
-    - name: DP_SOKNADSDIALOG_URL
+    - name: VITE_DP_SOKNADSDIALOG_URL
       value: "{{ dp_soknadsdialog_url }}"
+    - name: VITE_DP_BRUKERDIALOG_URL
+      value: "{{ dp_brukerdialog_url }}"
     - name: PAW_ARBEIDSSOEKERREGISTERET_URL
       value: "{{ paw_arbeidssoekerregisteret_url }}"
     - name: OKONOMI_KONTOREGISTER_URL
@@ -56,8 +58,6 @@ spec:
       value: "{{saf.cluster}}"
     - name: SAF_SCOPE
       value: "{{ saf.scope }}"
-    - name: APP_ENV
-      value: "{{ app_env }}"
     - name: UXSIGNALS_ENABLED
       value: "{{ uxsignals.enabled }}"
     - name: UXSIGNALS_MODE
@@ -70,8 +70,6 @@ spec:
       value: "{{ faro_url }}"
     - name: DP_SOKNAD_ORKESTRATOR_URL
       value: "{{ dp_soknad_orkestrator_url }}"
-    - name: DP_BRUKERDIALOG_URL
-      value: "{{ dp_brukerdialog_url }}"
 
   ingresses:
     {{#each ingresses as |url|}}

@@ -6,12 +6,12 @@ import { PageHero } from "~/components/page-hero/PageHero";
 import { Shortcuts } from "~/components/shortcuts/Shortcuts";
 import { SoknadList } from "~/components/soknad-list/SoknadList";
 import { UxsignalsWidget } from "~/components/UxsignalsWidget";
-import { getEnv } from "~/utils/env.utils";
+import { getBrowserEnv } from "~/utils/env.utils";
 
 export default function MineDagpenger() {
   useEffect(() => {
     // Task analytic Spørreundersøkelse for gammel og ny vedtaksbrev
-    if (getEnv("IS_LOCALHOST") !== "true") {
+    if (getBrowserEnv("VITE_IS_LOCALHOST") !== "true") {
       setTimeout(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

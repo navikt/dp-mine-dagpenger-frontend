@@ -12,7 +12,7 @@ interface IProps {
 
 export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
   const { tittel, oppdatertTidspunkt } = soknad;
-  const soknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
+  const soknadUrl = `${getEnv("VITE_DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
 
   const { getAppText } = useSanity();
 

@@ -16,7 +16,6 @@ saf:
   url: https://safselvbetjening.prod-fss-pub.nais.io
   cluster: prod-fss
   scope: safselvbetjening
-app_env: production
 uxsignals:
   enabled: disabled
   mode: production

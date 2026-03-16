@@ -3,7 +3,7 @@ import { getEnv } from "./env.utils";
 import { logger } from "./logger.utils";
 
 export async function getDPInnsynOboToken(request: Request) {
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (getEnv("VITE_IS_LOCALHOST") === "true") {
     return getEnv("DP_INNSYN_TOKEN") || "";
   }
 
@@ -12,7 +12,7 @@ export async function getDPInnsynOboToken(request: Request) {
 }
 
 export async function getPAWArbeidssokerregistreringOboToken(request: Request) {
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (getEnv("VITE_IS_LOCALHOST") === "true") {
     return getEnv("PAW_ARBEIDSSOEKERREGISTERET_TOKEN") || "";
   }
 
@@ -21,7 +21,7 @@ export async function getPAWArbeidssokerregistreringOboToken(request: Request) {
 }
 
 export async function getOKONOMIKontoregisterToken(request: Request) {
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (getEnv("VITE_IS_LOCALHOST") === "true") {
     return getEnv("OKONOMI_KONTOREGISTER_TOKEN") || "";
   }
 
@@ -30,7 +30,7 @@ export async function getOKONOMIKontoregisterToken(request: Request) {
 }
 
 export async function getDPSoknadOrkestratorToken(request: Request) {
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (getEnv("VITE_IS_LOCALHOST") === "true") {
     return getEnv("DP_SOKNAD_ORKESTRATOR_TOKEN") || "";
   }
 
@@ -39,7 +39,7 @@ export async function getDPSoknadOrkestratorToken(request: Request) {
 }
 
 export async function getSAFToken(request: Request) {
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (getEnv("VITE_IS_LOCALHOST") === "true") {
     return getEnv("SAF_TOKEN") || "";
   }
 

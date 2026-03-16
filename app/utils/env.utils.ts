@@ -1,16 +1,11 @@
-declare global {
-  interface Window {
-    env: IEnv;
-  }
-}
+import { logger } from "./logger.utils";
 
 interface IEnv {
-  APP_ENV: string;
   BASE_PATH: string;
-  IS_LOCALHOST: string;
+  VITE_IS_LOCALHOST: string;
   USE_MSW: string;
   DEKORATOR_ENV: string;
-  DP_SOKNADSDIALOG_URL: string;
+  VITE_DP_SOKNADSDIALOG_URL: string;
   DP_INNSYN_URL: string;
   DP_INNSYN_TOKEN: string;
   OKONOMI_KONTOREGISTER_URL: string;
@@ -19,7 +14,7 @@ interface IEnv {
   PAW_ARBEIDSSOEKERREGISTERET_TOKEN: string;
   DP_SOKNAD_ORKESTRATOR_URL: string;
   DP_SOKNAD_ORKESTRATOR_TOKEN: string;
-  DP_BRUKERDIALOG_URL: string;
+  VITE_DP_BRUKERDIALOG_URL: string;
   NAIS_CLUSTER_NAME: string;
   SAF_URL: string;
   SAF_TOKEN: string;
@@ -34,7 +29,21 @@ interface IEnv {
 }
 
 export function getEnv(value: keyof IEnv) {
-  const env = typeof window !== "undefined" ? window.env : process.env;
+  if (!process.env[value]) {
+    logger.error(`Klarte ikke hente miljøvariabel for: ${value}`);
 
-  return env[value] || "";
+    return "";
+  }
+
+  return process.env[value];
+}
+
+export function getBrowserEnv(value: keyof IEnv) {
+  if (!process.env[value]) {
+    logger.error(`Klarte ikke hente miljøvariabel for: ${value}`);
+
+    return "";
+  }
+
+  return import.meta.env[value];
 }

@@ -43,7 +43,7 @@ export const links = () => [
     type: "image/png",
     sizes: "32x32",
     href: `${
-      getEnv("IS_LOCALHOST") === "true"
+      getEnv("VITE_IS_LOCALHOST") === "true"
         ? ""
         : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
     }/favicon-32x32.png`,
@@ -53,7 +53,7 @@ export const links = () => [
     type: "image/png",
     sizes: "16x16",
     href: `${
-      getEnv("IS_LOCALHOST") === "true"
+      getEnv("VITE_IS_LOCALHOST") === "true"
         ? ""
         : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
     }/favicon-16x16.png`,
@@ -62,7 +62,7 @@ export const links = () => [
     rel: "icon",
     type: "image/x-icon",
     href: `${
-      getEnv("IS_LOCALHOST") === "true"
+      getEnv("VITE_IS_LOCALHOST") === "true"
         ? ""
         : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
     }/favicon.ico`,
@@ -118,21 +118,6 @@ export async function loader({ request }: Route.LoaderArgs) {
     featureFlags: {
       abTesting,
     },
-    env: {
-      IS_LOCALHOST: getEnv("IS_LOCALHOST"),
-      BASE_PATH: getEnv("BASE_PATH"),
-      DP_SOKNADSDIALOG_URL: getEnv("DP_SOKNADSDIALOG_URL"),
-      DP_BRUKERDIALOG_URL: getEnv("DP_BRUKERDIALOG_URL"),
-      APP_ENV: getEnv("APP_ENV"),
-      UXSIGNALS_ENABLED: getEnv("UXSIGNALS_ENABLED"),
-      UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
-      SANITY_DATASET: getEnv("SANITY_DATASET"),
-      FARO_URL: getEnv("FARO_URL"),
-      DP_INNSYN_URL: getEnv("DP_INNSYN_URL"),
-      OKONOMI_KONTOREGISTER_URL: getEnv("OKONOMI_KONTOREGISTER_URL"),
-      PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
-      SAF_URL: getEnv("SAF_URL"),
-    },
     fullforteSoknader,
     paabegynteSoknader,
     orkestratorSoknader,
@@ -143,7 +128,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { decoratorFragments, env } = useLoaderData();
+  const { decoratorFragments } = useLoaderData();
   const { DECORATOR_HEAD_ASSETS, DECORATOR_SCRIPTS, DECORATOR_HEADER, DECORATOR_FOOTER } =
     decoratorFragments;
 
@@ -162,11 +147,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div dangerouslySetInnerHTML={{ __html: DECORATOR_HEADER }} />
         {children}
         <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
-          }}
-        />
         <div dangerouslySetInnerHTML={{ __html: DECORATOR_FOOTER }} />
         <Scripts />
       </body>
