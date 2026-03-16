@@ -1,10 +1,11 @@
 import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { FormattedDate } from "../FormattedDate";
-import { ExternalLink } from "../ExternalLink";
-import styles from "./SoknadList.module.css";
 import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
-import { getEnv } from "~/utils/env.utils";
+import { getBrowserEnv } from "~/utils/env.utils";
+import { ExternalLink } from "../ExternalLink";
+import { FormattedDate } from "../FormattedDate";
+
+import styles from "./SoknadList.module.css";
 
 interface IProps {
   soknad: IOrkestratorSoknad;
@@ -12,7 +13,7 @@ interface IProps {
 
 export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
   const { tittel, oppdatertTidspunkt } = soknad;
-  const soknadUrl = `${getEnv("VITE_DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
+  const soknadUrl = `${getBrowserEnv("VITE_DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
 
   const { getAppText } = useSanity();
 

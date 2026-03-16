@@ -1,10 +1,11 @@
-import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
-import { useSanity } from "~/hooks/useSanity";
-import { getEnv } from "~/utils/env.utils";
-import styles from "~/components/soknad-list/SoknadList.module.css";
 import { BodyShort, Heading } from "@navikt/ds-react";
-import { FormattedDate } from "~/components/FormattedDate";
 import { ExternalLink } from "~/components/ExternalLink";
+import { FormattedDate } from "~/components/FormattedDate";
+import { useSanity } from "~/hooks/useSanity";
+import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
+import { getBrowserEnv } from "~/utils/env.utils";
+
+import styles from "~/components/soknad-list/SoknadList.module.css";
 
 interface IProps {
   soknad: IOrkestratorSoknad;
@@ -14,8 +15,8 @@ export default function FullforteSoknadFraOrkestrator({ soknad }: IProps) {
   const { søknadId, tittel, innsendtTimestamp } = soknad;
   const { getAppText } = useSanity();
 
-  const ettersendingUrl = `${getEnv("VITE_DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
-  const kvitteringUrl = `${getEnv("VITE_DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
+  const ettersendingUrl = `${getBrowserEnv("VITE_DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
+  const kvitteringUrl = `${getBrowserEnv("VITE_DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
 
   return (
     <li className={styles.soknadContainer}>

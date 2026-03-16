@@ -1,6 +1,6 @@
 import { type Faro, getWebInstrumentations, initializeFaro } from "@grafana/faro-web-sdk";
 import { TracingInstrumentation } from "@grafana/faro-web-tracing";
-import { getBrowserEnv, getEnv } from "~/utils/env.utils";
+import { getEnv } from "~/utils/env.utils";
 
 // EscapeRegExp sørger for at alle spesialtegn i en streng blir escaped før bruk i RegExp.
 // Dette forhindrer Regular Expression Injection, som kan føre til sikkerhetsproblemer.
@@ -37,7 +37,8 @@ export function initFaro() {
       new TracingInstrumentation({
         instrumentationOptions: {
           propagateTraceHeaderCorsUrls: [
-            new RegExp(`${escapeRegExp(getBrowserEnv("VITE_DP_SOKNADSDIALOG_URL"))}/.*`),
+            new RegExp(`${escapeRegExp(getEnv("VITE_DP_SOKNADSDIALOG_URL"))}/.*`),
+            new RegExp(`${escapeRegExp(getEnv("VITE_DP_BRUKERDIALOG_URL"))}/.*`),
             new RegExp(`${escapeRegExp(getEnv("DP_INNSYN_URL"))}/.*`),
             new RegExp(`${escapeRegExp(getEnv("OKONOMI_KONTOREGISTER_URL"))}/.*`),
             new RegExp(`${escapeRegExp(getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"))}/.*`),
