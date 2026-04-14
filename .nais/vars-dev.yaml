@@ -11,7 +11,7 @@ paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.inte
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.dev.nav.no
 dp_soknad_orkestrator_url: http://dp-soknad-orkestrator
 dp_innsyn_url: http://dp-innsyn
-dp_brukerdialog_url: https://brukerdialog-dagpenger.ansatt.dev.nav.no
+dp_brukerdialog_url: https://arbeid.ansatt.dev.nav.no/ny-dagpenger/dialog
 saf:
   ingress: safselvbetjening.dev-fss-pub.nais.io
   url: https://safselvbetjening.dev-fss-pub.nais.io
