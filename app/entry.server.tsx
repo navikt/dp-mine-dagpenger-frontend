@@ -18,7 +18,7 @@ import { logger } from "./utils/logger.utils";
 export const streamTimeout = 5_000;
 
 if (getEnv("USE_MSW") === "true") {
-  import("../mocks/server").then(({ startMockServer }) => {
+  import("./mocks/server").then(({ startMockServer }) => {
     startMockServer();
   });
 }
