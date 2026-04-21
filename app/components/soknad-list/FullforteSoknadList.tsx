@@ -1,17 +1,16 @@
-import { Alert } from "@navikt/ds-react";
-import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
-import { FullforteSoknad } from "./FullforteSoknad";
-import styles from "./SoknadList.module.css";
-import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
-import { ISoknad } from "~/models/getFullfortSoknader.server";
+import { useRouteLoaderData } from "react-router";
+import { Alert } from "@navikt/ds-react";
+import styles from "~/components/soknad-list/SoknadList.module.css";
+import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
+import { IOrkestratorSoknad } from "~/models/getSoknader.server";
+import FullforteSoknad from "~/components/soknad-list/FullforteSoknad";
 
-export function FullforteSoknadList() {
+export default function FullforteSoknadList() {
   const { getAppText } = useSanity();
-  const { fullforteSoknader, orkestratorSoknader } = useRouteLoaderData("root");
+  const { soknader } = useRouteLoaderData("root");
 
-  if (fullforteSoknader.status === "error") {
+  if (soknader.status === "error") {
     return (
       <Alert variant="error" className={styles.errorContainer}>
         {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
@@ -19,18 +18,16 @@ export function FullforteSoknadList() {
     );
   }
 
-  // Filtrerer ut fullførte søknader som også finnes i orkestrator-søknader for å unngå duplikate søknader i UI
-  const soknader = fullforteSoknader.data.filter(
-    (soknad: ISoknad) =>
-      soknad.søknadId &&
-      !orkestratorSoknader.data.some(
-        (soknadOrkestrator: IOrkestratorSoknad) => soknadOrkestrator.søknadId === soknad.søknadId
-      )
-  );
+  const alleSoknader = soknader.data
+    .filter((soknad: IOrkestratorSoknad) => soknad.søknadId)
+    .filter(
+      (soknad: IOrkestratorSoknad) =>
+        soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
+    );
 
-  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(soknader);
+  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(alleSoknader);
 
-  if (fullforteSoknader.status === "success" && fullforteSoknaderWithin12Weeks.length > 0) {
+  if (soknader.status === "success" && fullforteSoknaderWithin12Weeks.length > 0) {
     return (
       <ul className={styles.soknadList}>
         {fullforteSoknaderWithin12Weeks.map((soknad) => (

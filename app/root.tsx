@@ -19,7 +19,7 @@ import { getDecoratorHTML } from "./models/decorator.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
 import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
-import { getOrkestratorSoknader } from "./models/getOrkestratorSoknader.server";
+import { getSoknader } from "./models/getSoknader.server";
 import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
@@ -103,10 +103,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-
-  const fullforteSoknader = await getFullforteSoknader(request);
-  const paabegynteSoknader = await getPaabegynteSoknader(request);
-  const orkestratorSoknader = await getOrkestratorSoknader(request);
+  const soknader = await getSoknader(request);
+  const gamleFullforteSoknader = await getFullforteSoknader(request);
+  const gamlePaabegynteSoknader = await getPaabegynteSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
@@ -133,9 +132,9 @@ export async function loader({ request }: Route.LoaderArgs) {
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
-    fullforteSoknader,
-    paabegynteSoknader,
-    orkestratorSoknader,
+    soknader,
+    gamleFullforteSoknader,
+    gamlePaabegynteSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,

@@ -1,55 +1,55 @@
 import { Heading } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
-import FullforteSoknadFraOrkestratorList from "~/components/soknad-list/FullforteSoknadFraOrkestratorList";
-import PaabegynteSoknadFraOrkestratorList from "~/components/soknad-list/PaabegynteSoknadFraOrkestratorList";
+import FullforteSoknadList from "~/components/soknad-list/FullforteSoknadList";
+import PaabegynteSoknadList from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
-import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
+import { IOrkestratorSoknad } from "~/models/getSoknader.server";
 import {
   getSoknadWithinLast12Weeks,
   getSoknadWithinLast12WeeksOrkestrator,
 } from "~/utils/soknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { FullforteSoknadList } from "./FullforteSoknadList";
-import { PaabegynteSoknadList } from "./PaabegynteSoknadList";
+import { GamleFullforteSoknadList } from "./gamle-soknad/GamleFullforteSoknadList";
+import { GamlePaabegynteSoknadList } from "./gamle-soknad/GamlePaabegynteSoknadList";
 
 export function SoknadList() {
-  const { fullforteSoknader, paabegynteSoknader, orkestratorSoknader } = useRouteLoaderData("root");
   const { getAppText } = useSanity();
+  const { soknader, gamleFullforteSoknader, gamlePaabegynteSoknader } = useRouteLoaderData("root");
+  const harPaabegyntSoknad =
+    soknader.data?.filter((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT") ?? [];
 
-  const hasFullfortSoknad = fullforteSoknader.status === "success" && fullforteSoknader.data.length;
-  const fullfortSoknadFraOrkestrator =
-    orkestratorSoknader.data?.filter(
+  const fullfortSoknader =
+    soknader.data?.filter(
       (soknad: IOrkestratorSoknad) =>
         soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
     ) ?? [];
 
-  const hasPaabegyntSoknad =
-    paabegynteSoknader.status === "success" && paabegynteSoknader.data.length;
+  const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);
 
-  const harPaabegyntSoknadFraOrkestrator =
-    orkestratorSoknader.data?.filter(
-      (soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT"
-    ) ?? [];
-
-  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(fullforteSoknader.data ?? []);
-  const harFullfortSoknadFraOrkestratorWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(
-    fullfortSoknadFraOrkestrator
+  const fullforteGammelSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(
+    gamleFullforteSoknader.data ?? []
   );
 
-  const harIngenSoknader =
-    !hasFullfortSoknad &&
-    !hasPaabegyntSoknad &&
-    !fullfortSoknadFraOrkestrator.length &&
-    !harPaabegyntSoknadFraOrkestrator.length;
+  const harGamlePaabegynteSoknad =
+    gamlePaabegynteSoknader.status === "success" && gamlePaabegynteSoknader.data.length;
+
+  const harGamleFullforteSoknad =
+    gamleFullforteSoknader.status === "success" && gamleFullforteSoknader.data.length;
+
+  const harIngenGamleSoknader =
+    !harGamleFullforteSoknad &&
+    !harGamlePaabegynteSoknad &&
+    !fullfortSoknader.length &&
+    !harPaabegyntSoknad.length;
 
   const harIngenSoknaderWithin12Weeks =
-    !fullforteSoknaderWithin12Weeks.length &&
-    !(paabegynteSoknader.data?.length ?? 0) &&
-    !harFullfortSoknadFraOrkestratorWithin12Weeks.length &&
-    !harPaabegyntSoknadFraOrkestrator.length;
+    !fullforteGammelSoknaderWithin12Weeks.length &&
+    !(gamlePaabegynteSoknader.data?.length ?? 0) &&
+    !harFullfortSoknadWithin12Weeks.length &&
+    !harPaabegyntSoknad.length;
 
-  if (harIngenSoknader || harIngenSoknaderWithin12Weeks) {
+  if (harIngenGamleSoknader || harIngenSoknaderWithin12Weeks) {
     return <></>;
   }
 
@@ -59,10 +59,10 @@ export function SoknadList() {
         <Heading level="2" size="large" spacing>
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
         </Heading>
-        <PaabegynteSoknadFraOrkestratorList />
         <PaabegynteSoknadList />
-        <FullforteSoknadFraOrkestratorList />
+        <GamlePaabegynteSoknadList />
         <FullforteSoknadList />
+        <GamleFullforteSoknadList />
       </SectionContent>
     </Section>
   );

@@ -11,7 +11,7 @@ export interface IOrkestratorSoknad {
   status: string;
 }
 
-export async function getOrkestratorSoknader(
+export async function getSoknader(
   request: Request
 ): Promise<INetworkResponse<IOrkestratorSoknad[]>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;

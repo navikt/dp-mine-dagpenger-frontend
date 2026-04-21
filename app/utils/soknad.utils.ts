@@ -1,6 +1,6 @@
 import { addWeeks, isBefore } from "date-fns";
 import type { ISoknad } from "~/models/getFullfortSoknader.server";
-import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
+import { IOrkestratorSoknad } from "~/models/getSoknader.server";
 
 export function getSoknadWithinLast12Weeks(soknader: ISoknad[]): ISoknad[] {
   return soknader?.filter((soknad) => {
