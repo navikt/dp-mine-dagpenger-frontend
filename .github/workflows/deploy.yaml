@@ -7,51 +7,44 @@ on:
       - "dependabot/**"
 
 jobs:
-  install:
+  test:
+    name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version: "24.x"
+          cache: "pnpm"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: Cache node_modules
         uses: actions/cache@v5
         id: node_modules
         with:
           path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - uses: actions/setup-node@v6.3.0
+      - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
-        with:
-          node-version: "20.x"
-          cache: "npm"
-          registry-url: "https://npm.pkg.github.com"
-
-      - run: npm ci --ignore-scripts
-        if: steps.node_modules.outputs.cache-hit != 'true'
+        run: pnpm install --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-  test:
-    name: test
-    needs: [ install ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6.3.0
-        with:
-          node-version: "20.x"
-
-      - name: Cache node_modules
-        uses: actions/cache@v5
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
-
-      - run: npm run test
+      - name: Run tests
+        run: pnpm test
 
   build:
-    needs: [ install ]
-    name: build
+    name: Bygg
+    needs: [test]
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -64,10 +57,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup node
         uses: actions/setup-node@v6.3.0
         with:
-          node-version: "22.x"
+          node-version: "24.x"
+          cache: "pnpm"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Cache node_modules
+        uses: actions/cache@v5
+        id: node_modules
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
@@ -99,35 +104,35 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
   deploy-dev:
-    needs: [build, test]
-    runs-on: ubuntu-latest
-    environment: dev-gcp
+    name: Deploy til dev-gcp
     permissions:
-      id-token: write
+      id-token: "write"
+    if: github.actor == 'dependabot[bot]' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/migrere-til-pnpm*'
+    needs: [build]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: nais/deploy/actions/deploy@v2
         env:
+          VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/nais.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+          RESOURCE: .nais/nais.yaml,.nais/unleash-apitoken.yaml
           VARS: .nais/vars-dev.yaml
           PRINT_PAYLOAD: true
 
   deploy-prod:
-    needs: [build, test]
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment: prod-gcp
+    name: Deploy til prod-gcp
     permissions:
-      contents: read
-      id-token: write
+      id-token: "write"
+    if: github.ref == 'refs/heads/main'
+    needs: [build, deploy-dev]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: nais/deploy/actions/deploy@v2
         env:
+          VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
           CLUSTER: prod-gcp
-          RESOURCE: .nais/nais.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+          RESOURCE: .nais/nais.yaml,.nais/unleash-apitoken.yaml
           VARS: .nais/vars-prod.yaml
           PRINT_PAYLOAD: true

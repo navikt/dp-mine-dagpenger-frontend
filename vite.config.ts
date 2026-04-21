@@ -8,7 +8,7 @@ export default defineConfig({
   base:
     process.env.NODE_ENV === "production"
       ? "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client/"
-      : "/",
+      : "/arbeid/dagpenger/mine-dagpenger",
   plugins: [reactRouter(), tsconfigPaths(), devtoolsJson()],
   build: {
     manifest: true,
