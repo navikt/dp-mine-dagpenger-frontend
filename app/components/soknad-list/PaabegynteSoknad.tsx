@@ -1,16 +1,19 @@
 import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { FormattedDate } from "../FormattedDate";
 import { ExternalLink } from "../ExternalLink";
 import styles from "./SoknadList.module.css";
+import { ISoknad } from "~/models/getSoknader.server";
+import { getEnv } from "~/utils/env.utils";
 
 interface IProps {
-  soknad: IPaabegynteSoknad;
+  soknad: ISoknad;
 }
 
 export function PaabegynteSoknad({ soknad }: IProps) {
-  const { tittel, sistEndret: dato, endreLenke } = soknad;
+  const { tittel, oppdatertTidspunkt } = soknad;
+  const soknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
+
   const { getAppText } = useSanity();
 
   return (
@@ -21,14 +24,14 @@ export function PaabegynteSoknad({ soknad }: IProps) {
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">
           {getAppText("paabegynt-soknad.sist-endret.label-tekst")}
-          <FormattedDate date={dato} />
+          <FormattedDate date={oppdatertTidspunkt} />
         </BodyShort>
         <Tag variant="neutral" size="small" className="mt-4">
           {getAppText("paabegynt-soknad.soknad-er-ikke-sendt-inn")}
         </Tag>
       </article>
       <nav className={styles.soknadLinksContainer}>
-        <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
+        <ExternalLink to={soknadUrl} asButtonVariant="secondary" size="small">
           {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
         </ExternalLink>
       </nav>

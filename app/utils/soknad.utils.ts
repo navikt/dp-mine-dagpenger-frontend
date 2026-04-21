@@ -1,8 +1,8 @@
 import { addWeeks, isBefore } from "date-fns";
-import type { ISoknad } from "~/models/getFullfortSoknader.server";
-import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
+import type { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
 
-export function getSoknadWithinLast12Weeks(soknader: ISoknad[]): ISoknad[] {
+export function getSoknadWithinLast12Weeks(soknader: IGamleSoknad[]): IGamleSoknad[] {
   return soknader?.filter((soknad) => {
     const sendtDate: Date = new Date(soknad.datoInnsendt);
     const today: Date = new Date();
@@ -11,9 +11,7 @@ export function getSoknadWithinLast12Weeks(soknader: ISoknad[]): ISoknad[] {
   });
 }
 
-export function getSoknadWithinLast12WeeksOrkestrator(
-  soknader: IOrkestratorSoknad[]
-): IOrkestratorSoknad[] {
+export function getSoknadWithinLast12WeeksOrkestrator(soknader: ISoknad[]): ISoknad[] {
   return soknader?.filter((soknad) => {
     const sendtDate: Date = new Date(soknad.innsendtTimestamp);
     const today: Date = new Date();
