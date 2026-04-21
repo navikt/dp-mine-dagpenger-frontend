@@ -3,7 +3,7 @@ import { useSanity } from "~/hooks/useSanity";
 import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { FormattedDate } from "../../FormattedDate";
 import { ExternalLink } from "../../ExternalLink";
-import styles from "./SoknadList.module.css";
+import styles from "../SoknadList.module.css";
 
 interface IProps {
   soknad: IPaabegynteSoknad;

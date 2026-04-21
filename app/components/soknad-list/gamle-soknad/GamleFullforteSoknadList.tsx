@@ -3,7 +3,7 @@ import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { GamleFullforteSoknad } from "./GamleFullforteSoknad";
-import styles from "./SoknadList.module.css";
+import styles from "../SoknadList.module.css";
 import { IOrkestratorSoknad } from "~/models/getSoknader.server";
 import { ISoknad } from "~/models/getFullfortSoknader.server";
 

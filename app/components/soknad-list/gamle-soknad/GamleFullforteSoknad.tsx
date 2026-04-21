@@ -4,7 +4,7 @@ import type { ISoknad } from "~/models/getFullfortSoknader.server";
 import { getEnv } from "~/utils/env.utils";
 import { ExternalLink } from "../../ExternalLink";
 import { FormattedDate } from "../../FormattedDate";
-import styles from "./SoknadList.module.css";
+import styles from "../SoknadList.module.css";
 
 interface IProps {
   soknad: ISoknad;

@@ -3,7 +3,7 @@ import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
 import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
 import { GamlePaabegynteSoknad } from "./GamlePaabegynteSoknad";
-import styles from "./SoknadList.module.css";
+import styles from "../SoknadList.module.css";
 import { IOrkestratorSoknad } from "~/models/getSoknader.server";
 
 export function GamlePaabegynteSoknadList() {
