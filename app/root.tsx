@@ -101,6 +101,8 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw new Error("Klarte ikke hente sanity data");
   }
 
+  // Trigge deploy
+
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
 
