@@ -1,10 +1,10 @@
 import { Alert } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+import type { IGamlePaabegynteSoknad } from "~/models/getGamlePaabegynteSoknader.server";
 import { GamlePaabegynteSoknad } from "./GamlePaabegynteSoknad";
 import styles from "../SoknadList.module.css";
-import { IOrkestratorSoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
 
 export function GamlePaabegynteSoknadList() {
   const { getAppText } = useSanity();
@@ -20,17 +20,17 @@ export function GamlePaabegynteSoknadList() {
 
   // Filtrerer ut påbegynte søknader som også finnes i orkestrator-søknader for å unngå duplikate søknader i UI
   const filtrertGamlePaabegynteSoknader = gamlePaabegynteSoknader.data.filter(
-    (soknad: IPaabegynteSoknad) =>
+    (soknad: IGamlePaabegynteSoknad) =>
       soknad.søknadId &&
       !soknader.data.some(
-        (soknadOrkestrator: IOrkestratorSoknad) => soknadOrkestrator.søknadId === soknad.søknadId
+        (soknadOrkestrator: ISoknad) => soknadOrkestrator.søknadId === soknad.søknadId
       )
   );
 
   if (gamlePaabegynteSoknader.status === "success" && filtrertGamlePaabegynteSoknader.length > 0) {
     return (
       <ul className={styles.soknadList}>
-        {filtrertGamlePaabegynteSoknader.map((soknad: IPaabegynteSoknad) => (
+        {filtrertGamlePaabegynteSoknader.map((soknad: IGamlePaabegynteSoknad) => (
           <GamlePaabegynteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}
       </ul>

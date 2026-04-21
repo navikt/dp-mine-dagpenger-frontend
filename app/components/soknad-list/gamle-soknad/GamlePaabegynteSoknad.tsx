@@ -1,12 +1,12 @@
 import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+import type { IGamlePaabegynteSoknad } from "~/models/getGamlePaabegynteSoknader.server";
 import { FormattedDate } from "../../FormattedDate";
 import { ExternalLink } from "../../ExternalLink";
 import styles from "../SoknadList.module.css";
 
 interface IProps {
-  soknad: IPaabegynteSoknad;
+  soknad: IGamlePaabegynteSoknad;
 }
 
 export function GamlePaabegynteSoknad({ soknad }: IProps) {

@@ -1,29 +1,20 @@
-import type { INetworkResponse } from "~/models/networkResponse";
 import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import type { INetworkResponse } from "~/models/networkResponse";
 import { logger } from "~/utils/logger.utils";
 
-export interface ISoknad {
-  søknadId: string;
-  erNySøknadsdialog: boolean;
-  endreLenke: string;
-  skjemaKode: string;
+export interface IGamlePaabegynteSoknad {
   tittel: string;
-  journalpostId: string;
-  søknadsType: string;
-  kanal: string;
-  datoInnsendt: string;
-  vedlegg?: IVedlegg[];
+  sistEndret: string;
+  søknadId: string;
+  endreLenke: string;
+  erNySøknadsdialog: boolean;
 }
 
-interface IVedlegg {
-  skjemaNummer: string;
-  navn: string;
-  status: string;
-}
-
-export async function getFullforteSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
-  const url = `${getEnv("DP_INNSYN_URL")}/soknad`;
+export async function getGamlePaabegynteSoknader(
+  request: Request
+): Promise<INetworkResponse<IGamlePaabegynteSoknad[]>> {
+  const url = `${getEnv("DP_INNSYN_URL")}/paabegynte`;
   const onBehalfOfToken = await getDPInnsynOboToken(request);
 
   const response = await fetch(url, {
@@ -45,7 +36,7 @@ export async function getFullforteSoknader(request: Request): Promise<INetworkRe
     };
   }
 
-  const data: ISoknad[] = await response.json();
+  const data: IGamlePaabegynteSoknad[] = await response.json();
 
   return {
     status: "success",

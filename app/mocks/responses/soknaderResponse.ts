@@ -1,6 +1,6 @@
-import type { ISoknad } from "~/models/getFullfortSoknader.server";
+import type { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
 
-export const soknadResponse: ISoknad[] = [
+export const soknadResponse: IGamleSoknad[] = [
   {
     journalpostId: "637599120",
     søknadsType: "NySøknad",

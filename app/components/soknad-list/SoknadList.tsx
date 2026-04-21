@@ -3,7 +3,7 @@ import { useRouteLoaderData } from "react-router";
 import FullforteSoknadList from "~/components/soknad-list/FullforteSoknadList";
 import PaabegynteSoknadList from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
-import { IOrkestratorSoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
 import {
   getSoknadWithinLast12Weeks,
   getSoknadWithinLast12WeeksOrkestrator,
@@ -17,12 +17,11 @@ export function SoknadList() {
   const { getAppText } = useSanity();
   const { soknader, gamleFullforteSoknader, gamlePaabegynteSoknader } = useRouteLoaderData("root");
   const harPaabegyntSoknad =
-    soknader.data?.filter((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT") ?? [];
+    soknader.data?.filter((soknad: ISoknad) => soknad.status === "PÅBEGYNT") ?? [];
 
   const fullfortSoknader =
     soknader.data?.filter(
-      (soknad: IOrkestratorSoknad) =>
-        soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
+      (soknad: ISoknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
     ) ?? [];
 
   const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);

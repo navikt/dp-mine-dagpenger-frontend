@@ -3,7 +3,7 @@ import { useRouteLoaderData } from "react-router";
 import { Alert } from "@navikt/ds-react";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
-import { IOrkestratorSoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
 import FullforteSoknad from "~/components/soknad-list/FullforteSoknad";
 
 export default function FullforteSoknadList() {
@@ -19,11 +19,8 @@ export default function FullforteSoknadList() {
   }
 
   const alleSoknader = soknader.data
-    .filter((soknad: IOrkestratorSoknad) => soknad.søknadId)
-    .filter(
-      (soknad: IOrkestratorSoknad) =>
-        soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
-    );
+    .filter((soknad: ISoknad) => soknad.søknadId)
+    .filter((soknad: ISoknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT");
 
   const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(alleSoknader);
 

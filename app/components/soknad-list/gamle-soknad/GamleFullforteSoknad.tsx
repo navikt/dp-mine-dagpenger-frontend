@@ -1,13 +1,13 @@
 import { BodyShort, Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import type { ISoknad } from "~/models/getFullfortSoknader.server";
+import type { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
 import { getEnv } from "~/utils/env.utils";
 import { ExternalLink } from "../../ExternalLink";
 import { FormattedDate } from "../../FormattedDate";
 import styles from "../SoknadList.module.css";
 
 interface IProps {
-  soknad: ISoknad;
+  soknad: IGamleSoknad;
 }
 
 export function GamleFullforteSoknad({ soknad }: IProps) {

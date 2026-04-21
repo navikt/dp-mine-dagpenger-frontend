@@ -3,7 +3,7 @@ import { useRouteLoaderData } from "react-router";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { PaabegynteSoknad } from "~/components/soknad-list/PaabegynteSoknad";
 import { useSanity } from "~/hooks/useSanity";
-import { IOrkestratorSoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
 
 export default function PaabegynteSoknadList() {
   const { getAppText } = useSanity();
@@ -17,14 +17,14 @@ export default function PaabegynteSoknadList() {
     );
   }
 
-  const paabegynteSoknader: IOrkestratorSoknad[] = soknader.data
-    .filter((soknad: IOrkestratorSoknad) => soknad.søknadId)
-    .filter((soknad: IOrkestratorSoknad) => soknad.status === "PÅBEGYNT");
+  const paabegynteSoknader: ISoknad[] = soknader.data
+    .filter((soknad: ISoknad) => soknad.søknadId)
+    .filter((soknad: ISoknad) => soknad.status === "PÅBEGYNT");
 
   if (soknader.status === "success" && paabegynteSoknader.length > 0) {
     return (
       <ul className={styles.soknadList}>
-        {paabegynteSoknader.map((soknad: IOrkestratorSoknad) => (
+        {paabegynteSoknader.map((soknad: ISoknad) => (
           <PaabegynteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}
       </ul>

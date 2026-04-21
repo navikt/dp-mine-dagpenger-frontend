@@ -4,8 +4,8 @@ import { useSanity } from "~/hooks/useSanity";
 import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
 import { GamleFullforteSoknad } from "./GamleFullforteSoknad";
 import styles from "../SoknadList.module.css";
-import { IOrkestratorSoknad } from "~/models/getSoknader.server";
-import { ISoknad } from "~/models/getFullfortSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
+import { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
 
 export function GamleFullforteSoknadList() {
   const { getAppText } = useSanity();
@@ -21,10 +21,10 @@ export function GamleFullforteSoknadList() {
 
   // Filtrerer ut fullførte søknader som også finnes i orkestrator-søknader for å unngå duplikate søknader i UI
   const filtrertGamleFullforteSoknader = gamleFullforteSoknader.data.filter(
-    (soknad: ISoknad) =>
+    (soknad: IGamleSoknad) =>
       soknad.søknadId &&
       !soknader.data.some(
-        (soknadOrkestrator: IOrkestratorSoknad) => soknadOrkestrator.søknadId === soknad.søknadId
+        (soknadOrkestrator: ISoknad) => soknadOrkestrator.søknadId === soknad.søknadId
       )
   );
 
