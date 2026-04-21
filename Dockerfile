@@ -1,40 +1,44 @@
-FROM node:22-alpine AS node
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-   npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
-RUN npm config set @navikt:registry=https://npm.pkg.github.com
-
+FROM node:24-alpine AS node
+RUN corepack enable
+RUN corepack prepare pnpm@10.30.1 --activate
+RUN pnpm config set @navikt:registry=https://npm.pkg.github.com
 
 # build app
 FROM node AS app-build
 WORKDIR /app
 
 COPY ./app ./app
-COPY ./mocks ./mocks
 COPY ./public ./public/
 COPY ./vite.config.ts ./
 COPY ./package.json ./
-COPY ./package-lock.json  ./
+COPY ./pnpm-lock.yaml ./
+COPY ./react-router.config.ts ./
 
-RUN npm install --ignore-scripts
-RUN npm run build
 
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
+    pnpm install --ignore-scripts && \
+    pnpm config delete //npm.pkg.github.com/:_authToken
+RUN pnpm run build
 
 # install dependencies
 FROM node AS app-dependencies
 WORKDIR /app
 
 COPY ./package.json ./
-COPY ./package-lock.json  ./
+COPY ./pnpm-lock.yaml ./
 
-RUN npm ci --ignore-scripts --omit dev
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
+    pnpm install --ignore-scripts --prod && \
+    pnpm config delete //npm.pkg.github.com/:_authToken
 
 # export build to filesystem (GitHub)
 FROM scratch AS build-export
 COPY --from=app-build /app/build ./
 
-
 # runtime
-FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:22@sha256:f82d378540c550e24af97cb0f26662fbcf56a9e0d310012e0c484b314d95a0f6 AS runtime
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24@sha256:a8b7536b2fa2452fc47346322bddf8f1b826612857fb62011ff89450a1feab6d AS runtime
 WORKDIR /app
 
 ARG NODE_ENV=production

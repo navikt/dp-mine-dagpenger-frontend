@@ -7,15 +7,15 @@ Frontend-klient for mine dagpenger
 Appen er basert på [React router](https://reactrouter.com)
 
 ```shell
-npm install
-npm run setup-env
-npm run token-token
-npm run dev
+pnpm install
+pnpm run setup-env
+pnpm run token-token
+pnpm run dev
 ```
 
-`npm run setup-env` lager en `.env` som er nødvendig for kunne kjøre opp applikasjonen lokalt.
+`pnpm run setup-env` lager en `.env` som er nødvendig for kunne kjøre opp applikasjonen lokalt.
 
-`npm run token` genererer lokal token til `.env` fil og bruker det til å hente data fra dev-miljøet. Toknene er gyldig mellom 30 minutter til en time, kjør kommandoen på nytt dersom tokene er utløpt.
+`pnpm run token` genererer lokal token til `.env` fil og bruker det til å hente data fra dev-miljøet. Toknene er gyldig mellom 30 minutter til en time, kjør kommandoen på nytt dersom tokene er utløpt.
 
 ## Kjøre localhost med mock data
 
@@ -34,7 +34,7 @@ Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.
 ## Testing
 
 ```shell
-npm run test
+pnpm run test
 ```
 
 ## Kode-konvensjoner

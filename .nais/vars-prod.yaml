@@ -3,6 +3,9 @@ ingresses:
 base_path: /arbeid/dagpenger/mine-dagpenger
 dekorator:
   env: prod
+replicas:
+  min: 2
+  max: 4
 loginservice:
   url: https://loginservice.nav.no/login
 dp_soknadsdialog_url: https://www.nav.no/gammel-dagpenger/dialog
