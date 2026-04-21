@@ -14,10 +14,7 @@ type Pages = {
   "/": {
     params: {};
   };
-  "/arbeid/dagpenger/mine-dagpenger": {
-    params: {};
-  };
-  "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId": {
+  "/api/hent-dokument/:journalpostId/:dokumentInfoId": {
     params: {
       "journalpostId": string;
       "dokumentInfoId": string;
@@ -34,15 +31,11 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/arbeid/dagpenger/mine-dagpenger" | "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId" | "/api/internal/isalive" | "/api/internal/isready";
+    page: "/" | "/api/hent-dokument/:journalpostId/:dokumentInfoId" | "/api/internal/isalive" | "/api/internal/isready";
   };
-  "routes/arbeid.dagpenger.mine-dagpenger.tsx": {
-    id: "routes/arbeid.dagpenger.mine-dagpenger";
-    page: "/arbeid/dagpenger/mine-dagpenger" | "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId";
-  };
-  "routes/arbeid.dagpenger.mine-dagpenger.api.hent-dokument.$journalpostId.$dokumentInfoId.ts": {
-    id: "routes/arbeid.dagpenger.mine-dagpenger.api.hent-dokument.$journalpostId.$dokumentInfoId";
-    page: "/arbeid/dagpenger/mine-dagpenger/api/hent-dokument/:journalpostId/:dokumentInfoId";
+  "routes/api.hent-dokument.$journalpostId.$dokumentInfoId.ts": {
+    id: "routes/api.hent-dokument.$journalpostId.$dokumentInfoId";
+    page: "/api/hent-dokument/:journalpostId/:dokumentInfoId";
   };
   "routes/api.internal.isalive.ts": {
     id: "routes/api.internal.isalive";
@@ -60,8 +53,7 @@ type RouteFiles = {
 
 type RouteModules = {
   "root": typeof import("./app/root.tsx");
-  "routes/arbeid.dagpenger.mine-dagpenger": typeof import("./app/routes/arbeid.dagpenger.mine-dagpenger.tsx");
-  "routes/arbeid.dagpenger.mine-dagpenger.api.hent-dokument.$journalpostId.$dokumentInfoId": typeof import("./app/routes/arbeid.dagpenger.mine-dagpenger.api.hent-dokument.$journalpostId.$dokumentInfoId.ts");
+  "routes/api.hent-dokument.$journalpostId.$dokumentInfoId": typeof import("./app/routes/api.hent-dokument.$journalpostId.$dokumentInfoId.ts");
   "routes/api.internal.isalive": typeof import("./app/routes/api.internal.isalive.ts");
   "routes/api.internal.isready": typeof import("./app/routes/api.internal.isready.ts");
   "routes/_index": typeof import("./app/routes/_index.tsx");
