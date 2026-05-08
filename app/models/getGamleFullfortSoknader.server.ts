@@ -1,20 +1,31 @@
+import type { INetworkResponse } from "~/models/networkResponse";
 import { getDPInnsynOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import type { INetworkResponse } from "~/models/networkResponse";
 import { logger } from "~/utils/logger.utils";
 
-export interface IPaabegynteSoknad {
-  tittel: string;
-  sistEndret: string;
+export interface IGamleSoknad {
   søknadId: string;
-  endreLenke: string;
   erNySøknadsdialog: boolean;
+  endreLenke: string;
+  skjemaKode: string;
+  tittel: string;
+  journalpostId: string;
+  søknadsType: string;
+  kanal: string;
+  datoInnsendt: string;
+  vedlegg?: IVedlegg[];
 }
 
-export async function getPaabegynteSoknader(
+interface IVedlegg {
+  skjemaNummer: string;
+  navn: string;
+  status: string;
+}
+
+export async function getGamleFullforteSoknader(
   request: Request
-): Promise<INetworkResponse<IPaabegynteSoknad[]>> {
-  const url = `${getEnv("DP_INNSYN_URL")}/paabegynte`;
+): Promise<INetworkResponse<IGamleSoknad[]>> {
+  const url = `${getEnv("DP_INNSYN_URL")}/soknad`;
   const onBehalfOfToken = await getDPInnsynOboToken(request);
 
   const response = await fetch(url, {
@@ -36,7 +47,7 @@ export async function getPaabegynteSoknader(
     };
   }
 
-  const data: IPaabegynteSoknad[] = await response.json();
+  const data: IGamleSoknad[] = await response.json();
 
   return {
     status: "success",

@@ -1,6 +1,6 @@
 import { subWeeks } from "date-fns";
 import { describe, expect, test } from "vitest";
-import type { ISoknad } from "~/models/getFullfortSoknader.server";
+import type { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
 import { getSoknadWithinLast12Weeks } from "./soknad.utils";
 
 describe("Filter soknad within last 12 weeks", () => {
@@ -10,7 +10,7 @@ describe("Filter soknad within last 12 weeks", () => {
   });
 });
 
-export const soknaderList: ISoknad[] = [
+export const soknaderList: IGamleSoknad[] = [
   {
     journalpostId: "637599120",
     søknadsType: "NySøknad",

@@ -1,22 +1,21 @@
-import { BodyShort, Heading } from "@navikt/ds-react";
+import { ISoknad } from "~/models/getSoknader.server";
 import { useSanity } from "~/hooks/useSanity";
-import type { ISoknad } from "~/models/getFullfortSoknader.server";
 import { getEnv } from "~/utils/env.utils";
-import { ExternalLink } from "../ExternalLink";
-import { FormattedDate } from "../FormattedDate";
-import styles from "./SoknadList.module.css";
+import styles from "~/components/soknad-list/SoknadList.module.css";
+import { BodyShort, Heading } from "@navikt/ds-react";
+import { FormattedDate } from "~/components/FormattedDate";
+import { ExternalLink } from "~/components/ExternalLink";
 
 interface IProps {
   soknad: ISoknad;
 }
 
-export function FullforteSoknad({ soknad }: IProps) {
-  const { søknadId, tittel, datoInnsendt, endreLenke, erNySøknadsdialog } = soknad;
+export default function FullforteSoknad({ soknad }: IProps) {
+  const { søknadId, tittel, innsendtTimestamp } = soknad;
   const { getAppText } = useSanity();
 
-  const ettersendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${søknadId}/ettersending`;
-  const generellInnsendingUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/generell-innsending`;
-  const fallbackGenerellInnsending = !søknadId && !endreLenke;
+  const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
+  const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
 
   return (
     <li className={styles.soknadContainer}>
@@ -26,30 +25,16 @@ export function FullforteSoknad({ soknad }: IProps) {
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">
           {getAppText("fullfort-soknad.sendt-dato.label-tekst")}{" "}
-          <FormattedDate date={datoInnsendt} />
+          <FormattedDate date={innsendtTimestamp} />
         </BodyShort>
       </article>
       <nav className={styles.soknadLinksContainer}>
-        {erNySøknadsdialog && (
-          <>
-            <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
-              {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-            </ExternalLink>
-            <ExternalLink to={endreLenke} asButtonVariant="secondary" size="small">
-              {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
-            </ExternalLink>
-          </>
-        )}
-        {!erNySøknadsdialog && !fallbackGenerellInnsending && (
-          <ExternalLink to={endreLenke} asButtonVariant="primary" size="small">
-            {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-          </ExternalLink>
-        )}
-        {fallbackGenerellInnsending && (
-          <ExternalLink to={generellInnsendingUrl} asButtonVariant="primary" size="small">
-            {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
-          </ExternalLink>
-        )}
+        <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
+          {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
+        </ExternalLink>
+        <ExternalLink to={kvitteringUrl} asButtonVariant="secondary" size="small">
+          {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
+        </ExternalLink>
       </nav>
     </li>
   );

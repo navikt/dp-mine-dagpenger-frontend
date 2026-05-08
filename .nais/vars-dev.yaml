@@ -9,12 +9,12 @@ replicas:
   max: 2
 loginservice:
   url: https://loginservice.dev.nav.no/login
-dp_soknadsdialog_url: https://arbeid.intern.dev.nav.no/dagpenger/dialog
+dp_soknadsdialog_url: https://arbeid.intern.dev.nav.no/gammel-dagpenger/dialog
 paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.intern.dev.nav.no
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.dev.nav.no
 dp_soknad_orkestrator_url: http://dp-soknad-orkestrator
 dp_innsyn_url: http://dp-innsyn
-dp_brukerdialog_url: https://arbeid.ansatt.dev.nav.no/ny-dagpenger/dialog/soknad
+dp_brukerdialog_url: https://arbeid.ansatt.dev.nav.no/dagpenger/dialog/soknad
 saf:
   ingress: safselvbetjening.dev-fss-pub.nais.io
   url: https://saf-q2.dev-fss-pub.nais.io
