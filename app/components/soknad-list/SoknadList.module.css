@@ -7,7 +7,7 @@
 .soknadContainer {
   border: 1px solid var(--ax-border-neutral-subtle);
   border-radius: var(--ax-radius-12);
-  background-color: var(--a-white);
+  background-color: white;
   margin-top: var(--ax-space-16);
 }
 
