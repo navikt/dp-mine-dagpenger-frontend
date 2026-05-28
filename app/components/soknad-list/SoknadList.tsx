@@ -1,7 +1,7 @@
 import { Heading } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
-import FullforteSoknadList from "~/components/soknad-list/FullforteSoknadList";
-import PaabegynteSoknadList from "~/components/soknad-list/PaabegynteSoknadList";
+import { FullforteSoknadList } from "~/components/soknad-list/FullforteSoknadList";
+import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
 import { ISoknad } from "~/models/getSoknader.server";
 import {
