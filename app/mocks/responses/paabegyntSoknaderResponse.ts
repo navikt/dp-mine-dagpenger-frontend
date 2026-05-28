@@ -1,6 +1,6 @@
-import type { IPaabegynteSoknad } from "~/models/getPaabegynteSoknader.server";
+import type { IGamlePaabegynteSoknad } from "~/models/getGamlePaabegynteSoknader.server";
 
-export const paabegynteSoknaderResponse: IPaabegynteSoknad[] = [
+export const paabegynteSoknaderResponse: IGamlePaabegynteSoknad[] = [
   {
     søknadId: "11e408e7-2e8a-4e63-afe7-8a4e4b06afbf",
     tittel: "Søknad om dagpenger",

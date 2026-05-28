@@ -4,6 +4,7 @@ import parse from "html-react-parser";
 import {
   data,
   Links,
+  type LinksFunction,
   Meta,
   Outlet,
   Scripts,
@@ -18,11 +19,11 @@ import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getDecoratorHTML } from "./models/decorator.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
-import { getFullforteSoknader } from "./models/getFullfortSoknader.server";
-import { getOrkestratorSoknader } from "./models/getOrkestratorSoknader.server";
-import { getPaabegynteSoknader } from "./models/getPaabegynteSoknader.server";
+import { getGamleFullforteSoknader } from "./models/getGamleFullfortSoknader.server";
+import { getGamlePaabegynteSoknader } from "./models/getGamlePaabegynteSoknader.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
+import { getSoknader } from "./models/getSoknader.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import type { ISanityData } from "./sanity/sanity.types";
@@ -30,14 +31,14 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import indexStyle from "./index.css?url";
+import indexStyles from "./index.css?url";
+import akselStyles from "@navikt/ds-css/dist/index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
-export const links = () => [
-  { rel: "stylesheet", href: navStyles },
-  { rel: "stylesheet", href: indexStyle },
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: akselStyles },
+  { rel: "stylesheet", href: indexStyles },
   {
     rel: "icon",
     type: "image/png",
@@ -103,10 +104,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-
-  const fullforteSoknader = await getFullforteSoknader(request);
-  const paabegynteSoknader = await getPaabegynteSoknader(request);
-  const orkestratorSoknader = await getOrkestratorSoknader(request);
+  const soknader = await getSoknader(request);
+  const gamleFullforteSoknader = await getGamleFullforteSoknader(request);
+  const gamlePaabegynteSoknader = await getGamlePaabegynteSoknader(request);
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
@@ -133,9 +133,9 @@ export async function loader({ request }: Route.LoaderArgs) {
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
-    fullforteSoknader,
-    paabegynteSoknader,
-    orkestratorSoknader,
+    soknader,
+    gamleFullforteSoknader,
+    gamlePaabegynteSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,
