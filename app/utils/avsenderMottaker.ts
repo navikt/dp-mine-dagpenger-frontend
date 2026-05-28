@@ -1,12 +1,11 @@
-import { Journalposttype } from "~/graphql/generated/saf/graphql";
 import type { IJournalpost } from "./safJournalposter.utils";
 
 type JP = Pick<IJournalpost, "journalposttype" | "brukerErAvsenderEllerMottaker">;
 type Predikat = (j: JP) => boolean | undefined;
 
-const UTGAAENDE = (j: JP): boolean => Journalposttype.U === j.journalposttype;
-const INNKOMMENDE = (j: JP): boolean => Journalposttype.I === j.journalposttype;
-const NOTAT = (j: JP): boolean => Journalposttype.N === j.journalposttype;
+const UTGAAENDE = (j: JP): boolean => "U" === j.journalposttype;
+const INNKOMMENDE = (j: JP): boolean => "I" === j.journalposttype;
+const NOTAT = (j: JP): boolean => "N" === j.journalposttype;
 
 const BRUKER_ER_AVSENDERMOTTAKER = (j: JP) => j.brukerErAvsenderEllerMottaker;
 

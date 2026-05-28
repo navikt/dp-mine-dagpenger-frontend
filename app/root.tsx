@@ -4,6 +4,7 @@ import parse from "html-react-parser";
 import {
   data,
   Links,
+  type LinksFunction,
   Meta,
   Outlet,
   Scripts,
@@ -30,14 +31,14 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import indexStyle from "./index.css?url";
+import indexStyles from "./index.css?url";
+import akselStyles from "@navikt/ds-css/dist/index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
-export const links = () => [
-  { rel: "stylesheet", href: navStyles },
-  { rel: "stylesheet", href: indexStyle },
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: akselStyles },
+  { rel: "stylesheet", href: indexStyles },
   {
     rel: "icon",
     type: "image/png",

@@ -10,7 +10,7 @@ interface IProps {
   soknad: ISoknad;
 }
 
-export default function FullforteSoknad({ soknad }: IProps) {
+export function FullforteSoknad({ soknad }: IProps) {
   const { søknadId, tittel, innsendtTimestamp } = soknad;
   const { getAppText } = useSanity();
 
