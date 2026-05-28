@@ -2,19 +2,19 @@ import { reactRouter } from "@react-router/dev/vite";
 import path from "path";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   base:
     process.env.NODE_ENV === "production"
       ? "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client/"
       : "/arbeid/dagpenger/mine-dagpenger",
-  plugins: [reactRouter(), tsconfigPaths(), devtoolsJson()],
+  plugins: [reactRouter(), devtoolsJson()],
   build: {
     manifest: true,
     sourcemap: process.env.NODE_ENV !== "production",
   },
   resolve: {
+    tsconfigPaths: true,
     alias: {
       "~": path.resolve(__dirname, "./app"),
     },
