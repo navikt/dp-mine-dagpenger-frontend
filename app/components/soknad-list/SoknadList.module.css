@@ -5,26 +5,26 @@
 }
 
 .soknadContainer {
-  border: 1px solid var(--a-border-subtle);
-  border-radius: var(--a-border-radius-xlarge);
+  border: 1px solid var(--ax-border-neutral-subtle);
+  border-radius: var(--ax-radius-12);
   background-color: var(--a-white);
-  margin-top: var(--a-spacing-4);
+  margin-top: var(--ax-space-16);
 }
 
 .soknadContent {
-  padding: var(--a-spacing-5);
+  padding: var(--ax-space-20);
 }
 
 .soknadDate {
-  margin-top: var(--a-spacing-1);
-  color: var(--a-text-subtle);
+  margin-top: var(--ax-space-4);
+  color: var(--ax-text-neutral-subtle);
 }
 
 .soknadLinksContainer {
   display: flex;
-  gap: var(--a-spacing-3);
-  padding: var(--a-spacing-5);
-  border-top: 1px solid var(--a-border-subtle);
+  gap: var(--ax-space-12);
+  padding: var(--ax-space-20);
+  border-top: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .soknadLinksContainer a {
