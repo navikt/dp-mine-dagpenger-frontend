@@ -1,20 +1,19 @@
 import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
-import { FormattedDate } from "../FormattedDate";
-import { ExternalLink } from "../ExternalLink";
-import styles from "./SoknadList.module.css";
-import { IOrkestratorSoknad } from "~/models/getOrkestratorSoknader.server";
+import type { IGamlePaabegynteSoknad } from "~/models/getGamlePaabegynteSoknader.server";
 import { getEnv } from "~/utils/env.utils";
+import { ExternalLink } from "../../ExternalLink";
+import { FormattedDate } from "../../FormattedDate";
+import styles from "../SoknadList.module.css";
 
 interface IProps {
-  soknad: IOrkestratorSoknad;
+  soknad: IGamlePaabegynteSoknad;
 }
 
-export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
-  const { tittel, oppdatertTidspunkt } = soknad;
-  const soknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${soknad.søknadId}/personalia`;
-
+export function GamlePaabegynteSoknad({ soknad }: IProps) {
+  const { tittel, sistEndret } = soknad;
   const { getAppText } = useSanity();
+  const soknadUrl = `${getEnv("DP_SOKNADSDIALOG_URL")}/soknad/${soknad.søknadId}?fortsett=true`;
 
   return (
     <li className={styles.soknadContainer}>
@@ -24,7 +23,7 @@ export function PaabegynteSoknadOrkestrator({ soknad }: IProps) {
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">
           {getAppText("paabegynt-soknad.sist-endret.label-tekst")}
-          <FormattedDate date={oppdatertTidspunkt} />
+          <FormattedDate date={sistEndret} />
         </BodyShort>
         <Tag variant="neutral" size="small" className="mt-4">
           {getAppText("paabegynt-soknad.soknad-er-ikke-sendt-inn")}
