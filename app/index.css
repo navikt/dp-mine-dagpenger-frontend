@@ -3,26 +3,26 @@
 }
 
 .mine-dagpenger {
-  margin-bottom: var(--a-spacing-16);
+  margin-bottom: var(--ax-space-64);
 }
 
 .page-header {
-  margin-bottom: var(--a-spacing-6);
+  margin-bottom: var(--ax-space-24);
 }
 
 .modal-container {
   width: 100%;
   max-width: var(--app-max-width);
-  padding: var(--a-spacing-2);
+  padding: var(--ax-space-8);
 }
 
 .modal-container--error {
-  background-color: var(--a-orange-50);
-  box-shadow: 0 0 0 1px var(--a-orange-600);
+  background-color: var(--ax-warning-100);
+  box-shadow: 0 0 0 1px var(--ax-warning-700);
 }
 
 .modal-container--error:focus {
-  box-shadow: 0 0 0 3px var(--a-orange-600);
+  box-shadow: 0 0 0 3px var(--ax-warning-700);
 }
 
 .navigation-container {
@@ -41,5 +41,5 @@
 }
 
 .mt-4 {
-  margin-top: var(--a-spacing-4);
+  margin-top: var(--ax-space-16);
 }

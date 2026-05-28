@@ -4,9 +4,9 @@ import { Alert } from "@navikt/ds-react";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
 import { ISoknad } from "~/models/getSoknader.server";
-import FullforteSoknad from "~/components/soknad-list/FullforteSoknad";
+import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
 
-export default function FullforteSoknadList() {
+export function FullforteSoknadList() {
   const { getAppText } = useSanity();
   const { soknader } = useRouteLoaderData("root");
 
