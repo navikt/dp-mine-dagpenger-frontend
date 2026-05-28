@@ -1,12 +1,26 @@
-import {
-  type AvsenderMottaker,
-  Datotype,
-  type Dokumentvariant,
-  Journalposttype,
-  Journalstatus,
-  type RelevantDato,
-} from "~/graphql/generated/saf/graphql";
 import { graphql } from "~/graphql/generated/saf";
+import {
+  type AvsenderMottakerIdType,
+  type Datotype,
+  type Journalposttype,
+  type Variantformat,
+} from "~/graphql/generated/saf/graphql";
+
+type AvsenderMottaker = {
+  id: string;
+  navn: string;
+  type: AvsenderMottakerIdType;
+};
+
+type Dokumentvariant = {
+  variantformat: Variantformat;
+  brukerHarTilgang: boolean;
+};
+
+type RelevantDato = {
+  dato: string;
+  datotype: Datotype;
+};
 
 export const graphqlQuery = graphql(`
   query dokumentoversiktSelvbetjening($fnr: String!) {
@@ -46,14 +60,13 @@ export const graphqlQuery = graphql(`
 // Lager egne intefaces isteden for å bruke generert types fra graphql-codegen direkte.
 // Dette er på grunn av genererte types inneholder Maybe som er vanskelig å jobbe med.
 export interface IJournalpost {
-  avsender?: AvsenderMottaker;
+  avsender?: AvsenderMottaker | null;
   dokumenter: IDokument[];
   eksternReferanseId?: string;
   journalpostId: string;
   journalposttype: Journalposttype;
-  journalstatus?: Journalstatus;
-  mottaker?: AvsenderMottaker;
-  relevanteDatoer?: RelevantDato[];
+  mottaker?: AvsenderMottaker | null;
+  relevanteDatoer?: Array<RelevantDato | null>;
   tema: string;
   tittel: string;
   datoOpprettet?: string | null;
@@ -63,13 +76,13 @@ export interface IJournalpost {
 export interface IDokument {
   dokumentInfoId: string;
   tittel: string | null;
-  dokumentvarianter?: Dokumentvariant[];
+  dokumentvarianter?: Array<Dokumentvariant | null>;
   type?: "Hoved" | "Vedlegg";
   brukerHarTilgang?: boolean;
 }
 
 export function settDatoOpprettet({ relevanteDatoer, ...rest }: IJournalpost): IJournalpost {
-  const datoOpprettet = relevanteDatoer?.find((dato) => dato?.datotype === Datotype.DatoOpprettet);
+  const datoOpprettet = relevanteDatoer?.find((dato) => dato?.datotype === "DATO_OPPRETTET");
 
   return {
     datoOpprettet: datoOpprettet?.dato,

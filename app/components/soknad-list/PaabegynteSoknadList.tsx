@@ -5,7 +5,7 @@ import { PaabegynteSoknad } from "~/components/soknad-list/PaabegynteSoknad";
 import { useSanity } from "~/hooks/useSanity";
 import { ISoknad } from "~/models/getSoknader.server";
 
-export default function PaabegynteSoknadList() {
+export function PaabegynteSoknadList() {
   const { getAppText } = useSanity();
   const { soknader } = useRouteLoaderData("root");
 
