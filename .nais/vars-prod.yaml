@@ -21,7 +21,7 @@ saf:
   scope: safselvbetjening
 app_env: production
 uxsignals:
-  enabled: disabled
+  enabled: enabled
   mode: production
 sanity_dataset: production
 unleash:
