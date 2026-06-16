@@ -1,11 +1,11 @@
 import { subWeeks } from "date-fns";
 import { describe, expect, test } from "vitest";
 import type { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
-import { getSoknadWithinLast12Weeks } from "./soknad.utils";
+import { getSoknadWithinLast6Weeks } from "./soknad.utils";
 
 describe("Filter soknad within last 12 weeks", () => {
   test("Expect filtered søknader to 3 soknader", () => {
-    const filteredSokander = getSoknadWithinLast12Weeks(soknaderList);
+    const filteredSokander = getSoknadWithinLast6Weeks(soknaderList);
     expect(filteredSokander).toHaveLength(3);
   });
 });

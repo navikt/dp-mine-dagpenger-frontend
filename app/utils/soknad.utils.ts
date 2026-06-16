@@ -2,11 +2,11 @@ import { addWeeks, isBefore } from "date-fns";
 import type { IGamleSoknad } from "~/models/getGamleFullfortSoknader.server";
 import { ISoknad } from "~/models/getSoknader.server";
 
-export function getSoknadWithinLast12Weeks(soknader: IGamleSoknad[]): IGamleSoknad[] {
+export function getSoknadWithinLast6Weeks(soknader: IGamleSoknad[]): IGamleSoknad[] {
   return soknader?.filter((soknad) => {
     const sendtDate: Date = new Date(soknad.datoInnsendt);
     const today: Date = new Date();
-    const endDate: Date = addWeeks(sendtDate, 12);
+    const endDate: Date = addWeeks(sendtDate, 6);
     return isBefore(today, endDate);
   });
 }

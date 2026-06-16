@@ -2,7 +2,7 @@ import { Heading } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
+import { getSoknadWithinLast6Weeks } from "~/utils/soknad.utils";
 import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
@@ -13,7 +13,7 @@ export function PageHero() {
   const sectionText = getRichText("soknader");
   const soknader =
     gamleFullforteSoknader.status === "success" &&
-    getSoknadWithinLast12Weeks(gamleFullforteSoknader.data).length > 0;
+    getSoknadWithinLast6Weeks(gamleFullforteSoknader.data).length > 0;
 
   return (
     <Section>

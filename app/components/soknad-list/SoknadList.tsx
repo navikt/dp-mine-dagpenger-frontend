@@ -5,7 +5,7 @@ import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadL
 import { useSanity } from "~/hooks/useSanity";
 import { ISoknad } from "~/models/getSoknader.server";
 import {
-  getSoknadWithinLast12Weeks,
+  getSoknadWithinLast6Weeks,
   getSoknadWithinLast12WeeksOrkestrator,
 } from "~/utils/soknad.utils";
 import { Section } from "../section/Section";
@@ -26,7 +26,7 @@ export function SoknadList() {
 
   const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);
 
-  const fullforteGammelSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(
+  const fullforteGammelSoknaderWithin12Weeks = getSoknadWithinLast6Weeks(
     gamleFullforteSoknader.data ?? []
   );
 

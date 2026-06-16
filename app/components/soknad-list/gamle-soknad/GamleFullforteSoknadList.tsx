@@ -1,7 +1,7 @@
 import { Alert } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
+import { getSoknadWithinLast6Weeks } from "~/utils/soknad.utils";
 import { GamleFullforteSoknad } from "./GamleFullforteSoknad";
 import styles from "../SoknadList.module.css";
 import { ISoknad } from "~/models/getSoknader.server";
@@ -28,17 +28,17 @@ export function GamleFullforteSoknadList() {
       )
   );
 
-  const gamleFullforteSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(
+  const gamleFullforteSoknaderWithin6Weeks = getSoknadWithinLast6Weeks(
     filtrertGamleFullforteSoknader
   );
 
   if (
     gamleFullforteSoknader.status === "success" &&
-    gamleFullforteSoknaderWithin12Weeks.length > 0
+    gamleFullforteSoknaderWithin6Weeks.length > 0
   ) {
     return (
       <ul className={styles.soknadList}>
-        {gamleFullforteSoknaderWithin12Weeks.map((soknad) => (
+        {gamleFullforteSoknaderWithin6Weeks.map((soknad) => (
           <GamleFullforteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}
       </ul>
