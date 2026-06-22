@@ -11,11 +11,10 @@ import {
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { GamleFullforteSoknadList } from "./gamle-soknad/GamleFullforteSoknadList";
-import { GamlePaabegynteSoknadList } from "./gamle-soknad/GamlePaabegynteSoknadList";
 
 export function SoknadList() {
   const { getAppText } = useSanity();
-  const { soknader, gamleFullforteSoknader, gamlePaabegynteSoknader } = useRouteLoaderData("root");
+  const { soknader, gamleFullforteSoknader } = useRouteLoaderData("root");
   const harPaabegyntSoknad =
     soknader.data?.filter((soknad: ISoknad) => soknad.status === "PÅBEGYNT") ?? [];
 
@@ -30,21 +29,16 @@ export function SoknadList() {
     gamleFullforteSoknader.data ?? []
   );
 
-  const harGamlePaabegynteSoknad =
-    gamlePaabegynteSoknader.status === "success" && gamlePaabegynteSoknader.data.length;
-
   const harGamleFullforteSoknad =
     gamleFullforteSoknader.status === "success" && gamleFullforteSoknader.data.length;
 
   const harIngenGamleSoknader =
     !harGamleFullforteSoknad &&
-    !harGamlePaabegynteSoknad &&
     !fullfortSoknader.length &&
     !harPaabegyntSoknad.length;
 
   const harIngenSoknaderWithin12Weeks =
     !fullforteGammelSoknaderWithin12Weeks.length &&
-    !(gamlePaabegynteSoknader.data?.length ?? 0) &&
     !harFullfortSoknadWithin12Weeks.length &&
     !harPaabegyntSoknad.length;
 
@@ -59,7 +53,6 @@ export function SoknadList() {
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
         </Heading>
         <PaabegynteSoknadList />
-        <GamlePaabegynteSoknadList />
         <FullforteSoknadList />
         <GamleFullforteSoknadList />
       </SectionContent>
