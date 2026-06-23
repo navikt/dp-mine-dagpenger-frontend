@@ -104,7 +104,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
   const soknader = await getSoknader(request);
-  const gamleFullforteSoknader = await getGamleFullforteSoknader(request);
+  const gamleFullforteSoknader = await getGamleFullforteSoknader();
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
