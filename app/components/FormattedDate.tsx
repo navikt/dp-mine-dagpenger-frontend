@@ -1,9 +1,10 @@
 interface IProps {
   date: string;
   shortDate?: boolean;
+  bareDato?: boolean;
 }
 
-export function FormattedDate({ date, shortDate }: IProps) {
+export function FormattedDate({ date, shortDate, bareDato }: IProps) {
   const locale = "no-NO";
 
   const dateOption: Intl.DateTimeFormatOptions = {
@@ -13,6 +14,10 @@ export function FormattedDate({ date, shortDate }: IProps) {
   };
 
   const formattedDate: string = new Date(date).toLocaleDateString(locale, dateOption);
+
+  if(bareDato) {
+    return <>{formattedDate}</>;
+  }
 
   const timeOption: Intl.DateTimeFormatOptions = {
     timeStyle: "short",
