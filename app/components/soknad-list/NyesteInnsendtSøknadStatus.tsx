@@ -45,7 +45,7 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
             <FormattedDate date={estimertSvarTilDato.toString()} bareDato={true} />
           </BodyShort>
         </div>
-        {soknad.dokumentKravSendSendereList.length > 0 && (
+        {soknad.manglendeDokumentasjonskrav.length > 0 && (
           <Tag variant="moderate" data-color="warning" className={styles.soknadDokumentasjonManglerTag}>
             Mangler dokumentasjon
           </Tag>
