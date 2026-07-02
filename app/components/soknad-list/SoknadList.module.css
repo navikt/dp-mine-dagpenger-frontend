@@ -24,7 +24,18 @@
   display: flex;
   gap: var(--ax-space-12);
   padding: var(--ax-space-20);
-  border-top: 1px solid var(--ax-border-neutral-subtle);
+}
+
+.soknadLinksContainerForSkyra {
+  display: flex;
+  gap: var(--ax-space-12);
+  padding: var(--ax-space-20);
+  * {
+    width: 100%;
+    padding: 1rem;
+    background: var(--ax-bg-meta-purple-soft);
+    border-radius: var(--ax-radius-12);
+  }
 }
 
 .soknadLinksContainer a {

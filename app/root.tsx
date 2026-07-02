@@ -152,6 +152,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {parse(DECORATOR_HEAD_ASSETS, { trim: true })}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.SKYRA_CONFIG = { org: 'arbeids-og-velferdsetaten-nav' }`,
+          }}
+        />
+        <script src="https://survey.skyra.no/skyra-survey.js" async></script>
         <Meta />
         <Links />
       </head>
