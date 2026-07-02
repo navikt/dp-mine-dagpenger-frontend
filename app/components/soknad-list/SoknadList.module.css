@@ -34,3 +34,17 @@
 .errorContainer {
   margin: 1rem 0;
 }
+
+.soknadStatusText {
+  margin: 1rem auto;
+}
+
+.soknadStatusDate {
+  margin-top: var(--ax-space-4);
+  color: var(--ax-text-neutral-subtle);
+  font-weight: bold;
+}
+
+.soknadInfoBox {
+  margin-top: var(--ax-space-16);
+}
