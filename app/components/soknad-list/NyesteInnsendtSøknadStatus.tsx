@@ -2,7 +2,7 @@ import { ISoknad } from "~/models/getSoknader.server";
 import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
 import styles from "~/components/soknad-list/SoknadList.module.css";
-import { BodyShort, Heading } from "@navikt/ds-react";
+import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { ExternalLink } from "~/components/ExternalLink";
 import { addWeeks } from "date-fns";
@@ -45,6 +45,11 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
             <FormattedDate date={estimertSvarTilDato.toString()} bareDato={true} />
           </BodyShort>
         </div>
+        {soknad.dokumentKravSendSendereList.length > 0 && (
+          <Tag variant="moderate" data-color="warning" className={styles.soknadDokumentasjonManglerTag}>
+            Mangler dokumentasjon
+          </Tag>
+        )}
       </article>
       <nav className={styles.soknadLinksContainer}>
         <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
