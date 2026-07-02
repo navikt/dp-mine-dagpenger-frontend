@@ -32,7 +32,7 @@ export function FullforteSoknadList() {
   });
 
   if (fullforteSoknaderWithin12Weeks.length < 1) {
-    return <></>;
+    return null;
   }
 
   const nyesteSøknad = isAfter(new Date(fullforteSoknaderWithin12Weeks[0].innsendtTimestamp), subWeeks(new Date(), 8))
@@ -44,7 +44,7 @@ export function FullforteSoknadList() {
     return (
       <ul className={styles.soknadList}>
         {
-          nyesteSøknad ? (
+          nyesteSøknad && (
             <>
               <NyesteInnsendtSøknadStatus soknad={nyesteSøknad} key={nyesteSøknad.søknadId} />
               <InfoCard data-color="info" className={styles.soknadInfoBox}>
@@ -57,7 +57,7 @@ export function FullforteSoknadList() {
                 </InfoCard.Content>
               </InfoCard>
             </>
-          ) : null
+          )
         }
         {fullforteSoknaderWithin12Weeks.filter(soknad => soknad.søknadId != nyesteSøknad?.søknadId).map((soknad) => (
           <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
@@ -66,5 +66,5 @@ export function FullforteSoknadList() {
     );
   }
 
-  return <></>;
+  return null;
 }

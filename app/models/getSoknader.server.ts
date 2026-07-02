@@ -9,6 +9,7 @@ export interface ISoknad {
   innsendtTimestamp: string;
   oppdatertTidspunkt: string;
   status: string;
+  manglendeDokumentasjonskrav: string[];
 }
 
 export async function getSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
