@@ -54,6 +54,10 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
           {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
         </ExternalLink>
       </nav>
+
+      <nav className={styles.soknadLinksContainerForSkyra}>
+        <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak"></skyra-survey>
+      </nav>
     </div>
   );
 
