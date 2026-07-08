@@ -18,6 +18,7 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
 
   const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
   const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
+  const nySøknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}`;
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, 6);
   const estimertSvarTilDato = addWeeks(innsendtDato, 7);
@@ -57,6 +58,9 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
         </ExternalLink>
         <ExternalLink to={kvitteringUrl} asButtonVariant="secondary" size="small">
           {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
+        </ExternalLink>
+        <ExternalLink to={nySøknadUrl} asButtonVariant="secondary" size="small">
+          Send ny søknad
         </ExternalLink>
       </nav>
 
