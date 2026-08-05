@@ -2,15 +2,6 @@ import { getToken, requestOboToken, validateToken } from "@navikt/oasis";
 import { getEnv } from "./env.utils";
 import { logger } from "./logger.utils";
 
-export async function getDPInnsynOboToken(request: Request) {
-  if (getEnv("IS_LOCALHOST") === "true") {
-    return getEnv("DP_INNSYN_TOKEN") || "";
-  }
-
-  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:teamdagpenger:dp-innsyn`;
-  return await getOnBehalfOfToken(request, audience);
-}
-
 export async function getPAWArbeidssokerregistreringOboToken(request: Request) {
   if (getEnv("IS_LOCALHOST") === "true") {
     return getEnv("PAW_ARBEIDSSOEKERREGISTERET_TOKEN") || "";

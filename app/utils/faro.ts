@@ -37,7 +37,6 @@ export function initFaro() {
         instrumentationOptions: {
           propagateTraceHeaderCorsUrls: [
             new RegExp(`${escapeRegExp(getEnv("DP_SOKNADSDIALOG_URL"))}/.*`),
-            new RegExp(`${escapeRegExp(getEnv("DP_INNSYN_URL"))}/.*`),
             new RegExp(`${escapeRegExp(getEnv("OKONOMI_KONTOREGISTER_URL"))}/.*`),
             new RegExp(`${escapeRegExp(getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"))}/.*`),
             new RegExp(`${escapeRegExp(getEnv("SAF_URL"))}/.*`),

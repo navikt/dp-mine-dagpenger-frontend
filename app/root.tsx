@@ -124,7 +124,6 @@ export async function loader({ request }: Route.LoaderArgs) {
       UXSIGNALS_MODE: getEnv("UXSIGNALS_MODE"),
       SANITY_DATASET: getEnv("SANITY_DATASET"),
       FARO_URL: getEnv("FARO_URL"),
-      DP_INNSYN_URL: getEnv("DP_INNSYN_URL"),
       OKONOMI_KONTOREGISTER_URL: getEnv("OKONOMI_KONTOREGISTER_URL"),
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
