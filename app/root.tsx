@@ -19,7 +19,6 @@ import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getDecoratorHTML } from "./models/decorator.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
-import { getGamleFullforteSoknader } from "./models/getGamleFullfortSoknader.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession } from "./models/getSession.server";
 import { getSoknader } from "./models/getSoknader.server";
@@ -104,7 +103,6 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
   const soknader = await getSoknader(request);
-  const gamleFullforteSoknader = await getGamleFullforteSoknader();
   const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
   const bankAccountNumber = await getBankAccountNumber(request);
   const journalposter = await getSAFJournalposter(request);
@@ -132,7 +130,6 @@ export async function loader({ request }: Route.LoaderArgs) {
       SAF_URL: getEnv("SAF_URL"),
     },
     soknader,
-    gamleFullforteSoknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,
