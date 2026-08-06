@@ -9,10 +9,6 @@ const TOKENX_BASE_URL = "https://tokenx-token-generator.intern.dev.nav.no/api/pu
 
 const TOKEN_LIST = [
   {
-    env: "DP_INNSYN_TOKEN",
-    aud: "dev-gcp:teamdagpenger:dp-innsyn",
-  },
-  {
     env: "PAW_ARBEIDSSOEKERREGISTERET_TOKEN",
     aud: "dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag-v2",
   },

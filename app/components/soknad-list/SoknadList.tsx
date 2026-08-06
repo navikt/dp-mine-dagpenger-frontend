@@ -4,17 +4,13 @@ import { FullforteSoknadList } from "~/components/soknad-list/FullforteSoknadLis
 import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
 import { ISoknad } from "~/models/getSoknader.server";
-import {
-  getSoknadWithinLast6Weeks,
-  getSoknadWithinLast12WeeksOrkestrator,
-} from "~/utils/soknad.utils";
+import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { GamleFullforteSoknadList } from "./gamle-soknad/GamleFullforteSoknadList";
 
 export function SoknadList() {
   const { getAppText } = useSanity();
-  const { soknader, gamleFullforteSoknader } = useRouteLoaderData("root");
+  const { soknader } = useRouteLoaderData("root");
   const harPaabegyntSoknad =
     soknader.data?.filter((soknad: ISoknad) => soknad.status === "PÅBEGYNT") ?? [];
 
@@ -25,24 +21,12 @@ export function SoknadList() {
 
   const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);
 
-  const fullforteGammelSoknaderWithin12Weeks = getSoknadWithinLast6Weeks(
-    gamleFullforteSoknader.data ?? []
-  );
+  const harIngenSoknader = !fullfortSoknader.length && !harPaabegyntSoknad.length;
 
-  const harGamleFullforteSoknad =
-    gamleFullforteSoknader.status === "success" && gamleFullforteSoknader.data.length;
+  const harIngenSoknaderDeSiste12Ukene =
+    !harFullfortSoknadWithin12Weeks.length && !harPaabegyntSoknad.length;
 
-  const harIngenGamleSoknader =
-    !harGamleFullforteSoknad &&
-    !fullfortSoknader.length &&
-    !harPaabegyntSoknad.length;
-
-  const harIngenSoknaderWithin12Weeks =
-    !fullforteGammelSoknaderWithin12Weeks.length &&
-    !harFullfortSoknadWithin12Weeks.length &&
-    !harPaabegyntSoknad.length;
-
-  if (harIngenGamleSoknader || harIngenSoknaderWithin12Weeks) {
+  if (harIngenSoknader || harIngenSoknaderDeSiste12Ukene) {
     return <></>;
   }
 
@@ -54,7 +38,6 @@ export function SoknadList() {
         </Heading>
         <PaabegynteSoknadList />
         <FullforteSoknadList />
-        <GamleFullforteSoknadList />
       </SectionContent>
     </Section>
   );
