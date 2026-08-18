@@ -10,9 +10,10 @@ import { addWeeks } from "date-fns";
 
 interface IProps {
   soknad: ISoknad;
+  estimertSaksbehandlingstid: number;
 }
 
-export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
+export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid }: IProps) {
   const { søknadId, tittel, innsendtTimestamp } = soknad;
   const { getAppText } = useSanity();
 
@@ -20,8 +21,8 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
   const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
   const nySøknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}`;
   const innsendtDato = new Date(innsendtTimestamp);
-  const estimertSvarFraDato = addWeeks(innsendtDato, 6);
-  const estimertSvarTilDato = addWeeks(innsendtDato, 7);
+  const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
+  const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
 
   return (
     <div className={styles.soknadContainer}>
@@ -39,7 +40,7 @@ export function NyesteInnsendtSøknadStatus({ soknad }: IProps) {
         </div>
         <div>
           <BodyShort className={styles.soknadDate} size="small">
-            Saksbehandlingstiden er for tiden 6 uker. Derfor tror vi at du vil få svar fra oss en gang mellom
+            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at du vil få svar fra oss en gang mellom
           </BodyShort>
           <BodyShort className={styles.soknadStatusDate}>
             <FormattedDate date={estimertSvarFraDato.toString()} bareDato={true} /> {" og "}

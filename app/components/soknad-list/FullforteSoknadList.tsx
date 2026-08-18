@@ -35,7 +35,9 @@ export function FullforteSoknadList() {
     return null;
   }
 
-  const nyesteSøknad = isAfter(new Date(fullforteSoknaderWithin12Weeks[0].innsendtTimestamp), subWeeks(new Date(), 8))
+  const nyesteInnsendtTidspunkt = new Date(fullforteSoknaderWithin12Weeks[0].innsendtTimestamp);
+  const estimertSaksbehandlingstid = 7
+  const nyesteSøknad = isAfter(nyesteInnsendtTidspunkt, subWeeks(new Date(), estimertSaksbehandlingstid + 2))
     ? fullforteSoknaderWithin12Weeks[0]
     : null;
 
@@ -46,7 +48,7 @@ export function FullforteSoknadList() {
         {
           nyesteSøknad && (
             <>
-              <NyesteInnsendtSøknadStatus soknad={nyesteSøknad} key={nyesteSøknad.søknadId} />
+              <NyesteInnsendtSøknadStatus soknad={nyesteSøknad} key={nyesteSøknad.søknadId} estimertSaksbehandlingstid={estimertSaksbehandlingstid}/>
               <InfoCard data-color="info" className={styles.soknadInfoBox}>
                 <InfoCard.Header icon={<LightBulbIcon aria-hidden />}>
                   <InfoCard.Title>Saksbehandlingstid</InfoCard.Title>
