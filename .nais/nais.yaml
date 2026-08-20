@@ -42,6 +42,8 @@ spec:
       value: "{{ingress}}"
     - name: DEKORATOR_ENV
       value: "{{dekorator.env}}"
+    - name: DP_INNSYN_URL
+      value: "{{dp_innsyn_url}}"
     - name: DP_SOKNADSDIALOG_URL
       value: "{{dp_soknadsdialog_url}}"
     - name: PAW_ARBEIDSSOEKERREGISTERET_URL
@@ -84,6 +86,7 @@ spec:
         - host: dagpenger-unleash-api.nav.cloud.nais.io
         - host: "{{saf.ingress}}"
       rules:
+        - application: dp-innsyn
         - application: dp-soknad-orkestrator
         - application: paw-arbeidssoekerregisteret-api-oppslag-v2
           namespace: paw
