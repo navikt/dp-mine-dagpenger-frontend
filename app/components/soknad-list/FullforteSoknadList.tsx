@@ -8,10 +8,14 @@ import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
 import { isAfter, subWeeks } from "date-fns";
 import { NyesteInnsendtSøknadStatus } from "~/components/soknad-list/NyesteInnsendtSøknadStatus";
 import { LightBulbIcon } from "@navikt/aksel-icons";
+import {
+  filtrerSoknaderTilVisning,
+  skalViseSaksbehandlingstid,
+} from "./saksbehandlingstid.utils";
 
 export function FullforteSoknadList() {
   const { getAppText } = useSanity();
-  const { soknader } = useRouteLoaderData("root");
+  const { soknader, aktivDagpengerett } = useRouteLoaderData("root");
 
   if (soknader.status === "error") {
     return (
@@ -41,6 +45,12 @@ export function FullforteSoknadList() {
     ? fullforteSoknaderWithin12Weeks[0]
     : null;
 
+  const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
+  const soknaderTilVisning = filtrerSoknaderTilVisning(
+    fullforteSoknaderWithin12Weeks,
+    nyesteSøknad,
+    visSaksbehandlingstid
+  );
 
   if (soknader.status === "success") {
     return (
@@ -48,20 +58,24 @@ export function FullforteSoknadList() {
         {
           nyesteSøknad && (
             <>
-              <NyesteInnsendtSøknadStatus soknad={nyesteSøknad} key={nyesteSøknad.søknadId} estimertSaksbehandlingstid={estimertSaksbehandlingstid}/>
-              <InfoCard data-color="info" className={styles.soknadInfoBox}>
-                <InfoCard.Header icon={<LightBulbIcon aria-hidden />}>
-                  <InfoCard.Title>Saksbehandlingstid</InfoCard.Title>
-                </InfoCard.Header>
-                <InfoCard.Content>
-                  En vanlig grunn til lang saksbehandlingstid er at vi ikke har fått all dokumentasjonen
-                  vi trenger fra deg. Du kan gjerne dobbeltsjekke at du har sendt inn alt vi trenger.
-                </InfoCard.Content>
-              </InfoCard>
+              {visSaksbehandlingstid && (
+                <NyesteInnsendtSøknadStatus soknad={nyesteSøknad} key={nyesteSøknad.søknadId} estimertSaksbehandlingstid={estimertSaksbehandlingstid} />
+              )}
+              {visSaksbehandlingstid && (
+                <InfoCard data-color="info" className={styles.soknadInfoBox}>
+                  <InfoCard.Header icon={<LightBulbIcon aria-hidden />}>
+                    <InfoCard.Title>Saksbehandlingstid</InfoCard.Title>
+                  </InfoCard.Header>
+                  <InfoCard.Content>
+                    En vanlig grunn til lang saksbehandlingstid er at vi ikke har fått all dokumentasjonen
+                    vi trenger fra deg. Du kan gjerne dobbeltsjekke at du har sendt inn alt vi trenger.
+                  </InfoCard.Content>
+                </InfoCard>
+              )}
             </>
           )
         }
-        {fullforteSoknaderWithin12Weeks.filter(soknad => soknad.søknadId != nyesteSøknad?.søknadId).map((soknad) => (
+        {soknaderTilVisning.map((soknad) => (
           <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
         ))}
       </ul>

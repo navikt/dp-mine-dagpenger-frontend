@@ -13,6 +13,10 @@ export const handlers = [
     return HttpResponse.json(arbeidssoekerPerioderResponse);
   }),
 
+  http.get(`${getEnv("DP_INNSYN_URL")}/aktiv-dagpenger`, () => {
+    return HttpResponse.json({ harAktivDagpengerett: false });
+  }),
+
   http.get("https://rt6o382n.apicdn.sanity.io/*", () => {
     return passthrough();
   }),

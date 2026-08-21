@@ -17,6 +17,7 @@ import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getDecoratorHTML } from "./models/decorator.server";
+import { getHarAktivDagpengerett } from "./models/getAktivDagpengerett.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
 import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
@@ -102,10 +103,14 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-  const soknader = await getSoknader(request);
-  const arbeidsseokerPerioder = await getArbeidssoekerPerioder(request);
-  const bankAccountNumber = await getBankAccountNumber(request);
-  const journalposter = await getSAFJournalposter(request);
+  const [soknader, arbeidsseokerPerioder, bankAccountNumber, journalposter, aktivDagpengerett] =
+    await Promise.all([
+      getSoknader(request),
+      getArbeidssoekerPerioder(request),
+      getBankAccountNumber(request),
+      getSAFJournalposter(request),
+      getHarAktivDagpengerett(request),
+    ]);
 
   return data({
     decoratorFragments,
@@ -132,6 +137,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,
+    aktivDagpengerett,
   });
 }
 
