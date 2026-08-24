@@ -45,25 +45,30 @@ export function FullforteSoknadList() {
   if (soknader.status === "success") {
     return (
       <ul className={styles.soknadList}>
-        {
-          nyesteSøknad && (
-            <>
-              <NyesteInnsendtSøknadStatus soknad={nyesteSøknad} key={nyesteSøknad.søknadId} estimertSaksbehandlingstid={estimertSaksbehandlingstid}/>
-              <InfoCard data-color="info" className={styles.soknadInfoBox}>
-                <InfoCard.Header icon={<LightBulbIcon aria-hidden />}>
-                  <InfoCard.Title>Saksbehandlingstid</InfoCard.Title>
-                </InfoCard.Header>
-                <InfoCard.Content>
-                  En vanlig grunn til lang saksbehandlingstid er at vi ikke har fått all dokumentasjonen
-                  vi trenger fra deg. Du kan gjerne dobbeltsjekke at du har sendt inn alt vi trenger.
-                </InfoCard.Content>
-              </InfoCard>
-            </>
-          )
-        }
-        {fullforteSoknaderWithin12Weeks.filter(soknad => soknad.søknadId != nyesteSøknad?.søknadId).map((soknad) => (
-          <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
-        ))}
+        {nyesteSøknad && (
+          <>
+            <NyesteInnsendtSøknadStatus
+              soknad={nyesteSøknad}
+              key={nyesteSøknad.søknadId}
+              estimertSaksbehandlingstid={estimertSaksbehandlingstid}
+            />
+            <InfoCard data-color="info" className={styles.soknadInfoBox}>
+              <InfoCard.Header icon={<LightBulbIcon aria-hidden />}>
+                <InfoCard.Title>Saksbehandlingstid</InfoCard.Title>
+              </InfoCard.Header>
+              <InfoCard.Content>
+                Vi behandler søknaden din så snart vi kan, og når du har sendt all dokumentasjonen
+                vi trenger. Det er mange søknader som skal behandles nå, og vi beklager ventetiden.
+                Du får beskjed så snart søknaden din er ferdig behandlet.
+              </InfoCard.Content>
+            </InfoCard>
+          </>
+        )}
+        {fullforteSoknaderWithin12Weeks
+          .filter((soknad) => soknad.søknadId != nyesteSøknad?.søknadId)
+          .map((soknad) => (
+            <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
+          ))}
       </ul>
     );
   }
