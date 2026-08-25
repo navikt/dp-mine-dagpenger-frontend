@@ -29,6 +29,15 @@ export async function getDPSoknadOrkestratorToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getDPInnsynOboToken(request: Request) {
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("DP_INNSYN_TOKEN") || "";
+  }
+
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:teamdagpenger:dp-innsyn`;
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getSAFToken(request: Request) {
   if (getEnv("IS_LOCALHOST") === "true") {
     return getEnv("SAF_TOKEN") || "";
