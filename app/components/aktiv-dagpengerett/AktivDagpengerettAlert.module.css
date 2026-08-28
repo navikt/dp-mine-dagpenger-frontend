@@ -1,3 +1,15 @@
 .infoCard {
   margin-bottom: var(--ax-space-16);
 }
+
+.ingress {
+  display: flex;
+  align-items: center;
+  gap: var(--ax-space-8);
+  margin-bottom: var(--ax-space-12);
+}
+
+.lenke {
+  display: block;
+  margin-top: var(--ax-space-12);
+}
