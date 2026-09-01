@@ -1,6 +1,7 @@
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
+import path from "path";
 
 export default defineConfig(({ command }) => ({
   base:
@@ -16,6 +17,9 @@ export default defineConfig(({ command }) => ({
   },
 
   resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "./app"),
+    },
     tsconfigPaths: true,
   },
 }));
