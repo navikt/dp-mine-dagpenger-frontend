@@ -31,12 +31,11 @@ import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
 import indexStyles from "./index.css?url";
-import akselStyles from "@navikt/ds-css/dist/index.css?url";
+import "@navikt/ds-css";
 
 export const sanityClient = createClient(sanityConfig);
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: akselStyles },
   { rel: "stylesheet", href: indexStyles },
   {
     rel: "icon",
