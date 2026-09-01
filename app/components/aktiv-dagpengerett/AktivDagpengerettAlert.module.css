@@ -13,3 +13,8 @@
   display: block;
   margin-top: var(--ax-space-12);
 }
+
+.skyra {
+  display: block;
+  margin-top: 1rem;
+}

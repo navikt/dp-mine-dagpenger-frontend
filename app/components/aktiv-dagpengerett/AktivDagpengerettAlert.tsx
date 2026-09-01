@@ -30,6 +30,7 @@ export function AktivDagpengerettAlert() {
         <Link href="https://www.nav.no/dagpenger#har" className={styles.lenke}>
           Mer informasjon om hva du må gjøre når du har dagpenger
         </Link>
+        <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak-copy" className={styles.skyra} />
       </InfoCard.Content>
     </InfoCard>
   );
