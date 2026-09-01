@@ -1,6 +1,6 @@
 import { type Faro, getWebInstrumentations, initializeFaro } from "@grafana/faro-web-sdk";
 import { TracingInstrumentation } from "@grafana/faro-web-tracing";
-import { getEnv } from "~/utils/env.utils";
+import { getEnv } from "./env.utils";
 
 // EscapeRegExp sørger for at alle spesialtegn i en streng blir escaped før bruk i RegExp.
 // Dette forhindrer Regular Expression Injection, som kan føre til sikkerhetsproblemer.
