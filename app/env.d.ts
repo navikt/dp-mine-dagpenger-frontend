@@ -9,10 +9,9 @@ declare module "@navikt/ds-css/dist/index.css?url" {
 declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
-      "skyra-survey": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > & { slug?: string };
+      "skyra-survey": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        slug?: string;
+      };
     }
   }
 }

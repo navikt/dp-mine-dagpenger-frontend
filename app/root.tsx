@@ -30,8 +30,9 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
-import indexStyles from "./index.css?url";
+// @ts-expect-error @navikt/ds-css har ingen moduldeklarasjon for CSS-URL-importer.
 import akselStyles from "@navikt/ds-css/dist/index.css?url";
+import indexStyles from "./index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -159,7 +160,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             __html: `window.SKYRA_CONFIG = { org: 'arbeids-og-velferdsetaten-nav' }`,
           }}
         />
-        <script src="https://survey.skyra.no/skyra-survey.js" async></script>
+        <script src="https://survey.skyra.no/skyra-survey.js" async />
         <Meta />
         <Links />
       </head>
