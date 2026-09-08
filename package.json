@@ -33,7 +33,7 @@
     "@sanity/client": "^7.27.0",
     "classnames": "^2.5.1",
     "date-fns": "^4.4.0",
-    "graphql": "^16.14.2",
+    "graphql": "^17.0.2",
     "graphql-request": "^7.4.0",
     "groq": "^5.31.2",
     "html-react-parser": "^6.1.7",
