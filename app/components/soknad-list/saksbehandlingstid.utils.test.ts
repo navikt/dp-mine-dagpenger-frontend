@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import {
+  finnFullførteSøknaderTilVisning,
   filtrerSoknaderTilVisning,
   skalViseSaksbehandlingstid,
 } from "./saksbehandlingstid.utils";
@@ -51,5 +52,24 @@ describe("skalViseSaksbehandlingstid", () => {
 
   test("skal vise den nyeste søknaden i listen når saksbehandlingstiden skjules", () => {
     expect(filtrerSoknaderTilVisning(soknader, soknader[0], false)).toEqual(soknader);
+  });
+});
+
+describe("finnFullførteSøknaderTilVisning", () => {
+  test("filtrerer, sorterer og skiller ut nyeste søknad", () => {
+    const result = finnFullførteSøknaderTilVisning(
+      [
+        ...soknader,
+        { ...soknader[0], søknadId: "påbegynt", status: "PÅBEGYNT" },
+        { ...soknader[0], søknadId: "", status: "INNSENDT" },
+      ],
+      { status: "success", data: false }
+    );
+
+    expect(result).toMatchObject({
+      nyesteSøknad: soknader[0],
+      søknaderTilVisning: [soknader[1]],
+      visSaksbehandlingstid: true,
+    });
   });
 });

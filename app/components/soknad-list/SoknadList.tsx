@@ -1,6 +1,6 @@
 import { Heading } from "@navikt/ds-react";
 import { useRouteLoaderData } from "react-router";
-import { FullforteSoknadList } from "~/components/soknad-list/FullforteSoknadList";
+import { FullførteSøknadListe } from "~/components/soknad-list/FullforteSoknadList";
 import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
 import { Søknad } from "~/models/getSoknader.server";
@@ -33,7 +33,7 @@ export function SøknadListe() {
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
         </Heading>
         <PaabegynteSoknadList />
-        <FullforteSoknadList />
+        <FullførteSøknadListe />
       </SectionContent>
     </Section>
   );
