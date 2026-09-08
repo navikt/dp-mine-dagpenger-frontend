@@ -1,9 +1,9 @@
 import { useSanity } from "~/hooks/useSanity";
 import { useRouteLoaderData } from "react-router";
 import { Alert, InfoCard } from "@navikt/ds-react";
-import styles from "~/components/soknad-list/SøknadListe.module.css";
-import { hentSøknaderSiste12Uker } from "~/utils/soknad.utils";
-import { Søknad } from "~/models/getSoknader.server";
+import styles from "~/components/soknad-list/SoknadList.module.css";
+import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
+import { ISoknad } from "~/models/getSoknader.server";
 import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
 import { isAfter, subWeeks } from "date-fns";
 import { NyesteInnsendtSøknadStatus } from "~/components/soknad-list/NyesteInnsendtSøknadStatus";
@@ -15,9 +15,9 @@ import {
 
 export function FullforteSoknadList() {
   const { getAppText } = useSanity();
-  const { søknader, aktivDagpengerett } = useRouteLoaderData("root");
+  const { soknader, aktivDagpengerett } = useRouteLoaderData("root");
 
-  if (søknader.status === "error") {
+  if (soknader.status === "error") {
     return (
       <Alert variant="error" className={styles.errorContainer}>
         {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
@@ -25,11 +25,11 @@ export function FullforteSoknadList() {
     );
   }
 
-  const alleSoknader = søknader.data
-    .filter((soknad: Søknad) => soknad.søknadId)
-    .filter((soknad: Søknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT");
+  const alleSoknader = soknader.data
+    .filter((soknad: ISoknad) => soknad.søknadId)
+    .filter((soknad: ISoknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT");
 
-  const fullforteSoknaderWithin12Weeks = hentSøknaderSiste12Uker(alleSoknader).sort((a, b) => {
+  const fullforteSoknaderWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(alleSoknader).sort((a, b) => {
     const dateA = new Date(a.innsendtTimestamp);
     const dateB = new Date(b.innsendtTimestamp);
     return dateB.getTime() - dateA.getTime();
@@ -52,7 +52,7 @@ export function FullforteSoknadList() {
     visSaksbehandlingstid
   );
 
-  if (søknader.status === "success") {
+  if (soknader.status === "success") {
     return (
       <ul className={styles.soknadList}>
         {

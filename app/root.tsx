@@ -1,23 +1,21 @@
-import "@navikt/ds-css";
 import { BodyShort } from "@navikt/ds-react";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
 import {
-    data,
-    Links,
-    type LinksFunction,
-    Meta,
-    Outlet,
-    Scripts,
-    ScrollRestoration,
-    useLoaderData,
-    useRouteError,
+  data,
+  Links,
+  type LinksFunction,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useRouteError,
 } from "react-router";
 import type { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
-import indexStyles from "./index.css?url";
 import { getDecoratorHTML } from "./models/decorator.server";
 import { getHarAktivDagpengerett } from "./models/getAktivDagpengerett.server";
 import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
@@ -32,10 +30,43 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
+import indexStyles from "./index.css?url";
+import akselStyles from "@navikt/ds-css/dist/index.css?url";
+
 export const sanityClient = createClient(sanityConfig);
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: akselStyles },
   { rel: "stylesheet", href: indexStyles },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "32x32",
+    href: `${
+      getEnv("IS_LOCALHOST") === "true"
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon-32x32.png`,
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "16x16",
+    href: `${
+      getEnv("IS_LOCALHOST") === "true"
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon-16x16.png`,
+  },
+  {
+    rel: "icon",
+    type: "image/x-icon",
+    href: `${
+      getEnv("IS_LOCALHOST") === "true"
+        ? ""
+        : "https://cdn.nav.no/teamdagpenger/dp-mine-dagpenger-frontend/client"
+    }/favicon.ico`,
+  },
 ];
 
 export const meta = () => {
@@ -72,8 +103,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-
-  const [søknader, arbeidsseokerPerioder, bankAccountNumber, journalposter, aktivDagpengerett] =
+  const [soknader, arbeidsseokerPerioder, bankAccountNumber, journalposter, aktivDagpengerett] =
     await Promise.all([
       getSoknader(request),
       getArbeidssoekerPerioder(request),
@@ -103,7 +133,7 @@ export async function loader({ request }: Route.LoaderArgs) {
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
-    søknader,
+    soknader,
     arbeidsseokerPerioder,
     bankAccountNumber,
     journalposter,

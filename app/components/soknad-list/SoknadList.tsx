@@ -3,27 +3,31 @@ import { useRouteLoaderData } from "react-router";
 import { FullforteSoknadList } from "~/components/soknad-list/FullforteSoknadList";
 import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
-import { Søknad } from "~/models/getSoknader.server";
-import { hentSøknaderSiste12Uker } from "~/utils/soknad.utils";
+import { ISoknad } from "~/models/getSoknader.server";
+import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 
-export function SøknadListe() {
+export function SoknadList() {
   const { getAppText } = useSanity();
-  const { søknader } = useRouteLoaderData("root");
-  const søknaderData = søknader.data ?? [];
-  const harPåbegyntSøknad = søknaderData.some(
-    (soknad: Søknad) => soknad.status === "PÅBEGYNT"
-  );
+  const { soknader } = useRouteLoaderData("root");
+  const harPaabegyntSoknad =
+    soknader.data?.filter((soknad: ISoknad) => soknad.status === "PÅBEGYNT") ?? [];
 
-  const fullfortSoknader = søknaderData.filter(
-    (soknad: Søknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
-  );
+  const fullfortSoknader =
+    soknader.data?.filter(
+      (soknad: ISoknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
+    ) ?? [];
 
-  const harFullførtSøknadSiste12Uker = hentSøknaderSiste12Uker(fullfortSoknader);
+  const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);
 
-  if (!harPåbegyntSøknad && harFullførtSøknadSiste12Uker.length === 0) {
-    return null;
+  const harIngenSoknader = !fullfortSoknader.length && !harPaabegyntSoknad.length;
+
+  const harIngenSoknaderDeSiste12Ukene =
+    !harFullfortSoknadWithin12Weeks.length && !harPaabegyntSoknad.length;
+
+  if (harIngenSoknader || harIngenSoknaderDeSiste12Ukene) {
+    return <></>;
   }
 
   return (

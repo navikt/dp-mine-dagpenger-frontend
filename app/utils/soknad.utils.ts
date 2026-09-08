@@ -1,8 +1,11 @@
 import { addWeeks, isBefore } from "date-fns";
-import type { Søknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/getSoknader.server";
 
-export function hentSøknaderSiste12Uker(søknader: Søknad[]): Søknad[] {
-  return søknader?.filter((soknad) => {
-    return isBefore(new Date(), addWeeks(new Date(soknad.innsendtTimestamp), 12));
+export function getSoknadWithinLast12WeeksOrkestrator(soknader: ISoknad[]): ISoknad[] {
+  return soknader?.filter((soknad) => {
+    const sendtDate: Date = new Date(soknad.innsendtTimestamp);
+    const today: Date = new Date();
+    const endDate: Date = addWeeks(sendtDate, 12);
+    return isBefore(today, endDate);
   });
 }

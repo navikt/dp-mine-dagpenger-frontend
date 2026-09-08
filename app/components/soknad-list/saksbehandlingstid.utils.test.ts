@@ -3,9 +3,9 @@ import {
   filtrerSoknaderTilVisning,
   skalViseSaksbehandlingstid,
 } from "./saksbehandlingstid.utils";
-import type { Søknad } from "~/models/getSoknader.server";
+import type { ISoknad } from "~/models/getSoknader.server";
 
-const soknader: Søknad[] = [
+const soknader: ISoknad[] = [
   {
     søknadId: "nyeste",
     tittel: "Nyeste søknad",
