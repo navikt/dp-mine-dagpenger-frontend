@@ -16,11 +16,11 @@ export function SøknadListe() {
     (soknad: Søknad) => soknad.status === "PÅBEGYNT"
   );
 
-  const fullfortSoknader = søknaderData.filter(
+  const fullførtSøknader = søknaderData.filter(
     (soknad: Søknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
   );
 
-  const harFullførtSøknadSiste12Uker = hentSøknaderSiste12Uker(fullfortSoknader);
+  const harFullførtSøknadSiste12Uker = hentSøknaderSiste12Uker(fullførtSøknader);
 
   if (!harPåbegyntSøknad && harFullførtSøknadSiste12Uker.length === 0) {
     return null;

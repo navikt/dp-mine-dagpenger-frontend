@@ -1,5 +1,5 @@
 import type { INetworkResponse } from "~/models/networkResponse";
-import type { ISoknad } from "~/models/getSoknader.server";
+import type { Søknad } from "~/models/getSoknader.server";
 
 export function skalViseSaksbehandlingstid(
   aktivDagpengerett: INetworkResponse<boolean>
@@ -8,10 +8,10 @@ export function skalViseSaksbehandlingstid(
 }
 
 export function filtrerSoknaderTilVisning(
-  soknader: ISoknad[],
-  nyesteSøknad: ISoknad | null,
+  soknader: Søknad[],
+  nyesteSøknad: Søknad | null,
   visSaksbehandlingstid: boolean
-): ISoknad[] {
+): Søknad[] {
   if (!nyesteSøknad || !visSaksbehandlingstid) {
     return soknader;
   }

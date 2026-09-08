@@ -2,12 +2,12 @@ import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { FormattedDate } from "../FormattedDate";
 import { ExternalLink } from "../ExternalLink";
-import styles from "./SoknadList.module.css";
-import { ISoknad } from "~/models/getSoknader.server";
+import styles from "./SøknadListe.module.css";
+import { Søknad } from "~/models/getSoknader.server";
 import { getEnv } from "~/utils/env.utils";
 
 interface IProps {
-  soknad: ISoknad;
+  soknad: Søknad;
 }
 
 export function PaabegynteSoknad({ soknad }: IProps) {

@@ -4,7 +4,7 @@ import { JournalpostList } from "~/components/journalposter/JournalpostList";
 import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndring";
 import { PageHero } from "~/components/page-hero/PageHero";
 import { Shortcuts } from "~/components/shortcuts/Shortcuts";
-import { SoknadList } from "~/components/soknad-list/SoknadList";
+import { SøknadListe } from "~/components/soknad-list/SøknadListe";
 import { UxsignalsWidget } from "~/components/UxsignalsWidget";
 import { getEnv } from "~/utils/env.utils";
 
@@ -29,7 +29,7 @@ export default function MineDagpenger() {
       <div className="mine-dagpenger">
         <PageHero />
         <UxsignalsWidget />
-        <SoknadList />
+        <SøknadListe />
         <BankAccountNumber />
         <MeldFraOmEndring />
         <Shortcuts />

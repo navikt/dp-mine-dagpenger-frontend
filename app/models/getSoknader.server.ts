@@ -3,7 +3,7 @@ import { getDPSoknadOrkestratorToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
-export interface ISoknad {
+export type Søknad = {
   søknadId: string;
   tittel: string;
   innsendtTimestamp: string;
@@ -12,7 +12,7 @@ export interface ISoknad {
   manglendeDokumentasjonskrav: string[];
 }
 
-export async function getSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
+export async function getSoknader(request: Request): Promise<INetworkResponse<Søknad[]>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;
   const onBehalfOfToken = await getDPSoknadOrkestratorToken(request);
 
@@ -35,9 +35,9 @@ export async function getSoknader(request: Request): Promise<INetworkResponse<IS
     };
   }
 
-  const data: ISoknad[] = await response.json();
+  const data: Søknad[] = await response.json();
 
-  const soknaderMedEndreLenke: ISoknad[] = data
+  const soknaderMedEndreLenke: Søknad[] = data
     .sort(
       (a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime()
     )
