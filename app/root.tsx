@@ -35,7 +35,7 @@ import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 import type { IJournalpost } from "./utils/safJournalposter.utils";
 
-//@ts-expect-error -- no type declarations for css imports
+//@ts-expect-error -- mangler typedeklarasjoner for css-import
 import akselStyles from "@navikt/ds-css/dist/index.css?url";
 import indexStyles from "./index.css?url";
 
