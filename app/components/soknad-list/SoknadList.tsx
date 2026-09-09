@@ -3,8 +3,8 @@ import { useRouteLoaderData } from "react-router";
 import { FullforteSoknadList } from "~/components/soknad-list/FullforteSoknadList";
 import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadList";
 import { useSanity } from "~/hooks/useSanity";
-import { ISoknad } from "~/models/getSoknader.server";
-import { getSoknadWithinLast12WeeksOrkestrator } from "~/utils/soknad.utils";
+import { ISoknad } from "~/models/hentSøknader.server";
+import { hentSøknaderSiste12Uker } from "~/utils/søknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 
@@ -19,7 +19,7 @@ export function SoknadList() {
       (soknad: ISoknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
     ) ?? [];
 
-  const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);
+  const harFullfortSoknadWithin12Weeks = hentSøknaderSiste12Uker(fullfortSoknader);
 
   const harIngenSoknader = !fullfortSoknader.length && !harPaabegyntSoknad.length;
 

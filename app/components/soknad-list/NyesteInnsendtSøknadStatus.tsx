@@ -1,4 +1,4 @@
-import { ISoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/hentSøknader.server";
 import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
 import styles from "~/components/soknad-list/SoknadList.module.css";
@@ -6,7 +6,6 @@ import { BodyShort, Heading, Tag } from "@navikt/ds-react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { ExternalLink } from "~/components/ExternalLink";
 import { addWeeks } from "date-fns";
-
 
 interface IProps {
   soknad: ISoknad;
@@ -40,7 +39,8 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
         </div>
         <div>
           <BodyShort className={styles.soknadDate} size="small">
-            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at du vil få svar fra oss en gang mellom
+            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at
+            du vil få svar fra oss en gang mellom
           </BodyShort>
           <BodyShort className={styles.soknadStatusDate}>
             <FormattedDate date={estimertSvarFraDato.toString()} bareDato={true} /> {" og "}
@@ -48,7 +48,11 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
           </BodyShort>
         </div>
         {soknad.manglendeDokumentasjonskrav.length > 0 && (
-          <Tag variant="moderate" data-color="warning" className={styles.soknadDokumentasjonManglerTag}>
+          <Tag
+            variant="moderate"
+            data-color="warning"
+            className={styles.soknadDokumentasjonManglerTag}
+          >
             Mangler dokumentasjon
           </Tag>
         )}
@@ -70,5 +74,4 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
       </nav>
     </div>
   );
-
 }

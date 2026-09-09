@@ -1,9 +1,7 @@
 import type { INetworkResponse } from "~/models/networkResponse";
-import type { ISoknad } from "~/models/getSoknader.server";
+import type { ISoknad } from "~/models/hentSøknader.server";
 
-export function skalViseSaksbehandlingstid(
-  aktivDagpengerett: INetworkResponse<boolean>
-): boolean {
+export function skalViseSaksbehandlingstid(aktivDagpengerett: INetworkResponse<boolean>): boolean {
   return aktivDagpengerett.status !== "success" || !aktivDagpengerett.data;
 }
 

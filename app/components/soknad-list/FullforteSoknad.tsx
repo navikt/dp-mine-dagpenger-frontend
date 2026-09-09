@@ -1,4 +1,4 @@
-import { ISoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/hentSøknader.server";
 import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
 import styles from "~/components/soknad-list/SoknadList.module.css";
