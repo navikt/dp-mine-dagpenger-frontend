@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { skalViseAktivDagpengerettAlert } from "./aktivDagpengerett.utils";
+import { harAktivDagpengerRett } from "./aktivDagpengerett.utils";
 
 describe("skalViseAktivDagpengerettAlert", () => {
   test(`skal returnere true når status er success og data er true`, () => {
@@ -7,7 +7,7 @@ describe("skalViseAktivDagpengerettAlert", () => {
     const aktivDagpengerett = { status: "success" as const, data: true };
 
     // Når
-    const resultat = skalViseAktivDagpengerettAlert(aktivDagpengerett);
+    const resultat = harAktivDagpengerRett(aktivDagpengerett);
 
     // Så
     expect(resultat).toBe(true);
@@ -18,7 +18,7 @@ describe("skalViseAktivDagpengerettAlert", () => {
     const aktivDagpengerett = { status: "success" as const, data: false };
 
     // Når
-    const resultat = skalViseAktivDagpengerettAlert(aktivDagpengerett);
+    const resultat = harAktivDagpengerRett(aktivDagpengerett);
 
     // Så
     expect(resultat).toBe(false);
@@ -35,7 +35,7 @@ describe("skalViseAktivDagpengerettAlert", () => {
     };
 
     // Når
-    const resultat = skalViseAktivDagpengerettAlert(aktivDagpengerett);
+    const resultat = harAktivDagpengerRett(aktivDagpengerett);
 
     // Så
     expect(resultat).toBe(false);

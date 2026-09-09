@@ -13,11 +13,9 @@ export default function MineDagpenger() {
     // Task analytic Spørreundersøkelse for gammel og ny vedtaksbrev
     if (getEnv("IS_LOCALHOST") !== "true") {
       setTimeout(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error -- window.TA blir satt av eksternt analyseskript
         if (typeof window.TA === "function") {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error -- window.TA blir satt av eksternt analyseskript
           window.TA("start", "03411");
         }
       }, 1000);
