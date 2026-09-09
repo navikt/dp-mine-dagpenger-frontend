@@ -1,7 +1,7 @@
 import { ISoknad } from "~/models/hentSøknader.server";
 import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
-import styles from "~/components/soknad-list/SoknadList.module.css";
+import styles from "~/components/søknad-liste/SøknadListe.module.css";
 import { BodyShort, Heading } from "@navikt/ds-react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { ExternalLink } from "~/components/ExternalLink";
@@ -10,7 +10,7 @@ interface IProps {
   soknad: ISoknad;
 }
 
-export function FullforteSoknad({ soknad }: IProps) {
+export function FullførteSøknad({ soknad }: IProps) {
   const { søknadId, tittel, innsendtTimestamp } = soknad;
   const { getAppText } = useSanity();
 
@@ -18,17 +18,17 @@ export function FullforteSoknad({ soknad }: IProps) {
   const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
 
   return (
-    <li className={styles.soknadContainer}>
-      <article className={styles.soknadContent}>
+    <li className={styles.søknadContainer}>
+      <article className={styles.søknadContent}>
         <Heading level="3" size="small">
           {tittel}
         </Heading>
-        <BodyShort className={styles.soknadDate} size="small">
+        <BodyShort className={styles.søknadDato} size="small">
           {getAppText("fullfort-soknad.sendt-dato.label-tekst")}{" "}
           <FormattedDate date={innsendtTimestamp} />
         </BodyShort>
       </article>
-      <nav className={styles.soknadLinksContainer}>
+      <nav className={styles.søknadLinksContainer}>
         <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
           {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
         </ExternalLink>

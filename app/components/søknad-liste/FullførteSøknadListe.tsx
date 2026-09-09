@@ -1,18 +1,18 @@
-import { useSanity } from "~/hooks/useSanity";
-import { useRouteLoaderData } from "react-router";
-import { Alert, InfoCard } from "@navikt/ds-react";
-import styles from "~/components/soknad-list/SoknadList.module.css";
-import { hentSøknaderSiste12Uker } from "~/utils/søknad.utils";
-import { ISoknad } from "~/models/hentSøknader.server";
-import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
-import { isAfter, subWeeks } from "date-fns";
-import { NyesteInnsendtSøknadStatus } from "~/components/soknad-list/NyesteInnsendtSøknadStatus";
 import { LightBulbIcon } from "@navikt/aksel-icons";
+import { Alert, InfoCard } from "@navikt/ds-react";
+import { isAfter, subWeeks } from "date-fns";
+import styles from "~/components/søknad-liste/SøknadListe.module.css";
+import { useSanity } from "~/hooks/useSanity";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { ISoknad } from "~/models/hentSøknader.server";
+import { hentSøknaderSiste12Uker } from "~/utils/søknad.utils";
 import { filtrerSoknaderTilVisning, skalViseSaksbehandlingstid } from "./saksbehandlingstid.utils";
+import { NyesteInnsendtSøknadStatus } from "./NyesteInnsendtSøknadStatus";
+import { FullførteSøknad } from "./FullførteSøknad";
 
-export function FullforteSoknadList() {
+export function FullførteSøknadListe() {
   const { getAppText } = useSanity();
-  const { soknader, aktivDagpengerett } = useRouteLoaderData("root");
+  const { soknader, aktivDagpengerett } = useTypedRouteLoaderData("root");
 
   if (soknader.status === "error") {
     return (
@@ -54,7 +54,7 @@ export function FullforteSoknadList() {
 
   if (soknader.status === "success") {
     return (
-      <ul className={styles.soknadList}>
+      <ul className={styles.søknadListe}>
         {nyesteSøknad && (
           <>
             {visSaksbehandlingstid && (
@@ -65,7 +65,7 @@ export function FullforteSoknadList() {
               />
             )}
             {visSaksbehandlingstid && (
-              <InfoCard data-color="info" className={styles.soknadInfoBox}>
+              <InfoCard data-color="info" className={styles.søknadInfoBox}>
                 <InfoCard.Header icon={<LightBulbIcon aria-hidden />}>
                   <InfoCard.Title>Saksbehandlingstid</InfoCard.Title>
                 </InfoCard.Header>
@@ -79,7 +79,7 @@ export function FullforteSoknadList() {
           </>
         )}
         {soknaderTilVisning.map((soknad) => (
-          <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
+          <FullførteSøknad soknad={soknad} key={soknad.søknadId} />
         ))}
       </ul>
     );

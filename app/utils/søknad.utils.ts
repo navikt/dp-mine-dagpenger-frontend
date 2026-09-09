@@ -16,3 +16,9 @@ export function sorterOgFiltrerSøknader(soknader: ISoknad[]): ISoknad[] {
     )
     .filter((soknad) => soknad.status !== "SLETTET_AV_SYSTEMET");
 }
+
+export function hentPåbegynteSøknader(søknader: ISoknad[]): ISoknad[] {
+  return søknader
+    .filter((søknad) => søknad.søknadId)
+    .filter((søknad) => søknad.status === "PÅBEGYNT");
+}
