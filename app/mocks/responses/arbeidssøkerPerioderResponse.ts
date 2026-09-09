@@ -1,6 +1,6 @@
-import type { IArbeidssokerperioder } from "~/models/getArbeidssoekerPerioder.server";
+import type { Arbeidssøkerperioder } from "~/models/hentArbeidssøkerStatus.server";
 
-export const arbeidssoekerPerioderResponse: IArbeidssokerperioder[] = [
+export const arbeidssøkerPerioderResponse: Arbeidssøkerperioder[] = [
   {
     periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     startet: {

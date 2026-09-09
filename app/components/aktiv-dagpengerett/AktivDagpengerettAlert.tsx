@@ -1,16 +1,8 @@
 import { CheckmarkCircleIcon, LightBulbIcon } from "@navikt/aksel-icons";
 import { BodyLong, InfoCard, Link, List } from "@navikt/ds-react";
-import { useRouteLoaderData } from "react-router";
-import { skalViseAktivDagpengerettAlert } from "./aktivDagpengerett.utils";
 import styles from "./AktivDagpengerettAlert.module.css";
 
 export function AktivDagpengerettAlert() {
-  const { aktivDagpengerett } = useRouteLoaderData("root");
-
-  if (!skalViseAktivDagpengerettAlert(aktivDagpengerett)) {
-    return null;
-  }
-
   return (
     <InfoCard data-color="success" className={styles.infoCard}>
       <InfoCard.Header icon={<CheckmarkCircleIcon aria-hidden />}>
@@ -30,7 +22,10 @@ export function AktivDagpengerettAlert() {
         <Link href="https://www.nav.no/dagpenger#har" className={styles.lenke}>
           Mer informasjon om hva du må gjøre når du har dagpenger
         </Link>
-        <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak-copy" className={styles.skyra} />
+        <skyra-survey
+          slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak-copy"
+          className={styles.skyra}
+        />
       </InfoCard.Content>
     </InfoCard>
   );
