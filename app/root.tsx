@@ -12,6 +12,10 @@ import {
   useLoaderData,
   useRouteError,
 } from "react-router";
+
+import "@navikt/ds-css";
+import indexStyles from "./index.css?url";
+
 import type { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
@@ -30,13 +34,9 @@ import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 
-import indexStyles from "./index.css?url";
-import akselStyles from "@navikt/ds-css/dist/index.css?url";
-
 export const sanityClient = createClient(sanityConfig);
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: akselStyles },
   { rel: "stylesheet", href: indexStyles },
   {
     rel: "icon",
