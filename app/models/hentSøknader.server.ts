@@ -2,6 +2,7 @@ import type { INetworkResponse } from "~/models/networkResponse";
 import { getDPSoknadOrkestratorToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
+import { sorterOgFiltrerSøknader } from "~/utils/søknad.utils";
 
 export interface ISoknad {
   søknadId: string;
@@ -12,7 +13,7 @@ export interface ISoknad {
   manglendeDokumentasjonskrav: string[];
 }
 
-export async function getSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
+export async function hentSøknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;
 
   try {
@@ -26,37 +27,32 @@ export async function getSoknader(request: Request): Promise<INetworkResponse<IS
     });
 
     if (!response.ok) {
-      logger.error("Feil ved uthenting av orkestrator søknader");
+      logger.error("Feil ved uthenting av søknader");
 
       return {
         status: "error",
         error: {
           statusCode: response.status,
-          statusText: "Feil ved uthenting av orkestrator søknader",
+          statusText: "Feil ved uthenting av søknader",
         },
       };
     }
 
     const data: ISoknad[] = await response.json();
-
-    const soknaderMedEndreLenke: ISoknad[] = data
-      .sort(
-        (a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime()
-      )
-      .filter((søknad) => søknad.status !== "SLETTET_AV_SYSTEMET");
+    const søknader: ISoknad[] = sorterOgFiltrerSøknader(data);
 
     return {
       status: "success",
-      data: soknaderMedEndreLenke,
+      data: søknader,
     };
   } catch (error) {
-    logger.error(`Feil ved uthenting av orkestrator søknader: ${error}`);
+    logger.error(`Feil ved uthenting av søknader: ${error}`);
 
     return {
       status: "error",
       error: {
         statusCode: 500,
-        statusText: "Feil ved uthenting av orkestrator søknader",
+        statusText: "Feil ved uthenting av søknader",
       },
     };
   }

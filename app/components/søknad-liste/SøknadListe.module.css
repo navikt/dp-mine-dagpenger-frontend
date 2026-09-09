@@ -1,32 +1,32 @@
-.soknadList {
+.søknadListe {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.soknadContainer {
+.søknadContainer {
   border: 1px solid var(--ax-border-neutral-subtle);
   border-radius: var(--ax-radius-12);
   background-color: white;
   margin-top: var(--ax-space-16);
 }
 
-.soknadContent {
+.søknadContent {
   padding: var(--ax-space-20);
 }
 
-.soknadDate {
+.søknadDato {
   margin-top: var(--ax-space-4);
   color: var(--ax-text-neutral-subtle);
 }
 
-.soknadLinksContainer {
+.søknadLinksContainer {
   display: flex;
   gap: var(--ax-space-12);
   padding: var(--ax-space-20);
 }
 
-.soknadLinksContainerForSkyra {
+.søknadLinksContainerForSkyra {
   display: flex;
   gap: var(--ax-space-12);
   padding: var(--ax-space-20);
@@ -38,7 +38,7 @@
   }
 }
 
-.soknadLinksContainer a {
+.søknadLinksContainer a {
   text-decoration: none;
 }
 
@@ -46,20 +46,20 @@
   margin: 1rem 0;
 }
 
-.soknadStatusText {
+.søknadStatusText {
   margin: 1rem auto;
 }
 
-.soknadStatusDate {
+.søknadStatusDate {
   margin-top: var(--ax-space-4);
   color: var(--ax-text-neutral-subtle);
   font-weight: bold;
 }
 
-.soknadInfoBox {
+.søknadInfoBox {
   margin-top: var(--ax-space-16);
 }
 
-.soknadDokumentasjonManglerTag {
+.søknadDokumentasjonManglerTag {
   margin-top: var(--ax-space-12);
 }
