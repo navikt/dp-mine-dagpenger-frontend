@@ -14,37 +14,50 @@ export interface ISoknad {
 
 export async function getSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;
-  const onBehalfOfToken = await getDPSoknadOrkestratorToken(request);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
-  });
+  try {
+    const onBehalfOfToken = await getDPSoknadOrkestratorToken(request);
 
-  if (!response.ok) {
-    logger.error("Feil ved uthenting av orkestrator søknader");
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${onBehalfOfToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      logger.error("Feil ved uthenting av orkestrator søknader");
+
+      return {
+        status: "error",
+        error: {
+          statusCode: response.status,
+          statusText: "Feil ved uthenting av orkestrator søknader",
+        },
+      };
+    }
+
+    const data: ISoknad[] = await response.json();
+
+    const soknaderMedEndreLenke: ISoknad[] = data
+      .sort(
+        (a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime()
+      )
+      .filter((søknad) => søknad.status !== "SLETTET_AV_SYSTEMET");
+
+    return {
+      status: "success",
+      data: soknaderMedEndreLenke,
+    };
+  } catch (error) {
+    logger.error(`Feil ved uthenting av orkestrator søknader: ${error}`);
 
     return {
       status: "error",
       error: {
-        statusCode: response.status,
+        statusCode: 500,
         statusText: "Feil ved uthenting av orkestrator søknader",
       },
     };
   }
-
-  const data: ISoknad[] = await response.json();
-
-  const soknaderMedEndreLenke: ISoknad[] = data
-    .sort(
-      (a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime()
-    )
-    .filter((søknad) => søknad.status !== "SLETTET_AV_SYSTEMET");
-
-  return {
-    status: "success",
-    data: soknaderMedEndreLenke,
-  };
 }

@@ -1,6 +1,6 @@
 import { HttpResponse, http, passthrough } from "msw";
 import { getEnv } from "~/utils/env.utils";
-import { arbeidssoekerPerioderResponse } from "./responses/arbeidssoekerPerioderResponse";
+import { arbeidssøkerPerioderResponse } from "./responses/arbeidssøkerPerioderResponse";
 
 export const handlers = [
   http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`, () => {
@@ -10,7 +10,7 @@ export const handlers = [
   }),
 
   http.get(`${getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL")}/api/v1/arbeidssoekerperioder`, () => {
-    return HttpResponse.json(arbeidssoekerPerioderResponse);
+    return HttpResponse.json(arbeidssøkerPerioderResponse);
   }),
 
   http.get(`${getEnv("DP_INNSYN_URL")}/aktiv-dagpenger`, () => {

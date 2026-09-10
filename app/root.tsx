@@ -1,38 +1,42 @@
 import { BodyShort } from "@navikt/ds-react";
+import type { DecoratorElements } from "@navikt/nav-dekoratoren-moduler/ssr";
 import { createClient } from "@sanity/client";
 import parse from "html-react-parser";
 import {
-  data,
   Links,
-  type LinksFunction,
+  LoaderFunctionArgs,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
   useRouteError,
+  type LinksFunction,
 } from "react-router";
-
-import "@navikt/ds-css";
-import indexStyles from "./index.css?url";
-
-import type { Route } from "./+types/root";
 import { Section } from "./components/section/Section";
 import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getDecoratorHTML } from "./models/decorator.server";
 import { getHarAktivDagpengerett } from "./models/getAktivDagpengerett.server";
-import { getArbeidssoekerPerioder } from "./models/getArbeidssoekerPerioder.server";
-import { getBankAccountNumber } from "./models/getBankAccountNumber.server";
+import { getBankAccountNumber, type IKonto } from "./models/getBankAccountNumber.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
-import { getSession } from "./models/getSession.server";
-import { getSoknader } from "./models/getSoknader.server";
+import { getSession, type ISessionData } from "./models/getSession.server";
+import { getSoknader, type ISoknad } from "./models/getSoknader.server";
+import {
+  hentArbeidssøkerStatus,
+  type ArbeidssøkerStatus,
+} from "./models/hentArbeidssøkerStatus.server";
+import type { INetworkResponse } from "./models/networkResponse";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import type { ISanityData } from "./sanity/sanity.types";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
+import type { IJournalpost } from "./utils/safJournalposter.utils";
+
+import "@navikt/ds-css";
+import indexStyles from "./index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -83,7 +87,35 @@ export const meta = () => {
   ];
 };
 
-export async function loader({ request }: Route.LoaderArgs) {
+export type RootLoaderType = {
+  decoratorFragments: DecoratorElements;
+  sanityData: ISanityData;
+  session: INetworkResponse<ISessionData>;
+  featureFlags: {
+    abTesting: boolean;
+  };
+  env: {
+    IS_LOCALHOST: string;
+    BASE_PATH: string;
+    DP_SOKNADSDIALOG_URL: string;
+    DP_BRUKERDIALOG_URL: string;
+    APP_ENV: string;
+    UXSIGNALS_ENABLED: string;
+    UXSIGNALS_MODE: string;
+    SANITY_DATASET: string;
+    FARO_URL: string;
+    OKONOMI_KONTOREGISTER_URL: string;
+    PAW_ARBEIDSSOEKERREGISTERET_URL: string;
+    SAF_URL: string;
+  };
+  soknader: INetworkResponse<ISoknad[]>;
+  arbeidssøkerStatus: ArbeidssøkerStatus;
+  bankAccountNumber: INetworkResponse<IKonto>;
+  journalposter: INetworkResponse<IJournalpost[]>;
+  aktivDagpengerett: INetworkResponse<boolean>;
+};
+
+export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoaderType> {
   const decoratorFragments = await getDecoratorHTML();
 
   if (!decoratorFragments) {
@@ -103,16 +135,16 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-  const [soknader, arbeidsseokerPerioder, bankAccountNumber, journalposter, aktivDagpengerett] =
+  const [soknader, arbeidssøkerStatus, bankAccountNumber, journalposter, aktivDagpengerett] =
     await Promise.all([
       getSoknader(request),
-      getArbeidssoekerPerioder(request),
+      hentArbeidssøkerStatus(request),
       getBankAccountNumber(request),
       getSAFJournalposter(request),
       getHarAktivDagpengerett(request),
     ]);
 
-  return data({
+  return {
     decoratorFragments,
     sanityData,
     session,
@@ -134,11 +166,11 @@ export async function loader({ request }: Route.LoaderArgs) {
       SAF_URL: getEnv("SAF_URL"),
     },
     soknader,
-    arbeidsseokerPerioder,
+    arbeidssøkerStatus,
     bankAccountNumber,
     journalposter,
     aktivDagpengerett,
-  });
+  };
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
