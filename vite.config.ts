@@ -14,7 +14,6 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV !== "production",
   },
   resolve: {
-    tsconfigPaths: true,
     alias: {
       "~": path.resolve(__dirname, "./app"),
     },

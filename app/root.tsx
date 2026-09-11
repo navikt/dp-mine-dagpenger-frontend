@@ -35,14 +35,12 @@ import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
 import type { IJournalpost } from "./utils/safJournalposter.utils";
 
-//@ts-expect-error -- mangler typedeklarasjoner for css-import
-import akselStyles from "@navikt/ds-css/dist/index.css?url";
+import "@navikt/ds-css";
 import indexStyles from "./index.css?url";
 
 export const sanityClient = createClient(sanityConfig);
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: akselStyles },
   { rel: "stylesheet", href: indexStyles },
   {
     rel: "icon",
