@@ -9,7 +9,6 @@ import { addWeeks } from "date-fns";
 import { Dokumentasjonskrav } from "~/components/dokumentasjon/dokumentasjon.types";
 import { DokumentasjonskravInnhold } from "~/components/dokumentasjon/DokumentasjonskravInnhold";
 
-
 interface IProps {
   soknad: ISoknad;
   estimertSaksbehandlingstid: number;
@@ -28,7 +27,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
 
   const manglendeDokumentasjonskrav: Dokumentasjonskrav[] =
     soknad.manglendeDokumentasjonskrav.length > 0
-      ? soknad.manglendeDokumentasjonskrav.map(krav => JSON.parse(krav) as Dokumentasjonskrav)
+      ? soknad.manglendeDokumentasjonskrav.map((krav) => JSON.parse(krav) as Dokumentasjonskrav)
       : [];
 
   return (
@@ -47,8 +46,8 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
         </div>
         <div>
           <BodyShort className={styles.soknadDate} size="small">
-            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at du vil få svar fra
-            oss en gang mellom
+            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at
+            du vil få svar fra oss en gang mellom
           </BodyShort>
           <BodyShort className={styles.soknadStatusDate}>
             <FormattedDate date={estimertSvarFraDato.toString()} bareDato={true} /> {" og "}
@@ -67,12 +66,11 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
           Send ny søknad
         </ExternalLink>
       </nav>
-      {
-
-        manglendeDokumentasjonskrav.map((krav) => (
-          <Box padding="space-16" key={krav.id}>
+      <VStack padding="space-16" gap="space-16">
+        {manglendeDokumentasjonskrav.map((krav) => (
+          <Box padding="space-16" key={krav.id} background="sunken" borderRadius="8">
             <VStack gap="space-16">
-              <HStack justify="space-between">
+              <HStack justify="space-between" wrap={false} align="start">
                 <Heading size="xsmall" level="4">
                   {krav.tittel}
                 </Heading>
@@ -80,16 +78,13 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
                   Mangler
                 </Tag>
               </HStack>
-
               <ReadMore header={"Dette må dokumentasjonen inneholde"}>
                 <DokumentasjonskravInnhold type={krav.type} />
               </ReadMore>
             </VStack>
           </Box>
-        ))
-
-      }
+        ))}
+      </VStack>
     </div>
   );
-
 }
