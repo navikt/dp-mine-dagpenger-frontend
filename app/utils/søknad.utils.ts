@@ -1,5 +1,6 @@
-import { addWeeks, isBefore } from "date-fns";
+import { addWeeks, isAfter, isBefore, subWeeks } from "date-fns";
 import { ISoknad } from "~/models/hentSøknader.server";
+import type { INetworkResponse } from "~/models/networkResponse";
 
 export function filtrerSøknadSiste12Uker(soknader: ISoknad[]): ISoknad[] {
   return soknader?.filter((soknad) => {
@@ -30,4 +31,32 @@ export function finnPåbegyntSøknad(soknader: ISoknad[]): ISoknad | undefined {
 
 export function filtrerBortSlettedeSøknader(soknader: ISoknad[]): ISoknad[] {
   return soknader.filter((soknad) => soknad.status !== "SLETTET_AV_SYSTEMET");
+}
+
+// Høre med JM hvordan denne fungere igjen
+export function skalViseSaksbehandlingstid(aktivDagpengerett: INetworkResponse<boolean>): boolean {
+  return aktivDagpengerett.status !== "success" || !aktivDagpengerett.data;
+}
+
+export function finnNyesteSøknadHvisInnenforSaksbehandlingsfrist(
+  nyesteSøknad: ISoknad,
+  estimertSaksbehandlingstid: number
+): ISoknad | null {
+  const frist = subWeeks(new Date(), estimertSaksbehandlingstid + 2);
+
+  return nyesteSøknad && isAfter(new Date(nyesteSøknad.innsendtTimestamp), frist)
+    ? nyesteSøknad
+    : null;
+}
+
+export function filtrerSoknaderTilVisning(
+  soknader: ISoknad[],
+  nyesteSøknad: ISoknad | null,
+  visSaksbehandlingstid: boolean
+): ISoknad[] {
+  if (!nyesteSøknad || !visSaksbehandlingstid) {
+    return soknader;
+  }
+
+  return soknader.filter((soknad) => soknad.søknadId !== nyesteSøknad.søknadId);
 }

@@ -10,7 +10,7 @@ import {
   filtrerSoknaderTilVisning,
   finnNyesteSøknadHvisInnenforSaksbehandlingsfrist,
   skalViseSaksbehandlingstid,
-} from "./saksbehandlingstid.utils";
+} from "~/utils/søknad.utils";
 
 import styles from "./SoknadList.module.css";
 
@@ -33,10 +33,10 @@ export function SoknadList() {
     return null;
   }
 
-  const estimertSaksbehandlingstid = 7;
+  const estimertSaksbehandlingstidUker = 7;
   const nyesteSøknad = finnNyesteSøknadHvisInnenforSaksbehandlingsfrist(
-    fullførteSøknader,
-    estimertSaksbehandlingstid
+    fullførteSøknader[0],
+    estimertSaksbehandlingstidUker
   );
   const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
   const soknaderTilVisning = filtrerSoknaderTilVisning(
@@ -55,9 +55,9 @@ export function SoknadList() {
         <ul className={styles.soknadList}>
           {nyesteSøknad && visSaksbehandlingstid && (
             <NyesteInnsendtSøknadStatus
-              soknad={nyesteSøknad}
               key={nyesteSøknad.søknadId}
-              estimertSaksbehandlingstid={estimertSaksbehandlingstid}
+              soknad={nyesteSøknad}
+              estimertSaksbehandlingstid={estimertSaksbehandlingstidUker}
             />
           )}
           {soknaderTilVisning.map((soknad) => (

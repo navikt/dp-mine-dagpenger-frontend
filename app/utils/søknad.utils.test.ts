@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { filtrerSoknaderTilVisning, skalViseSaksbehandlingstid } from "./saksbehandlingstid.utils";
 import type { ISoknad } from "~/models/hentSøknader.server";
+import { filtrerSoknaderTilVisning, skalViseSaksbehandlingstid } from "~/utils/søknad.utils";
 
 const soknader: ISoknad[] = [
   {
