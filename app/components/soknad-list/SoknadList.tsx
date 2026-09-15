@@ -31,7 +31,7 @@ export function SoknadList() {
   }
 
   return (
-    <Section highlighted>
+    <Section>
       <SectionContent>
         <Heading level="2" size="large" spacing>
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}

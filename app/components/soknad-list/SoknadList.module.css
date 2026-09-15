@@ -24,6 +24,7 @@
   display: flex;
   gap: var(--ax-space-12);
   padding: var(--ax-space-20);
+  flex-wrap: wrap;
 }
 
 .soknadLinksContainerForSkyra {

@@ -2,11 +2,12 @@ import { ISoknad } from "~/models/getSoknader.server";
 import { useSanity } from "~/hooks/useSanity";
 import { getEnv } from "~/utils/env.utils";
 import styles from "~/components/soknad-list/SoknadList.module.css";
-import { BodyShort, Heading, Tag } from "@navikt/ds-react";
+import { BodyShort, Box, Heading, HStack, ReadMore, Tag, VStack } from "@navikt/ds-react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { ExternalLink } from "~/components/ExternalLink";
 import { addWeeks } from "date-fns";
-
+import { Dokumentasjonskrav } from "~/components/dokumentasjon/dokumentasjon.types";
+import { DokumentasjonskravInnhold } from "~/components/dokumentasjon/DokumentasjonskravInnhold";
 
 interface IProps {
   soknad: ISoknad;
@@ -23,11 +24,17 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
   const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
+  const ettersendingFrist = addWeeks(innsendtDato, 2);
+
+  const manglendeDokumentasjonskrav: Dokumentasjonskrav[] =
+    soknad.manglendeDokumentasjonskrav.length > 0
+      ? soknad.manglendeDokumentasjonskrav.map((krav) => JSON.parse(krav) as Dokumentasjonskrav)
+      : [];
 
   return (
     <div className={styles.soknadContainer}>
       <article className={styles.soknadContent}>
-        <Heading level="3" size="small">
+        <Heading level="3" size="medium" spacing>
           {tittel}
         </Heading>
         <div className={styles.soknadStatusText}>
@@ -40,18 +47,14 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
         </div>
         <div>
           <BodyShort className={styles.soknadDate} size="small">
-            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at du vil få svar fra oss en gang mellom
+            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at
+            du vil få svar fra oss en gang mellom
           </BodyShort>
           <BodyShort className={styles.soknadStatusDate}>
             <FormattedDate date={estimertSvarFraDato.toString()} bareDato={true} /> {" og "}
             <FormattedDate date={estimertSvarTilDato.toString()} bareDato={true} />
           </BodyShort>
         </div>
-        {soknad.manglendeDokumentasjonskrav.length > 0 && (
-          <Tag variant="moderate" data-color="warning" className={styles.soknadDokumentasjonManglerTag}>
-            Mangler dokumentasjon
-          </Tag>
-        )}
       </article>
       <nav className={styles.soknadLinksContainer}>
         <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
@@ -64,11 +67,39 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
           Send ny søknad
         </ExternalLink>
       </nav>
+      {manglendeDokumentasjonskrav.length > 0 && (
+        <VStack padding="space-16" gap="space-16">
+          {manglendeDokumentasjonskrav.map((krav) => (
+            <Box padding="space-16" key={krav.id} background="sunken" borderRadius="8">
+              <VStack gap="space-12">
+                <HStack justify="space-between" wrap={false} align="start">
+                  <Heading size="xsmall" level="4">
+                    {krav.tittel}
+                  </Heading>
+                  <Tag variant="warning" size="xsmall">
+                    Mangler
+                  </Tag>
+                </HStack>
+                <BodyShort color="subtle" size="small">
+                  Frist{" "}
+                  <FormattedDate
+                    date={ettersendingFrist.toString()}
+                    bareDato={true}
+                    utenÅrstall={true}
+                  />
+                </BodyShort>
+                <ReadMore header={"Dette må dokumentasjonen inneholde"}>
+                  <DokumentasjonskravInnhold type={krav.type} />
+                </ReadMore>
+              </VStack>
+            </Box>
+          ))}
+        </VStack>
+      )}
 
       <nav className={styles.soknadLinksContainerForSkyra}>
         <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak"></skyra-survey>
       </nav>
     </div>
   );
-
 }
