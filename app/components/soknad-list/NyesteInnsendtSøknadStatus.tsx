@@ -24,6 +24,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
   const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
+  const ettersendingFrist = addWeeks(innsendtDato, 2); //
 
   const manglendeDokumentasjonskrav: Dokumentasjonskrav[] =
     soknad.manglendeDokumentasjonskrav.length > 0
@@ -69,7 +70,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
       <VStack padding="space-16" gap="space-16">
         {manglendeDokumentasjonskrav.map((krav) => (
           <Box padding="space-16" key={krav.id} background="sunken" borderRadius="8">
-            <VStack gap="space-16">
+            <VStack gap="space-12">
               <HStack justify="space-between" wrap={false} align="start">
                 <Heading size="xsmall" level="4">
                   {krav.tittel}
@@ -78,6 +79,14 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
                   Mangler
                 </Tag>
               </HStack>
+              <BodyShort color="subtle" size="small">
+                Frist{" "}
+                <FormattedDate
+                  date={ettersendingFrist.toString()}
+                  bareDato={true}
+                  utenÅrstall={true}
+                />
+              </BodyShort>
               <ReadMore header={"Dette må dokumentasjonen inneholde"}>
                 <DokumentasjonskravInnhold type={krav.type} />
               </ReadMore>
