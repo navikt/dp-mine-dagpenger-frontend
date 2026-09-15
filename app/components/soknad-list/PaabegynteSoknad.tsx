@@ -3,7 +3,7 @@ import { useSanity } from "~/hooks/useSanity";
 import { FormattedDate } from "../FormattedDate";
 import { ExternalLink } from "../ExternalLink";
 import styles from "./SoknadList.module.css";
-import { ISoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/hentSøknader.server";
 import { getEnv } from "~/utils/env.utils";
 
 interface IProps {

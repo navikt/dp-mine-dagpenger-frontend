@@ -21,7 +21,7 @@ import { getHarAktivDagpengerett } from "./models/getAktivDagpengerett.server";
 import { getBankAccountNumber, type IKonto } from "./models/getBankAccountNumber.server";
 import { getSAFJournalposter } from "./models/getSAFJournalposter.server";
 import { getSession, type ISessionData } from "./models/getSession.server";
-import { getSoknader, type ISoknad } from "./models/getSoknader.server";
+import { hentSøknader, type ISøknadData } from "./models/hentSøknader.server";
 import {
   hentArbeidssøkerStatus,
   type ArbeidssøkerStatus,
@@ -108,7 +108,7 @@ export type RootLoaderType = {
     PAW_ARBEIDSSOEKERREGISTERET_URL: string;
     SAF_URL: string;
   };
-  soknader: INetworkResponse<ISoknad[]>;
+  soknader: INetworkResponse<ISøknadData>;
   arbeidssøkerStatus: ArbeidssøkerStatus;
   bankAccountNumber: INetworkResponse<IKonto>;
   journalposter: INetworkResponse<IJournalpost[]>;
@@ -137,7 +137,7 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
   const [soknader, arbeidssøkerStatus, bankAccountNumber, journalposter, aktivDagpengerett] =
     await Promise.all([
-      getSoknader(request),
+      hentSøknader(request),
       hentArbeidssøkerStatus(request),
       getBankAccountNumber(request),
       getSAFJournalposter(request),

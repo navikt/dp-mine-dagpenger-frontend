@@ -2,6 +2,13 @@ import type { INetworkResponse } from "~/models/networkResponse";
 import { getDPSoknadOrkestratorToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
+import {
+  filtrerBortSlettedeSøknader,
+  filtrerFullforteSøknader,
+  filtrerSøknadSiste12Uker,
+  finnPåbegyntSøknad,
+  sorterNyesteSøknaderFørst,
+} from "~/utils/søknad.utils";
 
 export interface ISoknad {
   søknadId: string;
@@ -12,7 +19,12 @@ export interface ISoknad {
   manglendeDokumentasjonskrav: string[];
 }
 
-export async function getSoknader(request: Request): Promise<INetworkResponse<ISoknad[]>> {
+export interface ISøknadData {
+  fullførteSøknader: ISoknad[];
+  påbegyntesøknad: ISoknad | null;
+}
+
+export async function hentSøknader(request: Request): Promise<INetworkResponse<ISøknadData>> {
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`;
 
   try {
@@ -37,17 +49,19 @@ export async function getSoknader(request: Request): Promise<INetworkResponse<IS
       };
     }
 
-    const data: ISoknad[] = await response.json();
-
-    const soknaderMedEndreLenke: ISoknad[] = data
-      .sort(
-        (a, b) => new Date(b.oppdatertTidspunkt).getTime() - new Date(a.oppdatertTidspunkt).getTime()
-      )
-      .filter((søknad) => søknad.status !== "SLETTET_AV_SYSTEMET");
+    const søknader: ISoknad[] = await response.json();
+    const søknaderUtenSlettede = filtrerBortSlettedeSøknader(søknader);
+    const søknaderSiste12Uker = filtrerSøknadSiste12Uker(søknaderUtenSlettede);
+    const sortertNyesteFørst = sorterNyesteSøknaderFørst(søknaderSiste12Uker);
+    const fullførteSøknader = filtrerFullforteSøknader(sortertNyesteFørst);
+    const påbegyntSøknad = finnPåbegyntSøknad(sortertNyesteFørst);
 
     return {
       status: "success",
-      data: soknaderMedEndreLenke,
+      data: {
+        fullførteSøknader,
+        påbegyntesøknad: påbegyntSøknad ?? null,
+      },
     };
   } catch (error) {
     logger.error(`Feil ved uthenting av orkestrator søknader: ${error}`);

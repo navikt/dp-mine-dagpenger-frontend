@@ -16,7 +16,7 @@ import { ExternalLink } from "~/components/ExternalLink";
 import { FormattedDate } from "~/components/FormattedDate";
 import styles from "~/components/soknad-list/SoknadList.module.css";
 import { useSanity } from "~/hooks/useSanity";
-import { ISoknad } from "~/models/getSoknader.server";
+import { ISoknad } from "~/models/hentSøknader.server";
 import { getEnv } from "~/utils/env.utils";
 
 interface IProps {
