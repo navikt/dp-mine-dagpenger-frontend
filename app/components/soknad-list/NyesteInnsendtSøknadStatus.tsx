@@ -67,33 +67,35 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
           Send ny søknad
         </ExternalLink>
       </nav>
-      <VStack padding="space-16" gap="space-16">
-        {manglendeDokumentasjonskrav.map((krav) => (
-          <Box padding="space-16" key={krav.id} background="sunken" borderRadius="8">
-            <VStack gap="space-12">
-              <HStack justify="space-between" wrap={false} align="start">
-                <Heading size="xsmall" level="4">
-                  {krav.tittel}
-                </Heading>
-                <Tag variant="warning" size="xsmall">
-                  Mangler
-                </Tag>
-              </HStack>
-              <BodyShort color="subtle" size="small">
-                Frist{" "}
-                <FormattedDate
-                  date={ettersendingFrist.toString()}
-                  bareDato={true}
-                  utenÅrstall={true}
-                />
-              </BodyShort>
-              <ReadMore header={"Dette må dokumentasjonen inneholde"}>
-                <DokumentasjonskravInnhold type={krav.type} />
-              </ReadMore>
-            </VStack>
-          </Box>
-        ))}
-      </VStack>
+      {manglendeDokumentasjonskrav.length > 0 && (
+        <VStack padding="space-16" gap="space-16">
+          {manglendeDokumentasjonskrav.map((krav) => (
+            <Box padding="space-16" key={krav.id} background="sunken" borderRadius="8">
+              <VStack gap="space-12">
+                <HStack justify="space-between" wrap={false} align="start">
+                  <Heading size="xsmall" level="4">
+                    {krav.tittel}
+                  </Heading>
+                  <Tag variant="warning" size="xsmall">
+                    Mangler
+                  </Tag>
+                </HStack>
+                <BodyShort color="subtle" size="small">
+                  Frist{" "}
+                  <FormattedDate
+                    date={ettersendingFrist.toString()}
+                    bareDato={true}
+                    utenÅrstall={true}
+                  />
+                </BodyShort>
+                <ReadMore header={"Dette må dokumentasjonen inneholde"}>
+                  <DokumentasjonskravInnhold type={krav.type} />
+                </ReadMore>
+              </VStack>
+            </Box>
+          ))}
+        </VStack>
+      )}
 
       <nav className={styles.soknadLinksContainerForSkyra}>
         <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak"></skyra-survey>
