@@ -1,4 +1,4 @@
-import { BodyShort, Heading, Tag } from "@navikt/ds-react";
+import { BodyShort, Heading, Tag, Box } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { FormattedDate } from "../FormattedDate";
 import { ExternalLink } from "../ExternalLink";
@@ -17,7 +17,7 @@ export function PaabegynteSoknad({ soknad }: IProps) {
   const { getAppText } = useSanity();
 
   return (
-    <li className={styles.soknadContainer}>
+    <Box borderRadius="8" background="neutral-soft">
       <article className={styles.soknadContent}>
         <Heading level="3" size="small">
           {tittel} {getAppText("paabegynt-soknad.paabegynt-status")}
@@ -35,6 +35,6 @@ export function PaabegynteSoknad({ soknad }: IProps) {
           {getAppText("paabegynt-soknad.fortsett-paa-soknaden")}
         </ExternalLink>
       </nav>
-    </li>
+    </Box>
   );
 }

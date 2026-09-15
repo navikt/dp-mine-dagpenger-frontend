@@ -50,11 +50,11 @@ export async function hentSøknader(request: Request): Promise<INetworkResponse<
     }
 
     const søknader: ISoknad[] = await response.json();
-    const søknaderUtenSlettede = filtrerBortSlettedeSøknader(søknader);
+    const sortertNyesteFørst = sorterNyesteSøknaderFørst(søknader);
+    const påbegyntSøknad = finnPåbegyntSøknad(søknader);
+    const søknaderUtenSlettede = filtrerBortSlettedeSøknader(sortertNyesteFørst);
     const søknaderSiste12Uker = filtrerSøknadSiste12Uker(søknaderUtenSlettede);
-    const sortertNyesteFørst = sorterNyesteSøknaderFørst(søknaderSiste12Uker);
-    const fullførteSøknader = filtrerFullforteSøknader(sortertNyesteFørst);
-    const påbegyntSøknad = finnPåbegyntSøknad(sortertNyesteFørst);
+    const fullførteSøknader = filtrerFullforteSøknader(søknaderSiste12Uker);
 
     return {
       status: "success",

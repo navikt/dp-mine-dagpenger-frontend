@@ -44,7 +44,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
   return (
     <div className={styles.soknadContainer}>
       <article className={styles.soknadContent}>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           {tittel}
         </Heading>
         <BodyShort className={styles.soknadDate} size="small">
