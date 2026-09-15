@@ -20,9 +20,13 @@ export function SoknadList() {
 
   if (soknader.status === "error") {
     return (
-      <Alert variant="error" className={styles.errorContainer}>
-        {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
-      </Alert>
+      <Section>
+        <SectionContent>
+          <Alert variant="error" className={styles.errorContainer}>
+            {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
+          </Alert>
+        </SectionContent>
+      </Section>
     );
   }
 
