@@ -24,7 +24,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
   const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
-  const ettersendingFrist = addWeeks(innsendtDato, 2); //
+  const ettersendingFrist = addWeeks(innsendtDato, 2);
 
   const manglendeDokumentasjonskrav: Dokumentasjonskrav[] =
     soknad.manglendeDokumentasjonskrav.length > 0
@@ -34,7 +34,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
   return (
     <div className={styles.soknadContainer}>
       <article className={styles.soknadContent}>
-        <Heading level="3" size="small">
+        <Heading level="3" size="medium" spacing>
           {tittel}
         </Heading>
         <div className={styles.soknadStatusText}>
@@ -94,6 +94,10 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
           </Box>
         ))}
       </VStack>
+
+      <nav className={styles.soknadLinksContainerForSkyra}>
+        <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak"></skyra-survey>
+      </nav>
     </div>
   );
 }
