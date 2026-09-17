@@ -31,7 +31,6 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
 
   const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
   const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
-  const nySøknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}`;
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
   const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
