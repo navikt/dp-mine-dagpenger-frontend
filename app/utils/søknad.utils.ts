@@ -33,7 +33,6 @@ export function filtrerBortSlettedeSøknader(soknader: ISoknad[]): ISoknad[] {
   return soknader.filter((soknad) => soknad.status !== "SLETTET_AV_SYSTEMET");
 }
 
-// Høre med JM hvordan denne fungere igjen
 export function skalViseSaksbehandlingstid(aktivDagpengerett: INetworkResponse<boolean>): boolean {
   return aktivDagpengerett.status !== "success" || !aktivDagpengerett.data;
 }

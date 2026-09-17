@@ -76,9 +76,6 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
           <ExternalLink to={kvitteringUrl} asButtonVariant="secondary" size="small">
             {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
           </ExternalLink>
-          <ExternalLink to={nySøknadUrl} asButtonVariant="secondary" size="small">
-            Send ny søknad
-          </ExternalLink>
         </HStack>
       </Box>
 
