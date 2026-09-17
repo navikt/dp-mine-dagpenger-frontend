@@ -20,7 +20,6 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
 
   const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
   const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
-  const nySøknadUrl = `${getEnv("DP_BRUKERDIALOG_URL")}`;
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
   const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
@@ -62,9 +61,6 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
         </ExternalLink>
         <ExternalLink to={kvitteringUrl} asButtonVariant="secondary" size="small">
           {getAppText("fullfort-soknad.se-soknad.knapp-tekst")}
-        </ExternalLink>
-        <ExternalLink to={nySøknadUrl} asButtonVariant="secondary" size="small">
-          Send ny søknad
         </ExternalLink>
       </nav>
       {manglendeDokumentasjonskrav.length > 0 && (
