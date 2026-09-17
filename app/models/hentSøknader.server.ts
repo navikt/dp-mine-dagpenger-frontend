@@ -3,11 +3,9 @@ import { getDPSoknadOrkestratorToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 import {
-  filtrerBortSlettedeSøknader,
-  filtrerFullforteSøknader,
-  filtrerSøknadSiste12Uker,
-  finnPåbegyntSøknad,
-  sorterNyesteSøknaderFørst,
+  hentFullførteSøknader,
+  hentPåbegynteSøknad,
+  filtrerSøknaderSiste12UkerOgSorterNyesteFørst,
 } from "~/utils/søknad.utils";
 
 export interface ISoknad {
@@ -49,18 +47,16 @@ export async function hentSøknader(request: Request): Promise<INetworkResponse<
       };
     }
 
-    const søknader: ISoknad[] = await response.json();
-    const sortertNyesteFørst = sorterNyesteSøknaderFørst(søknader);
-    const påbegyntSøknad = finnPåbegyntSøknad(søknader);
-    const søknaderUtenSlettede = filtrerBortSlettedeSøknader(sortertNyesteFørst);
-    const søknaderSiste12Uker = filtrerSøknadSiste12Uker(søknaderUtenSlettede);
-    const fullførteSøknader = filtrerFullforteSøknader(søknaderSiste12Uker);
+    const alleSøknader: ISoknad[] = await response.json();
+    const søknader = filtrerSøknaderSiste12UkerOgSorterNyesteFørst(alleSøknader);
+    const fullførteSøknader = hentFullførteSøknader(søknader);
+    const påbegynteSøknad = hentPåbegynteSøknad(alleSøknader);
 
     return {
       status: "success",
       data: {
         fullførteSøknader,
-        påbegyntesøknad: påbegyntSøknad ?? null,
+        påbegyntesøknad: påbegynteSøknad ?? null,
       },
     };
   } catch (error) {

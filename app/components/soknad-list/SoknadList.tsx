@@ -1,12 +1,9 @@
 import { Alert, Heading } from "@navikt/ds-react";
+import { isAfter, subWeeks } from "date-fns";
 import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
-import { NyesteInnsendtSøknadStatus } from "~/components/soknad-list/NyesteInnsendtSøknadStatus";
+import { FremhevetFullførtSøknad } from "~/components/soknad-list/FremhevetFullførtSøknad";
 import { useSanity } from "~/hooks/useSanity";
-import {
-  filtrerSoknaderTilVisning,
-  finnNyesteSøknadHvisInnenforSaksbehandlingsfrist,
-  skalViseSaksbehandlingstid,
-} from "~/utils/søknad.utils";
+import { filtrerSøknaderTilVisning } from "~/utils/søknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
@@ -38,31 +35,16 @@ export function SoknadList() {
   }
 
   const estimertSaksbehandlingstidUker = 7;
-  const nyesteSøknad = finnNyesteSøknadHvisInnenforSaksbehandlingsfrist(
-    fullførteSøknader[0],
-    estimertSaksbehandlingstidUker
+  const sisteSøknad = fullførteSøknader[0];
+  const sisteSøknadErInnenfor9Uker = isAfter(
+    new Date(sisteSøknad.innsendtTimestamp),
+    subWeeks(new Date(), estimertSaksbehandlingstidUker + 2)
   );
-  const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
+  const visSaksbehandlingstid =
+    aktivDagpengerett.status === "error" || aktivDagpengerett.data === false;
 
-  const soknaderTilVisning = filtrerSoknaderTilVisning(
-    fullførteSøknader,
-    nyesteSøknad,
-    visSaksbehandlingstid
-  );
-
-  // nyeste innsendt tidspunkt er siste nyeste søknad fra siste 12 uker
-  // estimert saksbehandlingstid i uker er satt til 7 uker
-  // vise nyeste søknad komponent hvis søknad ble sendt inn innenfor saksbehandlingstid + 2 uker fra i dag
-  // vise nyeste komponent hvis aktiv dagpengerett er false
-  // vise alle fullførte søknader som vanlig hvis nyeste søknad ikke vises
-
-  // sjekk med AS
-  //  const nyesteSøknad = isAfter(
-  //    nyesteInnsendtTidspunkt,
-  //    subWeeks(new Date(), estimertSaksbehandlingstid + 2)
-  //  )
-  //    ? fullforteSoknaderWithin12Weeks[0]
-  //    : null;
+  const fremheveSøknad = sisteSøknadErInnenfor9Uker && visSaksbehandlingstid;
+  const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
 
   return (
     <Section>
@@ -72,14 +54,14 @@ export function SoknadList() {
         </Heading>
         {påbegyntesøknad && <PaabegynteSoknad soknad={påbegyntesøknad} />}
         <ul className={styles.soknadList}>
-          {nyesteSøknad && visSaksbehandlingstid && (
-            <NyesteInnsendtSøknadStatus
-              key={nyesteSøknad.søknadId}
-              soknad={nyesteSøknad}
+          {sisteSøknadErInnenfor9Uker && visSaksbehandlingstid && (
+            <FremhevetFullførtSøknad
+              key={sisteSøknad.søknadId}
+              søknad={sisteSøknad}
               estimertSaksbehandlingstid={estimertSaksbehandlingstidUker}
             />
           )}
-          {soknaderTilVisning.map((soknad) => (
+          {søknaderTilVisning.map((soknad) => (
             <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
           ))}
         </ul>

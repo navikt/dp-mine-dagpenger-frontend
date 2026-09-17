@@ -21,12 +21,12 @@ import { ISoknad } from "~/models/hentSøknader.server";
 import { getEnv } from "~/utils/env.utils";
 
 interface IProps {
-  soknad: ISoknad;
+  søknad: ISoknad;
   estimertSaksbehandlingstid: number;
 }
 
-export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid }: IProps) {
-  const { søknadId, tittel, innsendtTimestamp } = soknad;
+export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid }: IProps) {
+  const { søknadId, tittel, innsendtTimestamp } = søknad;
   const { getAppText } = useSanity();
 
   const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
@@ -37,8 +37,8 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
   const ettersendingFrist = addWeeks(innsendtDato, 2);
 
   const manglendeDokumentasjonskrav: Dokumentasjonskrav[] =
-    soknad.manglendeDokumentasjonskrav.length > 0
-      ? soknad.manglendeDokumentasjonskrav.map((krav) => JSON.parse(krav) as Dokumentasjonskrav)
+    søknad.manglendeDokumentasjonskrav.length > 0
+      ? søknad.manglendeDokumentasjonskrav.map((krav) => JSON.parse(krav) as Dokumentasjonskrav)
       : [];
 
   return (
@@ -98,7 +98,7 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
                 utenÅrstall={true}
               />
             </BodyShort>
-            <ReadMore header={"Dette må dokumentasjonen inneholde"}>
+            <ReadMore header={"Dette må dokumentasjonen inneholde"} className="mt-4">
               <DokumentasjonskravInnhold type={krav.type} />
             </ReadMore>
           </VStack>
