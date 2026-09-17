@@ -56,10 +56,6 @@
   font-weight: bold;
 }
 
-.soknadInfoBox {
-  margin-top: var(--ax-space-16);
-}
-
 .soknadDokumentasjonManglerTag {
   margin-top: var(--ax-space-12);
 }

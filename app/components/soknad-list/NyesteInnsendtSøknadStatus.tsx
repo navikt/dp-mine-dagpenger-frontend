@@ -9,6 +9,7 @@ import {
   Tag,
   VStack,
 } from "@navikt/ds-react";
+import classNames from "classnames";
 import { addWeeks } from "date-fns";
 import { Dokumentasjonskrav } from "~/components/dokumentasjon/dokumentasjon.types";
 import { DokumentasjonskravInnhold } from "~/components/dokumentasjon/DokumentasjonskravInnhold";
@@ -42,33 +43,34 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
       : [];
 
   return (
-    <div className={styles.soknadContainer}>
-      <article className={styles.soknadContent}>
-        <Heading level="3" size="small" spacing>
-          {tittel}
-        </Heading>
-        <BodyShort className={styles.soknadDate} size="small">
-          Vi har mottatt søknaden din om dagpenger:
-        </BodyShort>
-        <BodyShort className={styles.soknadStatusDate}>
-          <FormattedDate date={innsendtTimestamp} bareDato={true} />
-        </BodyShort>
-        <BodyShort className={styles.soknadDate} size="small">
-          Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at du
-          vil få svar fra oss en gang mellom
-        </BodyShort>
-        <BodyShort className={styles.soknadStatusDate} spacing>
-          <FormattedDate date={estimertSvarFraDato.toString()} bareDato={true} /> {" og "}
-          <FormattedDate date={estimertSvarTilDato.toString()} bareDato={true} />
-        </BodyShort>
+    <article>
+      <Box background="neutral-soft" borderRadius="12 12 0 0">
+        <VStack gap="space-12" padding="space-20">
+          <Heading level="3" size="small">
+            {tittel}
+          </Heading>
+          <BodyShort className={styles.soknadDate} size="small">
+            Vi har mottatt søknaden din om dagpenger:
+          </BodyShort>
+          <BodyShort className={styles.soknadStatusDate}>
+            <FormattedDate date={innsendtTimestamp} bareDato={true} />
+          </BodyShort>
+          <BodyShort className={styles.soknadDate} size="small">
+            Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at
+            du vil få svar fra oss en gang mellom
+          </BodyShort>
+          <BodyShort className={styles.soknadStatusDate} spacing>
+            <FormattedDate date={estimertSvarFraDato.toString()} bareDato={true} /> {" og "}
+            <FormattedDate date={estimertSvarTilDato.toString()} bareDato={true} />
+          </BodyShort>
 
-        <ReadMore header="Saksbehandlingstid">
-          Vi behandler søknaden din så snart vi kan, og når du har sendt all dokumentasjonen vi
-          trenger. Det er mange søknader som skal behandles nå, og vi beklager ventetiden. Du får
-          beskjed så snart søknaden din er ferdig behandlet.
-        </ReadMore>
-
-        <HStack gap="space-8" className="mt-4">
+          <ReadMore header="Saksbehandlingstid">
+            Vi behandler søknaden din så snart vi kan, og når du har sendt all dokumentasjonen vi
+            trenger. Det er mange søknader som skal behandles nå, og vi beklager ventetiden. Du får
+            beskjed så snart søknaden din er ferdig behandlet.
+          </ReadMore>
+        </VStack>
+        <HStack gap="space-16" padding="space-20">
           <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
             {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
           </ExternalLink>
@@ -79,38 +81,41 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
             Send ny søknad
           </ExternalLink>
         </HStack>
+      </Box>
 
-        {manglendeDokumentasjonskrav.length > 0 && (
-          <VStack gap="space-16" className="mt-4">
-            {manglendeDokumentasjonskrav.map((krav) => (
-              <Box key={krav.id} className="mt-4">
-                <VStack gap="space-8">
-                  <HStack justify="space-between" wrap={false} align="start" gap="space-12">
-                    <Heading size="xsmall" level="4">
-                      {krav.tittel}
-                    </Heading>
-                    <Tag variant="warning" size="xsmall">
-                      Mangler
-                    </Tag>
-                  </HStack>
-                  <BodyShort color="subtle" size="small">
-                    Frist{" "}
-                    <FormattedDate
-                      date={ettersendingFrist.toString()}
-                      bareDato={true}
-                      utenÅrstall={true}
-                    />
-                  </BodyShort>
-                  <ReadMore header={"Dette må dokumentasjonen inneholde"}>
-                    <DokumentasjonskravInnhold type={krav.type} />
-                  </ReadMore>
-                </VStack>
-              </Box>
-            ))}
+      {manglendeDokumentasjonskrav.map((krav) => (
+        <Box key={krav.id} background="neutral-soft" className="mt-1" padding="space-20">
+          <VStack gap="space-8">
+            <HStack justify="space-between" wrap={false} align="start" gap="space-12">
+              <Heading size="xsmall" level="4">
+                {krav.tittel}
+              </Heading>
+              <Tag variant="warning" size="xsmall">
+                Mangler
+              </Tag>
+            </HStack>
+            <BodyShort color="subtle" size="small">
+              Frist{" "}
+              <FormattedDate
+                date={ettersendingFrist.toString()}
+                bareDato={true}
+                utenÅrstall={true}
+              />
+            </BodyShort>
+            <ReadMore header={"Dette må dokumentasjonen inneholde"}>
+              <DokumentasjonskravInnhold type={krav.type} />
+            </ReadMore>
           </VStack>
-        )}
+        </Box>
+      ))}
 
-        <InfoCard data-color="info" className={styles.soknadInfoBox}>
+      <Box
+        background="neutral-soft"
+        className={classNames({ "mt-1": manglendeDokumentasjonskrav.length > 1 })}
+        padding="space-20"
+        borderRadius="0 0 12 12"
+      >
+        <InfoCard data-color="info">
           <InfoCard.Header>
             <InfoCard.Title>Har du fått brev om manglende opplysninger?</InfoCard.Title>
           </InfoCard.Header>
@@ -122,9 +127,9 @@ export function NyesteInnsendtSøknadStatus({ soknad, estimertSaksbehandlingstid
         </InfoCard>
 
         <nav className={styles.soknadLinksContainerForSkyra}>
-          <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak"></skyra-survey>
+          <skyra-survey slug="arbeids-og-velferdsetaten-nav/mine-dagpenger-status-i-sak" />
         </nav>
-      </article>
-    </div>
+      </Box>
+    </article>
   );
 }
