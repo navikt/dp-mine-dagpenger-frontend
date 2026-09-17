@@ -1,9 +1,13 @@
 import { Alert, Heading } from "@navikt/ds-react";
-import { isAfter, subWeeks } from "date-fns";
 import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
 import { FremhevetFullførtSøknad } from "~/components/soknad-list/FremhevetFullførtSøknad";
 import { useSanity } from "~/hooks/useSanity";
-import { filtrerSøknaderTilVisning } from "~/utils/søknad.utils";
+import {
+  erSisteSøknadInnenforUker,
+  filtrerSøknaderTilVisning,
+  hentSisteSøknad,
+  skalViseSaksbehandlingstid,
+} from "~/utils/søknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
@@ -35,14 +39,12 @@ export function SoknadList() {
   }
 
   const estimertSaksbehandlingstidUker = 7;
-  const sisteSøknad = fullførteSøknader[0];
-  const sisteSøknadErInnenfor9Uker = isAfter(
-    new Date(sisteSøknad.innsendtTimestamp),
-    subWeeks(new Date(), estimertSaksbehandlingstidUker + 2)
+  const sisteSøknad = hentSisteSøknad(fullførteSøknader);
+  const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
+  const sisteSøknadErInnenfor9Uker = erSisteSøknadInnenforUker(
+    sisteSøknad,
+    estimertSaksbehandlingstidUker + 2
   );
-  const visSaksbehandlingstid =
-    aktivDagpengerett.status === "error" || aktivDagpengerett.data === false;
-
   const fremheveSøknad = sisteSøknadErInnenfor9Uker && visSaksbehandlingstid;
   const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
 
@@ -54,7 +56,7 @@ export function SoknadList() {
         </Heading>
         {påbegyntesøknad && <PaabegynteSoknad soknad={påbegyntesøknad} />}
         <ul className={styles.soknadList}>
-          {sisteSøknadErInnenfor9Uker && visSaksbehandlingstid && (
+          {sisteSøknad && fremheveSøknad && (
             <FremhevetFullførtSøknad
               key={sisteSøknad.søknadId}
               søknad={sisteSøknad}

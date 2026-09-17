@@ -1,5 +1,6 @@
-import { addWeeks, isBefore } from "date-fns";
+import { addWeeks, isAfter, isBefore, subWeeks } from "date-fns";
 import { ISoknad } from "~/models/hentSøknader.server";
+import type { INetworkResponse } from "~/models/networkResponse";
 
 export function filtrerSøknaderSiste12UkerOgSorterNyesteFørst(søknader: ISoknad[]): ISoknad[] {
   const idag: Date = new Date();
@@ -26,6 +27,24 @@ export function hentFullførteSøknader(søknader: ISoknad[]): ISoknad[] {
 
 export function hentPåbegynteSøknad(søknader: ISoknad[]): ISoknad | undefined {
   return søknader.find((søknad) => søknad.status === "PÅBEGYNT");
+}
+
+export function hentSisteSøknad(søknader: ISoknad[]): ISoknad | null {
+  return søknader[0] ?? null;
+}
+
+export function erSisteSøknadInnenforUker(
+  sisteSøknad: ISoknad | null,
+  antallUker: number
+): boolean {
+  return (
+    sisteSøknad !== null &&
+    isAfter(new Date(sisteSøknad.innsendtTimestamp), subWeeks(new Date(), antallUker))
+  );
+}
+
+export function skalViseSaksbehandlingstid(aktivDagpengerett: INetworkResponse<boolean>): boolean {
+  return aktivDagpengerett.status === "error" || aktivDagpengerett.data === false;
 }
 
 export function filtrerSøknaderTilVisning(søknader: ISoknad[], fremheveSøknad: boolean): ISoknad[] {
