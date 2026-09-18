@@ -45,7 +45,7 @@ export function SoknadList() {
     sisteSøknad,
     estimertSaksbehandlingstidUker + 2
   );
-  const fremheveSøknad = sisteSøknadErInnenfor9Uker && visSaksbehandlingstid;
+  const fremheveSøknad = sisteSøknadErInnenfor9Uker && visSaksbehandlingstid && sisteSøknad?.søknadVedtak === "";
   const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
 
   return (

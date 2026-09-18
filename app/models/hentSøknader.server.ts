@@ -14,6 +14,7 @@ export interface ISoknad {
   innsendtTimestamp: string;
   oppdatertTidspunkt: string;
   status: string;
+  søknadVedtak: string;
   manglendeDokumentasjonskrav: string[];
 }
 
