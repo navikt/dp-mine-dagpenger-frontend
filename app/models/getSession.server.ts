@@ -8,7 +8,7 @@ export interface ISessionData {
 }
 
 export async function getSession(req: Request): Promise<INetworkResponse<ISessionData>> {
-  const devToken = getEnv("DP_INNSYN_TOKEN");
+  const devToken = getEnv("DP_SOKNAD_ORKESTRATOR_TOKEN");
 
   if (getEnv("IS_LOCALHOST") === "true" && getEnv("USE_MSW") === "false" && devToken) {
     if (expiresIn(devToken) <= 0) {

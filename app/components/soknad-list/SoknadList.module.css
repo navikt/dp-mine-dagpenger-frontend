@@ -5,9 +5,8 @@
 }
 
 .soknadContainer {
-  border: 1px solid var(--ax-border-neutral-subtle);
+  background-color: var(--ax-bg-neutral-soft);
   border-radius: var(--ax-radius-12);
-  background-color: white;
   margin-top: var(--ax-space-16);
 }
 
@@ -24,7 +23,19 @@
   display: flex;
   gap: var(--ax-space-12);
   padding: var(--ax-space-20);
-  border-top: 1px solid var(--ax-border-neutral-subtle);
+  flex-wrap: wrap;
+}
+
+.soknadLinksContainerForSkyra {
+  display: flex;
+  gap: var(--ax-space-12);
+  margin-top: var(--ax-space-20);
+  * {
+    width: 100%;
+    padding: 1rem;
+    background: var(--ax-bg-meta-purple-soft);
+    border-radius: var(--ax-radius-12);
+  }
 }
 
 .soknadLinksContainer a {
@@ -33,4 +44,18 @@
 
 .errorContainer {
   margin: 1rem 0;
+}
+
+.soknadStatusText {
+  margin: 1rem auto;
+}
+
+.soknadStatusDate {
+  margin-top: var(--ax-space-4);
+  color: var(--ax-text-neutral-subtle);
+  font-weight: bold;
+}
+
+.soknadDokumentasjonManglerTag {
+  margin-top: var(--ax-space-12);
 }

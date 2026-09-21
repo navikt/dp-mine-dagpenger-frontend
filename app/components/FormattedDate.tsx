@@ -1,18 +1,23 @@
 interface IProps {
   date: string;
-  shortDate?: boolean;
+  bareDato?: boolean;
+  utenÅrstall?: boolean;
 }
 
-export function FormattedDate({ date, shortDate }: IProps) {
+export function FormattedDate({ date, bareDato, utenÅrstall }: IProps) {
   const locale = "no-NO";
 
   const dateOption: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: shortDate ? "2-digit" : "long",
-    day: shortDate ? "2-digit" : "numeric",
+    year: utenÅrstall ? undefined : "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   const formattedDate: string = new Date(date).toLocaleDateString(locale, dateOption);
+
+  if (bareDato) {
+    return <>{formattedDate}</>;
+  }
 
   const timeOption: Intl.DateTimeFormatOptions = {
     timeStyle: "short",

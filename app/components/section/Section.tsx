@@ -10,10 +10,11 @@ interface IProps {
 }
 
 export function Section(props: IProps) {
-  const { highlighted, children, smallSpacing } = props;
+  const { id, highlighted, children, smallSpacing } = props;
 
   return (
     <section
+      id={id}
       className={classnames(styles.section, {
         [styles.highlighted]: highlighted,
         [styles.smallSpacing]: smallSpacing,
