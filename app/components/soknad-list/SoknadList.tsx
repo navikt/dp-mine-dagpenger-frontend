@@ -1,67 +1,72 @@
-import { Heading } from "@navikt/ds-react";
-import { useRouteLoaderData } from "react-router";
-import { FullforteSoknadList } from "~/components/soknad-list/FullforteSoknadList";
-import { PaabegynteSoknadList } from "~/components/soknad-list/PaabegynteSoknadList";
+import { Alert, Heading } from "@navikt/ds-react";
+import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
+import { FremhevetFullførtSøknad } from "~/components/soknad-list/FremhevetFullførtSøknad";
 import { useSanity } from "~/hooks/useSanity";
-import { ISoknad } from "~/models/getSoknader.server";
 import {
-  getSoknadWithinLast12Weeks,
-  getSoknadWithinLast12WeeksOrkestrator,
-} from "~/utils/soknad.utils";
+  erSisteSøknadInnenforUker,
+  filtrerSøknaderTilVisning,
+  hentSisteSøknad,
+  skalViseSaksbehandlingstid,
+} from "~/utils/søknad.utils";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
-import { GamleFullforteSoknadList } from "./gamle-soknad/GamleFullforteSoknadList";
-import { GamlePaabegynteSoknadList } from "./gamle-soknad/GamlePaabegynteSoknadList";
+import { PaabegynteSoknad } from "./PaabegynteSoknad";
+
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "./SoknadList.module.css";
 
 export function SoknadList() {
   const { getAppText } = useSanity();
-  const { soknader, gamleFullforteSoknader, gamlePaabegynteSoknader } = useRouteLoaderData("root");
-  const harPaabegyntSoknad =
-    soknader.data?.filter((soknad: ISoknad) => soknad.status === "PÅBEGYNT") ?? [];
+  const { soknader, aktivDagpengerett } = useTypedRouteLoaderData("root");
 
-  const fullfortSoknader =
-    soknader.data?.filter(
-      (soknad: ISoknad) => soknad.status === "INNSENDT" || soknad.status === "JOURNALFØRT"
-    ) ?? [];
-
-  const harFullfortSoknadWithin12Weeks = getSoknadWithinLast12WeeksOrkestrator(fullfortSoknader);
-
-  const fullforteGammelSoknaderWithin12Weeks = getSoknadWithinLast12Weeks(
-    gamleFullforteSoknader.data ?? []
-  );
-
-  const harGamlePaabegynteSoknad =
-    gamlePaabegynteSoknader.status === "success" && gamlePaabegynteSoknader.data.length;
-
-  const harGamleFullforteSoknad =
-    gamleFullforteSoknader.status === "success" && gamleFullforteSoknader.data.length;
-
-  const harIngenGamleSoknader =
-    !harGamleFullforteSoknad &&
-    !harGamlePaabegynteSoknad &&
-    !fullfortSoknader.length &&
-    !harPaabegyntSoknad.length;
-
-  const harIngenSoknaderWithin12Weeks =
-    !fullforteGammelSoknaderWithin12Weeks.length &&
-    !(gamlePaabegynteSoknader.data?.length ?? 0) &&
-    !harFullfortSoknadWithin12Weeks.length &&
-    !harPaabegyntSoknad.length;
-
-  if (harIngenGamleSoknader || harIngenSoknaderWithin12Weeks) {
-    return <></>;
+  if (soknader.status === "error") {
+    return (
+      <Section>
+        <SectionContent>
+          <Alert variant="error" className={styles.errorContainer}>
+            {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
+          </Alert>
+        </SectionContent>
+      </Section>
+    );
   }
 
+  const { fullførteSøknader, påbegyntesøknad } = soknader.data;
+  const harIngenSøknad = fullførteSøknader.length === 0 && !påbegyntesøknad;
+
+  if (harIngenSøknad) {
+    return null;
+  }
+
+  const estimertSaksbehandlingstidUker = 7;
+  const sisteSøknad = hentSisteSøknad(fullførteSøknader);
+  const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
+  const sisteSøknadErInnenfor9Uker = erSisteSøknadInnenforUker(
+    sisteSøknad,
+    estimertSaksbehandlingstidUker + 2
+  );
+  const fremheveSøknad = sisteSøknadErInnenfor9Uker && visSaksbehandlingstid;
+  const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
+
   return (
-    <Section highlighted>
+    <Section>
       <SectionContent>
         <Heading level="2" size="large" spacing>
           {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
         </Heading>
-        <PaabegynteSoknadList />
-        <GamlePaabegynteSoknadList />
-        <FullforteSoknadList />
-        <GamleFullforteSoknadList />
+        {påbegyntesøknad && <PaabegynteSoknad soknad={påbegyntesøknad} />}
+        <ul className={styles.soknadList}>
+          {sisteSøknad && fremheveSøknad && (
+            <FremhevetFullførtSøknad
+              key={sisteSøknad.søknadId}
+              søknad={sisteSøknad}
+              estimertSaksbehandlingstid={estimertSaksbehandlingstidUker}
+            />
+          )}
+          {søknaderTilVisning.map((soknad) => (
+            <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
+          ))}
+        </ul>
       </SectionContent>
     </Section>
   );

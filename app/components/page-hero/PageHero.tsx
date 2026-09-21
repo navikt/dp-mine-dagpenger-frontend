@@ -1,27 +1,24 @@
 import { Heading } from "@navikt/ds-react";
-import { PortableText } from "@portabletext/react";
-import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { getSoknadWithinLast12Weeks } from "~/utils/soknad.utils";
+import { AktivDagpengerettAlert } from "../aktiv-dagpengerett/AktivDagpengerettAlert";
 import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
 import { Section } from "../section/Section";
 import { SectionContent } from "../section/SectionContent";
+import { useRouteLoaderData } from "react-router";
+import { harAktivDagpengerRett as hentBrukerHarAktivDagpengerRett } from "../aktiv-dagpengerett/aktivDagpengerett.utils";
 
 export function PageHero() {
-  const { getRichText, getAppText } = useSanity();
-  const { gamleFullforteSoknader } = useRouteLoaderData("root");
-  const sectionText = getRichText("soknader");
-  const soknader =
-    gamleFullforteSoknader.status === "success" &&
-    getSoknadWithinLast12Weeks(gamleFullforteSoknader.data).length > 0;
+  const { getAppText } = useSanity();
+  const { aktivDagpengerett } = useRouteLoaderData("root");
+  const harAktivDagpengerRett = hentBrukerHarAktivDagpengerRett(aktivDagpengerett);
 
   return (
     <Section>
       <SectionContent>
-        <Heading className="page-header" size="xlarge" data-testid={"page-heading"}>
+        <Heading className="page-header" size="xlarge">
           {getAppText("sidetittel")}
         </Heading>
-        {soknader && <PortableText value={sectionText} />}
+        {harAktivDagpengerRett && <AktivDagpengerettAlert />}
         <ArbeidssokerStatus />
       </SectionContent>
     </Section>
