@@ -43,3 +43,7 @@
 .mt-4 {
   margin-top: var(--ax-space-16);
 }
+
+.mt-1 {
+  margin-top: var(--ax-space-4);
+}
