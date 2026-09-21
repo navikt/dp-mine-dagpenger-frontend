@@ -1,18 +1,8 @@
 import { HttpResponse, http, passthrough } from "msw";
 import { getEnv } from "~/utils/env.utils";
-import { arbeidssoekerPerioderResponse } from "./responses/arbeidssoekerPerioderResponse";
-import { paabegynteSoknaderResponse } from "./responses/paabegyntSoknaderResponse";
-import { soknadResponse } from "./responses/soknaderResponse";
+import { arbeidssøkerPerioderResponse } from "./responses/arbeidssøkerPerioderResponse";
 
 export const handlers = [
-  http.get(`${getEnv("DP_INNSYN_URL")}/soknad`, () => {
-    return HttpResponse.json(soknadResponse);
-  }),
-
-  http.get(`${getEnv("DP_INNSYN_URL")}/paabegynte`, () => {
-    return HttpResponse.json(paabegynteSoknaderResponse);
-  }),
-
   http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`, () => {
     return HttpResponse.json({
       kontonummer: "12345678901",
@@ -20,7 +10,11 @@ export const handlers = [
   }),
 
   http.get(`${getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL")}/api/v1/arbeidssoekerperioder`, () => {
-    return HttpResponse.json(arbeidssoekerPerioderResponse);
+    return HttpResponse.json(arbeidssøkerPerioderResponse);
+  }),
+
+  http.get(`${getEnv("DP_INNSYN_URL")}/aktiv-dagpenger`, () => {
+    return HttpResponse.json({ harAktivDagpengerett: false });
   }),
 
   http.get("https://rt6o382n.apicdn.sanity.io/*", () => {
