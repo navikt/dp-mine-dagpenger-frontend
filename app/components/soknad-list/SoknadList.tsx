@@ -41,11 +41,12 @@ export function SoknadList() {
   const estimertSaksbehandlingstidUker = 7;
   const sisteSøknad = hentSisteSøknad(fullførteSøknader);
   const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
-  const sisteSøknadErInnenfor9Uker = erSisteSøknadInnenforUker(
+  const sisteSøknadErInnenforSaksbehandlingstid = erSisteSøknadInnenforUker(
     sisteSøknad,
     estimertSaksbehandlingstidUker + 2
   );
-  const fremheveSøknad = sisteSøknadErInnenfor9Uker && visSaksbehandlingstid && sisteSøknad?.søknadVedtak === "";
+  const harIkkeVedtak = sisteSøknad?.søknadVedtak === null ;
+  const fremheveSøknad = sisteSøknadErInnenforSaksbehandlingstid && visSaksbehandlingstid && harIkkeVedtak;
   const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
 
   return (
