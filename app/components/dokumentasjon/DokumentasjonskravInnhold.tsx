@@ -46,6 +46,7 @@ export function DokumentasjonskravInnhold({ type }: IProps) {
               <List as="ul">
                 <List.Item>datoen du startet i jobben din</List.Item>
                 <List.Item>stillingsprosent eller avtalt arbeidstid</List.Item>
+                <List.Item>avtalt oppsigelsestid</List.Item>
                 <List.Item>sluttdato, hvis du har en midlertidig arbeidsavtale</List.Item>
               </List>
               <BodyLong>
