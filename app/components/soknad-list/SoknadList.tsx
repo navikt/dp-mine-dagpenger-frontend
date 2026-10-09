@@ -38,7 +38,7 @@ export function SoknadList() {
     return null;
   }
 
-  const estimertSaksbehandlingstidUker = 7;
+  const estimertSaksbehandlingstidUker = 6;
   const sisteSøknad = hentSisteSøknad(fullførteSøknader);
   const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
   const sisteSøknadErInnenforSaksbehandlingstid = erSisteSøknadInnenforUker(
