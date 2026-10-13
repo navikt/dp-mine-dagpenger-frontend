@@ -1,11 +1,10 @@
-import { Alert, Heading } from "@navikt/ds-react";
+import { Heading, LocalAlert } from "@navikt/ds-react";
 import { FullforteSoknad } from "~/components/soknad-list/FullforteSoknad";
 import { FremhevetFullførtSøknad } from "~/components/soknad-list/FremhevetFullførtSøknad";
 import { useSanity } from "~/hooks/useSanity";
 import {
-  erSisteSøknadInnenforUker,
+  sisteSøknadErInnenforUker,
   filtrerSøknaderTilVisning,
-  hentSisteSøknad,
   skalViseSaksbehandlingstid,
 } from "~/utils/søknad.utils";
 import { Section } from "../section/Section";
@@ -17,36 +16,35 @@ import styles from "./SoknadList.module.css";
 
 export function SoknadList() {
   const { getAppText } = useSanity();
-  const { soknader, aktivDagpengerett } = useTypedRouteLoaderData("root");
+  const { søknader, aktivDagpengerett } = useTypedRouteLoaderData("root");
 
-  if (soknader.status === "error") {
+  if (søknader.status === "error") {
     return (
       <Section>
         <SectionContent>
-          <Alert variant="error" className={styles.errorContainer}>
-            {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
-          </Alert>
+          <LocalAlert status="error" className={styles.errorContainer}>
+            {getAppText("feil-melding.klarte-ikke-hente-fullforte-søknader")}
+          </LocalAlert>
         </SectionContent>
       </Section>
     );
   }
 
-  const { fullførteSøknader, påbegyntesøknad } = soknader.data;
-  const harIngenSøknad = fullførteSøknader.length === 0 && !påbegyntesøknad;
+  const { fullførteSøknader, påbegyntesøknad } = søknader.data;
 
-  if (harIngenSøknad) {
+  if (fullførteSøknader.length === 0 && !påbegyntesøknad) {
     return null;
   }
 
   const estimertSaksbehandlingstidUker = 6;
-  const sisteSøknad = hentSisteSøknad(fullførteSøknader);
+  const sisteSøknad = fullførteSøknader[0] ?? null;
+  const harIkkeVedtak = sisteSøknad?.søknadVedtak === null;
   const visSaksbehandlingstid = skalViseSaksbehandlingstid(aktivDagpengerett);
-  const sisteSøknadErInnenforSaksbehandlingstid = erSisteSøknadInnenforUker(
-    sisteSøknad,
-    estimertSaksbehandlingstidUker + 2
-  );
-  const harIkkeVedtak = sisteSøknad?.søknadVedtak === null ;
-  const fremheveSøknad = sisteSøknadErInnenforSaksbehandlingstid && visSaksbehandlingstid && harIkkeVedtak;
+  const fremheveSøknad =
+    visSaksbehandlingstid &&
+    harIkkeVedtak &&
+    sisteSøknadErInnenforUker(sisteSøknad, estimertSaksbehandlingstidUker + 2);
+
   const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
 
   return (

@@ -29,11 +29,11 @@ export function hentPåbegynteSøknad(søknader: ISoknad[]): ISoknad | undefined
   return søknader.find((søknad) => søknad.status === "PÅBEGYNT");
 }
 
-export function hentSisteSøknad(søknader: ISoknad[]): ISoknad | null {
-  return søknader[0] ?? null;
+export function hentSisteSøknad(søknader: ISoknad[]): ISoknad {
+  return søknader[0];
 }
 
-export function erSisteSøknadInnenforUker(
+export function sisteSøknadErInnenforUker(
   sisteSøknad: ISoknad | null,
   antallUker: number
 ): boolean {

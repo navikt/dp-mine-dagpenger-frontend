@@ -108,7 +108,7 @@ export type RootLoaderType = {
     PAW_ARBEIDSSOEKERREGISTERET_URL: string;
     SAF_URL: string;
   };
-  soknader: INetworkResponse<ISøknadData>;
+  søknader: INetworkResponse<ISøknadData>;
   arbeidssøkerStatus: ArbeidssøkerStatus;
   bankAccountNumber: INetworkResponse<IKonto>;
   journalposter: INetworkResponse<IJournalpost[]>;
@@ -135,7 +135,7 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-  const [soknader, arbeidssøkerStatus, bankAccountNumber, journalposter, aktivDagpengerett] =
+  const [søknader, arbeidssøkerStatus, bankAccountNumber, journalposter, aktivDagpengerett] =
     await Promise.all([
       hentSøknader(request),
       hentArbeidssøkerStatus(request),
@@ -165,7 +165,7 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
     },
-    soknader,
+    søknader,
     arbeidssøkerStatus,
     bankAccountNumber,
     journalposter,

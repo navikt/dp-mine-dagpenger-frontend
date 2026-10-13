@@ -1,4 +1,4 @@
-import { Alert } from "@navikt/ds-react";
+import { LocalAlert } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import classNames from "classnames";
 import { useSanity } from "~/hooks/useSanity";
@@ -11,17 +11,17 @@ export function ArbeidssokerStatus() {
 
   if (arbeidssøkerStatus === "FEIL") {
     return (
-      <Alert variant="warning" className="no-padding-portabletext">
+      <LocalAlert status="warning" className="no-padding-portabletext">
         <PortableText value={getRichText("arbeidssokers-status.teknisk-feil")} />
-      </Alert>
+      </LocalAlert>
     );
   }
 
   if (arbeidssøkerStatus === "IKKE_REGISTRERT") {
     return (
-      <Alert variant="warning" className="no-padding-portabletext">
+      <LocalAlert status="warning" className="no-padding-portabletext">
         <PortableText value={getRichText("arbeidssokers-status.er-ikke-registrert")} />
-      </Alert>
+      </LocalAlert>
     );
   }
 
