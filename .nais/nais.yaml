@@ -88,6 +88,7 @@ spec:
       rules:
         - application: dp-innsyn
         - application: dp-soknad-orkestrator
+        - application: dp-meldekortregister
         - application: paw-arbeidssoekerregisteret-api-oppslag-v2
           namespace: paw
         - application: sokos-kontoregister-person
