@@ -48,6 +48,16 @@ export async function getSAFToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getMeldekortRegisterToken(request: Request) {
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return getEnv("MELDEKORTREGISTER_TOKEN") || "";
+  }
+
+  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:teamdagpenger:dp-meldekortregister`;
+
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getOnBehalfOfToken(request: Request, audience: string): Promise<string> {
   const token = getToken(request);
   if (!token) {

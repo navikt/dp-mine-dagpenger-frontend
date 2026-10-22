@@ -7,6 +7,7 @@ import { Shortcuts } from "~/components/shortcuts/Shortcuts";
 import { SoknadList } from "~/components/soknad-list/SoknadList";
 import { UxsignalsWidget } from "~/components/UxsignalsWidget";
 import { getEnv } from "~/utils/env.utils";
+import MeldekortSeksjon from "~/meldekort/MeldekortSeksjon";
 
 export default function MineDagpenger() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function MineDagpenger() {
         <PageHero />
         <UxsignalsWidget />
         <SoknadList />
+        <MeldekortSeksjon />
         <BankAccountNumber />
         <MeldFraOmEndring />
         <Shortcuts />
