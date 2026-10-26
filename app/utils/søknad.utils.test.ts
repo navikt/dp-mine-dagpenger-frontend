@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import type { ISoknad } from "~/models/hentSøknader.server";
 import {
-  erSisteSøknadInnenforUker,
+  sisteSøknadErInnenforUker,
   filtrerSøknaderSiste12UkerOgSorterNyesteFørst,
   filtrerSøknaderTilVisning,
   hentFullførteSøknader,
@@ -19,6 +19,7 @@ function lagEnSøknad(overrides: Partial<ISoknad> = {}): ISoknad {
     status: "INNSENDT",
     manglendeDokumentasjonskrav: [],
     ...overrides,
+    søknadVedtak: overrides.søknadVedtak ?? null,
   };
 }
 
@@ -85,12 +86,12 @@ describe("hentSisteSøknad", () => {
     expect(hentSisteSøknad([første, lagEnSøknad()])).toBe(første);
   });
 
-  test("returnerer null når listen er tom", () => {
-    expect(hentSisteSøknad([])).toBeNull();
+  test("returnerer undefined når listen er tom", () => {
+    expect(hentSisteSøknad([])).toBeUndefined();
   });
 });
 
-describe("erSisteSøknadInnenforUker", () => {
+describe("sisteSøknadErInnenforUker", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2025-01-01T00:00:00.000Z"));
@@ -101,11 +102,11 @@ describe("erSisteSøknadInnenforUker", () => {
   });
 
   test("returnerer true når søknaden er innenfor perioden", () => {
-    expect(erSisteSøknadInnenforUker(lagEnSøknad(), 9)).toBe(true);
+    expect(sisteSøknadErInnenforUker(lagEnSøknad(), 9)).toBe(true);
   });
 
   test("returnerer false når søknaden mangler", () => {
-    expect(erSisteSøknadInnenforUker(null, 9)).toBe(false);
+    expect(sisteSøknadErInnenforUker(null, 9)).toBe(false);
   });
 });
 
