@@ -1,0 +1,9 @@
+.statusAlert {
+  margin-bottom: var(--ax-space-16);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ax-space-12);
+}

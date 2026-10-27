@@ -6,7 +6,7 @@ import type { INetworkResponse } from "~/models/networkResponse";
 export interface MeldekortStatus {
   harInnsendteMeldekort: boolean;
   meldekortTilUtfylling: MeldekortTilUtfylling[];
-  redirectUrl: string;
+  redirectUrl: string | null;
 }
 
 export interface MeldekortTilUtfylling {
@@ -31,8 +31,11 @@ export async function hentMeldekort(request: Request): Promise<INetworkResponse<
       },
     });
 
-    if (response.ok) {
-      logger.error("Feil ved henting av meldekort");
+    if (!response.ok) {
+      logger.error({
+        message: "Feil ved henting av meldekort",
+        statusCode: response.status,
+      });
       return {
         status: "error",
         error: {
@@ -42,9 +45,17 @@ export async function hentMeldekort(request: Request): Promise<INetworkResponse<
       };
     }
 
+    const data: MeldekortStatus = await response.json();
+    logger.info({
+      message: "Meldekortstatus hentet",
+      harInnsendteMeldekort: data.harInnsendteMeldekort,
+      antallMeldekortTilUtfylling: data.meldekortTilUtfylling.length,
+      harRedirectUrl: Boolean(data.redirectUrl),
+    });
+
     return {
       status: "success",
-      data: await response.json(),
+      data,
     };
   } catch (error) {
     logger.error(`Feil ved henting av meldekort: ${error}`);
