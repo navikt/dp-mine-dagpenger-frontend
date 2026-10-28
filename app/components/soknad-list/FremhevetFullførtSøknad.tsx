@@ -17,10 +17,11 @@ interface IProps {
 
 export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid }: IProps) {
   const { søknadId, tittel, innsendtTimestamp } = søknad;
-  const { getAppText } = useSanity();
+  const { getAppText, getLink } = useSanity();
 
   const ettersendingUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/ettersending`;
   const kvitteringUrl = `${getEnv("DP_BRUKERDIALOG_URL")}/${søknadId}/kvittering`;
+  const sendInnDokumentLink = getLink("meld-fra-om-endring.send-inn-dokument");
   const innsendtDato = new Date(innsendtTimestamp);
   const estimertSvarFraDato = addWeeks(innsendtDato, estimertSaksbehandlingstid);
   const estimertSvarTilDato = addWeeks(innsendtDato, estimertSaksbehandlingstid + 1);
@@ -31,11 +32,21 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
       ? søknad.manglendeDokumentasjonskrav.map((krav) => JSON.parse(krav) as Dokumentasjonskrav)
       : [];
 
+  function hentManglendeDokumentasjonTekst() {
+    return (
+      <ReadMore header="Har du fått brev om manglende dokumentasjon?" style={{ marginTop: "var(--ax-space-16)" }}>
+        Hvis du har fått brev om manglende opplysninger vil det stå i brevet hva som skal
+        sendes inn og frist for å sende inn. Brev du har fått ligger i{" "}
+        <Link href="#dokumentliste">dokumentlisten på Mine dagpenger.</Link>
+      </ReadMore>
+    );
+  }
+
   return (
     <article>
       <Box background="neutral-soft" borderRadius="12">
         <VStack gap="space-12" padding="space-20">
-          <Heading level="3" size="small">
+          <Heading level="3" size="small" style={{ marginBottom: "var(--ax-space-8)" }}>
             {tittel}
           </Heading>
           <Process hideStatusText={true} className={styles.soknadProcess}>
@@ -62,36 +73,41 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
                         </Heading>
                         <Tag variant="warning" size="xsmall">
 
-                        <BodyShort textColor="subtle" size="small" style={{ whiteSpace: "nowrap" }}>
-                          Frist{" "}
-                          <FormattedDate
-                            date={ettersendingFrist.toString()}
-                            bareDato={true}
-                            utenÅrstall={true}
-                          />
-                        </BodyShort>
+                          <BodyShort textColor="subtle" size="small" style={{ whiteSpace: "nowrap" }}>
+                            Frist{" "}
+                            <FormattedDate
+                              date={ettersendingFrist.toString()}
+                              bareDato={true}
+                              utenÅrstall={true}
+                            />
+                          </BodyShort>
                         </Tag>
                       </HStack>
                     </Box>
                   ))}
                 </VStack>
-                <ReadMore header="Har du fått brev om manglende dokumentasjon?" style={{ marginTop: "var(--ax-space-16)" }}>
-                  Hvis du har fått brev om manglende opplysninger vil det stå i brevet hva som skal
-                  sendes inn og frist for å sende inn. Brev du har fått ligger i{" "}
-                  <Link href="#dokumentliste">dokumentlisten på Mine dagpenger.</Link>
-                </ReadMore>
+                {hentManglendeDokumentasjonTekst()}
                 <div style={{ marginTop: "var(--ax-space-16)", marginBottom: "var(--ax-space-24)" }}>
                   <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
                     {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
                   </ExternalLink>
                 </div>
               </Process.Event>
-            ) : <Process.Event
-              status={"completed"}
-              title={"All dokumentasjon er sendt inn"}
-            />}
+            ) : (
+              <Process.Event
+                status={"completed"}
+                title={"Vi har mottatt dokumentasjon"}>
+                {hentManglendeDokumentasjonTekst()}
+                <div style={{ marginTop: "var(--ax-space-16)"}}>
+                  <ExternalLink to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary" size={"small"}>
+                    {sendInnDokumentLink.linkText}
+                  </ExternalLink>
+                </div>
+              </Process.Event>
+            )}
             <Process.Event
               title={"Venter på ledig saksbehandler"}
+              status={manglendeDokumentasjonskrav.length > 0 ? undefined : "active"}
             >
               <BodyShort className={styles.soknadDate} size="small">
                 Saksbehandlingstiden er for tiden {estimertSaksbehandlingstid} uker. Derfor tror vi at
