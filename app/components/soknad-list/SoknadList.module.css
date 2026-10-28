@@ -59,3 +59,7 @@
 .soknadDokumentasjonManglerTag {
   margin-top: var(--ax-space-12);
 }
+
+.soknadProcess :global(.aksel-process__event:not(:last-child) .aksel-process__item) {
+  margin-block-end: var(--ax-space-32);
+}

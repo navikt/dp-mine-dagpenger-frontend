@@ -3,6 +3,10 @@ import { getEnv } from "~/utils/env.utils";
 import { arbeidssøkerPerioderResponse } from "./responses/arbeidssøkerPerioderResponse";
 
 export const handlers = [
+  http.get(`${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`, () => {
+    return HttpResponse.json("søknaderResponse");
+  }),
+
   http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`, () => {
     return HttpResponse.json({
       kontonummer: "12345678901",
