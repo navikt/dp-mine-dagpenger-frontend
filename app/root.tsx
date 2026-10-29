@@ -33,10 +33,12 @@ import type { ISanityData } from "./sanity/sanity.types";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
+import { norskKalenderdato } from "./utils/dato.utils";
 import type { IJournalpost } from "./utils/safJournalposter.utils";
 
 import "@navikt/ds-css";
 import indexStyles from "./index.css?url";
+import { hentMeldekort, MeldekortStatus } from "~/models/hentMeldekort.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -107,12 +109,15 @@ export type RootLoaderType = {
     OKONOMI_KONTOREGISTER_URL: string;
     PAW_ARBEIDSSOEKERREGISTERET_URL: string;
     SAF_URL: string;
+    MELDEKORTREGISTER_URL: string;
   };
   soknader: INetworkResponse<ISøknadData>;
   arbeidssøkerStatus: ArbeidssøkerStatus;
   bankAccountNumber: INetworkResponse<IKonto>;
   journalposter: INetworkResponse<IJournalpost[]>;
   aktivDagpengerett: INetworkResponse<boolean>;
+  meldekort: INetworkResponse<MeldekortStatus>;
+  dagensDatoNorge: string;
 };
 
 export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoaderType> {
@@ -135,13 +140,14 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
 
   const session = await getSession(request);
   const abTesting = unleash.isEnabled("dp-mine-dagpenger-frontend.ab-testing");
-  const [soknader, arbeidssøkerStatus, bankAccountNumber, journalposter, aktivDagpengerett] =
+  const [soknader, arbeidssøkerStatus, bankAccountNumber, journalposter, aktivDagpengerett, meldekort] =
     await Promise.all([
       hentSøknader(request),
       hentArbeidssøkerStatus(request),
       getBankAccountNumber(request),
       getSAFJournalposter(request),
       getHarAktivDagpengerett(request),
+      hentMeldekort(request),
     ]);
 
   return {
@@ -164,12 +170,15 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
       OKONOMI_KONTOREGISTER_URL: getEnv("OKONOMI_KONTOREGISTER_URL"),
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
+      MELDEKORTREGISTER_URL: getEnv("MELDEKORTREGISTER_URL"),
     },
     soknader,
     arbeidssøkerStatus,
     bankAccountNumber,
     journalposter,
     aktivDagpengerett,
+    meldekort,
+    dagensDatoNorge: norskKalenderdato(new Date()),
   };
 }
 

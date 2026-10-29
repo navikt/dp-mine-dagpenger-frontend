@@ -28,6 +28,10 @@ const TOKEN_LIST = [
     env: "DP_SOKNAD_ORKESTRATOR_TOKEN",
     aud: "dev-gcp:teamdagpenger:dp-soknad-orkestrator",
   },
+  {
+    env: "MELDEKORTREGISTER_TOKEN",
+    aud: "dev-gcp:teamdagpenger:dp-meldekortregister",
+  },
 ];
 
 const IDENT_LIST = [

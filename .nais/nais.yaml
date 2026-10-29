@@ -72,6 +72,8 @@ spec:
       value: "{{dp_soknad_orkestrator_url}}"
     - name: DP_BRUKERDIALOG_URL
       value: "{{dp_brukerdialog_url}}"
+    - name: MELDEKORTREGISTER_URL
+      value: "{{meldekortregister_url}}"
 
   ingresses:
     {{#each ingresses as |url|}}
