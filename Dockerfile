@@ -12,12 +12,13 @@ COPY ./public ./public/
 COPY ./vite.config.ts ./
 COPY ./package.json ./
 COPY ./pnpm-lock.yaml ./
+COPY ./pnpm-workspace.yaml ./
 COPY ./react-router.config.ts ./
 
 
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
-    pnpm install --ignore-scripts && \
+    pnpm install --frozen-lockfile --ignore-scripts && \
     pnpm config delete //npm.pkg.github.com/:_authToken
 RUN pnpm run build
 
@@ -27,10 +28,11 @@ WORKDIR /app
 
 COPY ./package.json ./
 COPY ./pnpm-lock.yaml ./
+COPY ./pnpm-workspace.yaml ./
 
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
-    pnpm install --ignore-scripts --prod && \
+    pnpm install --frozen-lockfile --ignore-scripts --prod && \
     pnpm config delete //npm.pkg.github.com/:_authToken
 
 # export build to filesystem (GitHub)
