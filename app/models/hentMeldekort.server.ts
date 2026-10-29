@@ -26,6 +26,7 @@ export async function hentMeldekort(request: Request): Promise<INetworkResponse<
 
     const response = await fetch(url, {
       method: "GET",
+      signal: AbortSignal.timeout(3_000),
       headers: {
         Authorization: `Bearer ${onBehalfOfToken}`,
       },
