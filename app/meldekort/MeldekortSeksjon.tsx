@@ -1,9 +1,8 @@
 import { ExclamationmarkTriangleIcon, InformationSquareIcon } from "@navikt/aksel-icons";
 import { BodyLong, Box, Heading, InfoCard } from "@navikt/ds-react";
-import { isAfter, isBefore, isSameDay, parseISO, startOfDay } from "date-fns";
 import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { FormattedDate } from "~/components/FormattedDate";
+import { formaterDato } from "~/utils/dato.utils";
 import { ExternalLink } from "~/components/ExternalLink";
 import { Section } from "~/components/section/Section";
 import { SectionContent } from "~/components/section/SectionContent";
@@ -11,7 +10,7 @@ import styles from "./MeldekortSeksjon.module.css";
 
 export default function MeldekortSeksjon() {
   const { getAppText, getLink } = useSanity();
-  const { aktivDagpengerett, meldekort } = useTypedRouteLoaderData("root");
+  const { aktivDagpengerett, meldekort, dagensDatoNorge } = useTypedRouteLoaderData("root");
   const sendMeldekortLink = getLink("meldekort.send");
 
   if (meldekort.status === "error") {
@@ -20,18 +19,16 @@ export default function MeldekortSeksjon() {
 
   const harAktivDagpengerett = aktivDagpengerett.status === "success" && aktivDagpengerett.data;
   const bodyText = harAktivDagpengerett ? "meldekort.tekstinnhold-2" : "meldekort.tekst-Innhold-1";
-  const nå = startOfDay(new Date());
   const meldekortEtterDato = [...meldekort.data.meldekortTilUtfylling].sort(
-    (a, b) => parseISO(a.kanSendesFra).getTime() - parseISO(b.kanSendesFra).getTime()
+    (a, b) => a.kanSendesFra.localeCompare(b.kanSendesFra)
   );
   const sendMeldekortUrl = meldekort.data.redirectUrl?.trim();
-  const meldekortKlartEtterDato = meldekortEtterDato.find((kort) => {
-    const kanSendesFra = parseISO(kort.kanSendesFra);
-    return isBefore(kanSendesFra, nå) || isSameDay(kanSendesFra, nå);
-  });
+  const meldekortKlartEtterDato = meldekortEtterDato.find(
+    (kort) => kort.kanSendesFra <= dagensDatoNorge
+  );
   const klartMeldekort = Boolean(meldekortKlartEtterDato && sendMeldekortUrl);
   const nesteMeldekort = !meldekortKlartEtterDato
-    ? meldekortEtterDato.find((kort) => isAfter(parseISO(kort.kanSendesFra), nå))
+    ? meldekortEtterDato.find((kort) => kort.kanSendesFra > dagensDatoNorge)
     : undefined;
 
   return (
@@ -51,7 +48,7 @@ export default function MeldekortSeksjon() {
             <InfoCard data-color="info" className={styles.statusAlert} size="small">
               <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
                 {getAppText("meldekort.neste-klar-til-innsending")}{" "}
-                <FormattedDate date={nesteMeldekort.kanSendesFra} bareDato />
+                {formaterDato(nesteMeldekort.kanSendesFra)}
               </InfoCard.Message>
             </InfoCard>
           )

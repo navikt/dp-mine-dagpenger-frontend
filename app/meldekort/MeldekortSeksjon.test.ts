@@ -5,7 +5,7 @@ import type { MeldekortTilUtfylling } from "~/models/hentMeldekort.server";
 import type { RootLoaderType } from "~/root";
 import MeldekortSeksjon from "./MeldekortSeksjon";
 
-let loaderData: Pick<RootLoaderType, "meldekort" | "aktivDagpengerett">;
+let loaderData: Pick<RootLoaderType, "meldekort" | "aktivDagpengerett" | "dagensDatoNorge">;
 
 vi.mock("~/hooks/useTypedRouteLoaderData", () => ({
   useTypedRouteLoaderData: () => loaderData,
@@ -39,6 +39,7 @@ describe("MeldekortSeksjon", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 9, 27, 12));
     loaderData = {
+      dagensDatoNorge: "2026-10-27",
       aktivDagpengerett: { status: "success", data: false },
       meldekort: {
         status: "success",
@@ -107,6 +108,30 @@ describe("MeldekortSeksjon", () => {
     expect(html).toContain("9. november 2026");
     expect(html).not.toContain("meldekort.send");
     expect(html).not.toContain("meldekort.klar-til-innsending");
+  });
+
+  test("bruker loaderens norske dato selv om klientklokken er på neste dag", () => {
+    if (loaderData.meldekort.status !== "success") throw new Error("Ugyldige testdata");
+    loaderData.meldekort.data.meldekortTilUtfylling = [lagMeldekort("2026-10-28")];
+    const serverHtml = renderSeksjon();
+
+    vi.setSystemTime(new Date("2026-10-28T00:01:00+01:00"));
+
+    expect(renderSeksjon()).toBe(serverHtml);
+    expect(serverHtml).toContain("meldekort.neste-klar-til-innsending");
+    expect(serverHtml).toContain("28. oktober 2026");
+    expect(serverHtml).not.toContain("meldekort.send");
+  });
+
+  test("viser send-knapp på norsk dato selv om klientklokken er på forrige dag", () => {
+    if (loaderData.meldekort.status !== "success") throw new Error("Ugyldige testdata");
+    loaderData.meldekort.data.meldekortTilUtfylling = [lagMeldekort("2026-10-27")];
+    vi.setSystemTime(new Date("2026-10-26T23:01:00Z"));
+
+    const html = renderSeksjon();
+
+    expect(html).toContain("meldekort.klar-til-innsending");
+    expect(html).toContain('href="https://www.nav.no/meldekort"');
   });
 
   test.each([false, true])(

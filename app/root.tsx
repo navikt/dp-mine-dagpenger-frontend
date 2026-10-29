@@ -33,6 +33,7 @@ import type { ISanityData } from "./sanity/sanity.types";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "./utils/logger.utils";
+import { norskKalenderdato } from "./utils/dato.utils";
 import type { IJournalpost } from "./utils/safJournalposter.utils";
 
 import "@navikt/ds-css";
@@ -116,6 +117,7 @@ export type RootLoaderType = {
   journalposter: INetworkResponse<IJournalpost[]>;
   aktivDagpengerett: INetworkResponse<boolean>;
   meldekort: INetworkResponse<MeldekortStatus>;
+  dagensDatoNorge: string;
 };
 
 export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoaderType> {
@@ -176,6 +178,7 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
     journalposter,
     aktivDagpengerett,
     meldekort,
+    dagensDatoNorge: norskKalenderdato(new Date()),
   };
 }
 
