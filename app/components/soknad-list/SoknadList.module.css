@@ -56,6 +56,29 @@
   font-weight: bold;
 }
 
+.soknadTitle {
+  margin-bottom: var(--ax-space-8);
+}
+
+.manglendeDokumentasjonReadMore,
+.manglendeDokumentasjonListe,
+.sendDokumentLink {
+  margin-top: var(--ax-space-16);
+}
+
+.ettersendingFrist {
+  white-space: nowrap;
+}
+
+.sendDokumentasjonLink {
+  margin-top: var(--ax-space-16);
+  margin-bottom: var(--ax-space-24);
+}
+
 .soknadDokumentasjonManglerTag {
   margin-top: var(--ax-space-12);
+}
+
+.soknadProcess :global(.aksel-process__event:not(:last-child) .aksel-process__item) {
+  margin-block-end: var(--ax-space-32);
 }
