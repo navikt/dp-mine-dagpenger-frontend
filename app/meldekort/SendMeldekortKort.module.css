@@ -1,0 +1,11 @@
+.kort {
+  border-radius: var(--ax-radius-12);
+  border: 1px solid var(--ax-border-warning);
+  background: var(--ax-bg-warning-moderate);
+  color: var(--ax-text-neutral);
+  margin-bottom: var(--ax-space-16);
+}
+
+.neutralTekst {
+  color: var(--ax-text-neutral);
+}

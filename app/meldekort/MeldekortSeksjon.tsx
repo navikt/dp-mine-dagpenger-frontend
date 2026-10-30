@@ -7,6 +7,7 @@ import { ExternalLink } from "~/components/ExternalLink";
 import { Section } from "~/components/section/Section";
 import { SectionContent } from "~/components/section/SectionContent";
 import styles from "./MeldekortSeksjon.module.css";
+import { hentMeldekortForVisning } from "./meldekort.utils";
 
 export default function MeldekortSeksjon() {
   const { getAppText, getLink } = useSanity();
@@ -19,17 +20,10 @@ export default function MeldekortSeksjon() {
 
   const harAktivDagpengerett = aktivDagpengerett.status === "success" && aktivDagpengerett.data;
   const bodyText = harAktivDagpengerett ? "meldekort.tekstinnhold-2" : "meldekort.tekst-Innhold-1";
-  const meldekortEtterDato = [...meldekort.data.meldekortTilUtfylling].sort(
-    (a, b) => a.kanSendesFra.localeCompare(b.kanSendesFra)
+  const { sendMeldekortUrl, klartMeldekort, nesteMeldekort } = hentMeldekortForVisning(
+    meldekort.data,
+    dagensDatoNorge
   );
-  const sendMeldekortUrl = meldekort.data.redirectUrl?.trim();
-  const meldekortKlartEtterDato = meldekortEtterDato.find(
-    (kort) => kort.kanSendesFra <= dagensDatoNorge
-  );
-  const klartMeldekort = Boolean(meldekortKlartEtterDato && sendMeldekortUrl);
-  const nesteMeldekort = !meldekortKlartEtterDato
-    ? meldekortEtterDato.find((kort) => kort.kanSendesFra > dagensDatoNorge)
-    : undefined;
 
   return (
     <Section>
