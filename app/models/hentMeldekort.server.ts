@@ -32,6 +32,17 @@ export async function hentMeldekort(request: Request): Promise<INetworkResponse<
       },
     });
 
+    if (response.status === 204) {
+      logger.info("Ingen meldekort tilgjengelig");
+      return {
+        status: "success",
+        data: {
+          harInnsendteMeldekort: false,
+          meldekortTilUtfylling: [],
+          redirectUrl: null,
+        },
+      };
+    }
     if (!response.ok) {
       logger.error({
         message: "Feil ved henting av meldekort",
