@@ -34,7 +34,10 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
 
   function hentManglendeDokumentasjonTekst() {
     return (
-      <ReadMore header="Har du fått brev om manglende dokumentasjon?" style={{ marginTop: "var(--ax-space-16)" }}>
+      <ReadMore
+        header="Har du fått brev om manglende dokumentasjon?"
+        className={styles.manglendeDokumentasjonReadMore}
+      >
         Hvis du har fått brev om manglende opplysninger vil det stå i brevet hva som skal
         sendes inn og frist for å sende inn. Brev du har fått ligger i{" "}
         <Link href="#dokumentliste">dokumentlisten på Mine dagpenger.</Link>
@@ -46,7 +49,7 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
     <article>
       <Box background="neutral-soft" borderRadius="12">
         <VStack gap="space-12" padding="space-20">
-          <Heading level="3" size="small" style={{ marginBottom: "var(--ax-space-8)" }}>
+          <Heading level="3" size="small" className={styles.soknadTitle}>
             {tittel}
           </Heading>
           <Process hideStatusText={true} className={styles.soknadProcess}>
@@ -64,7 +67,7 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
                 <BodyShort textColor="subtle" spacing>
                   Vi mangler dokumentasjon for å behandle søknaden din
                 </BodyShort>
-                <VStack gap="space-8" style={{ marginTop: "var(--ax-space-16)" }}>
+                <VStack gap="space-8" className={styles.manglendeDokumentasjonListe}>
                   {manglendeDokumentasjonskrav.map((krav) => (
                     <Box key={krav.id} background="default" padding="space-16" borderRadius="8">
                       <HStack justify="space-between" wrap={false} align="start" gap="space-12">
@@ -73,7 +76,7 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
                         </Heading>
                         <Tag variant="warning" size="xsmall">
 
-                          <BodyShort textColor="subtle" size="small" style={{ whiteSpace: "nowrap" }}>
+                          <BodyShort textColor="subtle" size="small" className={styles.ettersendingFrist}>
                             Frist{" "}
                             <FormattedDate
                               date={ettersendingFrist.toString()}
@@ -87,7 +90,7 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
                   ))}
                 </VStack>
                 {hentManglendeDokumentasjonTekst()}
-                <div style={{ marginTop: "var(--ax-space-16)", marginBottom: "var(--ax-space-24)" }}>
+                <div className={styles.sendDokumentasjonLink}>
                   <ExternalLink to={ettersendingUrl} asButtonVariant="primary" size="small">
                     {getAppText("fullfort-soknad.send-dokumentasjon.knapp-tekst")}
                   </ExternalLink>
@@ -98,7 +101,7 @@ export function FremhevetFullførtSøknad({ søknad, estimertSaksbehandlingstid 
                 status={"completed"}
                 title={"Vi har mottatt dokumentasjon"}>
                 {hentManglendeDokumentasjonTekst()}
-                <div style={{ marginTop: "var(--ax-space-16)"}}>
+                <div className={styles.sendDokumentLink}>
                   <ExternalLink to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary" size={"small"}>
                     {sendInnDokumentLink.linkText}
                   </ExternalLink>
