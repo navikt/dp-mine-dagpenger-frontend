@@ -1,10 +1,11 @@
 import { HttpResponse, http, passthrough } from "msw";
 import { getEnv } from "~/utils/env.utils";
 import { arbeidssøkerPerioderResponse } from "./responses/arbeidssøkerPerioderResponse";
+import { søknaderResponse } from "./responses/søknaderResponse";
 
 export const handlers = [
   http.get(`${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/mine-soknader`, () => {
-    return HttpResponse.json("søknaderResponse");
+    return HttpResponse.json(søknaderResponse);
   }),
 
   http.get(`${getEnv("OKONOMI_KONTOREGISTER_URL")}/api/borger/v1/hent-aktiv-konto`, () => {
