@@ -53,9 +53,7 @@ export async function getMeldekortRegisterToken(request: Request) {
     return getEnv("MELDEKORTREGISTER_TOKEN") || "";
   }
 
-  const audience = `${getEnv("NAIS_CLUSTER_NAME")}:teamdagpenger:dp-meldekortregister`;
-
-  return await getOnBehalfOfToken(request, audience);
+  return await getOnBehalfOfToken(request, `${getEnv("MELDEKORTREGISTER_AUDIENCE")}`);
 }
 
 export async function getOnBehalfOfToken(request: Request, audience: string): Promise<string> {
@@ -76,7 +74,7 @@ export async function getOnBehalfOfToken(request: Request, audience: string): Pr
   const onBehalfOfToken = await requestOboToken(token, audience);
   if (!onBehalfOfToken.ok) {
     logger.error("onBehalfOfToken not found");
-    throw Error("onBehalfOfToken not found");
+    throw new Error("onBehalfOfToken not found");
   }
 
   return onBehalfOfToken.token;
