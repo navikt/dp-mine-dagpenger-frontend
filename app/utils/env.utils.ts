@@ -32,6 +32,7 @@ interface IEnv {
   SANITY_DATASET: string;
   FARO_URL: string;
   MELDEKORTREGISTER_URL: string;
+  MELDEKORTREGISTER_AUDIENCE: string;
   MELDEKORTREGISTER_TOKEN: string;
 }
 

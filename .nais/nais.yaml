@@ -74,6 +74,8 @@ spec:
       value: "{{dp_brukerdialog_url}}"
     - name: MELDEKORTREGISTER_URL
       value: "{{meldekortregister_url}}"
+    - name: MELDEKORTREGISTER_AUDIENCE
+      value: "{{meldekortregister_audience}}"
 
   ingresses:
     {{#each ingresses as |url|}}
@@ -91,6 +93,7 @@ spec:
         - application: dp-innsyn
         - application: dp-soknad-orkestrator
         - application: dp-meldekortregister
+        - application: dp-meldekort
         - application: paw-arbeidssoekerregisteret-api-oppslag-v2
           namespace: paw
         - application: sokos-kontoregister-person
