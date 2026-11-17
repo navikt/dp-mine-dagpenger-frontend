@@ -4,8 +4,6 @@ import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterDato } from "~/utils/dato.utils";
 import { ExternalLink } from "~/components/ExternalLink";
-import { Section } from "~/components/section/Section";
-import { SectionContent } from "~/components/section/SectionContent";
 import styles from "./MeldekortSeksjon.module.css";
 import { hentMeldekortForVisning } from "./meldekort.utils";
 
@@ -26,38 +24,36 @@ export default function MeldekortSeksjon() {
   );
 
   return (
-    <Section>
-      <SectionContent>
-        <Heading level="2" size="large" spacing>
-          {getAppText("meldekort.tittel")}
-        </Heading>
-        {klartMeldekort ? (
-          <InfoCard data-color="warning" className={styles.statusAlert} size="small">
-            <InfoCard.Message icon={<ExclamationmarkTriangleIcon aria-hidden />}>
-              {getAppText("meldekort.klar-til-innsending")}
+    <section className="pageSection">
+      <Heading level="2" size="large">
+        {getAppText("meldekort.tittel")}
+      </Heading>
+      {klartMeldekort ? (
+        <InfoCard data-color="warning" size="small">
+          <InfoCard.Message icon={<ExclamationmarkTriangleIcon aria-hidden />}>
+            {getAppText("meldekort.klar-til-innsending")}
+          </InfoCard.Message>
+        </InfoCard>
+      ) : (
+        nesteMeldekort && (
+          <InfoCard data-color="info" size="small">
+            <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
+              {getAppText("meldekort.neste-klar-til-innsending")}{" "}
+              {formaterDato(nesteMeldekort.kanSendesFra)}
             </InfoCard.Message>
           </InfoCard>
-        ) : (
-          nesteMeldekort && (
-            <InfoCard data-color="info" className={styles.statusAlert} size="small">
-              <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
-                {getAppText("meldekort.neste-klar-til-innsending")}{" "}
-                {formaterDato(nesteMeldekort.kanSendesFra)}
-              </InfoCard.Message>
-            </InfoCard>
-          )
+        )
+      )}
+      <Box background="neutral-soft" borderRadius="8" padding="space-20">
+        <BodyLong spacing>{getAppText(bodyText)}</BodyLong>
+        {klartMeldekort && sendMeldekortUrl && (
+          <nav className={styles.links}>
+            <ExternalLink to={sendMeldekortUrl} asButtonVariant="primary" size="small">
+              {sendMeldekortLink.linkText}
+            </ExternalLink>
+          </nav>
         )}
-        <Box background="neutral-soft" borderRadius="8" padding="space-20">
-          <BodyLong spacing>{getAppText(bodyText)}</BodyLong>
-          {klartMeldekort && sendMeldekortUrl && (
-            <nav className={styles.links}>
-              <ExternalLink to={sendMeldekortUrl} asButtonVariant="primary" size="small">
-                {sendMeldekortLink.linkText}
-              </ExternalLink>
-            </nav>
-          )}
-        </Box>
-      </SectionContent>
-    </Section>
+      </Box>
+    </section>
   );
 }

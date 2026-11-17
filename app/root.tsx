@@ -13,8 +13,6 @@ import {
   useRouteError,
   type LinksFunction,
 } from "react-router";
-import { Section } from "./components/section/Section";
-import { SectionContent } from "./components/section/SectionContent";
 import { useInjectDecoratorScript } from "./hooks/useInjectDecoratorScript";
 import { getDecoratorHTML } from "./models/decorator.server";
 import { getHarAktivDagpengerett } from "./models/getAktivDagpengerett.server";
@@ -240,11 +238,9 @@ export function ErrorBoundary() {
       </head>
       <body>
         <main id="maincontent" tabIndex={-1}>
-          <Section>
-            <SectionContent>
-              <BodyShort>Vi har tekniske problemer akkurat nå. Prøve igjen om litt.</BodyShort>
-            </SectionContent>
-          </Section>
+          <section className="pageSection">
+            <BodyShort>Vi har tekniske problemer akkurat nå. Prøve igjen om litt.</BodyShort>
+          </section>
           <Scripts />
         </main>
       </body>
