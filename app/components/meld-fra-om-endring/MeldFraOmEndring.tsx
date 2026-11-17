@@ -2,8 +2,6 @@ import { Heading } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { useSanity } from "~/hooks/useSanity";
 import { ExternalLink } from "../ExternalLink";
-import { Section } from "../section/Section";
-import { SectionContent } from "../section/SectionContent";
 import styles from "./MeldFraOmEndring.module.css";
 
 export function MeldFraOmEndring() {
@@ -13,26 +11,24 @@ export function MeldFraOmEndring() {
   const sendInnDokumentLink = getLink("meld-fra-om-endring.send-inn-dokument");
 
   return (
-    <Section>
-      <SectionContent>
-        <Heading level="2" size="large" spacing>
-          {getAppText("meld-fra-om-endring.seksjonstittel")}
+    <section className="pageSection">
+      <Heading level="2" size="large">
+        {getAppText("meld-fra-om-endring.seksjonstittel")}
+      </Heading>
+      <div className={styles.container}>
+        <Heading level="3" size="small" spacing>
+          {getAppText("meld-fra-om-endring.informasjon-tittel")}
         </Heading>
-        <div className={styles.container}>
-          <Heading level="3" size="small" spacing>
-            {getAppText("meld-fra-om-endring.informasjon-tittel")}
-          </Heading>
-          <PortableText value={getRichText("meld-fra-om-endring.informasjon")} />
-          <nav className={styles.navigationContainer}>
-            <ExternalLink to={meldFraOmEndringerLink.linkUrl} asButtonVariant="secondary">
-              {meldFraOmEndringerLink.linkText}
-            </ExternalLink>
-            <ExternalLink to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary">
-              {sendInnDokumentLink.linkText}
-            </ExternalLink>
-          </nav>
-        </div>
-      </SectionContent>
-    </Section>
+        <PortableText value={getRichText("meld-fra-om-endring.informasjon")} />
+        <nav className={styles.navigationContainer}>
+          <ExternalLink to={meldFraOmEndringerLink.linkUrl} asButtonVariant="secondary">
+            {meldFraOmEndringerLink.linkText}
+          </ExternalLink>
+          <ExternalLink to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary">
+            {sendInnDokumentLink.linkText}
+          </ExternalLink>
+        </nav>
+      </div>
+    </section>
   );
 }

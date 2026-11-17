@@ -3,8 +3,6 @@ import { PortableText } from "@portabletext/react";
 import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
 import { formatAccountNumber } from "~/utils/accountNumber.utils";
-import { Section } from "../section/Section";
-import { SectionContent } from "../section/SectionContent";
 import styles from "./BankAccountNumber.module.css";
 
 export function BankAccountNumber() {
@@ -13,13 +11,11 @@ export function BankAccountNumber() {
 
   if (bankAccountNumber.status === "error") {
     return (
-      <Section>
-        <SectionContent>
-          <Alert variant="error" className="no-padding-portabletext">
-            <PortableText value={getRichText("kontonummer.teknisk-feil")} />
-          </Alert>
-        </SectionContent>
-      </Section>
+      <section className="pageSection">
+        <Alert variant="error" className="no-padding-portabletext">
+          <PortableText value={getRichText("kontonummer.teknisk-feil")} />
+        </Alert>
+      </section>
     );
   }
 
@@ -28,25 +24,23 @@ export function BankAccountNumber() {
   const updateAccountNumberLink = getLink("kontonummer.endre-kontonummeret");
 
   return (
-    <Section>
-      <SectionContent>
-        <Heading level="2" size="large" spacing>
-          {getAppText("seksjon.utbetaling.seksjonstittel")}
-        </Heading>
-        <BodyLong spacing>{getAppText("seksjon.utbetaling.seksjonsbeskrivelse")}</BodyLong>
-        {accountNumber && (
-          <div className={styles.container}>
-            <Heading level="3" size="xsmall">
-              {getAppText("kontonummer.registrert-kontonummeret")}
-            </Heading>
-            <div className={styles.accountNumber}>
-              {formatAccountNumber(accountNumber)}
-              <Link href={updateAccountNumberLink.linkUrl}>{updateAccountNumberLink.linkText}</Link>
-            </div>
+    <section className="pageSection">
+      <Heading level="2" size="large">
+        {getAppText("seksjon.utbetaling.seksjonstittel")}
+      </Heading>
+      <BodyLong>{getAppText("seksjon.utbetaling.seksjonsbeskrivelse")}</BodyLong>
+      {accountNumber && (
+        <div className={styles.container}>
+          <Heading level="3" size="xsmall">
+            {getAppText("kontonummer.registrert-kontonummeret")}
+          </Heading>
+          <div className={styles.accountNumber}>
+            {formatAccountNumber(accountNumber)}
+            <Link href={updateAccountNumberLink.linkUrl}>{updateAccountNumberLink.linkText}</Link>
           </div>
-        )}
-        {!accountNumber && <PortableText value={getRichText("kontonummer.mangler-kontonummer")} />}
-      </SectionContent>
-    </Section>
+        </div>
+      )}
+      {!accountNumber && <PortableText value={getRichText("kontonummer.mangler-kontonummer")} />}
+    </section>
   );
 }
