@@ -1,34 +1,10 @@
 .shortcuts {
   list-style-type: none;
-  margin-top: var(--ax-space-16);
-  margin-bottom: 0;
+  margin: 0;
   padding-left: 0;
-  display: grid;
-  grid-template-columns: repeat(1, auto);
-  gap: var(--ax-space-12);
-}
-
-.shortcut {
-  display: grid;
-  gap: var(--ax-space-4);
-  padding: var(--ax-space-16);
-  background-color: var(--ax-bg-neutral-soft);
-  border-radius: var(--ax-radius-4);
-}
-
-.shortcutLink {
-  color: var(--a-surface-inverted);
-  font-size: var(--ax-font-size-large);
-  font-weight: var(--ax-font-weight-bold);
-}
-
-.shortcutDescription {
-  color: var(--ax-text-neutral-subtle);
-}
-
-@media screen and (min-width: 700px) {
-  .shortcuts {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--ax-space-16) var(--ax-space-24);
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ax-space-8);
 }

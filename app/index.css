@@ -2,6 +2,31 @@
   --app-max-width: 900px;
 }
 
+main {
+  display: flex;
+  padding: var(--ax-space-24) var(--ax-space-16);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ax-space-32);
+  align-self: stretch;
+}
+
+@media screen and (min-width: 700px) {
+  main {
+    padding: 4rem 0 var(--ax-space-64);
+    gap: var(--ax-space-64);
+  }
+}
+
+.pageSection {
+  display: flex;
+  width: 100%;
+  max-width: 36rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ax-space-24);
+}
+
 .mine-dagpenger {
   margin-bottom: var(--ax-space-64);
 }

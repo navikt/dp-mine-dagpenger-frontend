@@ -25,16 +25,14 @@ export default function MineDagpenger() {
 
   return (
     <main id="maincontent" tabIndex={-1}>
-      <div className="mine-dagpenger">
-        <PageHero />
-        <UxsignalsWidget />
-        <SoknadList />
-        <MeldekortSeksjon />
-        <BankAccountNumber />
-        <MeldFraOmEndring />
-        <Shortcuts />
-        <JournalpostList />
-      </div>
+      <PageHero />
+      <UxsignalsWidget />
+      <SoknadList />
+      <MeldekortSeksjon />
+      <BankAccountNumber />
+      <MeldFraOmEndring />
+      <Shortcuts />
+      <JournalpostList />
     </main>
   );
 }

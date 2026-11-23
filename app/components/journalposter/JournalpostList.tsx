@@ -2,8 +2,6 @@ import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
 import { useState } from "react";
 import { useRouteLoaderData } from "react-router";
 import { useSanity } from "~/hooks/useSanity";
-import { Section } from "../section/Section";
-import { SectionContent } from "../section/SectionContent";
 import styles from "./Jounalposter.module.css";
 import { JournalpostCard } from "./JournalpostCard";
 import { IJournalpost } from "~/utils/safJournalposter.utils";
@@ -18,11 +16,9 @@ export function JournalpostList() {
 
   if (journalposter.status === "error") {
     return (
-      <Section>
-        <SectionContent>
-          <Alert variant="error">{getAppText("journalpost.feil-ved-henting-av-dokumenter")}</Alert>
-        </SectionContent>
-      </Section>
+      <section className="pageSection">
+        <Alert variant="error">{getAppText("journalpost.feil-ved-henting-av-dokumenter")}</Alert>
+      </section>
     );
   }
 
@@ -36,14 +32,12 @@ export function JournalpostList() {
   );
 
   return (
-    <Section id="dokumentliste">
-      <SectionContent>
-        <Heading level="2" size="large" spacing>
-          {getAppText("journalpost.seksjonstittel")}
-        </Heading>
-        <BodyLong spacing>{getAppText("journalpost.seksjonssbeskrivelse")}</BodyLong>
-      </SectionContent>
-      <SectionContent fullWidth>
+    <section className="pageSection" id="dokumentliste">
+      <Heading level="2" size="large">
+        {getAppText("journalpost.seksjonstittel")}
+      </Heading>
+      <BodyLong>{getAppText("journalpost.seksjonssbeskrivelse")}</BodyLong>
+      <div>
         {journalposterToShow.map((journalpost) => (
           <JournalpostCard key={journalpost.journalpostId} {...journalpost} />
         ))}
@@ -54,7 +48,7 @@ export function JournalpostList() {
             </Button>
           </div>
         )}
-      </SectionContent>
-    </Section>
+      </div>
+    </section>
   );
 }

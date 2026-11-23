@@ -8,8 +8,6 @@ import {
   hentSisteSøknad,
   skalViseSaksbehandlingstid,
 } from "~/utils/søknad.utils";
-import { Section } from "../section/Section";
-import { SectionContent } from "../section/SectionContent";
 import { PaabegynteSoknad } from "./PaabegynteSoknad";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -21,13 +19,11 @@ export function SoknadList() {
 
   if (soknader.status === "error") {
     return (
-      <Section>
-        <SectionContent>
-          <Alert variant="error" className={styles.errorContainer}>
-            {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
-          </Alert>
-        </SectionContent>
-      </Section>
+      <section className="pageSection">
+        <Alert variant="error">
+          {getAppText("feil-melding.klarte-ikke-hente-fullforte-soknader")}
+        </Alert>
+      </section>
     );
   }
 
@@ -50,25 +46,23 @@ export function SoknadList() {
   const søknaderTilVisning = filtrerSøknaderTilVisning(fullførteSøknader, fremheveSøknad);
 
   return (
-    <Section>
-      <SectionContent>
-        <Heading level="2" size="large" spacing>
-          {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
-        </Heading>
-        {påbegyntesøknad && <PaabegynteSoknad soknad={påbegyntesøknad} />}
-        <ul className={styles.soknadList}>
-          {sisteSøknad && fremheveSøknad && (
-            <FremhevetFullførtSøknad
-              key={sisteSøknad.søknadId}
-              søknad={sisteSøknad}
-              estimertSaksbehandlingstid={estimertSaksbehandlingstidUker}
-            />
-          )}
-          {søknaderTilVisning.map((soknad) => (
-            <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
-          ))}
-        </ul>
-      </SectionContent>
-    </Section>
+    <section className="pageSection">
+      <Heading level="2" size="large">
+        {getAppText("seksjon.mine-soknader.seksjonsbeskrivelse")}
+      </Heading>
+      {påbegyntesøknad && <PaabegynteSoknad soknad={påbegyntesøknad} />}
+      <ul className={styles.soknadList}>
+        {sisteSøknad && fremheveSøknad && (
+          <FremhevetFullførtSøknad
+            key={sisteSøknad.søknadId}
+            søknad={sisteSøknad}
+            estimertSaksbehandlingstid={estimertSaksbehandlingstidUker}
+          />
+        )}
+        {søknaderTilVisning.map((soknad) => (
+          <FullforteSoknad soknad={soknad} key={soknad.søknadId} />
+        ))}
+      </ul>
+    </section>
   );
 }
