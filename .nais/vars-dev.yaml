@@ -20,7 +20,7 @@ saf:
   ingress: safselvbetjening.dev-fss-pub.nais.io
   url: https://saf-q2.dev-fss-pub.nais.io
   cluster: dev-fss
-  scope: safselvbetjening
+  scope: safselvbetjening-q2
 app_env: development
 uxsignals:
   enabled: enabled
