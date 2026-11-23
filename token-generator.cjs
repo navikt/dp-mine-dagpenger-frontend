@@ -39,7 +39,7 @@ const IDENT_LIST = [
   { name: "Hes Påske: 17477146473", value: "17477146473" },
   { name: "Komplett Sol: 07447534341", value: "07447534341" },
   { name: "Dynamisk Røyskatt: 07430195322", value: "07430195322" },
-  { name: "KJENT KJELTRING: Vedtak : 29847898567", value: "29847898567" },
+  { name: "Kjent Kjeltring: Har vedtaksbrev : 29847898567", value: "29847898567" },
 ];
 
 init();
