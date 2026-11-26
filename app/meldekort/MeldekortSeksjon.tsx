@@ -1,5 +1,5 @@
 import { ExclamationmarkTriangleIcon, InformationSquareIcon } from "@navikt/aksel-icons";
-import { BodyLong, Box, Heading, InfoCard } from "@navikt/ds-react";
+import { BodyLong, Heading, InfoCard } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterDato } from "~/utils/dato.utils";
@@ -11,6 +11,7 @@ export default function MeldekortSeksjon() {
   const { getAppText, getLink } = useSanity();
   const { aktivDagpengerett, meldekort, dagensDatoNorge } = useTypedRouteLoaderData("root");
   const sendMeldekortLink = getLink("meldekort.send");
+  const innsendteMeldekortLink = getLink("meldekort.se-og-endre");
 
   if (meldekort.status === "error") {
     return null;
@@ -18,10 +19,8 @@ export default function MeldekortSeksjon() {
 
   const harAktivDagpengerett = aktivDagpengerett.status === "success" && aktivDagpengerett.data;
   const bodyText = harAktivDagpengerett ? "meldekort.tekstinnhold-2" : "meldekort.tekst-Innhold-1";
-  const { sendMeldekortUrl, klartMeldekort, nesteMeldekort } = hentMeldekortForVisning(
-    meldekort.data,
-    dagensDatoNorge
-  );
+  const { sendMeldekortUrl, innsendteMeldekortUrl, klartMeldekort, nesteMeldekort } =
+    hentMeldekortForVisning(meldekort.data, dagensDatoNorge);
 
   return (
     <section className="pageSection">
@@ -44,16 +43,21 @@ export default function MeldekortSeksjon() {
           </InfoCard>
         )
       )}
-      <Box background="neutral-soft" borderRadius="8" padding="space-20">
-        <BodyLong spacing>{getAppText(bodyText)}</BodyLong>
-        {klartMeldekort && sendMeldekortUrl && (
-          <nav className={styles.links}>
+      <BodyLong>{getAppText(bodyText)}</BodyLong>
+      {((klartMeldekort && sendMeldekortUrl) || innsendteMeldekortUrl) && (
+        <nav className={styles.links}>
+          {klartMeldekort && sendMeldekortUrl && (
             <ExternalLink to={sendMeldekortUrl} asButtonVariant="primary" size="small">
               {sendMeldekortLink.linkText}
             </ExternalLink>
-          </nav>
-        )}
-      </Box>
+          )}
+          {innsendteMeldekortUrl && (
+            <ExternalLink to={innsendteMeldekortUrl} asButtonVariant="secondary" size="small">
+              {innsendteMeldekortLink.linkText}
+            </ExternalLink>
+          )}
+        </nav>
+      )}
     </section>
   );
 }
