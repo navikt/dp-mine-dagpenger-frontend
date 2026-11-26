@@ -29,8 +29,8 @@ const TOKEN_LIST = [
     aud: "dev-gcp:teamdagpenger:dp-soknad-orkestrator",
   },
   {
-    env: "MELDEKORTREGISTER_TOKEN",
-    aud: "dev-gcp:teamdagpenger:dp-meldekortregister",
+    env: "DP_MELDEKORT_TOKEN",
+    aud: "dev-gcp:teamdagpenger:dp-meldekort",
   },
 ];
 

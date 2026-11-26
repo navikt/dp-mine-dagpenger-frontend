@@ -1,5 +1,5 @@
 import { getEnv } from "~/utils/env.utils";
-import { getMeldekortRegisterToken } from "~/utils/auth.utils.server";
+import { getDpMeldekortToken } from "~/utils/auth.utils.server";
 import { logger } from "~/utils/logger.utils";
 import type { INetworkResponse } from "~/models/networkResponse";
 
@@ -20,9 +20,9 @@ export interface MeldekortTilUtfylling {
 }
 
 export async function hentMeldekort(request: Request): Promise<INetworkResponse<MeldekortStatus>> {
-  const url = `${getEnv("MELDEKORTREGISTER_URL")}/meldekortstatus`;
+  const url = `${getEnv("DP_MELDEKORT_URL")}/meldekortstatus`;
   try {
-    const onBehalfOfToken = await getMeldekortRegisterToken(request);
+    const onBehalfOfToken = await getDpMeldekortToken(request);
 
     const response = await fetch(url, {
       method: "GET",

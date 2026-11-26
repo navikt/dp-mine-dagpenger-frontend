@@ -2,11 +2,11 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import { hentMeldekort } from "./hentMeldekort.server";
 
 vi.mock("~/utils/env.utils", () => ({
-  getEnv: () => "https://meldekortregister.test",
+  getEnv: () => "https://dp-meldekort.test",
 }));
 
 vi.mock("~/utils/auth.utils.server", () => ({
-  getMeldekortRegisterToken: async () => "test-token",
+  getDpMeldekortToken: async () => "test-token",
 }));
 
 vi.mock("~/utils/logger.utils", () => ({

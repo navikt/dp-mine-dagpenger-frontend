@@ -107,7 +107,7 @@ export type RootLoaderType = {
     OKONOMI_KONTOREGISTER_URL: string;
     PAW_ARBEIDSSOEKERREGISTERET_URL: string;
     SAF_URL: string;
-    MELDEKORTREGISTER_URL: string;
+    DP_MELDEKORT_URL: string;
   };
   soknader: INetworkResponse<ISøknadData>;
   arbeidssøkerStatus: ArbeidssøkerStatus;
@@ -168,7 +168,7 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<RootLoade
       OKONOMI_KONTOREGISTER_URL: getEnv("OKONOMI_KONTOREGISTER_URL"),
       PAW_ARBEIDSSOEKERREGISTERET_URL: getEnv("PAW_ARBEIDSSOEKERREGISTERET_URL"),
       SAF_URL: getEnv("SAF_URL"),
-      MELDEKORTREGISTER_URL: getEnv("MELDEKORTREGISTER_URL"),
+      DP_MELDEKORT_URL: getEnv("DP_MELDEKORT_URL"),
     },
     soknader,
     arbeidssøkerStatus,

@@ -14,8 +14,8 @@ paw_arbeidssoekerregisteret_url: https://oppslag-v2-arbeidssoekerregisteret.inte
 okonomi_kontoregister_url: https://sokos-kontoregister-person.intern.nav.no
 dp_soknad_orkestrator_url: http://dp-soknad-orkestrator
 dp_brukerdialog_url: https://www.nav.no/dagpenger/dialog/soknad
-meldekortregister_url: https://dp-meldekortregister.intern.nav.no
-meldekortregister_audience: prod-gcp:teamdagpenger:dp-meldekortregister
+dp_meldekort_url: https://dp-meldekort.intern.nav.no
+dp_meldekort_audience: prod-gcp:teamdagpenger:dp-meldekort
 saf:
   ingress: safselvbetjening.prod-fss-pub.nais.io
   url: https://safselvbetjening.prod-fss-pub.nais.io
