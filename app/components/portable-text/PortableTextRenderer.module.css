@@ -1,0 +1,11 @@
+.content > * {
+  margin-block: 0;
+}
+
+.content > * + * {
+  margin-block-start: var(--ax-space-16);
+}
+
+.list {
+  padding-inline-start: var(--ax-space-24);
+}
