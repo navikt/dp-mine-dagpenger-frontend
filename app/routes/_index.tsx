@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BankAccountNumber } from "~/components/bank-account-number/BankAccountNumber";
+import { UtbetalingOgKontonummer } from "~/components/utbetaling-og-kontonummer/UtbetalingOgKontonummer";
 import { JournalpostList } from "~/components/journalposter/JournalpostList";
 import { MeldFraOmEndring } from "~/components/meld-fra-om-endring/MeldFraOmEndring";
 import { PageHero } from "~/components/page-hero/PageHero";
@@ -29,7 +29,7 @@ export default function MineDagpenger() {
       <UxsignalsWidget />
       <SoknadList />
       <MeldekortSeksjon />
-      <BankAccountNumber />
+      <UtbetalingOgKontonummer />
       <MeldFraOmEndring />
       <Shortcuts />
       <JournalpostList />
