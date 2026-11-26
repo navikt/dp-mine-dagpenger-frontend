@@ -2,7 +2,11 @@
   padding: var(--ax-space-16);
   border-radius: var(--ax-radius-8);
   background-color: var(--ax-neutral-100);
-  font-weight: var(--ax-font-weight-bold);
+}
+
+.dataList {
+  margin: 0;
+  font-weight: 600;
 }
 
 .accountNumber {
@@ -11,6 +15,7 @@
   font-weight: var(--ax-font-weight-regular);
   grid-template-columns: 1fr 1fr;
   margin-top: var(--ax-space-8);
+  margin-inline-start: 0;
 }
 
 @media screen and (min-width: 700px) {
