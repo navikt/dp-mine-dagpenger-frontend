@@ -3,7 +3,7 @@ import { LinkCard } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterDato } from "~/utils/dato.utils";
-import { hentMeldekortForVisning } from "./meldekort.utils";
+import { hentMeldekortForVisning } from "~/utils/meldekort.utils";
 import styles from "./SendMeldekortKort.module.css";
 
 export function SendMeldekortKort() {

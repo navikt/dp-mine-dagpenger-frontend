@@ -7,7 +7,7 @@ import { Shortcuts } from "~/components/shortcuts/Shortcuts";
 import { SoknadList } from "~/components/soknad-list/SoknadList";
 import { UxsignalsWidget } from "~/components/UxsignalsWidget";
 import { getEnv } from "~/utils/env.utils";
-import MeldekortSeksjon from "~/components/meldekort/MeldekortSeksjon";
+import MeldekortSeksjon from "~/seksjoner/meldekort/MeldekortSeksjon";
 
 export default function MineDagpenger() {
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterDato } from "~/utils/dato.utils";
 import { ExternalLink } from "~/components/ExternalLink";
 import styles from "./MeldekortSeksjon.module.css";
-import { hentMeldekortForVisning } from "./meldekort.utils";
+import { hentMeldekortForVisning } from "~/utils/meldekort.utils";
 
 export default function MeldekortSeksjon() {
   const { getAppText, getLink } = useSanity();
