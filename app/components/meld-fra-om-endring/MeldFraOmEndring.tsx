@@ -1,7 +1,7 @@
 import { Heading } from "@navikt/ds-react";
-import { PortableText } from "@portabletext/react";
 import { useSanity } from "~/hooks/useSanity";
 import { ExternalLink } from "../ExternalLink";
+import { PortableTextRenderer } from "../portable-text/PortableTextRenderer";
 import styles from "./MeldFraOmEndring.module.css";
 
 export function MeldFraOmEndring() {
@@ -16,15 +16,12 @@ export function MeldFraOmEndring() {
         {getAppText("meld-fra-om-endring.seksjonstittel")}
       </Heading>
       <div className={styles.container}>
-        <Heading level="3" size="small" spacing>
-          {getAppText("meld-fra-om-endring.informasjon-tittel")}
-        </Heading>
-        <PortableText value={getRichText("meld-fra-om-endring.informasjon")} />
+        <PortableTextRenderer value={getRichText("meld-fra-om-endring.informasjon")} />
         <nav className={styles.navigationContainer}>
-          <ExternalLink to={meldFraOmEndringerLink.linkUrl} asButtonVariant="secondary">
+          <ExternalLink size="small" to={meldFraOmEndringerLink.linkUrl} asButtonVariant="primary">
             {meldFraOmEndringerLink.linkText}
           </ExternalLink>
-          <ExternalLink to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary">
+          <ExternalLink size="small" to={sendInnDokumentLink.linkUrl} asButtonVariant="secondary">
             {sendInnDokumentLink.linkText}
           </ExternalLink>
         </nav>
