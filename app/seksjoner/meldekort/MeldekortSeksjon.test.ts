@@ -47,6 +47,7 @@ describe("MeldekortSeksjon", () => {
           harInnsendteMeldekort: false,
           meldekortTilUtfylling: [],
           redirectUrl: "https://www.nav.no/meldekort",
+          redirectUrlTilInnsendteMeldekort: null,
         },
       },
     };
@@ -158,5 +159,50 @@ describe("MeldekortSeksjon", () => {
 
     expect(html).toContain("meldekort.tekstinnhold-2");
     expect(html).not.toContain("meldekort.tekst-Innhold-1");
+  });
+
+  test.each([false, true])(
+    "viser lenke til innsendte meldekort når nytt kort er klart: %s",
+    (harKlartKort) => {
+      if (loaderData.meldekort.status !== "success") throw new Error("Ugyldige testdata");
+      loaderData.meldekort.data.harInnsendteMeldekort = true;
+      loaderData.meldekort.data.redirectUrlTilInnsendteMeldekort =
+        " https://www.nav.no/meldekort/innsendte ";
+      loaderData.meldekort.data.meldekortTilUtfylling = harKlartKort
+        ? [lagMeldekort("2026-10-27")]
+        : [];
+      loaderData.meldekort.data.redirectUrl = harKlartKort
+        ? "https://www.nav.no/meldekort"
+        : null;
+
+      const html = renderSeksjon();
+
+      expect(html).toContain('href="https://www.nav.no/meldekort/innsendte"');
+      expect(html).toContain("meldekort.se-og-endre");
+      if (harKlartKort) {
+        expect(html).toContain('href="https://www.nav.no/meldekort"');
+      } else {
+        expect(html).not.toContain("meldekort.send");
+      }
+    }
+  );
+
+  test.each([null, "", "   "])(
+    "skjuler lenke til innsendte meldekort uten URL (%s)",
+    (url) => {
+      if (loaderData.meldekort.status !== "success") throw new Error("Ugyldige testdata");
+      loaderData.meldekort.data.harInnsendteMeldekort = true;
+      loaderData.meldekort.data.redirectUrlTilInnsendteMeldekort = url;
+
+      expect(renderSeksjon()).not.toContain("meldekort.se-og-endre");
+    }
+  );
+
+  test("skjuler lenken når brukeren ikke har innsendte meldekort", () => {
+    if (loaderData.meldekort.status !== "success") throw new Error("Ugyldige testdata");
+    loaderData.meldekort.data.redirectUrlTilInnsendteMeldekort =
+      "https://www.nav.no/meldekort/innsendte";
+
+    expect(renderSeksjon()).not.toContain("meldekort.se-og-endre");
   });
 });

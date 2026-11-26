@@ -30,6 +30,7 @@ describe("hentMeldekort", () => {
         harInnsendteMeldekort: false,
         meldekortTilUtfylling: [],
         redirectUrl: null,
+        redirectUrlTilInnsendteMeldekort: null,
       },
     });
   });

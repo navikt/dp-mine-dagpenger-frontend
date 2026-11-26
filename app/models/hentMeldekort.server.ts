@@ -7,6 +7,7 @@ export interface MeldekortStatus {
   harInnsendteMeldekort: boolean;
   meldekortTilUtfylling: MeldekortTilUtfylling[];
   redirectUrl: string | null;
+  redirectUrlTilInnsendteMeldekort: string | null;
 }
 
 export interface MeldekortTilUtfylling {
@@ -40,6 +41,7 @@ export async function hentMeldekort(request: Request): Promise<INetworkResponse<
           harInnsendteMeldekort: false,
           meldekortTilUtfylling: [],
           redirectUrl: null,
+          redirectUrlTilInnsendteMeldekort: null,
         },
       };
     }

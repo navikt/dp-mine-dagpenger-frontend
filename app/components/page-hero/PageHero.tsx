@@ -4,7 +4,7 @@ import { AktivDagpengerettAlert } from "../aktiv-dagpengerett/AktivDagpengerettA
 import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
 import { useRouteLoaderData } from "react-router";
 import { harAktivDagpengerRett as hentBrukerHarAktivDagpengerRett } from "../aktiv-dagpengerett/aktivDagpengerett.utils";
-import { SendMeldekortKort } from "~/meldekort/SendMeldekortKort";
+import { SendMeldekortKort } from "~/components/SendMeldekortKort/SendMeldekortKort";
 
 export function PageHero() {
   const { getAppText } = useSanity();
@@ -13,9 +13,7 @@ export function PageHero() {
 
   return (
     <section className="pageSection">
-      <Heading size="xlarge">
-        {getAppText("sidetittel")}
-      </Heading>
+      <Heading size="xlarge">{getAppText("sidetittel")}</Heading>
       <SendMeldekortKort />
       {harAktivDagpengerRett && <AktivDagpengerettAlert />}
       <ArbeidssokerStatus />

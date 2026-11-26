@@ -58,6 +58,7 @@ describe("SendMeldekortKort", () => {
         data: {
           harInnsendteMeldekort: false,
           redirectUrl: " https://www.nav.no/meldekort ",
+          redirectUrlTilInnsendteMeldekort: null,
           meldekortTilUtfylling: [lagMeldekort("2026-10-27")],
         },
       },
