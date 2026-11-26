@@ -19,7 +19,7 @@ meldekortregister_url: https://dp-meldekort.intern.dev.nav.no
 meldekortregister_audience: dev-gcp:teamdagpenger:dp-meldekort
 saf:
   ingress: safselvbetjening.dev-fss-pub.nais.io
-  url: https://saf-q2.dev-fss-pub.nais.io
+  url: https://safselvbetjening.dev-fss-pub.nais.io
   cluster: dev-fss
   scope: safselvbetjening-q2
 app_env: development
