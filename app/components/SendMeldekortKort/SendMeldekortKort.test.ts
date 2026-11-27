@@ -28,10 +28,6 @@ vi.mock("~/components/aktiv-dagpengerett/AktivDagpengerettAlert", () => ({
   AktivDagpengerettAlert: () => "dagpengerett-varsel",
 }));
 
-vi.mock("~/components/arbeidssoker-status/ArbeidssokerStatus", () => ({
-  ArbeidssokerStatus: () => null,
-}));
-
 function lagMeldekort(kanSendesFra: string, fristForInnsending = "2026-11-02"): MeldekortTilUtfylling {
   return {
     fraOgMed: "2026-10-12",
