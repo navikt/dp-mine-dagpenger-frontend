@@ -1,7 +1,6 @@
 import { Heading } from "@navikt/ds-react";
 import { useSanity } from "~/hooks/useSanity";
 import { AktivDagpengerettAlert } from "../aktiv-dagpengerett/AktivDagpengerettAlert";
-import { ArbeidssokerStatus } from "../arbeidssoker-status/ArbeidssokerStatus";
 import { useRouteLoaderData } from "react-router";
 import { harAktivDagpengerRett as hentBrukerHarAktivDagpengerRett } from "../aktiv-dagpengerett/aktivDagpengerett.utils";
 import { SendMeldekortKort } from "~/components/SendMeldekortKort/SendMeldekortKort";
@@ -16,7 +15,6 @@ export function PageHero() {
       <Heading size="xlarge">{getAppText("sidetittel")}</Heading>
       <SendMeldekortKort />
       {harAktivDagpengerRett && <AktivDagpengerettAlert />}
-      <ArbeidssokerStatus />
     </section>
   );
 }

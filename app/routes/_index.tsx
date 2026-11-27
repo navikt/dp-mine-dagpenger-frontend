@@ -8,6 +8,7 @@ import { SoknadList } from "~/components/soknad-list/SoknadList";
 import { UxsignalsWidget } from "~/components/UxsignalsWidget";
 import { getEnv } from "~/utils/env.utils";
 import MeldekortSeksjon from "~/seksjoner/meldekort/MeldekortSeksjon";
+import { Arbeidssoker } from "~/seksjoner/arbeidssoker/Arbeidssoker";
 
 export default function MineDagpenger() {
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function MineDagpenger() {
       <UxsignalsWidget />
       <SoknadList />
       <MeldekortSeksjon />
+      <Arbeidssoker />
       <UtbetalingOgKontonummer />
       <MeldFraOmEndring />
       <Shortcuts />

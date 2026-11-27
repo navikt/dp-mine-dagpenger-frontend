@@ -1,0 +1,7 @@
+.status {
+  margin: 0;
+}
+
+.statusverdi {
+  margin: var(--ax-space-16) 0 0;
+}
