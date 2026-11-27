@@ -48,12 +48,12 @@ export async function getSAFToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
-export async function getMeldekortRegisterToken(request: Request) {
+export async function getDpMeldekortToken(request: Request) {
   if (getEnv("IS_LOCALHOST") === "true") {
-    return getEnv("MELDEKORTREGISTER_TOKEN") || "";
+    return getEnv("DP_MELDEKORT_TOKEN") || "";
   }
 
-  return await getOnBehalfOfToken(request, `${getEnv("MELDEKORTREGISTER_AUDIENCE")}`);
+  return await getOnBehalfOfToken(request, `${getEnv("DP_MELDEKORT_AUDIENCE")}`);
 }
 
 export async function getOnBehalfOfToken(request: Request, audience: string): Promise<string> {
